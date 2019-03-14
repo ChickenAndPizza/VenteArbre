@@ -12124,11 +12124,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\admin\\Desktop\\Web_API\\Web_API\\Web_API.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\Documents\\VenteArbre\\Web_API\\Web_API\\Web_API.csproj",
       "projectName": "Web_API",
-      "projectPath": "C:\\Users\\admin\\Desktop\\Web_API\\Web_API\\Web_API.csproj",
+      "projectPath": "C:\\Users\\admin\\Documents\\VenteArbre\\Web_API\\Web_API\\Web_API.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\admin\\Desktop\\Web_API\\Web_API\\obj\\",
+      "outputPath": "C:\\Users\\admin\\Documents\\VenteArbre\\Web_API\\Web_API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
