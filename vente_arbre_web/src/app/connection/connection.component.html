@@ -1,76 +1,237 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" *ngIf="isMobileMenu()">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header card-header-danger">
+                    <div class="card-header card-header-tabs card-header-danger">
                         <h4 class="card-title">Vous voulez passer une commande?</h4>
-                        <p class="card-category">Créez votre compte afin de pouvoir passer une commande, ou connectez-vous!</p>
+                        <p class="card-category">Créez votre compte afin de pouvoir remplir votre panier, ou connectez-vous!</p>
+                        <div align="center" style="padding-top:15px;">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="nav-item" (click)="ShowCreate()">
+                                            <a mat-button class="nav-link active" data-toggle="tab">
+                                                Créer un compte
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" style="margin-left:10px;" (click)="ShowConnection()">
+                                            <a mat-button class="nav-link" data-toggle="tab">
+                                                Se connecter
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    <div class="card-body">
+                        <form>
+                            <div id="createaccount">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Compagnie (facultatif)" type="text">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width">
+                                          <input matInput placeholder="Numéro de téléphone" type="text">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width">
+                                          <input matInput placeholder="Adresse couriel" type="email">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Prénom" type="text">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Nom" type="text">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Nom d'utilisateur" type="text">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                          <input matInput placeholder="Mot de passe" type="password">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="height:25px;"></div>
+                                </div>
+                                <div class="row" id="shipping" style="display:none" >
+                                    <div class="col-md-12">
+                                        Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal. 
+                                        Pour plus d'informations concernant la livraison, veuillez consulter les points de distribution, 
+                                        ou prendre contact avec nous à l'adresse cre_cba@hotmail.com
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <a (click)="SetShipping()" title="Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal. Pour plus d'informations concernant la livraison, veuillez consulter les points de distribution, ou prendre contact avec nous à l'adresse cre_cba@hotmail.com">
+                                            <i style="margin-top: 13px;" class="material-icons">contact_support</i>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Adresse" type="text">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Ville" type="text">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Code postal" type="text">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label (click)="SetWhyCreate()" style="cursor:pointer;text-decoration: underline">Pourquoi devrais-je créer un compte?</label>
+                                        <div id="whycreate" class="example-full-width" style="display:none" disabled>
+                                            Pour pouvoir passer une commande, vous devez créer un compte. Lorsque vous effectuez une commande, 
+                                            nous avons besoin de vos informations pour vous avertir de l'état de votre commande, si nécessaire, 
+                                            ainsi que de l'arrivée de vos produits. 
+                                            De plus, nous souhaitons vérifier l'authenticité des utilisateurs utilisants nos services. 
+                                        </div>
+                                    </div>
+                                </div>
+                                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Créer un compte</button>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div id="connection" style="display:none">
+                                <h4 class="card-title">Vous êtes déjà inscrit?</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                      <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Nom d'utilisateur" type="text">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <mat-form-field class="example-full-width">
+                                          <input matInput placeholder="Mot de passe" type="password">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Se connecter</button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
                     </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" *ngIf="!(isMobileMenu())">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-danger">
+                        <h4 class="card-title">Vous voulez passer une commande?</h4>
+                        <p class="card-category">Créez votre compte afin de pouvoir remplir votre panier, ou connectez-vous!</p>
+                      </div>
                     <div class="card-body">
                         <form>
                             <div class="row">
-                                <div class="col-md-5">
-                                  <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Compagnie (facultatif)">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Nom d'utilisateur">
+                                        <input matInput placeholder="Compagnie (facultatif)" type="text">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Adresse couriel" type="email">
+                                       <input matInput placeholder="Numéro de téléphone" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                       <input matInput placeholder="Adresse couriel" type="email">
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Prénom" type="text">
-                                  </mat-form-field>
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Prénom" type="text">
+                                    </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Nom" type="text">
-                                  </mat-form-field>
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Nom" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Nom d'utilisateur" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                      <input matInput placeholder="Mot de passe" type="password">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="height:25px;"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <a title="Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal. Pour plus d'informations concernant la livraison, veuillez consulter les points de distribution, ou prendre contact avec nous à l'adresse cre_cba@hotmail.com">
+                                        <i style="margin-top: 13px;" class="material-icons">contact_support</i>
+                                    </a>
+                                </div>
+                                <div class="col-md-11">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Adresse" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Ville" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Code postal" type="text">
+                                    </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Adresse" type="text">
-                                  </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Ville" type="text">
-                                  </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Pays" type="text">
-                                  </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Code postal" type="text">
-                                  </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                  <label (click)="SetWhyCreate()" style="cursor:pointer;text-decoration: underline">Pourquoi devrais-je créer un compte?</label>
-                                  <div id="whycreate" class="example-full-width" style="display:none" disabled>
-                                    Pour pouvoir passer une commande, vous devez créer un compte. Lorsque vous effectuez une commande, 
-                                    nous avons besoin de vos informations pour avertir de l'état de votre commande, si nécessaire, 
-                                    ainsi que de l'arrivée de vos produits. 
-                                    De plus, nous souhaitons vérifier l'authenticité des utilisateurs utilisants nos services. 
-                                  </div>
+                                    <label (click)="SetWhyCreate()" style="cursor:pointer;text-decoration: underline">Pourquoi devrais-je créer un compte?</label>
+                                    <div id="whycreate" class="example-full-width" style="display:none" disabled>
+                                        Pour pouvoir passer une commande, vous devez créer un compte. Lorsque vous effectuez une commande, 
+                                        nous avons besoin de vos informations pour vous avertir de l'état de votre commande, si nécessaire, 
+                                        ainsi que de l'arrivée de vos produits. 
+                                        De plus, nous souhaitons vérifier l'authenticité des utilisateurs utilisants nos services. 
+                                    </div>
                                 </div>
                             </div>
                             <button mat-raised-button type="submit" class="btn btn-danger pull-right">Créer un compte</button>
@@ -83,16 +244,31 @@
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <a href="#pablo">
-                            <img class="img" src="./assets/img/faces/marc.jpg" />
+                            <img class="img" src="./assets/img/environment/apple_1.jpg" />
                         </a>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Vous êtes déjà inscrit?</h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Nom d'utilisateur" type="text">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Mot de passe" type="password">
+                                </mat-form-field>
+                            </div>
+                        </div>
                         <a href="#pablo" class="btn btn-danger btn-round">Se connecter</a>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
   </div>
   
