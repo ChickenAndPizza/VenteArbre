@@ -15,13 +15,6 @@ namespace Web_API.Controllers
         public CustomerController(CustomerService service) : base(service)
         {
         }
-
-        [HttpGet]
-        [Route("1")]
-        public ActionResult GetList()
-        {
-            return Ok(Service.GetList());
-        }
     }
 
 }

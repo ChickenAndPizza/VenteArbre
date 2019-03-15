@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Web_API.DataLayer;
 
 namespace Web_API
@@ -51,7 +52,12 @@ namespace Web_API
         private void RegisterServicesAndContext(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("DatabaseConnectionString");
-            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<DatabaseContext>(options => options.UseMySql(connectionString,
+                mySqlOptions =>
+                    {
+                        mySqlOptions.ServerVersion(new Version(8, 0, 11), ServerType.MySql);
+                    }
+                ));
             services.AddScoped<IDatabaseContext, DatabaseContext>();
             services.InjectDataServices();
         }
