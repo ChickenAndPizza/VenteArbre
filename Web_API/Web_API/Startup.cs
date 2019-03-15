@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Web_API.DataLayer;
 
 namespace Web_API
 {
@@ -26,6 +28,7 @@ namespace Web_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            RegisterServicesAndContext(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +46,14 @@ namespace Web_API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+        }
+
+        private void RegisterServicesAndContext(IServiceCollection services)
+        {
+            var connectionString = Configuration.GetConnectionString("DatabaseConnectionString");
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString));
+            services.AddScoped<IDatabaseContext, DatabaseContext>();
+            services.InjectDataServices();
         }
     }
 }

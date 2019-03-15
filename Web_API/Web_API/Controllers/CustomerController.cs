@@ -17,6 +17,7 @@ namespace Web_API.Controllers
         }
 
         [HttpGet]
+        [Route("1")]
         public ActionResult GetList()
         {
             return Ok(Service.GetList());

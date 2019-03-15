@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System;
 using Web_API.DataLayer.Mapping;
 using Web_API.Models;
 using Web_API.Models.Base;
@@ -10,6 +11,10 @@ namespace Web_API.DataLayer
     {
 
         public DbSet<Customer> Customers { get; set; }
+
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
+        {
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
