@@ -13,8 +13,10 @@ export class CustomerService extends MainService {
   }
 
 
-  // getCustomer() {
-  //   console.log(this.apiUrl + "Customer");
-  //     return this.http.get(this.apiUrl + "Customer");
-  // }
+  getCustomer() {
+    console.log(this.apiUrl + "Customer");
+    const url = this.apiUrl.toString() + "Customer";
+    console.log(url);
+      return this.http.get(url);
+  }
 }
