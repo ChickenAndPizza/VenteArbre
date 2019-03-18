@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from 'app/service/customer/customer.service';
 
 declare const $: any;
 
@@ -9,7 +10,12 @@ declare const $: any;
 })
 export class ConnectionComponent implements OnInit {
 
-  constructor() { }
+  private customers: any[];
+  constructor(private customerService: CustomerService) {
+    // customerService.getCustomer().subscribe(customers => {
+    // console.log(customers);
+    // });
+   }
 
   ngOnInit() {
   }
