@@ -31,6 +31,7 @@ namespace Web_API.Controllers.Base
         }
 
         [HttpGet]
+        [Route("List")]
         [ProducesResponseType(401)]
         [ProducesResponseType(200)]
         public virtual ActionResult Get()
