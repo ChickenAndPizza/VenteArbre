@@ -12,9 +12,9 @@ export class ConnectionComponent implements OnInit {
 
   private customers: any[];
   constructor(private customerService: CustomerService) {
-    // customerService.getCustomer().subscribe(customers => {
-    // console.log(customers);
-    // });
+    customerService.getCustomer().subscribe(customers => {
+      console.log(customers);
+    });
    }
 
   ngOnInit() {
