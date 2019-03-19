@@ -4,6 +4,7 @@ using System;
 using Web_API.DataLayer.Mapping;
 using Web_API.Models;
 using Web_API.Models.Base;
+using Web_API.Models.Supplier;
 
 namespace Web_API.DataLayer
 {
@@ -11,6 +12,14 @@ namespace Web_API.DataLayer
     {
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerOrder> CustomerOrders { get; set; }
+        public DbSet<CustomerOrderDetail> CustomerOrderDetails { get; set; }
+
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<SupplierOrder> SupplierOrders { get; set; }
+        public DbSet<SupplierOrderDetail> SupplierOrderDetails { get; set; }
+
+        public DbSet<Tree> Trees { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
