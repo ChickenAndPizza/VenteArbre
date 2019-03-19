@@ -1,8 +1,12 @@
 <div class="main-content">
     <div class="container-fluid">
+
+        <!-- Menu mobile -->
         <div class="row" *ngIf="isMobileMenu()">
             <div class="col-md-8">
                 <div class="card">
+
+                    <!-- Entête création -->
                     <div class="card-header card-header-tabs card-header-danger">
                         <h4 class="card-title">Vous voulez passer une commande?</h4>
                         <p class="card-category">Créez votre compte afin de pouvoir remplir votre panier, ou connectez-vous!</p>
@@ -27,138 +31,189 @@
                             </div>
                         </div>
                       </div>
-                    <div class="card-body">
-                        <form>
-                            <div id="createaccount">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <mat-form-field class="example-full-width">
-                                            <input matInput placeholder="Compagnie (facultatif)" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <mat-form-field class="example-full-width">
-                                          <input matInput placeholder="Numéro de téléphone" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <mat-form-field class="example-full-width">
-                                          <input matInput placeholder="Adresse couriel" type="email">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <mat-form-field class="example-full-width">
-                                            <input matInput placeholder="Prénom" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <mat-form-field class="example-full-width">
-                                            <input matInput placeholder="Nom" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <mat-form-field class="example-full-width">
-                                            <input matInput placeholder="Nom d'utilisateur" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <mat-form-field class="example-full-width">
-                                          <input matInput placeholder="Mot de passe" type="password">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="height:25px;"></div>
-                                </div>
-                                <div class="row" id="shipping" style="display:none" >
-                                    <div class="col-md-12">
-                                        Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal. 
-                                        Pour plus d'informations concernant la livraison, veuillez consulter les points de distribution, 
-                                        ou prendre contact avec nous à l'adresse cre_cba@hotmail.com
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <a (click)="SetShipping()" title="Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal. Pour plus d'informations concernant la livraison, veuillez consulter les points de distribution, ou prendre contact avec nous à l'adresse cre_cba@hotmail.com">
-                                            <i style="margin-top: 13px;" class="material-icons">contact_support</i>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-11">
-                                        <mat-form-field class="example-full-width">
-                                            <input matInput placeholder="Adresse" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <mat-form-field class="example-full-width">
-                                            <input matInput placeholder="Ville" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <mat-form-field class="example-full-width">
-                                            <input matInput placeholder="Code postal" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label (click)="SetWhyCreate()" style="cursor:pointer;text-decoration: underline">Pourquoi devrais-je créer un compte?</label>
-                                        <div id="whycreate" class="example-full-width" style="display:none" disabled>
-                                            Pour pouvoir passer une commande, vous devez créer un compte. Lorsque vous effectuez une commande, 
-                                            nous avons besoin de vos informations pour vous avertir de l'état de votre commande, si nécessaire, 
-                                            ainsi que de l'arrivée de vos produits. 
-                                            De plus, nous souhaitons vérifier l'authenticité des utilisateurs utilisants nos services. 
-                                        </div>
-                                    </div>
-                                </div>
-                                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Créer un compte</button>
-                                <div class="clearfix"></div>
-                            </div>
 
-                            <div id="connection" style="display:none">
-                                <h4 class="card-title">Vous êtes déjà inscrit?</h4>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                      <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nom d'utilisateur" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <mat-form-field class="example-full-width">
-                                          <input matInput placeholder="Mot de passe" type="password">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" align="left">
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="" checked>
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                                Maintenir la connexion
-                                            </label>
+                    <div class="card-body">
+                        <form (ngSubmit)="onSubmit()" [formGroup]="informations">
+
+                            <!-- Forme création -->
+                            <div formGroupName="register">
+                                <div id="createaccount">
+                                    <div class="row">
+                                        <div class="col-md-4 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" formControlName="company" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.company.errors }" matInput placeholder="Compagnie (facultatif)">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.company.errors" class="invalid-feedback">
+                                                <div *ngIf="f.company.errors.required">Compagnie invalide</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" formControlName="phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" matInput placeholder="Numéro de téléphone">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+                                                <div *ngIf="f.phoneNumber.errors.required">Le numéro de téléphone est obligatoire</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" matInput placeholder="Adresse couriel">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                                <div *ngIf="f.email.errors.required">L'email est obligatoire</div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" matInput placeholder="Prénom">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                                                <div *ngIf="f.firstName.errors.required">Le prénom est obligatoire</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" matInput placeholder="Nom">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                                                <div *ngIf="f.lastName.errors.required">Le nom est obligatoire</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" matInput placeholder="Nom d'utilisateur" maxlength="17">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                                                <div *ngIf="f.userName.errors.required">Le nom d'utilisateur est obligatoire</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" matInput placeholder="Mot de passe">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                                <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12" style="height:25px;"></div>
+                                    </div>
+                                    <div class="row" id="shipping" style="display:none" >
+                                        <div class="col-md-12">
+                                            Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal. 
+                                            Pour plus d'informations concernant la livraison, veuillez consulter les points de distribution, 
+                                            ou prendre contact avec nous à l'adresse cre_cba@hotmail.com
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <a (click)="SetShipping()" title="Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal. Pour plus d'informations concernant la livraison, veuillez consulter les points de distribution, ou prendre contact avec nous à l'adresse cre_cba@hotmail.com">
+                                                <i style="margin-top: 13px;" class="material-icons">contact_support</i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-11  form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" matInput placeholder="Adresse">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                                                <div *ngIf="f.address.errors.required">L'addresse est obligatoire</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6  form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" matInput placeholder="Ville">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                                                <div *ngIf="f.city.errors.required">La ville est obligatoire</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6  form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" formControlName="postalCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }" matInput placeholder="Code postal">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
+                                                <div *ngIf="f.postalCode.errors.required">Le code postal est obligatoire</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label (click)="SetWhyCreate()" style="cursor:pointer;text-decoration: underline">Pourquoi devrais-je créer un compte?</label>
+                                            <div id="whycreate" class="example-full-width" style="display:none" disabled>
+                                                Pour pouvoir passer une commande, vous devez créer un compte. Lorsque vous effectuez une commande, 
+                                                nous avons besoin de vos informations pour vous avertir de l'état de votre commande, si nécessaire, 
+                                                ainsi que de l'arrivée de vos produits. 
+                                                De plus, nous souhaitons vérifier l'authenticité des utilisateurs utilisants nos services. 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button mat-raised-button type="submit" class="btn btn-danger pull-right">Créer un compte</button>
+                                    <div class="clearfix"></div>
                                 </div>
-                                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Se connecter</button>
-                                <div class="clearfix"></div>
+                            </div>
+                        
+
+                            <!-- Forme connexion -->
+                            <div formGroupName="connection">
+                                <div id="connection" style="display:none">
+                                    <h4 class="card-title">Vous êtes déjà inscrit?</h4>
+                                    <div class="row form-group">
+                                        <div class="col-md-12">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" formControlName="username" class="form-control" matInput placeholder="Nom d'utilisateur" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.username.errors.required">Username is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-md-12">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="password" formControlName="password" class="form-control" matInput placeholder="Mot de passe" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.password.errors.required">Password is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-md-12" align="left">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="" checked>
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                    Maintenir la connexion
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-md-12">
+                                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="loading">Se connecter</button>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
                             </div>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>
-
-
+        
         <div class="row" *ngIf="!(isMobileMenu())">
             <div class="col-md-8">
                 <div class="card">

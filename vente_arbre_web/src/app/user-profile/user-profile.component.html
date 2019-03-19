@@ -4,6 +4,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header card-header-danger">
+                        <h1>Bonjour {{currentUser.firstName}}!</h1>
                         <h4 class="card-title">Informations reliées au compte</h4>
                     </div>
                     <div class="card-body">
@@ -78,7 +79,16 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Modifier le profil</button>
+                            <div class="row">
+                                <div class="col-md-12">
+                                        <button mat-raised-button type="submit" class="btn btn-danger pull-right">Modifier le profil</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <a [routerLink]="['/connection']" class="btn btn-danger pull-right" style="color:white;" role="button">Se déconnecter</a>
+                                    </div>
+                                </div>
                             <div class="clearfix"></div>
                             <div class="row" style="padding-top: 15px;">
                                 <div class="col-md-12" align="right">
