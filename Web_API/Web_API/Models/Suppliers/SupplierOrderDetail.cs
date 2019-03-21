@@ -1,4 +1,5 @@
-﻿using Web_API.Models.Base;
+﻿using System;
+using Web_API.Models.Base;
 
 namespace Web_API.Models.Supplier
 {
@@ -6,8 +7,8 @@ namespace Web_API.Models.Supplier
     {
         public int Quantity { get; set; }
 
-        public string IdSupplierOrder { get; set; }
-        public string IdTree { get; set; }
+        public Guid IdSupplierOrder { get; set; }
+        public Guid IdTree { get; set; }
 
         public SupplierOrder Order { get; set; }
         public Tree Tree { get; set; }
