@@ -124,6 +124,10 @@ form {
   @include bmd-form-color($brand-rose, $brand-rose, $brand-rose, $input-border-color);
 }
 
+.has-green {
+  @include bmd-form-color($brand-green, $brand-green, $brand-green, $input-border-color);
+}
+
 // Reference http://www.google.com/design/spec/components/text-fields.html
 // MDL implementation: http://www.getmdl.io/components/index.html#textfields-section
 //.variations(unquote(" label"), color, $bmd-input-placeholder-color);  // default label color variations

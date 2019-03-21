@@ -199,6 +199,14 @@
     &.bg-danger,
     &.card-rotate.bg-danger .front,
     &.card-rotate.bg-danger .back{
+      background: linear-gradient(60deg, $red-400, $red-600);
+    }
+    .card-header-green .card-icon,
+    .card-header-green .card-text,
+    .card-header-green:not(.card-header-icon):not(.card-header-text),
+    &.bg-green,
+    &.card-rotate.bg-green .front,
+    &.card-rotate.bg-green .back{
       background: linear-gradient(60deg, $light-green-600, $light-green-800);
     }
 
@@ -229,6 +237,12 @@
     .card-header-rose:not(.card-header-icon):not(.card-header-text),
     .card-header-rose .card-text{
         @include shadow-big-color($brand-rose);
+    }
+
+    .card-header-green .card-icon,
+    .card-header-green:not(.card-header-icon):not(.card-header-text),
+    .card-header-green .card-text{
+        @include shadow-big-color($brand-green);
     }
 
     .card-header-warning .card-icon,
