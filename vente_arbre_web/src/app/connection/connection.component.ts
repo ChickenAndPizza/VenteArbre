@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService, UserService } from '../_services';
+import { ConnectionInfo } from 'app/_models/connectionInfo.model';
+import { User } from 'app/_models';
 
 declare const $: any;
 
@@ -13,46 +15,30 @@ declare const $: any;
   styleUrls: ['./connection.component.scss']
 })
 export class ConnectionComponent implements OnInit {
+
+  connectionModel = new ConnectionInfo('', '');
   informations: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
+  connectionInfo = new ConnectionInfo();
 
   constructor(
-    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService,
+    private UserService: UserService,
     private authenticationService: AuthenticationService,
     private alertService: AlertService) {}
 
 
   ngOnInit() {
-    this.informations = this.formBuilder.group({
-        register: this.formBuilder.group({
-          company: ['', Validators.required],
-          phoneNumber: ['', Validators.required],
-          email: ['', Validators.required],
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
-          userName: ['', Validators.required],
-          password: ['', [Validators.required, Validators.minLength(6)]],
-          address: ['', Validators.required],
-          city: ['', Validators.required],
-          postalCode: ['', Validators.required]
-        }),
-        connection: this.formBuilder.group({
-          username: ['', Validators.required],
-          password: ['', Validators.required]
-        })
-    });
 
     this.authenticationService.logout();
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  get f() { return this.informations.controls; }
+  get f() { return this.connectionModel; }
 
   isMobileMenu() {
     if ($(window).width() > 991) {
@@ -103,35 +89,8 @@ export class ConnectionComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.informations.invalid) {
-        return;
-    }
-
     this.loading = true;
-    this.userService.register(this.informations.value)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.alertService.success('Registration successful', true);
-                this.router.navigate(['/dashbord']);
-            },
-            error => {
-                this.alertService.error(error);
-                this.loading = false;
-            });
-  }
-
-  /*onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.connectionForm.invalid) {
-        return;
-    }
-
-    this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(this.f.email, this.f.password)
         .pipe(first())
         .subscribe(
             data => {
@@ -141,5 +100,5 @@ export class ConnectionComponent implements OnInit {
                 this.alertService.error(error);
                 this.loading = false;
             });
-  }*/
+  }
 }

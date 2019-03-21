@@ -124,6 +124,9 @@
   &.btn-danger {
     @include bmd-flat-button-variant($btn-danger-bg);
   }
+  &.btn-green {
+    @include bmd-flat-button-variant($btn-green-bg);
+  }
 }
 
 @mixin bmd-outline-button-color() {
@@ -231,7 +234,9 @@
   &.btn-rose {
     @include bmd-raised-button-variant($btn-rose-color, $btn-rose-bg, $btn-rose-border-color);
   }
-  &,
+  &.btn-green {
+    @include bmd-raised-button-variant($btn-green-color, $btn-green-bg, $btn-green-border-color);
+  }
   &.btn-default{
     @include bmd-raised-button-variant($btn-default-color, $btn-default-bg, $btn-default-border-color);
   }
