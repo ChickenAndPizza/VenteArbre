@@ -32,6 +32,13 @@ namespace Web_API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             RegisterServicesAndContext(services);
 
+            services.AddCors(options => {
+                options.AddPolicy("AllowAllOrigin",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Vente arbre", Version = "V1" });
@@ -52,8 +59,9 @@ namespace Web_API
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseCors("AllowAllOrigin");
 
+            app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

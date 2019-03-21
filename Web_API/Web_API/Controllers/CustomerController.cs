@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,22 @@ namespace Web_API.Controllers
     {
         public CustomerController(CustomerService service) : base(service)
         {
+        }
+
+        [HttpPost, AllowAnonymous]
+        public override ActionResult Post(Customer entity)
+        {
+            if (Service.AddOrUpdate(entity) != Guid.Empty)
+                return Ok(new { id = entity.Id });
+
+            return BadRequest();
+        }
+
+        [HttpGet, AllowAnonymous]
+        [Route("Email/")]
+        public ActionResult<bool> IsEmailAlreadyUsed(string email)
+        {
+            return Service.IsEmailAlreadyUsed(email);
         }
     }
 

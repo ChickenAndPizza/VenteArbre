@@ -8,8 +8,8 @@ namespace Web_API.Models.Supplier
     {
         public DateTime TransactionDate { get; set; }
 
-        public string IdCustomer { get; set; }
-        public string IdSupplier { get; set; }
+        public Guid IdCustomer { get; set; }
+        public Guid IdSupplier { get; set; }
 
         public Customer Customer { get; set; }
         public Supplier Supplier { get; set; }

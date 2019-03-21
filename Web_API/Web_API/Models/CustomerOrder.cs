@@ -10,7 +10,7 @@ namespace Web_API.Models
         public DateTime TransactionDate { get; set; }
         public Order State { get; set; }
 
-        public string IdCustomer { get; set; }
+        public Guid IdCustomer { get; set; }
 
         public Customer Customer { get; set; }
         public ICollection<CustomerOrderDetail> OrderDetails { get; set; }
