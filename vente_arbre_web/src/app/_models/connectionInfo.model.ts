@@ -1,6 +1,9 @@
 export class ConnectionInfo {
+public email: string;
+public password: string;
+
     constructor (
-    public email    = '',
-    public password = ''
+    email    = '',
+    password = ''
     ) {}
 }

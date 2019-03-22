@@ -1,5 +1,6 @@
 <div class="main-content">
     <div class="container-fluid">
+        <input type="hidden" name="action">
 
         <!-- Menu mobile -->
         <div class="row" *ngIf="isMobileMenu()">
@@ -35,8 +36,7 @@
                     <div class="card-body">
 
                         <form #informationsForm="ngForm" (ngSubmit)="onSubmit()">
-                            {{informationsForm.value | json}}
-                            {{connectionModel | json}}
+                            
                             <!-- Forme création -->
                             <div id="createaccount">
                                 <div class="row">
@@ -127,7 +127,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button mat-raised-button type="submit" class="btn btn-green pull-right">Créer un compte</button>
+                                <button mat-raised-button type="submit" onclick="document.getElementsByName('action')[0].value = 'createaccount';" class="btn btn-green pull-right">Créer un compte</button>
                                 <div class="clearfix"></div>
                             </div>
 
@@ -163,7 +163,7 @@
                                 </div>-->
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button mat-raised-button type="submit" class="btn btn-green pull-right" [disabled]="loading">Se connecter</button>
+                                        <button mat-raised-button type="submit" onclick="document.getElementsByName('action')[0].value = 'connection';" class="btn btn-green pull-right" [disabled]="loading">Se connecter</button>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>

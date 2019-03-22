@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Web_API.DataLayer;
 using Web_API.Models;
+using Web_API.Models.DTO;
 using Web_API.Services.Base;
 
 namespace Web_API.Services

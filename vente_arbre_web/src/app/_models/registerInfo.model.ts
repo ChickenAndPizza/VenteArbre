@@ -1,4 +1,4 @@
-export class ConnectionInfo {
+export class RegisterInfo {
     phoneNumber: '';
     email:       '';
     firstName:   '';

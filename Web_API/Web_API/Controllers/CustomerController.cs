@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Web_API.Controllers.Base;
 using Web_API.Models;
+using Web_API.Models.DTO;
 using Web_API.Services;
 
 namespace Web_API.Controllers

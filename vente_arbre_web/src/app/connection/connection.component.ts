@@ -21,7 +21,6 @@ export class ConnectionComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  connectionInfo = new ConnectionInfo();
 
   constructor(
     private route: ActivatedRoute,
@@ -51,7 +50,7 @@ export class ConnectionComponent implements OnInit {
     if (document.getElementById('whycreate').style.display === '') {
       document.getElementById('whycreate').style.display = 'none';
     }
-    else{
+    else {
       document.getElementById('whycreate').style.display = '';
     }
   }
@@ -60,7 +59,7 @@ export class ConnectionComponent implements OnInit {
     if (document.getElementById('shipping').style.display === '') {
       document.getElementById('shipping').style.display = 'none';
     }
-    else{
+    else {
       document.getElementById('shipping').style.display = '';
     }
   }
@@ -88,17 +87,22 @@ export class ConnectionComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     this.loading = true;
-    this.authenticationService.login(this.f.email, this.f.password)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-                this.alertService.error(error);
-                this.loading = false;
-            });
+
+    if ((<HTMLInputElement>document.getElementsByName('action')[0]).value == 'connection') {
+      this.authenticationService.login(this.f)
+          .pipe(first())
+          .subscribe(
+              data => {
+                  this.router.navigate([this.returnUrl]);
+              },
+              error => {
+                  this.alertService.error(error);
+                  this.loading = false;
+              });
+    }
+    else {
+      
+    }
   }
 }
