@@ -11,7 +11,7 @@ import { UserService } from '../_services';
 })
 export class UserProfileComponent implements OnInit {
 
-  currentUser: User;
+    currentUser: User;
     users: User[] = [];
 
     constructor(private userService: UserService) {
@@ -20,6 +20,10 @@ export class UserProfileComponent implements OnInit {
 
     ngOnInit() {
         this.loadAllUsers();
+    }
+
+    public deleteValidation() {
+
     }
 
     deleteUser(id: number) {
