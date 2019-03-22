@@ -16,7 +16,6 @@ C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\bin\Debug\netcoreapp2.2\Web_
 C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\bin\Debug\netcoreapp2.2\Web_API.runtimeconfig.dev.json
 C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\bin\Debug\netcoreapp2.2\Web_API.dll
 C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\bin\Debug\netcoreapp2.2\Web_API.pdb
-C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\obj\Debug\netcoreapp2.2\Web_API.csprojAssemblyReference.cache
 C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\obj\Debug\netcoreapp2.2\Web_API.csproj.CoreCompileInputs.cache
 C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\obj\Debug\netcoreapp2.2\Web_API.RazorAssemblyInfo.cache
 C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\obj\Debug\netcoreapp2.2\Web_API.RazorAssemblyInfo.cs
@@ -25,3 +24,4 @@ C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\obj\Debug\netcoreapp2.2\Web_
 C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\obj\Debug\netcoreapp2.2\Web_API.RazorTargetAssemblyInfo.cache
 C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\obj\Debug\netcoreapp2.2\Web_API.dll
 C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\obj\Debug\netcoreapp2.2\Web_API.pdb
+C:\Users\admin\Documents\VenteArbre\Web_API\Web_API\obj\Debug\netcoreapp2.2\Web_API.csprojAssemblyReference.cache

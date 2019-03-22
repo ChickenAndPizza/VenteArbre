@@ -4,7 +4,6 @@ namespace Web_API.Models
 {
     public class Customer : BaseModel
     {
-        public string Username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

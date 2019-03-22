@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Web_API.Controllers.Base;
 using Web_API.Models;
 using Web_API.Models.DTO;
@@ -21,6 +18,16 @@ namespace Web_API.Controllers
         [HttpPost, AllowAnonymous]
         public override ActionResult Post(Customer entity)
         {
+            if(entity.PhoneNumber.Length != 10)
+            {
+                var newPhoneNumber = entity.PhoneNumber;
+                newPhoneNumber = newPhoneNumber.Replace('-', ' ');
+                newPhoneNumber = newPhoneNumber.Replace('(', ' ');
+                newPhoneNumber = newPhoneNumber.Replace(')', ' ');
+                newPhoneNumber = newPhoneNumber.Replace(" ", String.Empty);
+                entity.PhoneNumber = newPhoneNumber;
+            }
+
             if (Service.AddOrUpdate(entity) != Guid.Empty)
                 return Ok(new { id = entity.Id });
 
