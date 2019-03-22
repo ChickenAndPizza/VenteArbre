@@ -5,7 +5,6 @@ import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService, UserService } from '../_services';
 import { ConnectionInfo } from 'app/_models/connectionInfo.model';
-import { User } from 'app/_models';
 
 declare const $: any;
 
@@ -25,19 +24,37 @@ export class ConnectionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private UserService: UserService,
     private authenticationService: AuthenticationService,
     private alertService: AlertService) {}
 
 
   ngOnInit() {
-
     this.authenticationService.logout();
-
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get f() { return this.connectionModel; }
+
+  onSubmit() {
+    this.submitted = true;
+    this.loading = true;
+
+    if ((<HTMLInputElement>document.getElementsByName('action')[0]).value == 'connection') {
+      this.authenticationService.login(this.f)
+          .pipe(first())
+          .subscribe(
+              data => {
+                  this.router.navigate([this.returnUrl]);
+              },
+              error => {
+                  this.alertService.error(error);
+                  this.loading = false;
+              });
+    }
+    else {
+
+    }
+  }
 
   isMobileMenu() {
     if ($(window).width() > 991) {
@@ -81,28 +98,6 @@ export class ConnectionComponent implements OnInit {
       document.getElementById('connection').style.display = '';
       document.getElementById('createaccount').style.display = 'none';
     }
-
     this.HideCreationDetails();
-  }
-
-  onSubmit() {
-    this.submitted = true;
-    this.loading = true;
-
-    if ((<HTMLInputElement>document.getElementsByName('action')[0]).value == 'connection') {
-      this.authenticationService.login(this.f)
-          .pipe(first())
-          .subscribe(
-              data => {
-                  this.router.navigate([this.returnUrl]);
-              },
-              error => {
-                  this.alertService.error(error);
-                  this.loading = false;
-              });
-    }
-    else {
-      
-    }
   }
 }
