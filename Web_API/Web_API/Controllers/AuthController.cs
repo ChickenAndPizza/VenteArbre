@@ -44,7 +44,7 @@ namespace Web_API.Controllers
                 );
 
                 ConnectionValidation connexionValidation = new ConnectionValidation();
-                connexionValidation.token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                connexionValidation.Token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
                 
                 return Ok(new { Validation = connexionValidation });
             }

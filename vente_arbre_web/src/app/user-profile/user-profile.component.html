@@ -12,18 +12,6 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Numéro de téléphone" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Adresse couriel" type="email">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Prénom" type="text">
                                     </mat-form-field>
                                 </div>
@@ -36,9 +24,16 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nom d'utilisateur" type="text">
+                                        <input matInput placeholder="Numéro de téléphone" type="text">
                                     </mat-form-field>
                                 </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Adresse courriel" type="email">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Mot de passe" type="password">
@@ -46,23 +41,22 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12" style="height:25px;"></div>
+                                <div class="col-md-12">
+                                    <button mat-raised-button type="submit" class="btn btn-green pull-right">Modifier le
+                                        profil</button>
+                                </div>
                             </div>
-                            
                             <div class="row">
                                 <div class="col-md-12">
-                                        <button mat-raised-button type="submit" class="btn btn-green pull-right">Modifier le profil</button>
+                                    <a (click)="logout()" [routerLink]="['/connection']" class="btn btn-green pull-right"
+                                        style="color:white;" role="button">Se déconnecter</a>
                                 </div>
                             </div>
-                            <div class="row">
-                                    <div class="col-md-12">
-                                            <a [routerLink]="['/connection']" class="btn btn-green pull-right" style="color:white;" role="button">Se déconnecter</a>
-                                    </div>
-                                </div>
                             <div class="clearfix"></div>
                             <div class="row" style="padding-top: 15px;">
                                 <div class="col-md-12" align="right">
-                                    <label (click)="deleteValidation()" style="cursor:pointer;text-decoration: underline">Détruite ce compte</label>
+                                    <label (click)="deleteValidation()"
+                                        style="cursor:pointer;text-decoration: underline">Détruite ce compte</label>
                                 </div>
                             </div>
                         </form>
@@ -77,7 +71,7 @@
                     <div class="card-body">
                         <h4 class="card-title">1 commande trouvée</h4>
                         <p class="card-description">
-                            Visionnez vos commande si vous avez fait des achats                        
+                            Visionnez vos commande si vous avez fait des achats
                         </p>
                         <a href="#pablo" class="btn btn-green btn-round">Continer</a>
                     </div>

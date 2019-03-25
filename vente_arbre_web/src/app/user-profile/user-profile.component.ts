@@ -6,6 +6,7 @@ import { UserService } from '../_services';
 
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { DialogComponent } from '../_directives/dialog/dialog.component';
+import { AuthenticationService } from '../_services';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,7 +21,8 @@ export class UserProfileComponent implements OnInit {
 
     constructor(
         private userService: UserService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private authenticationService: AuthenticationService
         ) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
@@ -29,7 +31,12 @@ export class UserProfileComponent implements OnInit {
         this.loadAllUsers();
     }
 
-    deleteValidation() {
+    public logout()
+    {
+        this.authenticationService.logout();
+    }
+
+    deleteValidation3() {
 
         const dialogConfig = new MatDialogConfig();
         dialogConfig.hasBackdrop = false;
@@ -45,7 +52,7 @@ export class UserProfileComponent implements OnInit {
         });
     }
 
-    public deleteValidation3() {
+    public deleteValidation() {
 
 
         this.deleteUser(this.currentUser.id);

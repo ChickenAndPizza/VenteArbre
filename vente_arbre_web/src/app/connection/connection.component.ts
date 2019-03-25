@@ -65,7 +65,6 @@ export class ConnectionComponent implements OnInit {
   get passwordConnection() {return this.connection.get('password');}
 
   onConnection() {
-    console.log(this.f.value);
     this.authenticationService.login(this.f.value)
         .pipe(first())
         .subscribe(

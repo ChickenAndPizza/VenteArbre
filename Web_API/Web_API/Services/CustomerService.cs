@@ -20,5 +20,10 @@ namespace Web_API.Services
         {
             return Context.Customers.Any(c => c.Email == email);
         }
+
+        public Customer GetCustomerByEmail(string email)
+        {
+            return Context.Customers.FirstOrDefault(c => c.Email == email);
+        }
     }
 }
