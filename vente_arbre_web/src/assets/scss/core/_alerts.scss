@@ -52,6 +52,10 @@
         @include shadow-alert-color($brand-rose);
         @include alert-icon-color($brand-rose);
     }
+    &.alert-green{
+        @include shadow-alert-color($brand-green);
+        @include alert-icon-color($brand-green);
+    }
 
     &.alert-with-icon{
       padding-left: 66px;

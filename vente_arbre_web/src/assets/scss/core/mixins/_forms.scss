@@ -373,6 +373,9 @@
     &.tag-rose{
       @include tag-color($brand-rose);
     }
+    &.tag-green{
+      @include tag-color($brand-green);
+    }
 }
 @mixin tag-color ($color){
     .tag{

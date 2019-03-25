@@ -3,23 +3,19 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header card-header-danger">
+                    <div class="card-header card-header-green">
+                        <h1>Bonjour {{currentUser.firstName}}!</h1>
                         <h4 class="card-title">Informations reliées au compte</h4>
                     </div>
                     <div class="card-body">
                         <form>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Compagnie (facultatif)" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Numéro de téléphone" type="text">
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Adresse couriel" type="email">
                                     </mat-form-field>
@@ -52,37 +48,21 @@
                             <div class="row">
                                 <div class="col-md-12" style="height:25px;"></div>
                             </div>
-                            <div class="row" id="shipping" style="display:none" >
+                            
+                            <div class="row">
                                 <div class="col-md-12">
-                                    Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal. 
-                                    Pour plus d'informations concernant la livraison, veuillez consulter les points de distribution, 
-                                    ou prendre contact avec nous à l'adresse cre_cba@hotmail.com
+                                        <button mat-raised-button type="submit" class="btn btn-green pull-right">Modifier le profil</button>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Adresse" type="text">
-                                    </mat-form-field>
+                                    <div class="col-md-12">
+                                            <a [routerLink]="['/connection']" class="btn btn-green pull-right" style="color:white;" role="button">Se déconnecter</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Ville" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Code postal" type="text">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Modifier le profil</button>
                             <div class="clearfix"></div>
                             <div class="row" style="padding-top: 15px;">
                                 <div class="col-md-12" align="right">
-                                    <label (click)="DestroyValidation()" style="cursor:pointer;text-decoration: underline">Détruite ce compte</label>
+                                    <label (click)="deleteValidation()" style="cursor:pointer;text-decoration: underline">Détruite ce compte</label>
                                 </div>
                             </div>
                         </form>
@@ -91,7 +71,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card card-profile">
-                    <div class="card-header card-header-danger">
+                    <div class="card-header card-header-green">
                         <h4 class="card-title">Accédez à vos commandes</h4>
                     </div>
                     <div class="card-body">
@@ -99,7 +79,7 @@
                         <p class="card-description">
                             Visionnez vos commande si vous avez fait des achats                        
                         </p>
-                        <a href="#pablo" class="btn btn-danger btn-round">Continer</a>
+                        <a href="#pablo" class="btn btn-green btn-round">Continer</a>
                     </div>
                 </div>
             </div>
