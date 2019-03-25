@@ -52,23 +52,30 @@ export class ConnectionComponent implements OnInit {
   get firstName() { return this.register.get('firstName');}
   get password() { return this.register.get('password');}
 
-  onSubmit() {
+  onConnection() {
     this.submitted = true;
     this.loading = true;
 
-    if ((<HTMLInputElement>document.getElementsByName('action')[0]).value == 'connection') {
-      this.authenticationService.login(this.f)
-          .pipe(first())
-          .subscribe(
-              data => {
-                  this.router.navigate([this.returnUrl]);
-              },
-              error => {
-                  this.alertService.error(error);
-                  this.loading = false;
-              });
-    }
-    else {
+    this.authenticationService.login(this.f)
+        .pipe(first())
+        .subscribe(
+            data => {
+                this.router.navigate([this.returnUrl]);
+            },
+            error => {
+                this.alertService.error(error);
+                this.loading = false;
+            });
+  }
+
+  onRegister() {
+
+    if(this.customerService){
+
+      let customer: any;
+      this.customerService.createCustomer(this.register.value).subscribe(c => {
+        customer = c;
+      });
 
     }
   }
@@ -117,16 +124,4 @@ export class ConnectionComponent implements OnInit {
     }
     this.HideCreationDetails();
   }
-  onRegister() {
-
-    if(this.customerService){
-
-      let customer: any;
-      this.customerService.createCustomer(this.register.value).subscribe(c => {
-        customer = c;
-      });
-
-    }
-  }
-
 }

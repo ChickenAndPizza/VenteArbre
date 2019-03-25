@@ -9,7 +9,7 @@ namespace Web_API.Controllers.Base
 
         protected BaseController(TService service)
         {
-            service = Service;
+            Service = service;
         }
     }
 }
