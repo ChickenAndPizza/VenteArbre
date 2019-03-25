@@ -121,6 +121,14 @@
     @include call-variations-content-mixin($args-rose);
   }
 
+  &#{$component}-green#{$selector-suffix} {
+    $args-green: map-merge($args, (
+            variation-color: $brand-green,
+            variation-color-text: $mdb-text-color-light
+    ));
+    @include call-variations-content-mixin($args-green);
+  }
+
 }
 
 @mixin alert-icon-color($color) {

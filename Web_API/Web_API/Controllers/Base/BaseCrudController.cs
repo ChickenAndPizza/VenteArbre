@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +31,7 @@ namespace Web_API.Controllers.Base
             return Ok(entity);
         }
 
-        [HttpGet]
-        [Route("List")]
+        [HttpGet, AllowAnonymous]
         [ProducesResponseType(401)]
         [ProducesResponseType(200)]
         public virtual ActionResult Get()

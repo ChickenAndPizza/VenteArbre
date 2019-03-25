@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Web_API.Controllers.Base;
 using Web_API.Models;
+using Web_API.Models.DTO;
 using Web_API.Services;
 
 namespace Web_API.Controllers
@@ -14,6 +13,32 @@ namespace Web_API.Controllers
     {
         public CustomerController(CustomerService service) : base(service)
         {
+        }
+
+        [HttpPost, AllowAnonymous]
+        public override ActionResult Post(Customer entity)
+        {
+            if(entity.PhoneNumber.Length != 10)
+            {
+                var newPhoneNumber = entity.PhoneNumber;
+                newPhoneNumber = newPhoneNumber.Replace('-', ' ');
+                newPhoneNumber = newPhoneNumber.Replace('(', ' ');
+                newPhoneNumber = newPhoneNumber.Replace(')', ' ');
+                newPhoneNumber = newPhoneNumber.Replace(" ", String.Empty);
+                entity.PhoneNumber = newPhoneNumber;
+            }
+
+            if (Service.AddOrUpdate(entity) != Guid.Empty)
+                return Ok(new { id = entity.Id });
+
+            return BadRequest();
+        }
+
+        [HttpGet, AllowAnonymous]
+        [Route("Email/")]
+        public ActionResult<bool> IsEmailAlreadyUsed(string email)
+        {
+            return Service.IsEmailAlreadyUsed(email);
         }
     }
 
