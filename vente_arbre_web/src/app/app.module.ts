@@ -33,6 +33,8 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { CustomerService } from './service/customer/customer.service';
+import { ExistingEmailValidatorDirective } from './shared/email-validator.directive';
 
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material';
 import { DialogComponent } from './_directives/dialog/dialog.component';
@@ -41,8 +43,8 @@ import { DialogComponent } from './_directives/dialog/dialog.component';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
     ComponentsModule,
@@ -59,6 +61,7 @@ import { DialogComponent } from './_directives/dialog/dialog.component';
     AppComponent,
     AdminLayoutComponent,
     AlertComponent,
+    ExistingEmailValidatorDirective,
     DialogComponent
   ],
   providers: [
@@ -66,6 +69,7 @@ import { DialogComponent } from './_directives/dialog/dialog.component';
       AlertService,
       AuthenticationService,
       UserService,
+      CustomerService,
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
 

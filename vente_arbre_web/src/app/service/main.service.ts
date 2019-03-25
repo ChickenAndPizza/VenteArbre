@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class MainService {
 
   apiUrl = 'http://localhost:5000/api/';
-  headers:any;
+  headers: any;
 
   protected http: HttpClient;
 
@@ -15,12 +15,5 @@ export class MainService {
 
         this.http = injector ? injector.get(HttpClient) : null; 
         this.headers = {'Content-Type': 'application/json; charset=UTF-8'};
-
-        // if(!this.apiUrl){
-        //     this.http.get("assets/config.json").subscribe(config => {
-        //         this.apiUrl = config['apiUrl'];
-        //         console.log(this.apiUrl);
-        //     });
-        // }
     } 
 }

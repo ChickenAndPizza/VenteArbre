@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl, } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService, UserService } from '../_services';
 import { ConnectionInfo } from 'app/_models/connectionInfo.model';
+import { CustomerService } from 'app/service/customer/customer.service';
+import { existingEmailValidator } from 'app/shared/email-validator.directive';
 
 declare const $: any;
 
@@ -20,20 +22,35 @@ export class ConnectionComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  register: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService) {}
-
+    private alertService: AlertService,
+    private customerService: CustomerService) {}
 
   ngOnInit() {
+    this.register = this.formBuilder.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email], existingEmailValidator(this.customerService)],
+      password: ['', [Validators.required]]
+    })
+
     this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get f() { return this.connectionModel; }
+  get email() { return this.register.get('email');}
+  get phoneNumber() { return this.register.get('phoneNumber');}
+  get lastName() { return this.register.get('lastName');}
+  get firstName() { return this.register.get('firstName');}
+  get password() { return this.register.get('password');}
 
   onSubmit() {
     this.submitted = true;
@@ -100,4 +117,16 @@ export class ConnectionComponent implements OnInit {
     }
     this.HideCreationDetails();
   }
+  onRegister() {
+
+    if(this.customerService){
+
+      let customer: any;
+      this.customerService.createCustomer(this.register.value).subscribe(c => {
+        customer = c;
+      });
+
+    }
+  }
+
 }
