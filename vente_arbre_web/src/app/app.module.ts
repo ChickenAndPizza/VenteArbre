@@ -28,11 +28,14 @@ import { TypographyComponent } from './typography/typography.component';
 import { IconsComponent } from './icons/icons.component';
 import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+
 import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { MatDialogModule } from '@angular/material';
+
+import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material';
+import { DialogComponent } from './_directives/dialog/dialog.component';
 
 @NgModule({
   imports: [
@@ -45,6 +48,7 @@ import { MatDialogModule } from '@angular/material';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    MatDialogModule,
     AgmCoreModule.forRoot({
       apiKey: '&lon=-95.511747&lat=29.735577&format=xml'
     }),
@@ -55,6 +59,7 @@ import { MatDialogModule } from '@angular/material';
     AppComponent,
     AdminLayoutComponent,
     AlertComponent,
+    DialogComponent
   ],
   providers: [
     AuthGuard,
@@ -67,6 +72,7 @@ import { MatDialogModule } from '@angular/material';
       // provider used to create fake backend
       //this
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }

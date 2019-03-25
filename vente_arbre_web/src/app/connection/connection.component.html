@@ -37,99 +37,7 @@
 
                         <form #informationsForm="ngForm" (ngSubmit)="onSubmit()">
                             
-                            <!-- Forme création -->
-                            <div id="createaccount">
-                                <div class="row">
-                                    <div class="col-md-4 form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input type="text" name="company" class="form-control"   matInput placeholder="Compagnie (facultatif)">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-4 form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input type="text" name="phoneNumber" class="form-control"  matInput placeholder="Numéro de téléphone">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-4 form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input type="email" name="email" class="form-control"  matInput placeholder="Adresse couriel">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input type="text" name="firstName" class="form-control"  matInput placeholder="Prénom">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input type="text" name="lastName" class="form-control" matInput placeholder="Nom">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input type="text" name="userName" class="form-control" matInput placeholder="Nom d'utilisateur" maxlength="17">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input type="password" name="password" class="form-control"  matInput placeholder="Mot de passe">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12" style="height:25px;"></div>
-                                </div>
-                                <div class="row" id="shipping" style="display:none" >
-                                    <div class="col-md-12">
-                                        Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal. 
-                                        Pour plus d'informations concernant la livraison, veuillez consulter les points de distribution, 
-                                        ou prendre contact avec nous à l'adresse cre_cba@hotmail.com
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <a (click)="SetShipping()" title="Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal. Pour plus d'informations concernant la livraison, veuillez consulter les points de distribution, ou prendre contact avec nous à l'adresse cre_cba@hotmail.com">
-                                            <i style="margin-top: 13px;" class="material-icons">contact_support</i>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-11  form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input type="text" name="address" class="form-control"  matInput placeholder="Adresse">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6  form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input type="text" name="city" class="form-control"  matInput placeholder="Ville">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-6  form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input type="text" name="postalCode" class="form-control"  matInput placeholder="Code postal">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label (click)="SetWhyCreate()" style="cursor:pointer;text-decoration: underline">Pourquoi devrais-je créer un compte?</label>
-                                        <div id="whycreate" class="example-full-width" style="display:none" disabled>
-                                            Pour pouvoir passer une commande, vous devez créer un compte. Lorsque vous effectuez une commande, 
-                                            nous avons besoin de vos informations pour vous avertir de l'état de votre commande, si nécessaire, 
-                                            ainsi que de l'arrivée de vos produits. 
-                                            De plus, nous souhaitons vérifier l'authenticité des utilisateurs utilisants nos services. 
-                                        </div>
-                                    </div>
-                                </div>
-                                <button mat-raised-button type="submit" onclick="document.getElementsByName('action')[0].value = 'createaccount';" class="btn btn-green pull-right">Créer un compte</button>
-                                <div class="clearfix"></div>
-                            </div>
+                            
 
                             <!-- Forme connexion -->
                             <div id="connection" style="display:none">
@@ -183,97 +91,11 @@
                         <h4 class="card-title">Vous voulez passer une commande?</h4>
                         <p class="card-category">Créez votre compte afin de pouvoir remplir votre panier, ou connectez-vous!</p>
                     </div>
-
-                    <!-- Forme création -->
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Compagnie (facultatif)" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                       <input matInput placeholder="Numéro de téléphone" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                       <input matInput placeholder="Adresse couriel" type="email">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Prénom" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nom" type="text">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nom d'utilisateur" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Mot de passe" type="password">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12" style="height:25px;"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <a title="Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal. Pour plus d'informations concernant la livraison, veuillez consulter les points de distribution, ou prendre contact avec nous à l'adresse cre_cba@hotmail.com">
-                                        <i style="margin-top: 13px;" class="material-icons">contact_support</i>
-                                    </a>
-                                </div>
-                                <div class="col-md-11">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Adresse" type="text">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Ville" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Code postal" type="text">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label (click)="SetWhyCreate()" style="cursor:pointer;text-decoration: underline">Pourquoi devrais-je créer un compte?</label>
-                                    <div id="whycreate" class="example-full-width" style="display:none" disabled>
-                                        Pour pouvoir passer une commande, vous devez créer un compte. Lorsque vous effectuez une commande, 
-                                        nous avons besoin de vos informations pour vous avertir de l'état de votre commande, si nécessaire, 
-                                        ainsi que de l'arrivée de vos produits. 
-                                        De plus, nous souhaitons vérifier l'authenticité des utilisateurs utilisants nos services. 
-                                    </div>
-                                </div>
-                            </div>
-                            <button mat-raised-button type="submit" class="btn btn-green pull-right">Créer un compte</button>
-                            <div class="clearfix"></div>
-                        </form>
-                    </div>
+                    
                 </div>
             </div>
 
-            <!-- Entête connextion -->
+            <!-- Entête connexion -->
             <div class="col-md-4">
                 <div class="card card-profile">
                     <div class="card-avatar">
@@ -282,7 +104,7 @@
                         </a>
                     </div>
 
-                    <!-- Forme connextion -->
+                    <!-- Forme connexion -->
                     <div class="card-body">
                         <h4 class="card-title">Vous êtes déjà inscrit?</h4>
                         <div class="row">

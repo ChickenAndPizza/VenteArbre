@@ -27,7 +27,7 @@ export class UserService extends MainService {
         return this.http.put(`${this.apiUrl}/users/` + user.id, user);
     }
 
-    delete(id: number) {
+    delete(id: string) {
         return this.http.delete(`${this.apiUrl}/users/` + id);
     }
 }
