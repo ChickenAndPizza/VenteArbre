@@ -17,19 +17,21 @@ namespace Web_API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class AuthController : Controller
+    public class AuthController : BaseController<AuthService>
     {
+        public AuthController(AuthService service) : base(service)
+        {
+        }
+
         [Route("Login")]
         [HttpPost, AllowAnonymous]
         public ActionResult Login([FromBody] ConnectionInfo user)
         {
-            if (user.Email == null || user.Password == null )
-            {
+            if (user.Email == null || user.Password == null ) {
                 return BadRequest(new { message = "Demande du client invalide" });
             }
 
-            if (user.Email == "test" && user.Password == "123")
-            {
+            if (Service.Authentification(user.Email, user.Password)) {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
@@ -46,10 +48,8 @@ namespace Web_API.Controllers
                 
                 return Ok(new { Validation = connexionValidation });
             }
-            else
-            {
+            else {
                 return Unauthorized(new { message = "Courriel ou mot de passe invalide" });
-                //return Unauthorized();
             }
         }
     }

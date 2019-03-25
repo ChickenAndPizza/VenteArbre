@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl, } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AlertService, AuthenticationService } from '../_services';
+import { AlertService, AuthenticationService } from '../_services/';
 import { ConnectionInfo } from 'app/_models/connectionInfo.model';
 import { CustomerService } from 'app/service/customer/customer.service';
 import { existingEmailValidator } from 'app/shared/email-validator.directive';
@@ -52,23 +52,30 @@ export class ConnectionComponent implements OnInit {
   get firstName() { return this.register.get('firstName');}
   get password() { return this.register.get('password');}
 
-  onSubmit() {
+  onConnection() {
     this.submitted = true;
     this.loading = true;
 
-    if ((<HTMLInputElement>document.getElementsByName('action')[0]).value == 'connection') {
-      this.authenticationService.login(this.f)
-          .pipe(first())
-          .subscribe(
-              data => {
-                  this.router.navigate([this.returnUrl]);
-              },
-              error => {
-                  this.alertService.error(error);
-                  this.loading = false;
-              });
-    }
-    else {
+    this.authenticationService.login(this.f)
+        .pipe(first())
+        .subscribe(
+            data => {
+                this.router.navigate([this.returnUrl]);
+            },
+            error => {
+                this.alertService.error(error);
+                this.loading = false;
+            });
+  }
+
+  onRegister() {
+
+    if(this.customerService){
+
+      let customer: any;
+      this.customerService.createCustomer(this.register.value).subscribe(c => {
+        customer = c;
+      });
 
     }
   }
@@ -117,16 +124,4 @@ export class ConnectionComponent implements OnInit {
     }
     this.HideCreationDetails();
   }
-  onRegister() {
-
-    if(this.customerService){
-
-      let customer: any;
-      this.customerService.createCustomer(this.register.value).subscribe(c => {
-        customer = c;
-      });
-
-    }
-  }
-
 }
