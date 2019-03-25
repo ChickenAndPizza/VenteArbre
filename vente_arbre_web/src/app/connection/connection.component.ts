@@ -23,6 +23,7 @@ export class ConnectionComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   register: FormGroup;
+  connection: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,30 +34,39 @@ export class ConnectionComponent implements OnInit {
     private customerService: CustomerService) {}
 
   ngOnInit() {
+    if (this.isMobileMenu())
+      this.ShowCreate();
+
     this.register = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email], existingEmailValidator(this.customerService)],
       password: ['', [Validators.required]]
-    })
+    });
+
+    this.connection = this.formBuilder.group({
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
 
     this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  get f() { return this.connectionModel; }
+  get f() { return this.connection; }
   get email() { return this.register.get('email');}
   get phoneNumber() { return this.register.get('phoneNumber');}
   get lastName() { return this.register.get('lastName');}
   get firstName() { return this.register.get('firstName');}
   get password() { return this.register.get('password');}
 
-  onConnection() {
-    this.submitted = true;
-    this.loading = true;
+  get emailConnection() {return this.connection.get('email');}
+  get passwordConnection() {return this.connection.get('password');}
 
-    this.authenticationService.login(this.f)
+  onConnection() {
+    console.log(this.f.value);
+    this.authenticationService.login(this.f.value)
         .pipe(first())
         .subscribe(
             data => {
@@ -64,7 +74,6 @@ export class ConnectionComponent implements OnInit {
             },
             error => {
                 this.alertService.error(error);
-                this.loading = false;
             });
   }
 
@@ -105,23 +114,13 @@ export class ConnectionComponent implements OnInit {
     }
   }
 
-  public HideCreationDetails(){
-    document.getElementById('whycreate').style.display = 'none';
-    document.getElementById('shipping').style.display = 'none';
-  }
-
   public ShowCreate(){
-    if (document.getElementById('createaccount').style.display === 'none') {
-      document.getElementById('createaccount').style.display = '';
-      document.getElementById('connection').style.display = 'none';
-    }
+    document.getElementById('createaccount').style.display = '';
+    document.getElementById('connection').style.display = 'none';
   }
 
   public ShowConnection(){
-    if (document.getElementById('connection').style.display === 'none') {
-      document.getElementById('connection').style.display = '';
-      document.getElementById('createaccount').style.display = 'none';
-    }
-    this.HideCreationDetails();
+    document.getElementById('connection').style.display = '';
+    document.getElementById('createaccount').style.display = 'none';
   }
 }
