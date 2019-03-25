@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl, } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AlertService, AuthenticationService, UserService } from '../_services';
+import { AlertService, AuthenticationService } from '../_services/';
 import { ConnectionInfo } from 'app/_models/connectionInfo.model';
 import { CustomerService } from 'app/service/customer/customer.service';
 import { existingEmailValidator } from 'app/shared/email-validator.directive';

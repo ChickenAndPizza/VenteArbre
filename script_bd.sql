@@ -1,3 +1,7 @@
+drop database if exists VenteArbre;
+create database VenteArbre;
+use VenteArbre;
+
 #------------------------------------------------------------
 #        Script MySQL.
 #------------------------------------------------------------
@@ -9,7 +13,6 @@
 
 CREATE TABLE customer(
         id           Varchar (36) NOT NULL ,
-	username     Varchar (17) NOT NULL ,
         first_name   Varchar (30) NOT NULL ,
         last_name    Varchar (30) NOT NULL ,
         email        Varchar (80) NOT NULL ,
