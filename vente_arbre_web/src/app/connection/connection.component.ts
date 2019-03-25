@@ -25,6 +25,7 @@ export class ConnectionComponent implements OnInit {
   register: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -126,4 +127,6 @@ export class ConnectionComponent implements OnInit {
       });
 
     }
+  }
+
 }
