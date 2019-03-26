@@ -10,6 +10,7 @@ import { TypographyComponent } from '../../typography/typography.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
+import { AuthGuard } from 'app/_guards';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -17,13 +18,16 @@ export const AdminLayoutRoutes: Routes = [
     //   children: [ {
     //     path: 'dashboard',
     //     component: DashboardComponent
-    // }]}, {
-    // path: '',
-    // children: [ {
-    //   path: 'userprofile',
-    //   component: UserProfileComponent
-    // }]
-    // }, {
+    // }]}, 
+    {
+        path: '',
+        children: [{
+            path: 'user-profile',
+            component: UserProfileComponent,
+            canActivate : [AuthGuard]
+        }]
+    },
+    //, {
     //   path: '',
     //   children: [ {
     //     path: 'icons',
@@ -48,14 +52,14 @@ export const AdminLayoutRoutes: Routes = [
     //         component: TypographyComponent
     //     }]
     // }
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'connection',     component: ConnectionComponent },
-    { path: 'table-list',     component: TableListComponent },
+    { path: 'dashboard', component: DashboardComponent },
+    //{ path: 'user-profile', component: UserProfileComponent },
+    { path: 'connection', component: ConnectionComponent },
+    { path: 'table-list', component: TableListComponent },
     { path: 'distribution-points', component: DistributionPointsComponent },
-    { path: 'about-us',       component: AboutUsComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
+    { path: 'about-us', component: AboutUsComponent },
+    { path: 'typography', component: TypographyComponent },
+    { path: 'icons', component: IconsComponent },
+    { path: 'maps', component: MapsComponent },
+    { path: 'notifications', component: NotificationsComponent },
 ];

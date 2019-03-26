@@ -1,14 +1,11 @@
 import { NgModule, forwardRef } from '@angular/core';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
-
-
-import { BackendInterceptor } from './_helpers';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule, routing } from './app.routing';
@@ -55,26 +52,23 @@ import { DialogComponent } from './_directives/dialog/dialog.component';
       apiKey: '&lon=-95.511747&lat=29.735577&format=xml'
     }),
     forwardRef(() => routing)
-    
+
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AlertComponent,
     ExistingEmailValidatorDirective,
-    DialogComponent
+    DialogComponent,
   ],
   providers: [
     AuthGuard,
-      AlertService,
-      AuthenticationService,
-      UserService,
-      CustomerService,
-      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
-
-      // provider used to create fake backend
-      //this
+    AlertService,
+    AuthenticationService,
+    UserService,
+    CustomerService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   entryComponents: [DialogComponent]

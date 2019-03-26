@@ -111,6 +111,13 @@ export class NavbarComponent implements OnInit {
 
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
+
+      if (titlee.indexOf("returnUrl") > 0 && titlee.indexOf("connection") > 0 && titlee.indexOf("user-profile") > 0 && titlee.indexOf("connection") < titlee.indexOf("user-profile"))
+      {
+        return 'Profil';
+      }
+
+
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 2 );
       }
