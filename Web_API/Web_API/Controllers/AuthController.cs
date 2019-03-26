@@ -53,17 +53,9 @@ namespace Web_API.Controllers
                     signingCredentials: signinCredentials
                 );
 
-                ConnectionValidation connexionValidation = new ConnectionValidation() {
-                    FirstName = customer.FirstName,
-                    LastName = customer.LastName,
-                    Email = customer.Email,
-                    Password = customer.Password,
-                    PhoneNumber = customer.PhoneNumber,
-                    IsAdmin = customer.IsAdmin
-                };
-                connexionValidation.Token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                var token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
                 
-                return Ok(new { Validation = connexionValidation });
+                return Ok(token);
             }
             else {
                 return Unauthorized(new { message = "Courriel ou mot de passe invalide" });

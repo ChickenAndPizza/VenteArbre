@@ -12,7 +12,7 @@ export class AuthenticationService extends MainService {
     login(connectionInfo: ConnectionInfo) {
         return this.http.post<any>( `${this.apiUrl}Auth/Login`, JSON.stringify(connectionInfo), { headers: this.headers })
         .pipe(map((data : any) => {
-                if (data && data['validation'].token) {
+                if (data) {
                     localStorage.setItem('currentUser', JSON.stringify(data));
                 }
                 return data;
