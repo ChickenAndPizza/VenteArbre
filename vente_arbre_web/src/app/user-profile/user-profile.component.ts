@@ -7,9 +7,11 @@ import { UserService } from '../_services';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { DialogComponent } from '../_directives/dialog/dialog.component';
 import { AuthenticationService } from '../_services';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
 import { existingEmailValidator } from 'app/shared/email-validator.directive';
 import { CustomerService } from 'app/service/customer/customer.service';
+import { ConnectionInfo } from 'app/_models/connectionInfo.model';
+import { decodeToken } from 'app/_helpers/jwt.decoder';
 
 @Component({
     selector: 'app-user-profile',
@@ -35,14 +37,16 @@ export class UserProfileComponent implements OnInit {
 
     ngOnInit() {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.currentUser = this.decodeToken(this.currentUser)
+        this.currentUser = decodeToken(this.currentUser);
         this.profile = this.formBuilder.group({
+            id: [this.currentUser.id],
             firstName: [this.currentUser.firstName, [Validators.required]],
             lastName: [this.currentUser.lastName, [Validators.required]],
             phoneNumber: [this.currentUser.phoneNumber, [Validators.required]],
-            email: [this.currentUser.email, [Validators.required, Validators.email], existingEmailValidator(this.customerService)],
-            password: [this.currentUser.password, [Validators.required]]
+            email: [this.currentUser.email, [Validators.required, Validators.email], existingEmailValidator(this.currentUser.id, this.customerService)],
+            password: ['', ,]
         });
+
     }
 
     get email() { return this.profile.get('email'); }
@@ -52,35 +56,33 @@ export class UserProfileComponent implements OnInit {
     get password() { return this.profile.get('password'); }
     get pristineEmail() { return this.currentUser.email }
 
-    public decodeToken(token: string = '') {
-        if (token === null || token === '') { return { 'upn': '' }; }
-        const parts = token.split('.');
-        if (parts.length !== 3) {
+    checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    let pass = group.controls.password.value;
+    let confirmPass = group.controls.confirmPassword.value;
 
-            throw new Error('JWT must have 3 parts');
-        }
-        const decoded = this.urlBase64Decode(parts[1]);
-        if (!decoded) {
-            throw new Error('Cannot decode the token');
-        }
-        return JSON.parse(decoded);
-    }
+    return pass === confirmPass ? null : { notSame: true }
+  }
 
-    private urlBase64Decode(str: string) {
-        let output = str.replace(/-/g, '+').replace(/_/g, '/');
-        switch (output.length % 4) {
-            case 0:
-                break;
-            case 2:
-                output += '==';
-                break;
-            case 3:
-                output += '=';
-                break;
-            default:
-                throw 'Illegal base64url string!';
-        }
-        return decodeURIComponent((<any>window).escape(window.atob(output)));
+    public onModify() {
+        if(this.customerService){
+            if(this.password.value === '') {
+                this.password.setValue(this.currentUser.password);
+            }
+            let customer: any;
+            this.customerService.addOrUpdateCustomer(this.profile.value).subscribe(c => {
+              customer = c;
+              this.authenticationService.logout();
+              const login = new ConnectionInfo(customer.email, customer.password);
+              this.authenticationService.login({email: customer.email, password: customer.password})
+              .pipe(first())
+              .subscribe(c => {
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.currentUser = decodeToken(this.currentUser);
+                this.password.setValue('');
+              });
+            });
+      
+          }
     }
 
     public logout() {
@@ -99,7 +101,7 @@ export class UserProfileComponent implements OnInit {
         this.dialogRef = this.dialog.open(DialogComponent, dialogConfig);
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.userService.delete(this.decodeToken(this.currentUser).id).subscribe()
+                this.userService.delete(decodeToken(this.currentUser).id).subscribe()
                 this.logout();
                 location.reload(true);
             }

@@ -29,16 +29,16 @@ namespace Web_API.Controllers
             }
 
             if (Service.AddOrUpdate(entity) != Guid.Empty)
-                return Ok(new { id = entity.Id });
+                return Ok(entity);
 
             return BadRequest();
         }
 
         [HttpGet, AllowAnonymous]
         [Route("Email/")]
-        public ActionResult<bool> IsEmailAlreadyUsed(string email)
+        public ActionResult<bool> IsEmailAlreadyUsed(string id, string email)
         {
-            return Service.IsEmailAlreadyUsed(email);
+            return Service.IsEmailAlreadyUsed(id, email);
         }
     }
 

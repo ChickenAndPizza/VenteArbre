@@ -31,7 +31,6 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { CustomerService } from './service/customer/customer.service';
-import { ExistingEmailValidatorDirective } from './shared/email-validator.directive';
 
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material';
 import { DialogComponent } from './_directives/dialog/dialog.component';
@@ -58,7 +57,6 @@ import { DialogComponent } from './_directives/dialog/dialog.component';
     AppComponent,
     AdminLayoutComponent,
     AlertComponent,
-    ExistingEmailValidatorDirective,
     DialogComponent,
   ],
   providers: [

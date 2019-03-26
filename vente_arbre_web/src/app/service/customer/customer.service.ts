@@ -18,7 +18,7 @@ export class CustomerService extends MainService {
       return this.http.get(url);
   }
 
-  createCustomer(newCustomer: any): Observable<any> {
+  addOrUpdateCustomer(newCustomer: any): Observable<any> {
     const url = this.apiUrl.toString() + "Customer";
     return this.http.post(
       url,
@@ -29,8 +29,14 @@ export class CustomerService extends MainService {
     )
   };
 
-  validateEmail(email: string) {
-    const url = this.apiUrl.toString() + "Customer/Email?email=" + email;
+  validateEmail(id: string, email: string) {
+    let url = '';
+    if(id){
+      url = this.apiUrl.toString() + "Customer/Email?id="+ id + "&email=" + email;
+    } else {
+      url = this.apiUrl.toString() + "Customer/Email?email=" + email;
+    }
+
     let headers = new HttpHeaders();
     headers = headers.set('Access-Control-Allow-Origin', '*');
     return this.http.get<boolean[]>(url);
