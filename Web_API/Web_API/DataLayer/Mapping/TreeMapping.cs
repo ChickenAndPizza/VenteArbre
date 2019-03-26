@@ -10,8 +10,6 @@ namespace Web_API.DataLayer.Mapping
     public class TreeMapping : BaseModelMapping<Tree>
     {
         public override void Map(EntityTypeBuilder<Tree> b)
-        {
-            b.HasOne(c => c.TreeSubCategory).WithMany(c => c.Trees).HasForeignKey(c => c.IdTreeSubCategory);
-        }
+        { }
     }
 }

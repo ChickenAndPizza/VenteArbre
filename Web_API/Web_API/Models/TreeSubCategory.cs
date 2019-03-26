@@ -9,7 +9,6 @@ namespace Web_API.Models
         public string Description { get; set; }
         public Guid IdTreeCategory { get; set; }
 
-        public TreeCategory TreeCategory { get; set; }
         public ICollection<Tree> Trees { get; set; }
     }
 }

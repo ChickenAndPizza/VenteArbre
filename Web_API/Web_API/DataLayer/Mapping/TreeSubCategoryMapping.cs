@@ -11,8 +11,7 @@ namespace Web_API.DataLayer.Mapping
     {
         public override void Map(EntityTypeBuilder<TreeSubCategory> b)
         {
-            b.HasOne(c => c.TreeCategory).WithMany(c => c.TreeSubCategories).HasForeignKey(c => c.IdTreeCategory);
-            b.HasMany(c => c.Trees).WithOne(c => c.TreeSubCategory).HasForeignKey(c => c.IdTreeSubCategory);
+            b.HasMany(c => c.Trees).WithOne().HasForeignKey(c => c.IdTreeSubCategory);
         }
     }
 }

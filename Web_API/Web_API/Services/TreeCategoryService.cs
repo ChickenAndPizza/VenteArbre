@@ -17,8 +17,7 @@ namespace Web_API.Services
 
         public List<TreeCategory> GetCategoryWithSubCategory()
         {
-            var test = Context.TreeCategories.Include(c => c.TreeSubCategories).ToList();
-            return test;
+            return Context.TreeCategories.Include(c => c.TreeSubCategories).ToList();
         }
     }
 }

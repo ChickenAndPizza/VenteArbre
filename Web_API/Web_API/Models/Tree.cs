@@ -11,6 +11,5 @@ namespace Web_API.Models
 
         public Guid IdTreeSubCategory { get; set; }
 
-        public TreeSubCategory TreeSubCategory { get; set; }
     }
 }
