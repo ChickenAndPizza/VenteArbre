@@ -3,7 +3,7 @@ using Web_API.Services.Base;
 
 namespace Web_API.Controllers.Base
 {
-    public abstract class BaseController<TService> : Controller where TService : BaseService
+    public abstract class BaseController<TService> : BaseSecuredController where TService : BaseService
     {
         protected readonly TService Service;
 

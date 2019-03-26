@@ -10,7 +10,7 @@ using Web_API.Services.Base;
 namespace Web_API.Controllers.Base
 {
     [Produces("application/json")]
-    public abstract class BaseCrudController<TService, TModel> : Controller
+    public abstract class BaseCrudController<TService, TModel> : BaseSecuredController
             where TModel : BaseModel, new()
             where TService : BaseCrudService<TModel>
     {
@@ -31,7 +31,7 @@ namespace Web_API.Controllers.Base
             return Ok(entity);
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         [ProducesResponseType(401)]
         [ProducesResponseType(200)]
         public virtual ActionResult Get()

@@ -19,8 +19,10 @@ namespace Web_API.Controllers
     [Route("api/[controller]")]
     public class AuthController : BaseController<AuthService>
     {
-        public AuthController(AuthService service) : base(service)
+        private readonly CustomerService customerService;
+        public AuthController(CustomerService customerService, AuthService service) : base(service)
         {
+            this.customerService = customerService;
         }
 
         [Route("Login")]
@@ -32,18 +34,33 @@ namespace Web_API.Controllers
             }
 
             if (Service.Authentification(user.Email, user.Password)) {
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
-                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-
+                var customer = customerService.GetCustomerByEmail(user.Email);
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@1238879"));
+                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256Signature);
                 var tokeOptions = new JwtSecurityToken(
                     issuer: "http://localhost:5000",
                     audience: "http://localhost:5000",
-                    claims: new List<Claim>(),
+                    claims: new List<Claim>() {
+                        new Claim("id", customer.Id.ToString()),
+                        new Claim("firstName", customer.FirstName),
+                        new Claim("lastName", customer.LastName),
+                        new Claim("password", customer.Password),
+                        new Claim("phoneNumber", customer.PhoneNumber),
+                        new Claim("email", customer.Email),
+                        new Claim("isAdmin", customer.IsAdmin.ToString())
+                    },
                     expires: DateTime.Now.AddMinutes(15),
                     signingCredentials: signinCredentials
                 );
 
-                ConnectionValidation connexionValidation = new ConnectionValidation();
+                ConnectionValidation connexionValidation = new ConnectionValidation() {
+                    FirstName = customer.FirstName,
+                    LastName = customer.LastName,
+                    Email = customer.Email,
+                    Password = customer.Password,
+                    PhoneNumber = customer.PhoneNumber,
+                    IsAdmin = customer.IsAdmin
+                };
                 connexionValidation.Token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
                 
                 return Ok(new { Validation = connexionValidation });
