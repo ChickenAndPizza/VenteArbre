@@ -1,4 +1,5 @@
-﻿using Web_API.Models.Base;
+﻿using System;
+using Web_API.Models.Base;
 
 namespace Web_API.Models
 {
@@ -7,5 +8,9 @@ namespace Web_API.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public float Price { get; set; }
+
+        public Guid IdTreeSubCategory { get; set; }
+
+        public TreeSubCategory TreeSubCategory { get; set; }
     }
 }

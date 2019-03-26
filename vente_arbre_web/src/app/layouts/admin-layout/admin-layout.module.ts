@@ -8,7 +8,7 @@ import { UserProfileComponent } from '../../user-profile/user-profile.component'
 import { ConnectionComponent } from '../../connection/connection.component';
 import { DistributionPointsComponent } from '../../distribution-points/distribution-points.component';
 import { AboutUsComponent } from '../../about-us/about-us.component';
-import { TableListComponent } from '../../table-list/table-list.component';
+import { TreeListComponent } from '../../tree-list/tree-list.component';
 import { TypographyComponent } from '../../typography/typography.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
@@ -39,7 +39,7 @@ import {
     DashboardComponent,
     UserProfileComponent,
     ConnectionComponent,
-    TableListComponent,
+    TreeListComponent,
     DistributionPointsComponent,
     AboutUsComponent,
     TypographyComponent,
