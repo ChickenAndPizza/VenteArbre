@@ -2,10 +2,32 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-md-1" *ngIf="isAdmin()">
-                <a class="nav-link" href="#add-category">
-                    <i style="text-align: center;font-size: 50px;" class="material-icons">add_circle</i>
-                </a>
+            <div class="col-md-12" *ngIf="admin">
+                <div class="row">
+                    <div class="col-md-1">
+                        <a class="nav-link">
+                            <i (click)="ShowNewCategory()" class="material-icons NewCategoryIcon">add_circle</i>
+                        </a>
+                    </div>
+                    <div id="newCategory" class="col-md-11" style="display:none;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Nouvelle catégorie" name="newCategory" maxlength="80">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3" style="text-align: left">
+                                <a class="nav-link NewIconOption"> 
+                                    <i (click)="AddNewCategory()" class="material-icons NewCategoryIconOption">check</i>
+                                </a>
+                                <a class="nav-link NewIconOption"> 
+                                    <i (click)="HideNewCategory()" class="material-icons NewCategoryIconOption">close</i>
+                                </a>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-12" *ngFor="let treeCategory of treeCategories">
@@ -15,12 +37,12 @@
                             <div class="col-md-9">
                                 <h3 class="card-title">{{ treeCategory.description }}</h3>
                             </div>
-                            <div class="col-md-3" style="text-align: right" *ngIf="isAdmin()">
-                                <a class="nav-link CategoryOption" href="#modify-category">
-                                    <i class="material-icons categoryicon">settings</i>
+                            <div class="col-md-3" style="text-align: right" *ngIf="admin">
+                                <a class="nav-link NewIconOption" href="#modify-category">
+                                    <i class="material-icons CategoryIcon">settings</i>
                                 </a>
-                                <a class="nav-link CategoryOption">
-                                    <i (click)="deleteCategoryValidation();" class="material-icons categoryicon">delete</i>
+                                <a class="nav-link NewIconOption">
+                                    <i (click)="deleteCategoryValidation();" class="material-icons CategoryIcon">delete</i>
                                 </a>
                             </div>
                         </div>
@@ -36,7 +58,12 @@
                                     <th>
                                         Zone
                                     </th>
-                                    <th *ngIf="isAdmin()">
+                                    <th>
+                                        Prix
+                                    </th>
+                                    <th>
+                                    </th>
+                                    <th *ngIf="admin">
                                     </th>
                                 </thead>
                                 <tbody>
@@ -47,12 +74,21 @@
                                         <td>
                                             4-a
                                         </td>
-                                        <td style="text-align: right" *ngIf="isAdmin()">
-                                            <a class="nav-link CategoryOption" href="#modify-sub-category">
-                                                <i style="font-size: 15px;" class="material-icons">settings</i>
+                                        <td>
+                                            20,00$
+                                        </td>
+                                        <td>
+                                            20,00$
+                                        </td>
+                                        <td>
+                                            <button mat-raised-button type="submit" class="btn btn-primary pull-right">Consulter</button>
+                                        </td>
+                                        <td style="text-align: right" *ngIf="admin">
+                                            <a class="nav-link NewIconOption" href="#modify-sub-category">
+                                                <i class="material-icons SubCategoryIcon">settings</i>
                                             </a>
-                                            <a class="nav-link CategoryOption" href="">
-                                                <i (click)="deleteSubCategoryValidation();" class="material-icons ">delete</i>
+                                            <a class="nav-link NewIconOption" href="">
+                                                <i (click)="deleteSubCategoryValidation();" class="material-icons SubCategoryIcon">delete</i>
                                             </a>
                                         </td>
                                     </tr>
