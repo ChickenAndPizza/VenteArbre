@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TreeCategoryService } from 'app/service/tree-category/tree-category.service';
 
 @Component({
   selector: 'app-tree-list',
@@ -7,9 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TreeListComponent implements OnInit {
 
-  constructor() { }
+  treeCategories: any[];
+  currentUser: any;
+
+  constructor(
+    private treeCategoryService: TreeCategoryService,
+  ) { }
 
   ngOnInit() {
+    this.loadTreeCategories();
+
+  }
+
+  private isAdmin(): boolean
+  {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    return false;
+  }
+
+  private loadTreeCategories() {
+    this.treeCategoryService.getCategoriesAndSubCategories().subscribe(
+      categories => {
+        this.treeCategories = categories;
+      }
+    );
   }
 
 }

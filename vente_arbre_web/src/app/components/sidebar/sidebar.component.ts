@@ -13,9 +13,6 @@ export const ROUTES: RouteInfo[] = [
     { path: '/distribution-points', title: 'Points de distribution',  icon:'location_on', class: '' },
     { path: '/user-profile', title: 'Profil',  icon:'person', class: '' },
     { path: '/about-us', title: 'À propos',  icon:'chat', class: '' },
-    /*{ path: '/icons', title: 'dfsdfsdf',  icon:'bubble_chart', class: '' },
-    { path: '/typography', title: 'Rien',  icon:'bubble_chart', class: '' },
-    { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },*/
     { path: '/connection', title: 'Connexion',  icon:'person', class: '' }
 ];
 
