@@ -67,7 +67,7 @@
                                     </mat-form-field>
                                     <small *ngIf="email.errors && email.invalid && email.dirty && email.touched" class="text-danger">
                                         <div *ngIf="email.errors?.required">L'email est requis</div>
-                                        <div *ngIf="email.errors.email">L'email n'est pas valide</div>
+                                        <div *ngIf="email.errors?.email">L'email n'est pas valide</div>
                                         <div *ngIf="email.errors?.emailExists">L'email est déjà utilisé</div>
                                     </small>
                                 </div>
@@ -81,8 +81,8 @@
                                     </mat-form-field>
                                     <small *ngIf="password.errors && password.invalid && password.touched"
                                         class="text-danger">
-                                        <div *ngIf="password.errors.required"> Le mot de passe est requis</div>
-                                        <div *ngIf="password.errors.minlength"> Le mot de passe doit contenir entre
+                                        <div *ngIf="password.errors?.required"> Le mot de passe est requis</div>
+                                        <div *ngIf="password.errors?.minlength"> Le mot de passe doit contenir entre
                                             6 et
                                             30 caractères</div>
                                     </small>
@@ -90,17 +90,24 @@
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
                                         <input minlength="6" maxlength="30" matInput placeholder="Confirmation du mot de passe"
-                                            type="password" name="confirmPassword" formControlName="confirmPassword">
+                                            type="password" name="passwordConfirm" formControlName="passwordConfirm">
                                     </mat-form-field>
                                     <small class="text-danger">
-                                        <div *ngIf="profile.tSame"> Le mot de passe est requis</div>
+                                        <div *ngIf="profile.errors?.notSame"> Les mots de passe ne sont pas équivalent</div>
                                     </small>
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-2" style="text-align: right; top:14px;">
+
+                                </div>
                                 <div class="col-md-12">
-                                    <button mat-raised-button type="submit" class="btn btn-green pull-right">Modifier le
-                                        profil</button>
+                                    <button [disabled]="!profile.valid" mat-raised-button type="submit" class="btn btn-green pull-right">Sauvegarder les changements</button>
+                                    <div  *ngIf="save" [@fadeInOnEnter]  [@fadeOutOnLeave]>
+                                        <i class="material-icons pull-right" style="color: green;font-size:36px;margin-top: 7px">check</i>
+                                    </div>
+
+
                                 </div>
                             </div>
                             <div class="row">

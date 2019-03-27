@@ -7,15 +7,17 @@ import { UserService } from '../_services';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { DialogComponent } from '../_directives/dialog/dialog.component';
 import { AuthenticationService } from '../_services';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { existingEmailValidator } from 'app/shared/email-validator.directive';
 import { CustomerService } from 'app/service/customer/customer.service';
 import { ConnectionInfo } from 'app/_models/connectionInfo.model';
 import { decodeToken } from 'app/_helpers/jwt.decoder';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
-function checkPasswords(group: AbstractControl): { [key: string]: boolean} | null {
-    const password = group.get('password');
-    const confirmPassword = group.get('passwordConfirm');
+
+function checkPasswords(form: FormGroup): { [key: string]: boolean} | null {
+    const password = form.get('password');
+    const confirmPassword = form.get('passwordConfirm');
  
     return password && confirmPassword && password.value !== confirmPassword.value ?
      {'notSame': true} : null;
@@ -24,7 +26,11 @@ function checkPasswords(group: AbstractControl): { [key: string]: boolean} | nul
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
-    styleUrls: ['./user-profile.component.css']
+    styleUrls: ['./user-profile.component.css'],
+    animations: [
+        fadeInOnEnterAnimation(),
+        fadeOutOnLeaveAnimation(),
+      ]
 })
 export class UserProfileComponent implements OnInit {
 
@@ -32,6 +38,7 @@ export class UserProfileComponent implements OnInit {
     users: User[] = [];
     dialogRef: MatDialogRef<DialogComponent>;
     profile: FormGroup;
+    save = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -39,9 +46,7 @@ export class UserProfileComponent implements OnInit {
         private customerService: CustomerService,
         private dialog: MatDialog,
         private authenticationService: AuthenticationService
-    ) {
-        console.log();
-    }
+    ) { }
 
     ngOnInit() {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -53,46 +58,47 @@ export class UserProfileComponent implements OnInit {
             phoneNumber: [this.currentUser.phoneNumber, [Validators.required]],
             email: [this.currentUser.email, [Validators.required, Validators.email], existingEmailValidator(this.currentUser.id, this.customerService)],
             password: ['', ,],
-            confirmPassword: ['', ,]
+            passwordConfirm: ['', ,]
         });
 
         this.onChanges();
     }
 
     onChanges(): void {
-        this.profile.get('password').valueChanges.subscribe(c => {
-            console.log()
-            if(c === this.currentUser.password || !c) {
-                console.log(1);
-                if(this.password.validator) {
-                    this.password.clearValidators();
-                }
-                if(this.confirmPassword.validator) {
-                    this.confirmPassword.clearValidators();
-                }
+        this.profile.get('password').valueChanges.subscribe(value => {
+            if(value) {
+                this.profile.setValidators(checkPasswords);
             } else {
-                console.log(2);
-                this.password.setValidators([Validators.required, Validators.minLength(6)]);
-                this.profile.validator = checkPasswords;
+                this.profile.clearValidators();
             }
         });
     }
 
+    get id() { return this.profile.get('id'); }
     get email() { return this.profile.get('email'); }
     get phoneNumber() { return this.profile.get('phoneNumber'); }
     get lastName() { return this.profile.get('lastName'); }
     get firstName() { return this.profile.get('firstName'); }
     get password() { return this.profile.get('password'); }
-    get confirmPassword() { return this.profile.get('passwordConfirm'); }
+    get passwordConfirm() { return this.profile.get('passwordConfirm'); }
 
     public onModify() {
         if(this.customerService){
+            this.save = true;
+            let customer = new User(
+                this.id.value,
+                this.email.value,
+                this.password.value,
+                this.firstName.value,
+                this.lastName.value,
+                this.phoneNumber.value
+            );
             if(this.password.value === '') {
-                this.password.setValue(this.currentUser.password);
+                customer.password = this.currentUser.password;
             }
-            let customer: any;
-            this.customerService.addOrUpdateCustomer(this.profile.value).subscribe(c => {
+            this.customerService.addOrUpdateCustomer(customer).subscribe(c => {
               customer = c;
+              this.password.setValue('');
               this.authenticationService.logout();
               const login = new ConnectionInfo(customer.email, customer.password);
               this.authenticationService.login({email: customer.email, password: customer.password})
@@ -101,10 +107,18 @@ export class UserProfileComponent implements OnInit {
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.currentUser = decodeToken(this.currentUser);
                 this.password.setValue('');
+                this.passwordConfirm.setValue('');
+                if(this.profile.validator) {
+                    this.profile.clearValidators();
+                }
+         
               });
             });
       
           }
+          setTimeout( () => {
+              this.save = false;
+          }, 3000);
     }
 
     public logout() {

@@ -37,8 +37,8 @@ import { DialogComponent } from './_directives/dialog/dialog.component';
 
 @NgModule({
   imports: [
-    BrowserAnimationsModule,
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
