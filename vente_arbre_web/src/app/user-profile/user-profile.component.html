@@ -65,7 +65,7 @@
                                         <input maxlength="80" [class.is-invalid]="email.invalid && email.touched"
                                             name="email" matInput placeholder="Adresse couriel" formControlName="email">
                                     </mat-form-field>
-                                    <small *ngIf="pristineEmail != email && email.errors && email.invalid && email.dirty && email.touched" class="text-danger">
+                                    <small *ngIf="email.errors && email.invalid && email.dirty && email.touched" class="text-danger">
                                         <div *ngIf="email.errors?.required">L'email est requis</div>
                                         <div *ngIf="email.errors.email">L'email n'est pas valide</div>
                                         <div *ngIf="email.errors?.emailExists">L'email est déjà utilisé</div>
@@ -85,6 +85,15 @@
                                         <div *ngIf="password.errors.minlength"> Le mot de passe doit contenir entre
                                             6 et
                                             30 caractères</div>
+                                    </small>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input minlength="6" maxlength="30" matInput placeholder="Confirmation du mot de passe"
+                                            type="password" name="confirmPassword" formControlName="confirmPassword">
+                                    </mat-form-field>
+                                    <small class="text-danger">
+                                        <div *ngIf="profile.tSame"> Le mot de passe est requis</div>
                                     </small>
                                 </div>
                             </div>

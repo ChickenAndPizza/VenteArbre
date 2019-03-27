@@ -7,11 +7,19 @@ import { UserService } from '../_services';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { DialogComponent } from '../_directives/dialog/dialog.component';
 import { AuthenticationService } from '../_services';
-import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { existingEmailValidator } from 'app/shared/email-validator.directive';
 import { CustomerService } from 'app/service/customer/customer.service';
 import { ConnectionInfo } from 'app/_models/connectionInfo.model';
 import { decodeToken } from 'app/_helpers/jwt.decoder';
+
+function checkPasswords(group: AbstractControl): { [key: string]: boolean} | null {
+    const password = group.get('password');
+    const confirmPassword = group.get('passwordConfirm');
+ 
+    return password && confirmPassword && password.value !== confirmPassword.value ?
+     {'notSame': true} : null;
+    }
 
 @Component({
     selector: 'app-user-profile',
@@ -44,9 +52,30 @@ export class UserProfileComponent implements OnInit {
             lastName: [this.currentUser.lastName, [Validators.required]],
             phoneNumber: [this.currentUser.phoneNumber, [Validators.required]],
             email: [this.currentUser.email, [Validators.required, Validators.email], existingEmailValidator(this.currentUser.id, this.customerService)],
-            password: ['', ,]
+            password: ['', ,],
+            confirmPassword: ['', ,]
         });
 
+        this.onChanges();
+    }
+
+    onChanges(): void {
+        this.profile.get('password').valueChanges.subscribe(c => {
+            console.log()
+            if(c === this.currentUser.password || !c) {
+                console.log(1);
+                if(this.password.validator) {
+                    this.password.clearValidators();
+                }
+                if(this.confirmPassword.validator) {
+                    this.confirmPassword.clearValidators();
+                }
+            } else {
+                console.log(2);
+                this.password.setValidators([Validators.required, Validators.minLength(6)]);
+                this.profile.validator = checkPasswords;
+            }
+        });
     }
 
     get email() { return this.profile.get('email'); }
@@ -54,14 +83,7 @@ export class UserProfileComponent implements OnInit {
     get lastName() { return this.profile.get('lastName'); }
     get firstName() { return this.profile.get('firstName'); }
     get password() { return this.profile.get('password'); }
-    get pristineEmail() { return this.currentUser.email }
-
-    checkPasswords(group: FormGroup) { // here we have the 'passwords' group
-    let pass = group.controls.password.value;
-    let confirmPass = group.controls.confirmPassword.value;
-
-    return pass === confirmPass ? null : { notSame: true }
-  }
+    get confirmPassword() { return this.profile.get('passwordConfirm'); }
 
     public onModify() {
         if(this.customerService){
