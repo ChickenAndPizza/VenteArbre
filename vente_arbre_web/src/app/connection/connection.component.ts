@@ -31,7 +31,7 @@ export class ConnectionComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
-    private customerService: CustomerService) {}
+    private customerService: CustomerService) { }
 
   ngOnInit() {
     if (this.isMobileMenu())
@@ -41,7 +41,7 @@ export class ConnectionComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email], existingEmailValidator(this.customerService)],
+      email: ['', [Validators.required, Validators.email], existingEmailValidator(null, this.customerService)],
       password: ['', [Validators.required]]
     });
 
@@ -55,33 +55,33 @@ export class ConnectionComponent implements OnInit {
   }
 
   get f() { return this.connection; }
-  get email() { return this.register.get('email');}
-  get phoneNumber() { return this.register.get('phoneNumber');}
-  get lastName() { return this.register.get('lastName');}
-  get firstName() { return this.register.get('firstName');}
-  get password() { return this.register.get('password');}
+  get email() { return this.register.get('email'); }
+  get phoneNumber() { return this.register.get('phoneNumber'); }
+  get lastName() { return this.register.get('lastName'); }
+  get firstName() { return this.register.get('firstName'); }
+  get password() { return this.register.get('password'); }
 
-  get emailConnection() {return this.connection.get('email');}
-  get passwordConnection() {return this.connection.get('password');}
+  get emailConnection() { return this.connection.get('email'); }
+  get passwordConnection() { return this.connection.get('password'); }
 
   onConnection() {
     this.authenticationService.login(this.f.value)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-                this.alertService.error(error);
-            });
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.alertService.error(error);
+        });
   }
 
   onRegister() {
 
-    if(this.customerService){
+    if (this.customerService) {
 
       let customer: any;
-      this.customerService.createCustomer(this.register.value).subscribe(c => {
+      this.customerService.addOrUpdateCustomer(this.register.value).subscribe(c => {
         customer = c;
       });
 
@@ -90,7 +90,7 @@ export class ConnectionComponent implements OnInit {
 
   isMobileMenu() {
     if ($(window).width() > 991) {
-        return false;
+      return false;
     }
     return true;
   };
@@ -113,12 +113,12 @@ export class ConnectionComponent implements OnInit {
     }
   }
 
-  public ShowCreate(){
+  public ShowCreate() {
     document.getElementById('createaccount').style.display = '';
     document.getElementById('connection').style.display = 'none';
   }
 
-  public ShowConnection(){
+  public ShowConnection() {
     document.getElementById('connection').style.display = '';
     document.getElementById('createaccount').style.display = 'none';
   }

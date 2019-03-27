@@ -16,9 +16,12 @@ namespace Web_API.Services
         {
         }
 
-        public bool IsEmailAlreadyUsed(string email)
+        public bool IsEmailAlreadyUsed(string id, string email)
         {
-            return Context.Customers.Any(c => c.Email == email);
+            if (!string.IsNullOrWhiteSpace(id) && Context.Customers.Any(c => c.Id == new Guid(id) && c.Email == email))
+                return false;
+            else
+                return Context.Customers.Any(c => c.Email == email);
         }
 
         public Customer GetCustomerByEmail(string email)
