@@ -35,6 +35,7 @@ namespace Web_API.Services.Base
 
             if (entity == null)
                 return false;
+            entity.IsActive = false;
 
             Context.SaveChanges();
 

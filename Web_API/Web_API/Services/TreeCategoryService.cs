@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,24 @@ namespace Web_API.Services
 
         public List<TreeCategory> GetCategoryWithSubCategory()
         {
-            return Context.TreeCategories.Include(c => c.TreeSubCategories).ToList();
+           var query = Context.TreeCategories.Where(c => c.IsActive == true)
+                .Include(c => c.TreeSubCategories)
+                .Select(c => new TreeCategory
+                {
+                    Id = c.Id,
+                    Description = c.Description,
+                    TreeSubCategories = c.TreeSubCategories.Where(x => x.IsActive).ToList(),
+                    IsActive = c.IsActive
+                    
+                })
+            .ToList();
+
+            return query;
+        }
+
+        public bool IsDescriptionAlreadyUsed(string description)
+        {
+            return Context.TreeCategories.Any(c => c.Description == description);
         }
     }
 }
