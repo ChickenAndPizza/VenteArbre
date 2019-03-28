@@ -32,8 +32,9 @@ import {
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { CustomerService } from './service/customer/customer.service';
 
-import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { DialogComponent } from './_directives/dialog/dialog.component';
+import { DialogEntryComponent } from './_directives/dialog-entry/dialog-entry.component';
 
 @NgModule({
   imports: [
@@ -46,7 +47,9 @@ import { DialogComponent } from './_directives/dialog/dialog.component';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    MatFormFieldModule,
     MatDialogModule,
+    MatInputModule,
     AgmCoreModule.forRoot({
       apiKey: '&lon=-95.511747&lat=29.735577&format=xml'
     }),
@@ -58,6 +61,7 @@ import { DialogComponent } from './_directives/dialog/dialog.component';
     AdminLayoutComponent,
     AlertComponent,
     DialogComponent,
+    DialogEntryComponent,
   ],
   providers: [
     AuthGuard,
@@ -69,6 +73,6 @@ import { DialogComponent } from './_directives/dialog/dialog.component';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent, DialogEntryComponent]
 })
 export class AppModule { }
