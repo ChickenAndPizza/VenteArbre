@@ -2,296 +2,100 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-md-1">
-                <a class="nav-link" href="#add-tree">
-                    <i style="text-align: center;font-size: 50px;" class="material-icons">add_circle</i>
-                </a>
-            </div>
-
-            <div class="col-md-12" *ngFor="let tree_category of tree_categories">
-                <div class="card">
-                    <div class="card-header card-header-green">
-                        <h4 class="card-title">{{ tree_category }}</h4>
+            <div class="col-md-12" *ngIf="admin">
+                <div class="row">
+                    <div class="col-md-1">
+                        <a class="nav-link">
+                            <i (click)="ShowNewCategory()" class="material-icons NewCategoryIcon">add_circle</i>
+                        </a>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Zone
-                                    </th>
-                                    <th>
-                                        Price
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Cortland
-                                        </td>
-                                        <td>
-                                            4-a
-                                        </td>
-                                        <td class="text-primary">
-                                            $36,738
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Délicieuse jaune
-                                        </td>
-                                        <td>
-                                            5-b
-                                        </td>
-                                        <td class="text-primary">
-                                            $78,615
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Honeycrisp
-                                        </td>
-                                        <td>
-                                            4-a
-                                        </td>
-                                        <td class="text-primary">
-                                            $75,50
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div id="newCategory" class="col-md-11" style="display:none;">
+                        <form [formGroup]="newCategory" (ngSubmit)="AddNewCategory()">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Nouvelle catégorie" name="newCategory" formControlName="description" maxlength="80">
+                                    </mat-form-field>
+                                    <small *ngIf="description.errors && description.invalid && description.touched"
+                                        class="text-danger">
+                                        <div *ngIf="description.errors?.treeCategoryExists">La catégorie est déjà existante</div>
+                                    </small>
+                                </div>
+                                
+                                <div class="col-md-3" style="text-align: left">
+                                    <button [disabled]="!newCategory.valid" type="submit" mat-icon-button>
+                                        <i class="material-icons NewCategoryIconOption">check</i>
+                                    </button>
+                                    <!--<a class="nav-link NewIconOption"> 
+                                        <i (click)="AddNewCategory()" class="material-icons NewCategoryIconOption">check</i>
+                                    </a>-->
+                                    <a class="nav-link NewIconOption"> 
+                                        <i (click)="HideNewCategory()" class="material-icons NewCategoryIconOption">close</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-12" *ngFor="let treeCategory of treeCategories">
                 <div class="card">
                     <div class="card-header card-header-green">
                         <div class="row">
-                            <div class="col-md-10">
-                                <h4 class="card-title ">Simple Table</h4>
-                                <p class="card-category">Here is a subtitle for this table</p>
-
+                            <div class="col-md-9">
+                                <h3 class="card-title">{{ treeCategory.description }}</h3>
                             </div>
-                            <div class="col-md-1">
-                                <a class="nav-link" href="#add-tree">
-                                    <i style="color:white;text-align: center;font-size: 35px;"
-                                        class="material-icons">settings</i>
+                            <div class="col-md-3" style="text-align: right" *ngIf="admin">
+                                <a class="nav-link NewIconOption" href="#modify-category">
+                                    <i class="material-icons CategoryIcon">settings</i>
                                 </a>
-                            </div>
-
-                            <div class="col-md-1">
-                                <a class="nav-link" href="#add-tree">
-                                    <i style="color:white;text-align: center;font-size: 35px;"
-                                        class="material-icons">delete</i>
+                                <a class="nav-link NewIconOption">
+                                    <i (click)="DeleteCategoryValidation(treeCategory.id);" class="material-icons CategoryIcon">delete</i>
                                 </a>
                             </div>
                         </div>
+
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
                                     <th>
-                                        Name
+                                        Nom
                                     </th>
                                     <th>
                                         Zone
                                     </th>
                                     <th>
-                                        Price
+                                        Prix
                                     </th>
                                     <th>
                                     </th>
+                                    <th *ngIf="admin">
+                                    </th>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let treeSubCategory of treeCategory.treeSubCategories">
                                         <td>
-                                            Cortland
+                                            {{treeSubCategory.description}}
                                         </td>
                                         <td>
                                             4-a
                                         </td>
-                                        <td class="text-primary">
-                                            $36,738
+                                        <td>
+                                            20,00$
                                         </td>
                                         <td>
-                                            <div class="row">
-                                                <div class="col-md-1">
-                                                    <a class="nav-link" href="#add-tree">
-                                                        <i style="text-align: center;font-size: 15px;"
-                                                            class="material-icons">settings</i>
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <a class="nav-link" href="#add-tree">
-                                                        <i style="text-align: center;font-size: 15px;"
-                                                            class="material-icons">delete</i>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                            <button mat-raised-button type="submit" class="btn btn-primary pull-right">Consulter</button>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Délicieuse jaune
-                                        </td>
-                                        <td>
-                                            5-b
-                                        </td>
-                                        <td class="text-primary">
-                                            $78,615
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Honeycrisp
-                                        </td>
-                                        <td>
-                                            4-a
-                                        </td>
-                                        <td class="text-primary">
-                                            $75,50
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="card card-plain">
-                    <div class="card-header card-header-green">
-                        <h4 class="card-title mt-0"> Table on Plain Background</h4>
-                        <p class="card-category"> Here is a subtitle for this table</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead class="">
-                                    <th>
-                                        ID
-                                    </th>
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Country
-                                    </th>
-                                    <th>
-                                        City
-                                    </th>
-                                    <th>
-                                        Salary
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            Dakota Rice
-                                        </td>
-                                        <td>
-                                            Niger
-                                        </td>
-                                        <td>
-                                            Oud-Turnhout
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>
-                                            Minerva Hooper
-                                        </td>
-                                        <td>
-                                            Curaçao
-                                        </td>
-                                        <td>
-                                            Sinaai-Waas
-                                        </td>
-                                        <td>
-                                            $23,789
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            3
-                                        </td>
-                                        <td>
-                                            Sage Rodriguez
-                                        </td>
-                                        <td>
-                                            Netherlands
-                                        </td>
-                                        <td>
-                                            Baileux
-                                        </td>
-                                        <td>
-                                            $56,142
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>
-                                            Philip Chaney
-                                        </td>
-                                        <td>
-                                            Korea, South
-                                        </td>
-                                        <td>
-                                            Overland Park
-                                        </td>
-                                        <td>
-                                            $38,735
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            5
-                                        </td>
-                                        <td>
-                                            Doris Greene
-                                        </td>
-                                        <td>
-                                            Malawi
-                                        </td>
-                                        <td>
-                                            Feldkirchen in Kärnten
-                                        </td>
-                                        <td>
-                                            $63,542
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            6
-                                        </td>
-                                        <td>
-                                            Mason Porter
-                                        </td>
-                                        <td>
-                                            Chile
-                                        </td>
-                                        <td>
-                                            Gloucester
-                                        </td>
-                                        <td>
-                                            $78,615
+                                        <td style="text-align: right" *ngIf="admin">
+                                            <a class="nav-link NewIconOption" href="#modify-sub-category">
+                                                <i class="material-icons SubCategoryIcon">settings</i>
+                                            </a>
+                                            <a class="nav-link NewIconOption" href="">
+                                                <i (click)="deleteSubCategoryValidation();" class="material-icons SubCategoryIcon">delete</i>
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>

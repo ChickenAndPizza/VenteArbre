@@ -74,7 +74,8 @@ CREATE TABLE supplier_order(
 
 CREATE TABLE tree_category(
         id          Varchar (36) NOT NULL ,
-        description Varchar (254) NOT NULL
+        description Varchar (254) NOT NULL,
+		is_active   Bool NOT NULL
 	,CONSTRAINT tree_category_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
 
@@ -87,9 +88,9 @@ CREATE TABLE tree_category(
 CREATE TABLE tree_sub_category(
         id          Varchar (36) NOT NULL ,
         description Varchar (254) NOT NULL ,
-  	id_tree_category VARCHAR(36) NOT NULL
+		id_tree_category VARCHAR(36) NOT NULL,
+		is_active   Bool NOT NULL
 	,CONSTRAINT tree_sub_category_PK PRIMARY KEY (id)
-
 	,CONSTRAINT tree_sub_category_tree_category_FR FOREIGN KEY (id_tree_category) REFERENCES tree_category(id)
 )ENGINE=InnoDB;
 
@@ -103,7 +104,8 @@ CREATE TABLE tree(
         name        	     Varchar (100) NOT NULL ,
         description 	     Varchar (254) NOT NULL ,
         price       	     Decimal NOT NULL,
-	id_tree_sub_category Varchar (36) NOT NULL
+		id_tree_sub_category Varchar (36) NOT NULL,
+		is_active   		 Bool NOT NULL
 	,CONSTRAINT tree_PK PRIMARY KEY (id)
 
 	,CONSTRAINT tree_tree_sub_category_FR FOREIGN KEY (id_tree_sub_category) REFERENCES tree_sub_category(id)

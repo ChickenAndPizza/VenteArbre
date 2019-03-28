@@ -19,31 +19,12 @@ export const AdminLayoutRoutes: Routes = [
     //     path: 'dashboard',
     //     component: DashboardComponent
     // }]}, 
-    {
-        path: '',
-        children: [{
-            path: 'user-profile',
-            component: UserProfileComponent,
-            canActivate : [AuthGuard]
-        }]
-    },
-    //, {
-    //   path: '',
-    //   children: [ {
-    //     path: 'icons',
-    //     component: IconsComponent
-    //     }]
-    // }, {
+    // {
     //     path: '',
-    //     children: [ {
-    //         path: 'notifications',
-    //         component: NotificationsComponent
-    //     }]
-    // }, {
-    //     path: '',
-    //     children: [ {
-    //         path: 'maps',
-    //         component: MapsComponent
+    //     children: [{
+    //         path: 'user-profile',
+    //         component: UserProfileComponent,
+    //         canActivate : [AuthGuard]
     //     }]
     // }, {
     //     path: '',
@@ -53,7 +34,7 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard', component: DashboardComponent },
-    //{ path: 'user-profile', component: UserProfileComponent },
+    { path: 'user-profile', component: UserProfileComponent, canActivate : [AuthGuard] },
     { path: 'connection', component: ConnectionComponent },
     { path: 'tree-list', component: TreeListComponent },
     { path: 'distribution-points', component: DistributionPointsComponent },

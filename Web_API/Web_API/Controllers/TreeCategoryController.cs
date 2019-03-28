@@ -20,5 +20,12 @@ namespace Web_API.Controllers
         {
             return Ok(Service.GetCategoryWithSubCategory());
         }
+
+        [HttpGet]
+        [Route("Description")]
+        public ActionResult<bool> IsDescriptionAlreadyUsed(string description)
+        {
+            return Service.IsDescriptionAlreadyUsed(description);
+        }
     }
 }
