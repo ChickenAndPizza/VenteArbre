@@ -6,6 +6,8 @@ import { existingTreeCategoryValidator } from 'app/shared/tree-category-validato
 import { MatDialogConfig, MatDialogRef, MatDialog } from '@angular/material';
 import { DialogComponent } from 'app/_directives/dialog/dialog.component';
 import { DialogEntryComponent } from 'app/_directives/dialog-entry/dialog-entry.component';
+import { filter } from 'rxjs/operators';
+import { TreeCategory } from 'app/_models/tree-category';
 
 @Component({
   selector: 'app-tree-list',
@@ -75,19 +77,35 @@ export class TreeListComponent implements OnInit {
     }
   }
 
-  public ModifyCategoryDescription() {
+  public ModifyCategoryDescription(id: string, value: string) {
     const dialogConfig = new MatDialogConfig();
-        dialogConfig.hasBackdrop = false;
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.data = {
-            title: 'Modifier la catégorie',
-            precisions: 'Description : '
-        };
-        this.dialogEntryRef = this.dialog.open(DialogEntryComponent, dialogConfig);
-        this.dialogEntryRef.afterClosed().subscribe(result => {
-          console.log(result);
-         });
+    dialogConfig.hasBackdrop = false;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      title: 'Modifier la catégorie',
+      precisions: '',
+      field: 'Description',
+      value: value
+    };
+    this.dialogEntryRef = this.dialog.open(DialogEntryComponent, dialogConfig);
+    this.dialogEntryRef.afterClosed()
+      .pipe(filter(description => description))
+      .subscribe(description => {
+        if (description) {
+          if (this.treeCategoryService) {
+            let category = new TreeCategory(id,description);
+            console.log(category);
+            this.treeCategoryService.addOrUpdateCategory(category).subscribe(c => {
+              this.loadTreeCategories();
+              this.newCategory.get('description').setValue('');
+            });
+          }
+        }
+      });
+  }
+
+  public AddNewSubCategory() {
   }
 
   public DeleteCategoryValidation(id: string) {

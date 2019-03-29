@@ -9,21 +9,22 @@
       <h6>{{modalPrecisions}}</h6>
       <mat-dialog-content>
         <mat-form-field class="example-full-width">
-          <input matInput formControlName="description" class="example-full-width">
+          <input matInput formControlName="description" placeholder="{{modalField}}" class="example-full-width">
         </mat-form-field>
+        <small *ngIf="description.errors && description.invalid && description.touched"
+        class="text-danger">
+        <div *ngIf="description.errors?.treeCategoryExists">La catégorie est déjà existante</div>
+    </small>
       </mat-dialog-content>
     </div>
 
-
-
-  <mat-dialog-actions>
-    <div class="row" style="padding-top: 15px;">
-      <div class="col-md-12">
-        <button mat-raised-button type="submit"
-          class="btn btn-green pull-right">Confirmer</button>
-        <button mat-raised-button mat-dialog-close class="btn btn-green pull-right">Annuler</button>
+    <mat-dialog-actions>
+      <div class="row" style="padding-top: 15px;">
+        <div class="col-md-12">
+          <button [disabled]="!form.valid" mat-raised-button type="submit" class="btn btn-green pull-right">Confirmer</button>
+          <button mat-raised-button mat-dialog-close class="btn btn-green pull-right">Annuler</button>
+        </div>
       </div>
-    </div>
-  </mat-dialog-actions>
-</form>
+    </mat-dialog-actions>
+  </form>
 </div>
