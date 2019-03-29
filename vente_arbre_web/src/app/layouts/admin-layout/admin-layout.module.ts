@@ -11,7 +11,6 @@ import { AboutUsComponent } from '../../about-us/about-us.component';
 import { TreeListComponent } from '../../tree-list/tree-list.component';
 import { TypographyComponent } from '../../typography/typography.component';
 import { IconsComponent } from '../../icons/icons.component';
-import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 
 import {
@@ -44,7 +43,6 @@ import {
     AboutUsComponent,
     TypographyComponent,
     IconsComponent,
-    MapsComponent,
     NotificationsComponent,
   ]
 })
