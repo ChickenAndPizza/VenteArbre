@@ -1,6 +1,8 @@
 .NewCategoryIcon {cursor:pointer;color:#00808e;text-align: left;font-size: 40px;}
 .NewCategoryIconOption {cursor:pointer;color:#00808e;text-align: left;font-size: 35px;}
 
+.NewSubCategoryIcon {cursor:pointer;color:#00808e;text-align: left;font-size: 30px;}
+
 .CategoryIcon {cursor:pointer;color:white;text-align: center;font-size: 35px;}
 
 .SubCategoryIcon {font-size: 20px;}

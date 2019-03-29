@@ -77,12 +77,13 @@ export class ConnectionComponent implements OnInit {
   }
 
   onRegister() {
-
     if (this.customerService) {
-
       let customer: any;
       this.customerService.addOrUpdateCustomer(this.register.value).subscribe(c => {
         customer = c;
+        this.connection.get('email').setValue(customer.email);
+        this.connection.get('password').setValue(customer.password);
+        this.onConnection();
       });
 
     }

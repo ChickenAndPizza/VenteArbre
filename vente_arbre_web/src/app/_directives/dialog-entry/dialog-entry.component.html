@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2 mat-dialog-title>{{modalTitle}}</h2>
+  </div>
+</div>
+<div>
+  <form [formGroup]="form" (ngSubmit)="submit(form)">
+    <div class="col-md-12">
+      <h6>{{modalPrecisions}}</h6>
+      <mat-dialog-content>
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName="description" placeholder="{{modalField}}" class="example-full-width">
+        </mat-form-field>
+        <small *ngIf="description.errors && description.invalid && description.touched"
+        class="text-danger">
+        <div *ngIf="description.errors?.treeCategoryExists">La catégorie est déjà existante</div>
+    </small>
+      </mat-dialog-content>
+    </div>
+
+    <mat-dialog-actions>
+      <div class="row" style="padding-top: 15px;">
+        <div class="col-md-12">
+          <button [disabled]="!form.valid" mat-raised-button type="submit" class="btn btn-green pull-right">Confirmer</button>
+          <button mat-raised-button mat-dialog-close class="btn btn-green pull-right">Annuler</button>
+        </div>
+      </div>
+    </mat-dialog-actions>
+  </form>
+</div>

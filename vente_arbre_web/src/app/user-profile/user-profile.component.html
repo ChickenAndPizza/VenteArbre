@@ -102,7 +102,7 @@
 
                                 </div>
                                 <div class="col-md-12">
-                                    <button [disabled]="!profile.valid" mat-raised-button type="submit" class="btn btn-green pull-right">Sauvegarder les changements</button>
+                                    <button [disabled]="!profile.valid || !profile.dirty" mat-raised-button type="submit" class="btn btn-green pull-right">Sauvegarder les changements</button>
                                     <div  *ngIf="save" [@fadeInOnEnter]  [@fadeOutOnLeave]>
                                         <i class="material-icons pull-right" style="color: green;font-size:36px;margin-top: 7px">check</i>
                                     </div>
