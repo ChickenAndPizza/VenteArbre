@@ -24,7 +24,6 @@ const routes: Routes = [
   // { path: 'distribution-points', component: DistributionPointsComponent },
   // { path: 'typography',     component: TypographyComponent },
   // { path: 'icons',          component: IconsComponent },
-  // { path: 'maps',           component: MapsComponent },
   // { path: 'notifications',  component: NotificationsComponent },
   // { path: '',               redirectTo: 'dashboard', pathMatch: 'full' }
 ];
