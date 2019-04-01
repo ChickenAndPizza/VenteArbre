@@ -84,7 +84,6 @@ export class UserProfileComponent implements OnInit {
 
     public onModify() {
         if(this.customerService){
-            this.save = true;
             let customer = new User(
                 this.id.value,
                 this.email.value,
@@ -104,6 +103,7 @@ export class UserProfileComponent implements OnInit {
               this.authenticationService.login({email: customer.email, password: customer.password})
               .pipe(first())
               .subscribe(c => {
+                this.save = true;
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.currentUser = decodeToken(this.currentUser);
                 this.password.setValue('');

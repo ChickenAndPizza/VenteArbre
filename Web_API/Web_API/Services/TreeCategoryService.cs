@@ -19,14 +19,13 @@ namespace Web_API.Services
         public List<TreeCategory> GetCategoryWithSubCategory()
         {
            var query = Context.TreeCategories.Where(c => c.IsActive == true)
-                .Include(c => c.TreeSubCategories)
+                .Include(c => c.Trees)
                 .Select(c => new TreeCategory
                 {
                     Id = c.Id,
                     Description = c.Description,
-                    TreeSubCategories = c.TreeSubCategories.Where(x => x.IsActive).ToList(),
-                    IsActive = c.IsActive
-                    
+                    Trees = c.Trees.Where(x => x.IsActive).ToList(),
+                    IsActive = c.IsActive       
                 })
             .OrderBy(c => c.Description)
             .ToList();
