@@ -28,6 +28,7 @@ namespace Web_API.Services
                     IsActive = c.IsActive
                     
                 })
+            .OrderBy(c => c.Description)
             .ToList();
 
             return query;
