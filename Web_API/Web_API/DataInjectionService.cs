@@ -17,6 +17,7 @@ namespace Web_API
             services.AddTransient<TreeService>();
             services.AddTransient<TreeCategoryService>();
             services.AddTransient<AuthService>();
+            services.AddTransient<DistributionPointService>();
             return services;
         }
     }

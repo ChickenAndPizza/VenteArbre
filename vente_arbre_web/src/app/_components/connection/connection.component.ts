@@ -39,7 +39,7 @@ export class ConnectionComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email], existingEmailValidator(null, this.customerService)],
+      email: ['', [Validators.required], existingEmailValidator(null, this.customerService)],
       password: ['', [Validators.required]]
     });
 

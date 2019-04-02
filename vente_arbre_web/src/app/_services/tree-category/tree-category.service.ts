@@ -50,7 +50,7 @@ export class TreeCategoryService extends MainService {
         headers: this.headers
       }
     )
-  };
+  }
 
   delete(id: string) {
     const url = this.apiUrl.toString() + "TreeCategory/" + id;
