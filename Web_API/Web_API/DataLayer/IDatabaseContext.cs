@@ -18,7 +18,6 @@ namespace Web_API.DataLayer
 
         DbSet<Tree> Trees { get; set; }
         DbSet<TreeCategory> TreeCategories { get; set; }
-        DbSet<TreeSubCategory> TreeSubCategories { get; set; }
 
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
         EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;

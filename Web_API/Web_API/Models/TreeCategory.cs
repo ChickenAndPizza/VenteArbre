@@ -7,6 +7,6 @@ namespace Web_API.Models
     {
         public string Description { get; set; }
 
-        public ICollection<TreeSubCategory> TreeSubCategories { get; set; }
+        public ICollection<Tree> Trees { get; set; }
     }
 }
