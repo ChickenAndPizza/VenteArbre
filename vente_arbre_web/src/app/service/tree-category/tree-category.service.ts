@@ -2,14 +2,25 @@ import { Injectable, Injector } from '@angular/core';
 import { MainService } from '../main.service';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
+import { TreeCategory } from 'app/_models/tree-category';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TreeCategoryService extends MainService {
 
+  currentCategory: TreeCategory;
+
   constructor(injector: Injector) {
     super(injector);
+  }
+
+  setCurrentCategory(category: TreeCategory){
+    this.currentCategory = category;
+  }
+
+  getCurrentCategory(){
+    return this.currentCategory;
   }
 
   getCategoriesAndSubCategories():Observable<any[]> {

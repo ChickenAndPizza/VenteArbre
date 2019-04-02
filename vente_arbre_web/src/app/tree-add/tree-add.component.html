@@ -1,0 +1,96 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+  
+                    <div class="card-header card-header-green">
+                        <h3 class="card-title">Ajout d'un arbre pour la catégorie : {{treeCategoryDescr.value}}</h3>
+                    </div>
+  
+                    <div class="card-body">
+                        <form [formGroup]="addtree" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Nom de l'arbre"
+                                            name="name" formControlName="name" minlength="3" maxlength="50"
+                                            [class.is-invalid]="name.invalid && zone.touched">
+                                    </mat-form-field>
+                                    <small *ngIf="name.errors && name.invalid && name.touched"
+                                        class="text-danger">
+                                        <div *ngIf="name.errors.required">Le nom est requis</div>
+                                        <div *ngIf="name.errors.minlength">La longueur minimale est de 3
+                                            caractères
+                                        </div>
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Zone de l'arbre"
+                                            name="zone" formControlName="zone" maxlength="5"
+                                            [class.is-invalid]="zone.invalid && zone.touched">
+                                    </mat-form-field>
+                                    <small *ngIf="zone.errors && zone.invalid && zone.touched"
+                                        class="text-danger">
+                                        <div *ngIf="zone.errors.required">La zone est requise</div>
+                                        <div *ngIf="zone.errors.minlength">La longueur minimale est de 2
+                                            caractères
+                                        </div>
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Prix de l'arbre" name="price"
+                                            formControlName="price" maxlength="10"
+                                            [class.is-invalid]="price.invalid && price.touched">
+                                    </mat-form-field>
+                                    <small *ngIf="price.errors && price.invalid && price.touched"
+                                        class="text-danger">
+                                        <div *ngIf="price.errors?.required">Le prix est requis</div>
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input maxlength="20" [class.is-invalid]="ageHeight.invalid && ageHeight.touched"
+                                            name="ageHeight" matInput placeholder="Âge/Hauteur de l'arbre" formControlName="ageHeight">
+                                    </mat-form-field>
+                                    <small *ngIf="ageHeight.errors && ageHeight.invalid && ageHeight.touched" class="text-danger">
+                                        <div *ngIf="ageHeight.errors?.required">L'age est requis</div>
+                                        <div *ngIf="ageHeight.errors?.ageHeight">L'age n'est pas valide</div>
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="5" name="description" placeholder="Description"
+                                        [class.is-invalid]="description.invalid && description.touched" formControlName="description"></textarea>
+                                        <small *ngIf="description.errors && description.invalid && description.touched" class="text-danger">
+                                            <div *ngIf="description.errors?.required">La description est requise</div>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+  
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a (click)="logout()" [routerLink]="['/connection']"
+                                        class="btn btn-green pull-right" style="color:white;" role="button">Ajouter</a>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

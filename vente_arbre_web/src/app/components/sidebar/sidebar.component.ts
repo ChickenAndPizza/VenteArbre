@@ -8,12 +8,14 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Nouveautés',  icon: 'dashboard', class: '' },
-    { path: '/tree-list', title: 'Liste des produits',  icon:'view_list', class: '' },
-    { path: '/distribution-points', title: 'Points de distribution',  icon:'location_on', class: '' },
-    { path: '/user-profile', title: 'Profil',  icon:'person', class: '' },
-    { path: '/about-us', title: 'À propos',  icon:'chat', class: '' },
-    { path: '/connection', title: 'Connexion',  icon:'person', class: '' }
+    { path: '/dashboard', title: 'Nouveautés', icon: 'dashboard', class: '' },
+    { path: '/tree-list', title: 'Liste des produits', icon:'view_list', class: '' },
+    { path: '/tree-add', title: 'Ajouter un arbre', icon:'view_list', class: '' },
+    { path: '/tree-info', title: 'Visionner un arbre', icon:'view_list', class: '' },
+    { path: '/distribution-points', title: 'Points de distribution', icon:'location_on', class: '' },
+    { path: '/user-profile', title: 'Profil', icon:'person', class: '' },
+    { path: '/about-us', title: 'À propos', icon:'chat', class: '' },
+    { path: '/connection', title: 'Connexion', icon:'person', class: '' }
 ];
 
 @Component({
@@ -28,7 +30,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
-    this.menuItems = ROUTES.filter(menuItem => menuItem.title !== 'Connexion');
+    this.menuItems = ROUTES.filter(menuItem => menuItem.title !== 'Connexion' && menuItem.title !== 'Ajouter un arbre' && menuItem.title !== 'Visionner un arbre');
   }
   isMobileMenu() {
       if ($(window).width() > 991) {

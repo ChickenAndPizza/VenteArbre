@@ -117,6 +117,11 @@ export class NavbarComponent implements OnInit {
         return 'Profil';
       }
 
+      if (titlee.indexOf("returnUrl") > 0 && titlee.indexOf("tree-add") > 0 && titlee.indexOf("tree-list") > 0 && titlee.indexOf("tree-add") < titlee.indexOf("tree-list"))
+      {
+        return "Ajout d''arbre";
+      }
+
 
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 2 );

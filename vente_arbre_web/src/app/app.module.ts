@@ -21,6 +21,8 @@ import { ConnectionComponent } from './connection/connection.component';
 import { DistributionPointsComponent } from './distribution-points/distribution-points.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { TreeListComponent } from './tree-list/tree-list.component';
+import { TreeInfoComponent } from './tree-info/tree-info.component';
+import { TreeAddComponent } from './tree-add/tree-add.component';
 import { TypographyComponent } from './typography/typography.component';
 import { IconsComponent } from './icons/icons.component';
 import { NotificationsComponent } from './notifications/notifications.component';
@@ -60,7 +62,7 @@ import { DialogEntryComponent } from './_directives/dialog-entry/dialog-entry.co
     AdminLayoutComponent,
     AlertComponent,
     DialogComponent,
-    DialogEntryComponent,
+    DialogEntryComponent
   ],
   providers: [
     AuthGuard,

@@ -8,6 +8,7 @@ import { DialogComponent } from 'app/_directives/dialog/dialog.component';
 import { DialogEntryComponent } from 'app/_directives/dialog-entry/dialog-entry.component';
 import { filter } from 'rxjs/operators';
 import { TreeCategory } from 'app/_models/tree-category';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tree-list',
@@ -26,7 +27,8 @@ export class TreeListComponent implements OnInit {
   constructor(
     private treeCategoryService: TreeCategoryService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -105,7 +107,10 @@ export class TreeListComponent implements OnInit {
       });
   }
 
-  public AddNewSubCategory() {
+  public AddTreeOfCategory(id: string, description: string) {
+    let category = new TreeCategory(id,description);
+    this.treeCategoryService.setCurrentCategory(category);
+    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list'}});
   }
 
   public DeleteCategoryValidation(id: string) {
