@@ -15,10 +15,10 @@ namespace Web_API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        [Route("GetCategoriesAndSubCategories")]
-        public ActionResult<List<TreeCategory>> GetCategoriesAndSubCategories()
+        [Route("GetCategoriesWithTrees")]
+        public ActionResult<List<TreeCategory>> GetCategoriesWithTrees()
         {
-            return Ok(Service.GetCategoryWithSubCategory());
+            return Ok(Service.GetCategoryWithTrees());
         }
 
         [HttpGet, AllowAnonymous]

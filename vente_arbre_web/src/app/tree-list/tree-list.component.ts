@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeCategoryService } from 'app/service/tree-category/tree-category.service';
-import { decodeToken } from 'app/_helpers/jwt.decoder';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { existingTreeCategoryValidator } from 'app/shared/tree-category-validator';
 import { MatDialogConfig, MatDialogRef, MatDialog } from '@angular/material';
-import { DialogComponent } from 'app/_directives/dialog/dialog.component';
-import { DialogEntryComponent } from 'app/_directives/dialog-entry/dialog-entry.component';
 import { filter } from 'rxjs/operators';
-import { TreeCategory } from 'app/_models/tree-category';
 import { Router } from '@angular/router';
+import { DialogComponent, DialogEntryComponent } from 'app/_directives';
+import { TreeService, TreeCategoryService } from 'app/_services';
+import { existingTreeCategoryValidator } from 'app/_shared';
+import { decodeToken } from 'app/_helpers';
+import { TreeCategory } from 'app/_models';
 
 @Component({
   selector: 'app-tree-list',
@@ -26,6 +25,7 @@ export class TreeListComponent implements OnInit {
 
   constructor(
     private treeCategoryService: TreeCategoryService,
+    private treeService: TreeService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private router: Router
@@ -53,7 +53,7 @@ export class TreeListComponent implements OnInit {
   }
 
   private loadTreeCategories() {
-    this.treeCategoryService.getCategoriesAndSubCategories().subscribe(
+    this.treeCategoryService.getCategoriesWithTrees().subscribe(
       categories => {
         this.treeCategories = categories;
       }
@@ -107,10 +107,10 @@ export class TreeListComponent implements OnInit {
       });
   }
 
-  public AddTreeOfCategory(id: string, description: string) {
+  public AddTreeOfCategory(id: string, description: string, addstate: boolean) {
     let category = new TreeCategory(id,description);
     this.treeCategoryService.setCurrentCategory(category);
-    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list'}});
+    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', addstate: addstate}});
   }
 
   public DeleteCategoryValidation(id: string) {
@@ -132,5 +132,11 @@ export class TreeListComponent implements OnInit {
         }
       }
     });
+  }
+
+  public ViewTree(id: string){
+    let tree = id;
+    this.treeService.setCurrentTree(tree);
+    this.router.navigate(['/tree-info']);
   }
 }

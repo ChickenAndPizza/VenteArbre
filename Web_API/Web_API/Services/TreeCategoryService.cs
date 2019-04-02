@@ -16,7 +16,7 @@ namespace Web_API.Services
         {
         }
 
-        public List<TreeCategory> GetCategoryWithSubCategory()
+        public List<TreeCategory> GetCategoryWithTrees()
         {
            var query = Context.TreeCategories.Where(c => c.IsActive == true)
                 .Include(c => c.Trees)

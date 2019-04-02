@@ -1,18 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-
-import { User } from '../_models';
-import { UserService } from '../_services';
-
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { DialogComponent } from '../_directives/dialog/dialog.component';
-import { AuthenticationService } from '../_services';
-import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
-import { existingEmailValidator } from 'app/shared/email-validator.directive';
-import { CustomerService } from 'app/service/customer/customer.service';
-import { ConnectionInfo } from 'app/_models/connectionInfo.model';
-import { decodeToken } from 'app/_helpers/jwt.decoder';
+import { FormBuilder, FormGroup, Validators,  } from '@angular/forms';
+import { decodeToken } from 'app/_helpers/jwt/jwt.decoder';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
+import { User, ConnectionInfo } from '../_models';
+import { UserService, AuthenticationService, CustomerService } from '../_services';
+import { existingEmailValidator } from 'app/_shared';
 
 
 function checkPasswords(form: FormGroup): { [key: string]: boolean} | null {

@@ -1,8 +1,8 @@
 import { Injectable, Injector } from '@angular/core';
-import { MainService } from '../main.service';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
-import { TreeCategory } from 'app/_models/tree-category';
+import { MainService } from '..';
+import { TreeCategory } from 'app/_models';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +23,8 @@ export class TreeCategoryService extends MainService {
     return this.currentCategory;
   }
 
-  getCategoriesAndSubCategories():Observable<any[]> {
-    const url = this.apiUrl.toString() + "TreeCategory/GetCategoriesAndSubCategories";
+  getCategoriesWithTrees():Observable<any[]> {
+    const url = this.apiUrl.toString() + "TreeCategory/GetCategoriesWithTrees";
       return this.http.get<any[]>(url);
   }
 

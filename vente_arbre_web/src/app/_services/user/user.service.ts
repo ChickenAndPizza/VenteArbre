@@ -1,8 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-import { User } from '../_models';
-import { MainService } from 'app/service/main.service';
+import { MainService } from '..';
+import { User } from 'app/_models';
 
 @Injectable()
 export class UserService extends MainService {

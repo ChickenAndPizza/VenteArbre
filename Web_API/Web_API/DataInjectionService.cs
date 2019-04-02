@@ -14,6 +14,7 @@ namespace Web_API
         public static IServiceCollection InjectDataServices(this IServiceCollection services)
         {
             services.AddTransient<CustomerService>();
+            services.AddTransient<TreeService>();
             services.AddTransient<TreeCategoryService>();
             services.AddTransient<AuthService>();
             return services;

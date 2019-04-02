@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
@@ -119,7 +119,7 @@ export class NavbarComponent implements OnInit {
 
       if (titlee.indexOf("returnUrl") > 0 && titlee.indexOf("tree-add") > 0 && titlee.indexOf("tree-list") > 0 && titlee.indexOf("tree-add") < titlee.indexOf("tree-list"))
       {
-        return "Ajout d''arbre";
+        return "Ajouter un arbre";
       }
 
 
