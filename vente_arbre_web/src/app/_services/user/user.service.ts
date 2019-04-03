@@ -1,6 +1,6 @@
-import { Injectable, Injector } from '@angular/core';
-import { MainService } from '..';
 import { User } from 'app/_models';
+import { Injectable, Injector } from '@angular/core';
+import { MainService } from '../main/main.service';
 
 @Injectable()
 export class UserService extends MainService {

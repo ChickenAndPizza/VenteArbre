@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Tree } from 'app/_models';
-import { TreeService, TreeCategoryService } from 'app/service';
-import { existingTreeOfCategoryValidator } from 'app/shared';
+import { Tree } from 'app/_models';import { TreeCategoryService, TreeService } from 'app/_services';
+import { existingTreeOfCategoryValidator } from 'app/_shared';
 
 @Component({
   selector: 'app-tree-add',

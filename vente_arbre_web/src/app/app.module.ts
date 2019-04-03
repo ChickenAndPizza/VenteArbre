@@ -5,37 +5,18 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ComponentsModule } from './components/components.module';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule, routing } from './app.routing';
-
-import { AlertComponent } from './_directives';
-import { AuthGuard } from './_guards';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { AlertService, AuthenticationService, UserService } from './_services';
-
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { ConnectionComponent } from './connection/connection.component';
-import { DistributionPointsComponent } from './distribution-points/distribution-points.component';
-import { AboutUsComponent } from './about-us/about-us.component';
-import { TreeListComponent } from './tree-list/tree-list.component';
-import { TreeInfoComponent } from './tree-info/tree-info.component';
-import { TreeAddComponent } from './tree-add/tree-add.component';
-import { TypographyComponent } from './typography/typography.component';
-import { IconsComponent } from './icons/icons.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-
 import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { CustomerService } from './service/customer/customer.service';
-
-import { MatDialog, MatDialogConfig, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
-import { DialogComponent } from './_directives/dialog/dialog.component';
-import { DialogEntryComponent } from './_directives/dialog-entry/dialog-entry.component';
+import { MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { AlertComponent, DialogComponent, DialogEntryComponent } from './_directives';
+import { AuthGuard } from './_guards';
+import { AlertService, AuthenticationService, UserService, CustomerService } from './_services';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { ComponentsModule } from './_components/navigation';
 
 @NgModule({
   imports: [

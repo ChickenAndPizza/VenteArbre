@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { ConnectionInfo } from 'app/_models';
-import { AuthenticationService, AlertService, CustomerService } from 'app/_services';
+import { AuthenticationService, CustomerService, AlertService } from 'app/_services';
 import { existingEmailValidator } from 'app/_shared';
 
 declare const $: any;

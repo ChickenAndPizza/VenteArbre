@@ -1,18 +1,6 @@
 import { Routes } from '@angular/router';
-
-import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { UserProfileComponent } from '../../user-profile/user-profile.component';
-import { ConnectionComponent } from '../../connection/connection.component';
-import { TreeListComponent } from '../../tree-list/tree-list.component';
-import { TreeInfoComponent } from 'app/tree-info/tree-info.component';
-import { TreeAddComponent } from 'app/tree-add/tree-add.component';
-import { DistributionPointsComponent } from '../../distribution-points/distribution-points.component';
-import { AboutUsComponent } from '../../about-us/about-us.component';
-import { TypographyComponent } from '../../typography/typography.component';
-import { IconsComponent } from '../../icons/icons.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
 import { AuthGuard } from 'app/_guards';
-
+import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent } from 'app/_components';
 
 export const AdminLayoutRoutes: Routes = [
     // {

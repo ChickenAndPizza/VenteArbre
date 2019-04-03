@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
+import { MainService } from '../main/main.service';
 
 @Injectable()
-export class AlertService {
+export class AlertService extends MainService {
     private subject = new Subject<any>();
     private keepAfterNavigationChange = false;
 
-    constructor(private router: Router) {
+    constructor(private router: Router, injector: Injector) {
+        super(injector);
         // clear alert message on route change
         router.events.subscribe(event => {
             if (event instanceof NavigationStart) {

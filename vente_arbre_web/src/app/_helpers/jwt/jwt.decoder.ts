@@ -1,4 +1,3 @@
-import { Injectable } from "@angular/core";
 
 export function decodeToken(token: string = '') {
     if (token === null || token === '') { return { 'upn': '' }; }

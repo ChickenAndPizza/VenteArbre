@@ -1,8 +1,8 @@
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
-import { MainService } from '..';
 import { TreeCategory } from 'app/_models';
+import { MainService } from '../main/main.service';
 
 @Injectable({
   providedIn: 'root'

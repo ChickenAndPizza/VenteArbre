@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
-import { DialogComponent } from '../_directives/dialog/dialog.component';
 import { FormBuilder, FormGroup, Validators,  } from '@angular/forms';
-import { decodeToken } from 'app/_helpers/jwt/jwt.decoder';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
-import { User, ConnectionInfo } from '../_models';
-import { UserService, AuthenticationService, CustomerService } from '../_services';
+import { DialogComponent } from 'app/_directives';
+import { UserService, CustomerService, AuthenticationService } from 'app/_services';
+import { User, ConnectionInfo } from 'app/_models';
+
+import { decodeToken } from 'app/_helpers';
 import { existingEmailValidator } from 'app/_shared';
 
 
