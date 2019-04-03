@@ -49,7 +49,7 @@ namespace Web_API.Controllers
                         new Claim("email", customer.Email),
                         new Claim("isAdmin", customer.IsAdmin.ToString())
                     },
-                    expires: DateTime.Now.AddMinutes(15),
+                    expires: DateTime.Now.AddDays(1),
                     signingCredentials: signinCredentials
                 );
 

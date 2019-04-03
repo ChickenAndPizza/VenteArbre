@@ -4,6 +4,8 @@ import { MatDialogConfig, MatDialogRef, MatDialog } from '@angular/material';
 import { DialogComponent } from 'app/_directives/dialog/dialog.component';
 import { DistributionPointService } from 'app/_services';
 import { decodeToken } from 'app/_helpers';
+import { DialogDistributionPointComponent } from 'app/_directives';
+import { DistributionPoint } from 'app/_models/distributionPoint/distributionPoint';
 
 @Component({
   selector: 'app-distribution-points',
@@ -16,6 +18,7 @@ export class DistributionPointsComponent implements OnInit {
   admin: boolean = false;
   currentUser: any;
   dialogRef: MatDialogRef<DialogComponent>;
+  dialogDistributionPointRef: MatDialogRef<DialogDistributionPointComponent>;
 
   constructor(
     private distributionPointService: DistributionPointService,
@@ -75,6 +78,39 @@ export class DistributionPointsComponent implements OnInit {
     }
   }
 
+  public ModifyDistributionPoint(id: string, point: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.hasBackdrop = false;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "50vw";
+    dialogConfig.data = {
+      title: 'Modifier le point de distribution',
+      precisions: '',
+      mapLink: point.mapLink,
+      webLink: point.webLink,
+      webName: point.webName,
+      description: point.description,
+    };
+    this.dialogDistributionPointRef = this.dialog.open(DialogDistributionPointComponent, dialogConfig);
+    this.dialogDistributionPointRef.afterClosed()
+      .pipe(c => c)
+      .subscribe(c => {
+        if (captureEvents) {
+          if (this.distributionPointService) {
+            let distributionPoint = new DistributionPoint(id,c.mapLink, c.webLink, c.webName, c.description);
+            this.distributionPointService.addOrUpdateDistributionPoint(distributionPoint).subscribe(c => {
+              this.loadDistributionPoint();
+              this.newDistributionPoint.get('mapLink').setValue('');
+              this.newDistributionPoint.get('webLink').setValue('');
+              this.newDistributionPoint.get('webName').setValue('');
+              this.newDistributionPoint.get('description').setValue('');
+            });
+          }
+        }
+      });
+  }
+  
   public DeleteDistributionPointValidation(id: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;

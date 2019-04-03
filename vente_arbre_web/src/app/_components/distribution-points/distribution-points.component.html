@@ -13,7 +13,7 @@
                     <div id="newDistributionPoint" class="col-md-11" style="display:none;">
                         <form [formGroup]="newDistributionPoint" (ngSubmit)="AddNewDistributionPoint()">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-7">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="URL Google Map" name="mapLink"
                                             formControlName="mapLink">
@@ -27,13 +27,9 @@
                                             formControlName="webName" maxlength="254">
                                     </mat-form-field>
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Description du point" name="description"
-                                            formControlName="description">
+                                        <textarea rows="5" matInput placeholder="Description du point" name="description"
+                                            formControlName="description"></textarea>
                                     </mat-form-field>
-                                    <!-- <small *ngIf="description.errors && description.invalid && description.touched"
-                                                class="text-danger">
-                                                <div *ngIf="description.errors?.treeCategoryExists">La catégorie est déjà existante</div>
-                                            </small> -->
                                 </div>
 
                                 <div class="col-md-3" style="text-align: left">
@@ -72,7 +68,7 @@
                                         </div>
                                         <div *ngIf="admin" class="col-md-4" style="text-align:right">
                                             <a class="nav-link NewIconOption">
-                                                <i (click)="ModifyDistributionPoint(point.id, point.description)"
+                                                <i (click)="ModifyDistributionPoint(point.id, point)"
                                                     class="material-icons DistributionPointIcon">settings</i>
                                             </a>
                                             <a class="nav-link NewIconOption">

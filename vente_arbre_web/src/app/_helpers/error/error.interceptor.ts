@@ -11,7 +11,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
-                if(err.error.message != "Courriel ou mot de passe invalide") {
+                console.log(err);
+                if( err.error && err.error.message != "Courriel ou mot de passe invalide") {
                     location.reload(true);
                 }
                 // auto logout if 401 response returned from api
