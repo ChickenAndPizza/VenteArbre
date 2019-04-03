@@ -26,4 +26,14 @@ export class DistributionPointService extends MainService {
       }
     )
   }
+
+  delete(id: string): any {
+    const url = this.apiUrl.toString() + "DistributionPoint/" + id;
+    return this.http.delete(
+      url,
+      {
+        headers: this.headers,
+      }
+    )
+  }
 }

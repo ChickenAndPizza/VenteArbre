@@ -67,8 +67,8 @@
                         <div class="table-responsive" style="overflow: unset">
                             <table class="table">
                                 <div *ngFor="let point of distributionPoints" class="row">
-                                    <thead class="text-primary col-md-12" style="display: flex">
-                                        <th class="col-md-8">
+                                    <thead class="text-primary col-md-12" style="display: flex; align-items: center;">
+                                        <th class="col-md-8" style="display: flex; align-items: center;">
                                             <div *ngIf="!point.webLink">
                                                 {{point.webName}}
                                             </div>
@@ -78,12 +78,12 @@
                                         </th>
                                         <th *ngIf="admin" class="col-md-4" style="text-align:right">
                                             <a class="nav-link NewIconOption">
-                                                <i (click)="ModifyCategoryDescription(treeCategory.id, treeCategory.description)"
-                                                    class="material-icons CategoryIcon">settings</i>
+                                                <i (click)="ModifyDistributionPoint(point.id, point.description)"
+                                                    class="material-icons DistributionPointIcon">settings</i>
                                             </a>
                                             <a class="nav-link NewIconOption">
-                                                <i (click)="DeleteCategoryValidation(treeCategory.id);"
-                                                    class="material-icons CategoryIcon">delete</i>
+                                                <i (click)="DeleteDistributionPointValidation(point.id);"
+                                                    class="material-icons DistributionPointIcon">delete</i>
                                             </a>
                                         </th>
                                     </thead>

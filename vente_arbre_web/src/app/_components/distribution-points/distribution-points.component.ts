@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DistributionPointService } from 'app/service/distribution-point/distribution-point.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { decodeToken } from 'app/_helpers/jwt.decoder';
+import { MatDialogConfig, MatDialogRef, MatDialog } from '@angular/material';
+import { DialogComponent } from 'app/_directives/dialog/dialog.component';
 
 @Component({
   selector: 'app-distribution-points',
@@ -13,10 +15,12 @@ export class DistributionPointsComponent implements OnInit {
   newDistributionPoint: FormGroup;
   admin: boolean = false;
   currentUser: any;
+  dialogRef: MatDialogRef<DialogComponent>;
 
   constructor(
     private distributionPointService: DistributionPointService,
     private formBuilder: FormBuilder,
+    private dialog: MatDialog,
     ) { }
 
   public distributionPoints: any[];
@@ -69,5 +73,26 @@ export class DistributionPointsComponent implements OnInit {
         this.newDistributionPoint.get('description').setValue('');
       });
     }
+  }
+
+  public DeleteDistributionPointValidation(id: string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.hasBackdrop = false;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      title: 'Voulez-vous vraiment supprimer ce point de distribution?',
+      precisions: 'Il ne sera plus affiché parmis la liste des choix.'
+    };
+    this.dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+    this.dialogRef.afterClosed().subscribe(result => {
+      if (result) { // if true
+        if (this.distributionPointService) {
+          this.distributionPointService.delete(id).subscribe(c => {
+            this.loadDistributionPoint();
+          })
+        }
+      }
+    });
   }
 }
