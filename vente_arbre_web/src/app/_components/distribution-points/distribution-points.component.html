@@ -51,12 +51,6 @@
                 </div>
             </div>
 
-            <!-- <div class="col-md-1">
-                <a class="nav-link" href="#add-location">
-                    <i style="text-align: center;font-size: 50px;" class="material-icons">add_location</i>
-                </a>
-            </div> -->
-
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-green">
@@ -68,15 +62,15 @@
                             <table class="table">
                                 <div *ngFor="let point of distributionPoints" class="row">
                                     <thead class="text-primary col-md-12" style="display: flex; align-items: center;">
-                                        <th class="col-md-8" style="display: flex; align-items: center;">
+                                        <div class="col-md-8">
                                             <div *ngIf="!point.webLink">
                                                 {{point.webName}}
                                             </div>
                                             <a *ngIf="point.webLink" style="cursor:pointer;" target="_blank"
                                                 [href]="point.webLink">{{point.webName}}
                                             </a>
-                                        </th>
-                                        <th *ngIf="admin" class="col-md-4" style="text-align:right">
+                                        </div>
+                                        <div *ngIf="admin" class="col-md-4" style="text-align:right">
                                             <a class="nav-link NewIconOption">
                                                 <i (click)="ModifyDistributionPoint(point.id, point.description)"
                                                     class="material-icons DistributionPointIcon">settings</i>
@@ -85,16 +79,16 @@
                                                 <i (click)="DeleteDistributionPointValidation(point.id);"
                                                     class="material-icons DistributionPointIcon">delete</i>
                                             </a>
-                                        </th>
+                                        </div>
                                     </thead>
                                     <tbody class="col-md-12" style="display: flex">
-                                            <td class="col-md-8">
-                                                {{point.description}}
-                                            </td>
-                                            <td class="text-primary col-md-4" style="text-align:right">
-                                                <a title="Comment s'y rendre" style="cursor:pointer;"
-                                                    target="_blank" [href]="point.mapLink">Où se trouve ce lieu?</a>
-                                            </td>
+                                        <td class="col-md-8 col-sm-10">
+                                            {{point.description}}
+                                        </td>
+                                        <td class="text-primary col-md-4 col-sm-2" style="text-align:right;padding-bottom: 50px;">
+                                            <a title="Comment s'y rendre" style="cursor:pointer;"
+                                                target="_blank" [href]="point.mapLink">Où se trouve ce lieu?</a>
+                                        </td>
                                     </tbody>
                                 </div>
                             </table>

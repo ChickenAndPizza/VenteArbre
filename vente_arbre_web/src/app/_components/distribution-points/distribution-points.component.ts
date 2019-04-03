@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DistributionPointService } from 'app/service/distribution-point/distribution-point.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { decodeToken } from 'app/_helpers/jwt.decoder';
 import { MatDialogConfig, MatDialogRef, MatDialog } from '@angular/material';
 import { DialogComponent } from 'app/_directives/dialog/dialog.component';
+import { DistributionPointService } from 'app/_services';
+import { decodeToken } from 'app/_helpers';
 
 @Component({
   selector: 'app-distribution-points',

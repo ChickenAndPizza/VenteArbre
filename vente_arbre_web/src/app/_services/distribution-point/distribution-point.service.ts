@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
-import { MainService } from '../main.service';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { MainService } from '../main/main.service';
 
 @Injectable({
   providedIn: 'root'
