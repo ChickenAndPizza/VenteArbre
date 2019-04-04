@@ -30,7 +30,7 @@ CREATE TABLE customer(
 
 CREATE TABLE customer_order(
         id               Varchar (36) NOT NULL ,
-        transaction_date Date NOT NULL ,
+        transaction_date Date ,
         state            TinyINT NOT NULL ,
         id_customer      Varchar (36) NOT NULL,
         is_active        Bool NOT NULL

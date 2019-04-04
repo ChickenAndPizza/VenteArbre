@@ -15,5 +15,15 @@ namespace Web_API.Controllers
         public CustomerOrderController(CustomerOrderService service) : base(service)
         {
         }
+
+        [HttpGet]
+        [Route("{id:Guid}")]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(200)]
+        public override ActionResult Get(Guid id)
+        {
+            var entity = Service.GetCustomerCart(id);
+            return Ok(entity);
+        }
     }
 }

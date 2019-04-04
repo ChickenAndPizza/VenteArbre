@@ -10,14 +10,23 @@
           <div class="card-body">
             <div class="table-responsive">
               <table class="table">
-                <thead class="text-primary">
-
+                <thead class=" text-primary">
+                  <th> Produit </th>
+                  <th> Zone </th>
+                  <th> Âge/Hauteur </th>
+                  <th> Prix </th>
+                  <th> Quantité</th>
                 </thead>
-                <tbody>
-
+                <tbody >
+                  <tr *ngFor="let orderDetail of cart">
+                    <td> {{orderDetail.tree.name}} </td>
+                    <td> {{orderDetail.tree.zone}} </td>
+                    <td> {{orderDetail.tree.ageHeight}} </td>
+                    <td> {{orderDetail.tree.price}}$ </td>
+                  </tr>
                 </tbody>
               </table>
-              
+
             </div>
           </div>
         </div>
