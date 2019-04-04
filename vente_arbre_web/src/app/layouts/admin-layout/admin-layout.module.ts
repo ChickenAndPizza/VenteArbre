@@ -1,4 +1,4 @@
-import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent } from 'app/_components';
+import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent } from 'app/_components';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -29,6 +29,7 @@ import {
   declarations: [
     DashboardComponent,
     UserProfileComponent,
+    CartComponent,
     ConnectionComponent,
     TreeListComponent,
     TreeInfoComponent,

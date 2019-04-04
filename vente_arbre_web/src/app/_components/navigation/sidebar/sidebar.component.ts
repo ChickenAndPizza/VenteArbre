@@ -16,6 +16,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/user-profile', title: 'Profil', icon:'person', class: '' },
     { path: '/about-us', title: 'À propos', icon:'chat', class: '' },
     { path: '/connection', title: 'Connexion', icon:'person', class: '' }
+    { path: '/cart', title: 'Panier', icon:'shopping_cart', class:'' }
 ];
 
 @Component({
@@ -30,7 +31,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
-    this.menuItems = ROUTES.filter(menuItem => menuItem.title !== 'Connexion' && menuItem.title !== 'Ajouter un arbre' && menuItem.title !== 'Visionner un arbre');
+    this.menuItems = ROUTES.filter(menuItem => menuItem.title !== 'Connexion' && menuItem.title !== 'Ajouter un arbre' && menuItem.title !== 'Visionner un arbre' && menuItem.title !== 'Panier');
   }
   isMobileMenu() {
       if ($(window).width() > 991) {
