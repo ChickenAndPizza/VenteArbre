@@ -26,5 +26,12 @@ namespace Web_API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("WebName")]
+        public ActionResult<bool> IsWebNameAlreadyUsed(string id, string webName)
+        {
+            return Service.IsWebNameAlreadyUsed(id, webName);
+        }
     }
 }

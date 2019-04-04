@@ -15,21 +15,35 @@
                             <div class="row">
                                 <div class="col-md-7">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="URL Google Map" name="mapLink"
+                                        <input matInput placeholder="URL Google Map*" name="mapLink"
                                             formControlName="mapLink">
                                     </mat-form-field>
+                                    <small *ngIf="mapLink.errors && mapLink.invalid && mapLink.touched"
+                                        class="text-danger">
+                                        <div *ngIf="mapLink.errors?.required">L'URL de google map est requis</div>
+                                    </small>
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="URL du point" name="webLink"
                                             formControlName="webLink" maxlength="254">
                                     </mat-form-field>
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nom du point" name="webName"
+                                        <input matInput placeholder="Nom du point*" name="webName"
                                             formControlName="webName" maxlength="254">
                                     </mat-form-field>
+                                    <small *ngIf="webName.errors && webName.invalid && webName.touched"
+                                        class="text-danger">
+                                        <div *ngIf="webName.errors?.pointExists">Le point de distribution est déjà
+                                            existant</div>
+                                            <div *ngIf="webName.errors?.required">Le nom du point de distribution est requis</div>
+                                    </small>
                                     <mat-form-field class="example-full-width">
-                                        <textarea rows="5" matInput placeholder="Description du point" name="description"
-                                            formControlName="description"></textarea>
+                                        <textarea rows="5" matInput placeholder="Description du point*"
+                                            name="description" formControlName="description"></textarea>
                                     </mat-form-field>
+                                    <small *ngIf="description.errors && description.invalid && description.touched"
+                                        class="text-danger">
+                                        <div *ngIf="description.errors?.required">La description est requise</div>
+                                    </small>
                                 </div>
 
                                 <div class="col-md-3" style="text-align: left">
@@ -81,9 +95,10 @@
                                         <td class="col-md-8 col-sm-10">
                                             {{point.description}}
                                         </td>
-                                        <td class="text-primary col-md-4 col-sm-2" style="text-align:right;padding-bottom: 50px;">
-                                            <a title="Comment s'y rendre" style="cursor:pointer;"
-                                                target="_blank" [href]="point.mapLink">Où se trouve ce lieu?</a>
+                                        <td class="text-primary col-md-4 col-sm-2"
+                                            style="text-align:right;padding-bottom: 50px;">
+                                            <a title="Comment s'y rendre" style="cursor:pointer;" target="_blank"
+                                                [href]="point.mapLink">Où se trouve ce lieu?</a>
                                         </td>
                                     </tbody>
                                 </div>

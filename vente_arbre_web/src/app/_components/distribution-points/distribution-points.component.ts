@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogConfig, MatDialogRef, MatDialog } from '@angular/material';
 import { DialogComponent } from 'app/_directives/dialog/dialog.component';
 import { DistributionPointService } from 'app/_services';
 import { decodeToken } from 'app/_helpers';
 import { DialogDistributionPointComponent } from 'app/_directives';
 import { DistributionPoint } from 'app/_models/distributionPoint/distributionPoint';
+import { existingDistributionPointValidator } from 'app/_shared/distribution-validator/distribution-validator';
 
 @Component({
   selector: 'app-distribution-points',
@@ -33,12 +34,16 @@ export class DistributionPointsComponent implements OnInit {
     this.isAdmin();
 
     this.newDistributionPoint = this.formBuilder.group({
-      mapLink: ['', ,],
+      mapLink: ['', Validators.required,],
       webLink: ['', ,],
-      webName: ['', ,],
-      description: ['', ,],
+      webName: ['', Validators.required, existingDistributionPointValidator('', this.distributionPointService)],
+      description: ['', Validators.required,],
     });
   }
+
+  get mapLink() { return this.newDistributionPoint.get('mapLink'); }
+  get webName() { return this.newDistributionPoint.get('webName'); }
+  get description() { return this.newDistributionPoint.get('description'); }
 
   private isAdmin(): boolean {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -70,6 +75,7 @@ export class DistributionPointsComponent implements OnInit {
     if (this.distributionPointService) {
       this.distributionPointService.addOrUpdateDistributionPoint(this.newDistributionPoint.value).subscribe(c => {
         this.loadDistributionPoint();
+        this.newDistributionPoint.get('id').setValue('');
         this.newDistributionPoint.get('mapLink').setValue('');
         this.newDistributionPoint.get('webLink').setValue('');
         this.newDistributionPoint.get('webName').setValue('');
@@ -91,16 +97,18 @@ export class DistributionPointsComponent implements OnInit {
       webLink: point.webLink,
       webName: point.webName,
       description: point.description,
+      id: id
     };
     this.dialogDistributionPointRef = this.dialog.open(DialogDistributionPointComponent, dialogConfig);
     this.dialogDistributionPointRef.afterClosed()
       .pipe(c => c)
       .subscribe(c => {
-        if (captureEvents) {
+        if (captureEvents && c) {
           if (this.distributionPointService) {
             let distributionPoint = new DistributionPoint(id,c.mapLink, c.webLink, c.webName, c.description);
             this.distributionPointService.addOrUpdateDistributionPoint(distributionPoint).subscribe(c => {
               this.loadDistributionPoint();
+              this.newDistributionPoint.get('id').setValue('');
               this.newDistributionPoint.get('mapLink').setValue('');
               this.newDistributionPoint.get('webLink').setValue('');
               this.newDistributionPoint.get('webName').setValue('');
