@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogConfig, MatDialogRef, MatDialog } from '@angular/material';
 import { filter } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DialogComponent, DialogEntryComponent } from 'app/_directives';
 import { TreeService, TreeCategoryService } from 'app/_services';
 import { existingTreeCategoryValidator } from 'app/_shared';
@@ -97,7 +97,6 @@ export class TreeListComponent implements OnInit {
         if (description) {
           if (this.treeCategoryService) {
             let category = new TreeCategory(id,description);
-            console.log(category);
             this.treeCategoryService.addOrUpdateCategory(category).subscribe(c => {
               this.loadTreeCategories();
               this.newCategory.get('description').setValue('');
@@ -105,12 +104,6 @@ export class TreeListComponent implements OnInit {
           }
         }
       });
-  }
-
-  public AddTreeOfCategory(id: string, description: string, addstate: boolean) {
-    let category = new TreeCategory(id,description);
-    this.treeCategoryService.setCurrentCategory(category);
-    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', addstate: addstate}});
   }
 
   public DeleteCategoryValidation(id: string) {
@@ -134,9 +127,44 @@ export class TreeListComponent implements OnInit {
     });
   }
 
-  public ViewTree(id: string){
-    let tree = id;
-    this.treeService.setCurrentTree(tree);
+  public AddTreeOfCategory(id: string, description: string,) {
+    let category = new TreeCategory(id,description);
+    this.treeCategoryService.setCurrentCategory(category);
+    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', addstate: true}});
+  }
+
+  public ModifyTreeOfCategory(categoryId: string, description: string, treeId: string) {
+    let category = new TreeCategory(categoryId,description);
+    this.treeCategoryService.setCurrentCategory(category);
+    this.treeService.setCurrentTree(treeId);
+    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', addstate: false}});
+  }
+
+  public DeleteTreeValidation(id: string){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.hasBackdrop = false;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      title: 'Voulez-vous vraiment supprimer cet arbre?',
+      precisions: 'Cet arbre ne sera plus affichée parmis la liste des choix.'
+    };
+    this.dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+    this.dialogRef.afterClosed().subscribe(result => {
+      if (result) { // if true
+        if (this.treeService) {
+          this.treeService.delete(id).subscribe(c => {
+            this.loadTreeCategories();
+          })
+        }
+      }
+    });
+  }
+
+  public ViewTree(categoryId: string, description: string, treeId: string){
+    let category = new TreeCategory(categoryId,description);
+    this.treeCategoryService.setCurrentCategory(category);
+    this.treeService.setCurrentTree(treeId);
     this.router.navigate(['/tree-info']);
   }
 }

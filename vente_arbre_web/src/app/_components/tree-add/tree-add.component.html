@@ -16,7 +16,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-green">
-                        <h3 class="card-title" >Ajout d'un arbre pour la catégorie {{treeCategoryDescr.value}}</h3>
+                        <h3 class="card-title" *ngIf="!addState()">Modification de : {{name.value}} pour la catégorie
+                            {{treeCategoryDescr.value}}</h3>
+                        <h3 class="card-title" *ngIf="addState()">Ajout d'un arbre pour la catégorie
+                            {{treeCategoryDescr.value}}</h3>
                     </div>
 
                     <div class="card-body">
@@ -24,15 +27,14 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nom de l'arbre" name="name" formControlName="name"
+                                        <input matInput placeholder="Nom de l'arbre" name="treeName" formControlName="name"
                                             minlength="3" maxlength="100"
-                                            [class.is-invalid]="name.invalid && zone.touched">
+                                            [class.is-invalid]="name.invalid && name.touched">
                                     </mat-form-field>
                                     <small *ngIf="name.errors && name.invalid && name.touched" class="text-danger">
                                         <div *ngIf="name.errors.required">Le nom est requis</div>
                                         <div *ngIf="name.errors.minlength">La longueur minimale est de 3
-                                            caractères
-                                        </div>
+                                            caractères </div>
                                         <div *ngIf="name.errors.treeExists">Le nom est déjà entré pour cette catégorie
                                         </div>
                                     </small>
@@ -92,7 +94,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <button mat-raised-button type="submit" class="btn btn-green pull-right"
                                 [disabled]="!newtree.valid">Ajouter</button>

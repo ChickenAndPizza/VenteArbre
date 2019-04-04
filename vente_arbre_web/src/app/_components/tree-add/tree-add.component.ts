@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Tree } from 'app/_models';import { TreeCategoryService, TreeService } from 'app/_services';
+import { TreeCategoryService, TreeService } from 'app/_services';
 import { existingTreeOfCategoryValidator } from 'app/_shared';
 
 @Component({
@@ -12,11 +12,10 @@ import { existingTreeOfCategoryValidator } from 'app/_shared';
 export class TreeAddComponent implements OnInit {
 
   returnUrl: string;
-  addstate: boolean;
+  addstate: string;
   newtree: FormGroup;
   category: String;
   categoryId: String;
-  currentTree: Tree;
 
   constructor(
     private treeService: TreeService,
@@ -31,14 +30,8 @@ export class TreeAddComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.addstate = this.route.snapshot.queryParams['addstate'] || true;
 
-    if (this.addstate){
-
-    }
-    else{
-
-    }
-
     this.newtree = this.formBuilder.group({
+      id: ["",,],
       name: ["", Validators.required, existingTreeOfCategoryValidator(this.treeService, this.TreeCategoryService)],
       zone: ["", Validators.required,],
       price: ["", Validators.required,],
@@ -48,20 +41,32 @@ export class TreeAddComponent implements OnInit {
       idTreeCategory: [this.TreeCategoryService.getCurrentCategory().id, ,]
     });
 
-    
+    if (this.addstate == 'false') {
+      this.treeService.getTree().subscribe(tree => {
+        this.id.setValue(tree.id);
+        this.name.setValue(tree.name);
+        this.zone.setValue(tree.zone);
+        this.price.setValue(tree.price);
+        this.ageHeight.setValue(tree.ageHeight);
+        this.description.setValue(tree.description);
+      });
+    }
   }
 
+  get id() { return this.newtree.get('id'); }
   get name() { return this.newtree.get('name'); }
   get zone() { return this.newtree.get('zone'); }
   get price() { return this.newtree.get('price'); }
   get ageHeight() { return this.newtree.get('ageHeight'); }
   get description() { return this.newtree.get('description'); }
   get treeCategoryDescr() { return this.newtree.get('treeCategoryDescr'); }
+  addState(){ return (this.addstate == 'true'); }
 
-  onSubmit(){
+  onSubmit() {
     if (this.treeService) {
-      this.treeService.addOrUpdateTree(this.newtree.value).subscribe(c => { });
-      this.router.navigate([this.returnUrl]);
+      this.treeService.addOrUpdateTree(this.newtree.value).subscribe(c => { 
+        this.router.navigate([this.returnUrl]);
+      });
     }
   }
 }

@@ -20,5 +20,13 @@ namespace Web_API.Controllers
         {
             return Service.IsDescriptionAlreadyUsedForCategory(description, categoryId);
         }
+
+        [HttpGet, AllowAnonymous]
+        [Route("{id:Guid}")]
+        public override ActionResult Get(Guid id)
+        {
+            var entity = Service.Get(id);
+            return Ok(entity);
+        }
     }
 }
