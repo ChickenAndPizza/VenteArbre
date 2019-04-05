@@ -21,11 +21,11 @@ export class TreeInfoComponent implements OnInit {
   ngOnInit() {
 
     this.treeInfo = this.formBuilder.group({
-      name: ["", Validators.required, ],
-      zone: ["", Validators.required,],
-      price: ["", Validators.required,],
-      ageHeight: ["", Validators.required,],
-      description: ["", Validators.required,],
+      name: ["", Validators.required, existingTreeOfCategoryValidator(this.treeService, this.treeCategoryService)],
+      zone: [{value: "", disabled: true}, Validators.required,],
+      price: [{value: "", disabled: true}, Validators.required,],
+      ageHeight: [{value: "", disabled: true}, Validators.required,],
+      description: [{value: "", disabled: true}, Validators.required,],
       treeCategoryDescr: [this.treeCategoryService.getCurrentCategory().description, ,],
       idTreeCategory: [this.treeCategoryService.getCurrentCategory().id, ,]
     });

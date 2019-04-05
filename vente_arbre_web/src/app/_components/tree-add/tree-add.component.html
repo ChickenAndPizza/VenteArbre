@@ -27,8 +27,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nom de l'arbre" name="treeName" formControlName="name"
-                                            minlength="3" maxlength="100"
+                                        <input matInput placeholder="Nom de l'arbre" name="treeName"
+                                            formControlName="name" minlength="3" maxlength="100"
                                             [class.is-invalid]="name.invalid && name.touched">
                                     </mat-form-field>
                                     <small *ngIf="name.errors && name.invalid && name.touched" class="text-danger">
@@ -94,7 +94,19 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <!--<div class="row">
+                                <div class="col-md-6">
+                                    <a href="javascript:document.querySelector('input#image').click()">
+                                        <i (click)="ShowAddImage();" class="material-icons">add_photo_alternate</i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type='file' placeholder="Ajouter une image" name="image"
+                                        formControlName="image" accept="image/png, image/jpeg, image/jpg, image/gif">
+                                </div>
+                            </div>-->
                             <button mat-raised-button type="submit" class="btn btn-green pull-right"
                                 [disabled]="!newtree.valid">Ajouter</button>
                         </form>

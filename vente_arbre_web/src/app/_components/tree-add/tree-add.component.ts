@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Tree } from 'app/_models';
 import { TreeCategoryService, TreeService } from 'app/_services';
 import { existingTreeOfCategoryValidator } from 'app/_shared';
+import { Tree } from 'app/_models';
 
 @Component({
   selector: 'app-tree-add',
@@ -78,9 +79,46 @@ export class TreeAddComponent implements OnInit {
 
   onSubmit() {
     if (this.treeService) {
-      this.treeService.addOrUpdateTree(this.newtree.value).subscribe(c => { 
+
+      //this.LoadPhoto();
+      //this.SetData();
+
+      this.treeService.addOrUpdateTree(this.newtree.value).subscribe(c => {
         this.router.navigate([this.returnUrl]);
       });
     }
+  }
+
+  LoadPhoto() {
+    var input = (<HTMLInputElement>document.getElementsByName('image')[0]);
+    if (input.files && input.files[0]) {
+
+      //Create a canvas and draw image on Client Side to get the byte[] equivalent
+      var canvas = document.createElement("canvas");
+      var imageElement = document.createElement("img");
+
+      canvas.width = imageElement.width;
+      canvas.height = imageElement.height;
+      var context = canvas.getContext("2d");
+      context.drawImage(imageElement, 0, 0);
+      var base64Image = canvas.toDataURL("image/jpeg");
+
+      this.currentTree.image = base64Image.replace(/data:image\/jpeg;base64,/g, '');
+    }
+    else {
+      this.currentTree.image = this.image.value;
+    }
+  }
+
+  SetData(){
+    this.currentTree.id = this.id.value;
+    this.currentTree.name = this.name.value;
+    this.currentTree.zone = this.zone.value;
+    this.currentTree.price = this.price.value;
+    this.currentTree.ageHeight = this.ageHeight.value;
+    this.currentTree.description = this.description.value;
+    this.currentTree.idTreeCategory = this.TreeCategoryService.getCurrentCategory().id;
+    console.log(this.currentTree);
+    console.log(this.newtree.value);
   }
 }
