@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Tree } from 'app/_models';
 import { TreeCategoryService, TreeService } from 'app/_services';
 import { existingTreeOfCategoryValidator } from 'app/_shared';
-import { Tree } from 'app/_models';
 
 @Component({
   selector: 'app-tree-add',
@@ -106,7 +105,7 @@ export class TreeAddComponent implements OnInit {
       this.currentTree.image = base64Image.replace(/data:image\/jpeg;base64,/g, '');
     }
     else {
-      this.currentTree.image = this.image.value;
+      //this.currentTree.image = this.image.value;
     }
   }
 

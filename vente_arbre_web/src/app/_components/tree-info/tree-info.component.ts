@@ -11,6 +11,7 @@ import { TreeCategoryService, TreeService } from 'app/_services';
 export class TreeInfoComponent implements OnInit {
 
   treeInfo: FormGroup;
+  category: String;
 
   constructor(
     private treeCategoryService: TreeCategoryService,
@@ -19,14 +20,14 @@ export class TreeInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.category = this.treeCategoryService.getCurrentCategory().description;
 
     this.treeInfo = this.formBuilder.group({
-      name: ["", Validators.required, existingTreeOfCategoryValidator(this.treeService, this.treeCategoryService)],
-      zone: [{value: "", disabled: true}, Validators.required,],
-      price: [{value: "", disabled: true}, Validators.required,],
-      ageHeight: [{value: "", disabled: true}, Validators.required,],
-      description: [{value: "", disabled: true}, Validators.required,],
-      treeCategoryDescr: [this.treeCategoryService.getCurrentCategory().description, ,],
+      name: ["", , ],
+      zone: [{value: "", disabled: true}, ,],
+      price: [{value: "", disabled: true}, ,],
+      ageHeight: [{value: "", disabled: true}, ,],
+      description: [{value: "", disabled: true}, ,],
       idTreeCategory: [this.treeCategoryService.getCurrentCategory().id, ,]
     });
 
@@ -44,6 +45,5 @@ export class TreeInfoComponent implements OnInit {
   get price() { return this.treeInfo.get('price'); }
   get ageHeight() { return this.treeInfo.get('ageHeight'); }
   get description() { return this.treeInfo.get('description'); }
-  get treeCategoryDescr() { return this.treeInfo.get('treeCategoryDescr'); }
 
 }

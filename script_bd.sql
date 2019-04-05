@@ -93,7 +93,7 @@ CREATE TABLE tree(
         name        	     Varchar (100) NOT NULL ,
         zone        	     Varchar (20) NOT NULL ,
         age_height           Varchar (20) NOT NULL ,
-        price       	     Decimal NOT NULL,
+        price       	     Decimal(10, 2) NOT NULL,
         description 	     TEXT NOT NULL ,
 		id_tree_category 	 Varchar (36) NOT NULL,
 		is_active   		 Bool NOT NULL
