@@ -28,8 +28,13 @@ export class TreeCategoryService extends MainService {
       return this.http.get<any[]>(url);
   }
 
-  validateTreeCategory(description: string) {
-    let url = this.apiUrl.toString() + "TreeCategory/Description?description=" + description;
+  validateTreeCategory(description: string, categoryId: string) {
+    let url = '';
+    if(categoryId){
+      url = this.apiUrl.toString() + "TreeCategory/Description?description=" + description + "&categoryId=" + categoryId;
+    } else {
+      url = this.apiUrl.toString() + "TreeCategory/Description?description=" + description;
+    }
 
     let headers = new HttpHeaders();
     headers = headers.set('Access-Control-Allow-Origin', '*');

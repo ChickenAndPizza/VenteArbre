@@ -36,7 +36,7 @@ export class TreeListComponent implements OnInit {
     this.isAdmin();
 
     this.newCategory = this.formBuilder.group({
-      description: ['', , existingTreeCategoryValidator(this.treeCategoryService)]
+      description: ['', , existingTreeCategoryValidator(this.treeCategoryService, null)]
     });
   }
 
@@ -88,7 +88,8 @@ export class TreeListComponent implements OnInit {
       title: 'Modifier la catégorie',
       precisions: '',
       field: 'Description',
-      value: value
+      value: value,
+      id: id
     };
     this.dialogEntryRef = this.dialog.open(DialogEntryComponent, dialogConfig);
     this.dialogEntryRef.afterClosed()

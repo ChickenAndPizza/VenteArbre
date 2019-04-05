@@ -14,6 +14,7 @@ export class DialogEntryComponent implements OnInit {
   modalPrecisions: string;
   modalField: string;
   modalValue: string;
+  modalId: string;
   form: FormGroup;
 
   constructor(
@@ -26,11 +27,12 @@ export class DialogEntryComponent implements OnInit {
     this.modalPrecisions = data.precisions;
     this.modalField = data.field;
     this.modalValue = data.value;
+    this.modalId = data.id;
   }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      description: [this.data ? this.data.value : '', , existingTreeCategoryValidator(this.treeCategoryService)]
+      description: [this.data ? this.data.value : '', , existingTreeCategoryValidator(this.treeCategoryService, this.modalId)]
     })
   }
 

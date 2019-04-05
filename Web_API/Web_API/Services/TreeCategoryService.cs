@@ -33,9 +33,12 @@ namespace Web_API.Services
             return query;
         }
 
-        public bool IsDescriptionAlreadyUsed(string description)
+        public bool IsDescriptionAlreadyUsed(string description, string categoryId)
         {
-            return Context.TreeCategories.Any(c => c.Description == description);
+            if (!string.IsNullOrWhiteSpace(categoryId) && Context.TreeCategories.Any(c => c.Id == new Guid(categoryId) && c.Description == description))
+                return false;
+            else
+                return Context.TreeCategories.Any(c => c.Description == description);
         }
     }
 }
