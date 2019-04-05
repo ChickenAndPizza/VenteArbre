@@ -16,9 +16,9 @@ namespace Web_API.Controllers
 
         [HttpGet, AllowAnonymous]
         [Route("Description")]
-        public ActionResult<bool> IsDescriptionAlreadyUsed(string description, Guid categoryId)
+        public ActionResult<bool> IsDescriptionAlreadyUsed(string description, Guid categoryId, string treeId)
         {
-            return Service.IsDescriptionAlreadyUsedForCategory(description, categoryId);
+            return Service.IsDescriptionAlreadyUsedForCategory(description, categoryId, treeId);
         }
 
         [HttpGet, AllowAnonymous]

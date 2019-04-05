@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Tree } from 'app/_models';
 import { TreeCategoryService, TreeService } from 'app/_services';
 import { existingTreeOfCategoryValidator } from 'app/_shared';
 
@@ -15,7 +16,7 @@ export class TreeAddComponent implements OnInit {
   addstate: string;
   newtree: FormGroup;
   category: String;
-  categoryId: String;
+  currentTree: Tree;
 
   constructor(
     private treeService: TreeService,
@@ -29,19 +30,29 @@ export class TreeAddComponent implements OnInit {
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.addstate = this.route.snapshot.queryParams['addstate'] || true;
+    this.category = this.TreeCategoryService.getCurrentCategory().description;
 
     this.newtree = this.formBuilder.group({
-      id: ["",,],
-      name: ["", Validators.required, existingTreeOfCategoryValidator(this.treeService, this.TreeCategoryService)],
+      name: ["", Validators.required, existingTreeOfCategoryValidator(this.treeService, this.TreeCategoryService, null)],
       zone: ["", Validators.required,],
       price: ["", Validators.required,],
       ageHeight: ["", Validators.required,],
       description: ['', Validators.required,],
-      treeCategoryDescr: [this.TreeCategoryService.getCurrentCategory().description, ,],
       idTreeCategory: [this.TreeCategoryService.getCurrentCategory().id, ,]
     });
 
     if (this.addstate == 'false') {
+
+      this.newtree = this.formBuilder.group({
+        id: ["",,],
+        name: ["", Validators.required,],
+        zone: ["", Validators.required,],
+        price: ["", Validators.required,],
+        ageHeight: ["", Validators.required,],
+        description: ['', Validators.required,],
+        idTreeCategory: [this.TreeCategoryService.getCurrentCategory().id, ,]
+      });
+
       this.treeService.getTree().subscribe(tree => {
         this.id.setValue(tree.id);
         this.name.setValue(tree.name);
@@ -49,6 +60,9 @@ export class TreeAddComponent implements OnInit {
         this.price.setValue(tree.price);
         this.ageHeight.setValue(tree.ageHeight);
         this.description.setValue(tree.description);
+
+        this.name.setAsyncValidators(existingTreeOfCategoryValidator(this.treeService, this.TreeCategoryService, this.id.value));
+        
       });
     }
   }
@@ -59,8 +73,8 @@ export class TreeAddComponent implements OnInit {
   get price() { return this.newtree.get('price'); }
   get ageHeight() { return this.newtree.get('ageHeight'); }
   get description() { return this.newtree.get('description'); }
-  get treeCategoryDescr() { return this.newtree.get('treeCategoryDescr'); }
-  addState(){ return (this.addstate == 'true'); }
+
+  addState() { return (this.addstate == 'true'); }
 
   onSubmit() {
     if (this.treeService) {

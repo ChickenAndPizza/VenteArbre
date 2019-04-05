@@ -21,7 +21,7 @@ export class TreeInfoComponent implements OnInit {
   ngOnInit() {
 
     this.treeInfo = this.formBuilder.group({
-      name: ["", Validators.required, existingTreeOfCategoryValidator(this.treeService, this.treeCategoryService)],
+      name: ["", Validators.required, ],
       zone: ["", Validators.required,],
       price: ["", Validators.required,],
       ageHeight: ["", Validators.required,],
