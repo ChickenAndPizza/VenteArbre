@@ -27,7 +27,7 @@ export class CustomerService extends MainService {
         headers: this.headers
       }
     )
-  };
+  }
 
   validateEmail(id: string, email: string) {
     let url = '';

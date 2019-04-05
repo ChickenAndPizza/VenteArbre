@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Web_API.Controllers
         {
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         [Route("{id:Guid}")]
         [ProducesResponseType(401)]
         [ProducesResponseType(200)]
@@ -24,6 +25,14 @@ namespace Web_API.Controllers
         {
             var entity = Service.GetCustomerCart(id);
             return Ok(entity);
+        }
+
+        [HttpGet, AllowAnonymous]
+        [Route("CreateCart/{id:Guid}")]
+        public ActionResult<CustomerOrder> CreateCart(Guid id)
+        {
+            var cart = Service.CreateCart(id);
+            return Ok(cart);
         }
     }
 }

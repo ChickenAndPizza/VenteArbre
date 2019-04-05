@@ -10,12 +10,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TreeInfoComponent implements OnInit {
 
+  currentUser: any;
+  quantityInfo: FormGroup;
   treeInfo: FormGroup;
   treeId: string;
   categoryId: string;
   categoryDescr: string;
 
   constructor(
+    private customerOrderService: CustomerOrderService,
+    private customerOrderDetailService: CustomerOrderDetailService,
     private treeCategoryService: TreeCategoryService,
     private treeService: TreeService,
     private formBuilder: FormBuilder,
@@ -38,6 +42,10 @@ export class TreeInfoComponent implements OnInit {
       idTreeCategory: [this.categoryId, ,]
     });
 
+    this.quantityInfo = this.formBuilder.group({
+      quantity: ['', [Validators.required,Validators.min(1)]]
+    });
+
     this.treeService.getTree(this.treeId).subscribe(tree => {
         this.name.setValue(tree.name);
         this.zone.setValue(tree.zone);
@@ -55,4 +63,24 @@ export class TreeInfoComponent implements OnInit {
   get description() { return this.treeInfo.get('description'); }
   get image() { return this.treeInfo.get('image'); }
 
+  get quantity() { return this.quantityInfo.get('quantity'); }
+
+  addToCart(treeToAdd: number) {
+    console.log(treeToAdd);
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = decodeToken(this.currentUser);
+    this.customerOrderService.getCustomerCart(this.currentUser.id).subscribe(order => {
+      if(!order) {
+        let orderDetail = {'idTree': this.treeId, 'quantity': treeToAdd, 'idCustomerOrder': order.id};
+        this.customerOrderDetailService.addOrUpdateCustomerOrderDetail(JSON.stringify(orderDetail)).subscribe();
+      } else {
+        this.customerOrderService.createCustomerCart(this.currentUser.id).subscribe(cart => {
+          console.log(cart);
+        });
+      }
+    });
+
+    
+    
+  }
 }

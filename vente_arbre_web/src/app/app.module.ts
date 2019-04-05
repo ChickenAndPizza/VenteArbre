@@ -14,7 +14,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { AlertComponent, DialogComponent, DialogEntryComponent } from './_directives';
 import { AuthGuard } from './_guards';
-import { AlertService, AuthenticationService, UserService, CustomerService } from './_services';
+import { AlertService, AuthenticationService, UserService, CustomerService, CustomerOrderDetailService } from './_services';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { ComponentsModule } from './_components/navigation';
 import { DialogDistributionPointComponent } from './_directives/dialog-distribution-point/dialog-distribution-point.component';
@@ -53,6 +53,7 @@ import { DialogDistributionPointComponent } from './_directives/dialog-distribut
     AuthenticationService,
     UserService,
     CustomerService,
+    CustomerOrderDetailService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
