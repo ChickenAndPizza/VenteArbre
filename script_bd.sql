@@ -96,7 +96,8 @@ CREATE TABLE tree(
         price       	     Decimal(10, 2) NOT NULL,
         description 	     TEXT NOT NULL ,
 		id_tree_category 	 Varchar (36) NOT NULL,
-		is_active   		 Bool NOT NULL
+		is_active   		 Bool NOT NULL,
+        image                mediumblob
 	,CONSTRAINT tree_PK PRIMARY KEY (id)
 
 	,CONSTRAINT tree_category_FR FOREIGN KEY (id_tree_category) REFERENCES tree_category(id)

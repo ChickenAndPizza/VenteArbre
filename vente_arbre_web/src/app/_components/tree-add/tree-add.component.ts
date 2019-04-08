@@ -16,7 +16,7 @@ export class TreeAddComponent implements OnInit {
   addstate: string;
   newtree: FormGroup;
   category: String;
-  currentTree: Tree;
+  currentTree = new Tree("","","","","","","","");
 
   constructor(
     private treeService: TreeService,
@@ -37,7 +37,8 @@ export class TreeAddComponent implements OnInit {
       zone: ["", Validators.required,],
       price: ["", Validators.required,],
       ageHeight: ["", Validators.required,],
-      description: ['', Validators.required,],
+      description: ["", Validators.required,],
+      image: ["", ,],
       idTreeCategory: [this.TreeCategoryService.getCurrentCategory().id, ,]
     });
 
@@ -50,6 +51,7 @@ export class TreeAddComponent implements OnInit {
         price: ["", Validators.required,],
         ageHeight: ["", Validators.required,],
         description: ['', Validators.required,],
+        image: ["", ,],
         idTreeCategory: [this.TreeCategoryService.getCurrentCategory().id, ,]
       });
 
@@ -60,6 +62,7 @@ export class TreeAddComponent implements OnInit {
         this.price.setValue(tree.price);
         this.ageHeight.setValue(tree.ageHeight);
         this.description.setValue(tree.description);
+        this.image.setValue(tree.image);
 
         this.name.setAsyncValidators(existingTreeOfCategoryValidator(this.treeService, this.TreeCategoryService, this.id.value));
         
@@ -73,14 +76,15 @@ export class TreeAddComponent implements OnInit {
   get price() { return this.newtree.get('price'); }
   get ageHeight() { return this.newtree.get('ageHeight'); }
   get description() { return this.newtree.get('description'); }
+  get image() { return this.newtree.get('image'); }
 
   addState() { return (this.addstate == 'true'); }
 
   onSubmit() {
     if (this.treeService) {
 
-      //this.LoadPhoto();
-      //this.SetData();
+      this.LoadPhoto();
+      this.SetData();
 
       this.treeService.addOrUpdateTree(this.newtree.value).subscribe(c => {
         this.router.navigate([this.returnUrl]);
@@ -105,12 +109,16 @@ export class TreeAddComponent implements OnInit {
       this.currentTree.image = base64Image.replace(/data:image\/jpeg;base64,/g, '');
     }
     else {
-      //this.currentTree.image = this.image.value;
+      this.currentTree.image = this.image.value;
     }
   }
 
   SetData(){
-    this.currentTree.id = this.id.value;
+
+    if (this.addstate == 'false') {
+      this.currentTree.id = this.id.value;
+    }
+
     this.currentTree.name = this.name.value;
     this.currentTree.zone = this.zone.value;
     this.currentTree.price = this.price.value;
