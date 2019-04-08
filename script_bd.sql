@@ -91,13 +91,15 @@ CREATE TABLE tree_category(
 CREATE TABLE tree(
         id          	     Varchar (36) NOT NULL ,
         name        	     Varchar (100) NOT NULL ,
-        description 	     Varchar (254) NOT NULL ,
-        price       	     Decimal NOT NULL,
+        zone        	     Varchar (20) NOT NULL ,
+        age_height           Varchar (20) NOT NULL ,
+        price       	     Decimal(10, 2) NOT NULL,
+        description 	     TEXT NOT NULL ,
 		id_tree_category 	 Varchar (36) NOT NULL,
 		is_active   		 Bool NOT NULL
 	,CONSTRAINT tree_PK PRIMARY KEY (id)
 
-	,CONSTRAINT tree_sub_category_FR FOREIGN KEY (id_tree_category) REFERENCES tree_category(id)
+	,CONSTRAINT tree_category_FR FOREIGN KEY (id_tree_category) REFERENCES tree_category(id)
 )ENGINE=InnoDB;
 
 

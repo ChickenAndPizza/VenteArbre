@@ -15,17 +15,17 @@ namespace Web_API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        [Route("GetCategoriesAndSubCategories")]
-        public ActionResult<List<TreeCategory>> GetCategoriesAndSubCategories()
+        [Route("GetCategoriesWithTrees")]
+        public ActionResult<List<TreeCategory>> GetCategoriesWithTrees()
         {
-            return Ok(Service.GetCategoryWithSubCategory());
+            return Ok(Service.GetCategoryWithTrees());
         }
 
         [HttpGet, AllowAnonymous]
         [Route("Description")]
-        public ActionResult<bool> IsDescriptionAlreadyUsed(string description)
+        public ActionResult<bool> IsDescriptionAlreadyUsed(string description, string categoryId)
         {
-            return Service.IsDescriptionAlreadyUsed(description);
+            return Service.IsDescriptionAlreadyUsed(description, categoryId);
         }
     }
 }
