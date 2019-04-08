@@ -43,6 +43,7 @@ namespace Web_API.Services
                 State = Order.Cart,
             };
             Context.CustomerOrders.Add(customerCart);
+            Context.SaveChanges();
             return customerCart;
         }
     }

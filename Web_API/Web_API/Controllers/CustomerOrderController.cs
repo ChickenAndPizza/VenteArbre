@@ -24,7 +24,9 @@ namespace Web_API.Controllers
         public override ActionResult Get(Guid id)
         {
             var entity = Service.GetCustomerCart(id);
-            return Ok(entity);
+            if(entity != null)
+                return Ok(entity);
+            return NoContent();
         }
 
         [HttpGet, AllowAnonymous]

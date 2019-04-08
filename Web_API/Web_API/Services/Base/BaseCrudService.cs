@@ -24,7 +24,7 @@ namespace Web_API.Services.Base
                 Context.Set<T>().Update(entity);
             else
                 Context.Set<T>().Add(entity);
-
+                
             Context.SaveChanges();
             return entity.Id;
         }

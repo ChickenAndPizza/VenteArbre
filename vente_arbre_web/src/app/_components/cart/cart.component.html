@@ -14,18 +14,24 @@
                   <th> Produit </th>
                   <th> Zone </th>
                   <th> Âge/Hauteur </th>
-                  <th> Prix </th>
-                  <th> Quantité</th>
+                  <th> Prix/u </th>
+                  <th style="text-align: center"> Quantité</th>
+                  <th> Total </th>
                 </thead>
-                <tbody >
+                <tbody>
                   <tr *ngFor="let orderDetail of cart">
                     <td> {{orderDetail.tree.name}} </td>
                     <td> {{orderDetail.tree.zone}} </td>
                     <td> {{orderDetail.tree.ageHeight}} </td>
                     <td> {{orderDetail.tree.price}}$ </td>
+                    <td style="text-align: center" >
+                      <input style="width: 50px" min="0" matInput type="number"
+                      name="quantity"> {{orderDetail.quantity}} </td>
+                    <td> {{orderDetail.quantity * orderDetail.tree.price}}$ </td>
+                    <td> <a class="nav-link"> <i style="cursor:pointer;text-align: center;" class="material-icons">clear</i> </a> </td>
                   </tr>
                 </tbody>
-              </table>
+              </table>  
 
             </div>
           </div>

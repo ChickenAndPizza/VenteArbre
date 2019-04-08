@@ -11,7 +11,7 @@ export class CustomerOrderDetailService extends MainService {
         super(injector);
     }
 
-    addOrUpdateCustomerOrderDetail(newCustomerOrderDetail: string): Observable<any> {
+    addOrUpdateCustomerOrderDetail(newCustomerOrderDetail: any): Observable<any> {
         const url = this.apiUrl.toString() + "CustomerOrderDetail";
         return this.http.post(
           url,

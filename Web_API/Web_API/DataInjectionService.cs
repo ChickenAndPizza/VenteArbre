@@ -15,6 +15,7 @@ namespace Web_API
         {
             services.AddTransient<CustomerService>();
             services.AddTransient<CustomerOrderService>();
+            services.AddTransient<CustomerOrderDetailService>();
             services.AddTransient<TreeService>();
             services.AddTransient<TreeCategoryService>();
             services.AddTransient<AuthService>();
