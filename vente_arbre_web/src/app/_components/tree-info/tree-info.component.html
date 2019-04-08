@@ -84,7 +84,7 @@
                                         </small>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-green btn-round" style="color:white;">Ajouter</button>
+                            <button [disabled]="!quantityInfo.valid" type="submit" class="btn btn-green btn-round" style="color:white;">Ajouter</button>
                         </form>
                     </div>
                 </div>
