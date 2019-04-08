@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2 mat-dialog-title>{{modalTitle}}</h2>
+  </div>
+</div>
+<div>
+  <form [formGroup]="form" (ngSubmit)="submit(form)">
+    <div class="col-md-12">
+      <h6>{{modalPrecisions}}</h6>
+      <mat-dialog-content>
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName="mapLink" placeholder="URL Google Map*" class="example-full-width">
+        </mat-form-field>
+        <small *ngIf="mapLink.errors && mapLink.invalid && mapLink.touched" class="text-danger">
+          <div *ngIf="mapLink.errors?.required">L'URL de google map est requis</div>
+        </small>
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName="webLink" placeholder="URL du point" class="example-full-width">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName="webName" placeholder="Nom du point*" class="example-full-width">
+        </mat-form-field>
+        <small *ngIf="webName.errors && webName.invalid && webName.touched" class="text-danger">
+          <div *ngIf="webName.errors?.pointExists">Le point de distribution est déjà
+            existant</div>
+          <div *ngIf="webName.errors?.required">Le nom du point de distribution est requis</div>
+        </small>
+        <mat-form-field>
+          <textarea style="resize: none" rows="4" matInput formControlName="description" class="example-full-width"
+            placeholder="Description du point*"></textarea>
+        </mat-form-field>
+        <small *ngIf="description.errors && description.invalid && description.touched" class="text-danger">
+          <div *ngIf="description.errors?.required">La description est requise</div>
+        </small>
+      </mat-dialog-content>
+
+    </div>
+
+    <mat-dialog-actions>
+      <div class="row" style="padding-top: 15px;">
+        <div class="col-md-12">
+          <button [disabled]="!form.valid" mat-raised-button type="submit"
+            class="btn btn-green pull-right">Confirmer</button>
+          <button mat-raised-button mat-dialog-close class="btn btn-green pull-right">Annuler</button>
+        </div>
+      </div>
+    </mat-dialog-actions>
+  </form>
+</div>

@@ -19,6 +19,8 @@ namespace Web_API.DataLayer
         DbSet<Tree> Trees { get; set; }
         DbSet<TreeCategory> TreeCategories { get; set; }
 
+        DbSet<DistributionPoint> DistributionPoints { get; set; }
+
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
         EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;
         EntityEntry Update(object entity);

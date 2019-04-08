@@ -2,10 +2,63 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-md-1">
-                <a class="nav-link" href="#add-location">
-                    <i style="text-align: center;font-size: 50px;" class="material-icons">add_location</i>
-                </a>
+            <div class="col-md-12" *ngIf="admin">
+                <div class="row">
+                    <div class="col-md-1">
+                        <a class="nav-link">
+                            <i (click)="ShowNewDistributionPoint()"
+                                class="material-icons NewDistributionPointIcon">add_location</i>
+                        </a>
+                    </div>
+                    <div id="newDistributionPoint" class="col-md-11" style="display:none;">
+                        <form [formGroup]="newDistributionPoint" (ngSubmit)="AddNewDistributionPoint()">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="URL Google Map*" name="mapLink"
+                                            formControlName="mapLink">
+                                    </mat-form-field>
+                                    <small *ngIf="mapLink.errors && mapLink.invalid && mapLink.touched"
+                                        class="text-danger">
+                                        <div *ngIf="mapLink.errors?.required">L'URL de google map est requis</div>
+                                    </small>
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="URL du point" name="webLink"
+                                            formControlName="webLink" maxlength="254">
+                                    </mat-form-field>
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Nom du point*" name="webName"
+                                            formControlName="webName" maxlength="254">
+                                    </mat-form-field>
+                                    <small *ngIf="webName.errors && webName.invalid && webName.touched"
+                                        class="text-danger">
+                                        <div *ngIf="webName.errors?.pointExists">Le point de distribution est déjà
+                                            existant</div>
+                                            <div *ngIf="webName.errors?.required">Le nom du point de distribution est requis</div>
+                                    </small>
+                                    <mat-form-field class="example-full-width">
+                                        <textarea rows="5" matInput placeholder="Description du point*"
+                                            name="description" formControlName="description"></textarea>
+                                    </mat-form-field>
+                                    <small *ngIf="description.errors && description.invalid && description.touched"
+                                        class="text-danger">
+                                        <div *ngIf="description.errors?.required">La description est requise</div>
+                                    </small>
+                                </div>
+
+                                <div class="col-md-3" style="text-align: left">
+                                    <button [disabled]="!newDistributionPoint.valid" type="submit" mat-icon-button>
+                                        <i class="material-icons NewDistributionPointIconOption">check</i>
+                                    </button>
+                                    <a class="nav-link NewIconOption">
+                                        <i (click)="HideNewDistributionPoint()"
+                                            class="material-icons NewDistributionPointIconOption">close</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-12">
@@ -15,50 +68,40 @@
                         <p class="card-category">Trouvez le point le plus près de chez vous dès maintenant!</p>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive" style="overflow: unset">
                             <table class="table">
-                                <thead class="text-primary">
-                                    <th>
-                                        <a style="cursor:pointer;" target="_blank"
-                                            href="https://cegepba.qc.ca/">Cégep Beauce-Appalaches (Saint-Georges)</a>
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Saint-George, de la région de la Beauce, se trouve à environ
-                                            1 heure de la ville de Québec. Le point de distribution de
-                                            cette ville se situe au Cégep Beauce-Appalaches. Le cégep se
-                                            situe sur le point de plus haut de la ville et était anciennement
-                                            un séminaire.
+                                <div *ngFor="let point of distributionPoints" class="row">
+                                    <thead class="text-primary col-md-12" style="display: flex; align-items: center;">
+                                        <div class="col-md-8">
+                                            <div *ngIf="!point.webLink">
+                                                {{point.webName}}
+                                            </div>
+                                            <a *ngIf="point.webLink" style="cursor:pointer;" target="_blank"
+                                                [href]="point.webLink">{{point.webName}}
+                                            </a>
+                                        </div>
+                                        <div *ngIf="admin" class="col-md-4" style="text-align:right">
+                                            <a class="nav-link NewIconOption">
+                                                <i (click)="ModifyDistributionPoint(point.id, point)"
+                                                    class="material-icons DistributionPointIcon">settings</i>
+                                            </a>
+                                            <a class="nav-link NewIconOption">
+                                                <i (click)="DeleteDistributionPointValidation(point.id);"
+                                                    class="material-icons DistributionPointIcon">delete</i>
+                                            </a>
+                                        </div>
+                                    </thead>
+                                    <tbody class="col-md-12" style="display: flex">
+                                        <td class="col-md-8 col-sm-10">
+                                            {{point.description}}
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="text-primary col-md-4 col-sm-2"
+                                            style="text-align:right;padding-bottom: 50px;">
                                             <a title="Comment s'y rendre" style="cursor:pointer;" target="_blank"
-                                                href="https://www.google.com.ar/maps/place/C%C3%A9gep+Beauce-Appalaches/@46.1267114,-70.6712629,17z/data=!3m1!4b1!4m5!3m4!1s0x4cb9bfc286cb90d9:0xff6d09301e9fdb22!8m2!3d46.1267077!4d-70.6690742">
-                                                Où se trouve ce lieu?</a>
+                                                [href]="point.mapLink">Où se trouve ce lieu?</a>
                                         </td>
-                                    </tr>
-                                </tbody>
-                                <thead class="text-primary">
-                                    <th>
-                                        <a style="cursor:pointer;" target="_blank"
-                                            href="https://www.ulaval.ca/">Université Laval (Québec)</a>
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            La ville de Québec est accessible de la Beauce en passant par
-                                            l'autoroute Robert-Cliche (73). Le point de ditribution choisi
-                                            est l'Université Laval.
-                                        </td>
-                                        <td class="text-primary">
-                                            <a title="Comment s'y rendre" style="cursor:pointer;" target="_blank"
-                                                href="https://www.google.com.ar/maps/place/Universit%C3%A9+Laval/@46.7765017,-71.2731419,16.75z/data=!4m5!3m4!1s0x4cb896c8756d5999:0xa95dc568acf4357a!8m2!3d46.776635!4d-71.270671">
-                                                Où se trouve ce lieu?</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                    </tbody>
+                                </div>
                             </table>
                         </div>
                     </div>

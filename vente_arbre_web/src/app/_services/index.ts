@@ -4,3 +4,4 @@ export * from './customer/customer.service';
 export * from './tree/tree.service';
 export * from './tree-category/tree-category.service';
 export * from './user/user.service';
+export * from './distribution-point/distribution-point.service';

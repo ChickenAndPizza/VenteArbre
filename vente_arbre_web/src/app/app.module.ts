@@ -17,6 +17,7 @@ import { AuthGuard } from './_guards';
 import { AlertService, AuthenticationService, UserService, CustomerService } from './_services';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { ComponentsModule } from './_components/navigation';
+import { DialogDistributionPointComponent } from './_directives/dialog-distribution-point/dialog-distribution-point.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { ComponentsModule } from './_components/navigation';
     AdminLayoutComponent,
     AlertComponent,
     DialogComponent,
-    DialogEntryComponent
+    DialogEntryComponent,
+    DialogDistributionPointComponent
   ],
   providers: [
     AuthGuard,
@@ -55,6 +57,6 @@ import { ComponentsModule } from './_components/navigation';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent, DialogEntryComponent]
+  entryComponents: [DialogComponent, DialogEntryComponent, DialogDistributionPointComponent]
 })
 export class AppModule { }
