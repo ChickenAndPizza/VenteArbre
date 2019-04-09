@@ -13,5 +13,18 @@ namespace Web_API.Services
         public CustomerOrderDetailService(IDatabaseContext context) : base(context)
         {
         }
+
+        public override bool Remove(Guid id)
+        {
+            var entity = Context.Set<CustomerOrderDetail>().Find(id);
+
+            if (entity == null)
+                return false;
+            Context.CustomerOrderDetails.Remove(entity);
+
+            Context.SaveChanges();
+
+            return true;
+        }
     }
 }

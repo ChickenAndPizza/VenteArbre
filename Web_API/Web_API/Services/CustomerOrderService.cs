@@ -18,8 +18,10 @@ namespace Web_API.Services
 
         public CustomerOrder GetCustomerCart(Guid id)
         {
-            return Context.CustomerOrders.Include(c => c.OrderDetails)
-                 .ThenInclude(detail => detail.Tree).Where(c => c.IdCustomer == id && c.IsActive == true && c.State == 0)
+            return Context.CustomerOrders
+                 .Include(c => c.OrderDetails)
+                 .ThenInclude(detail => detail.Tree)
+                 .Where(c => c.IdCustomer == id && c.IsActive == true && c.State == 0)
                  .Select(c => new CustomerOrder
                  {
                      Id = c.Id,
@@ -27,11 +29,14 @@ namespace Web_API.Services
                      IdCustomer = c.IdCustomer,
                      OrderDetails = c.OrderDetails.Where(x => x.IsActive).Select(y => new CustomerOrderDetail
                      {
+                         Id = y.Id,
                          Quantity = y.Quantity,
                          IdTree = y.IdTree,
                          Tree = y.Tree,
+                         IdCustomerOrder = c.Id
                      }).ToList(),
-                     IsActive = c.IsActive
+                     IsActive = c.IsActive,
+                     
                  }).ToList().FirstOrDefault();
         }
 

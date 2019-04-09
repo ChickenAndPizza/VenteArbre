@@ -9,37 +9,45 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table">
-                <thead class=" text-primary">
-                  <th> Produit </th>
-                  <th> Zone </th>
-                  <th> Âge/Hauteur </th>
-                  <th> Prix/u </th>
-                  <th style="text-align: center"> Quantité</th>
-                  <th> Total </th>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let orderDetail of cart">
-                    <td> {{orderDetail.tree.name}} </td>
-                    <td> {{orderDetail.tree.zone}} </td>
-                    <td> {{orderDetail.tree.ageHeight}} </td>
-                    <td> {{orderDetail.tree.price}}$ </td>
-                    <td style="text-align: center" >
-                      <input style="width: 50px" min="0" matInput type="number"
-                      name="quantity"> {{orderDetail.quantity}} </td>
-                    <td> {{orderDetail.quantity * orderDetail.tree.price}}$ </td>
-                    <td> <a class="nav-link"> <i style="cursor:pointer;text-align: center;" class="material-icons">clear</i> </a> </td>
-                  </tr>
-                </tbody>
-              </table>  
-
+              <form [formGroup]="cartForm" (ngSubmit)="saveChange()">
+                <div formArrayName="orderDetail">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th> Produit </th>
+                      <th> Zone </th>
+                      <th> Âge/Hauteur </th>
+                      <th> Prix/u </th>
+                      <th style="text-align: center"> Quantité</th>
+                      <th> Total </th>
+                    </thead>
+                    <tbody>
+                      <tr class="form-group"
+                        *ngFor="let detail of cartForm.controls.orderDetail.controls; let i = index">
+                        <td> {{cartForm.controls.orderDetail.controls[i].controls.name.value}} </td>
+                        <td> {{cartForm.controls.orderDetail.controls[i].controls.zone.value}} </td>
+                        <td> {{cartForm.controls.orderDetail.controls[i].controls.ageHeight.value}} </td>
+                        <td> {{cartForm.controls.orderDetail.controls[i].controls.price.value}} </td>
+                        <div [formGroupName]="i">
+                          <td style="text-align: center">
+                            <input formControlName="quantity" style="width: 50px" min="0" matInput type="number"
+                              name="quantity">
+                          </td>
+                        </div>
+                        <td> {{cartForm.controls.orderDetail.controls[i].controls.totalPrice.value}} </td>
+                        <td> <a class="nav-link"> <i (click)="deleteItem(cartForm.controls.orderDetail.controls[i].controls.id.value, i)" style="cursor:pointer;text-align: center;"
+                              class="material-icons">clear</i> </a> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="col-md-12">
+                      <button [disabled]="!cartForm.valid || !cartForm.dirty" mat-raised-button type="submit" class="btn btn-green pull-right" style="color:white;">Sauvegarder les changements</button>
+                    </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
-            <a class="btn btn-green pull-right" style="color:white;" role="button">Sauvegarder les changements</a>
-          </div>
           <div class="col-md-12">
             <a class="btn btn-green pull-right" style="color:white;" role="button">Passer la commande</a>
           </div>
