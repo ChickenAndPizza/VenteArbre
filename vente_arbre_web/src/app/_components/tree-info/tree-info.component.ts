@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { existingTreeOfCategoryValidator } from 'app/_shared';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { TreeCategoryService, TreeService } from 'app/_services';
 
 @Component({
@@ -16,7 +15,7 @@ export class TreeInfoComponent implements OnInit {
   constructor(
     private treeCategoryService: TreeCategoryService,
     private treeService: TreeService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -28,6 +27,7 @@ export class TreeInfoComponent implements OnInit {
       price: [{value: "", disabled: true}, ,],
       ageHeight: [{value: "", disabled: true}, ,],
       description: [{value: "", disabled: true}, ,],
+      image: [null, ,],
       idTreeCategory: [this.treeCategoryService.getCurrentCategory().id, ,]
     });
 
@@ -37,6 +37,7 @@ export class TreeInfoComponent implements OnInit {
         this.price.setValue(tree.price);
         this.ageHeight.setValue(tree.ageHeight);
         this.description.setValue(tree.description);
+        this.image.setValue(tree.image);
     });
   }
 
@@ -45,5 +46,6 @@ export class TreeInfoComponent implements OnInit {
   get price() { return this.treeInfo.get('price'); }
   get ageHeight() { return this.treeInfo.get('ageHeight'); }
   get description() { return this.treeInfo.get('description'); }
+  get image() { return this.treeInfo.get('image'); }
 
 }

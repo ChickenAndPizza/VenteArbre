@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Tree } from 'app/_models';
-import { TreeCategoryService, TreeService } from 'app/_services';
+import { TreeCategoryService, TreeService, AlertService } from 'app/_services';
 import { existingTreeOfCategoryValidator } from 'app/_shared';
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-tree-add',
@@ -16,7 +17,7 @@ export class TreeAddComponent implements OnInit {
   addstate: string;
   newtree: FormGroup;
   category: String;
-  currentTree = new Tree("","","","","","","","");
+  image: File;
 
   constructor(
     private treeService: TreeService,
@@ -24,6 +25,7 @@ export class TreeAddComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -38,20 +40,18 @@ export class TreeAddComponent implements OnInit {
       price: ["", Validators.required,],
       ageHeight: ["", Validators.required,],
       description: ["", Validators.required,],
-      image: ["", ,],
       idTreeCategory: [this.TreeCategoryService.getCurrentCategory().id, ,]
     });
 
     if (this.addstate == 'false') {
 
       this.newtree = this.formBuilder.group({
-        id: ["",,],
+        id: ["", ,],
         name: ["", Validators.required,],
         zone: ["", Validators.required,],
         price: ["", Validators.required,],
         ageHeight: ["", Validators.required,],
         description: ['', Validators.required,],
-        image: ["", ,],
         idTreeCategory: [this.TreeCategoryService.getCurrentCategory().id, ,]
       });
 
@@ -62,10 +62,9 @@ export class TreeAddComponent implements OnInit {
         this.price.setValue(tree.price);
         this.ageHeight.setValue(tree.ageHeight);
         this.description.setValue(tree.description);
-        this.image.setValue(tree.image);
 
         this.name.setAsyncValidators(existingTreeOfCategoryValidator(this.treeService, this.TreeCategoryService, this.id.value));
-        
+
       });
     }
   }
@@ -76,56 +75,25 @@ export class TreeAddComponent implements OnInit {
   get price() { return this.newtree.get('price'); }
   get ageHeight() { return this.newtree.get('ageHeight'); }
   get description() { return this.newtree.get('description'); }
-  get image() { return this.newtree.get('image'); }
 
   addState() { return (this.addstate == 'true'); }
 
   onSubmit() {
     if (this.treeService) {
-
-      this.LoadPhoto();
-      this.SetData();
-
       this.treeService.addOrUpdateTree(this.newtree.value).subscribe(c => {
+        let treeId = c.id;
+        this.treeService.postImage(this.image, treeId).subscribe();//.map(() => { return true; });
+        //.catch(e => this.alertService.error(e));
+
         this.router.navigate([this.returnUrl]);
       });
     }
   }
 
-  LoadPhoto() {
-    var input = (<HTMLInputElement>document.getElementsByName('image')[0]);
-    if (input.files && input.files[0]) {
-
-      //Create a canvas and draw image on Client Side to get the byte[] equivalent
-      var canvas = document.createElement("canvas");
-      var imageElement = document.createElement("img");
-
-      canvas.width = imageElement.width;
-      canvas.height = imageElement.height;
-      var context = canvas.getContext("2d");
-      context.drawImage(imageElement, 0, 0);
-      var base64Image = canvas.toDataURL("image/jpeg");
-
-      this.currentTree.image = base64Image.replace(/data:image\/jpeg;base64,/g, '');
+  fileChangeEvent(files:any[]) {
+    if (files && files.length > 0) {
+      let file = files[0];
+      this.image = file;
     }
-    else {
-      this.currentTree.image = this.image.value;
-    }
-  }
-
-  SetData(){
-
-    if (this.addstate == 'false') {
-      this.currentTree.id = this.id.value;
-    }
-
-    this.currentTree.name = this.name.value;
-    this.currentTree.zone = this.zone.value;
-    this.currentTree.price = this.price.value;
-    this.currentTree.ageHeight = this.ageHeight.value;
-    this.currentTree.description = this.description.value;
-    this.currentTree.idTreeCategory = this.TreeCategoryService.getCurrentCategory().id;
-    console.log(this.currentTree);
-    console.log(this.newtree.value);
   }
 }

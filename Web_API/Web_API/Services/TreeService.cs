@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Web_API.DataLayer;
 using Web_API.Models;
+using Web_API.Models.DTO;
 using Web_API.Services.Base;
 
 namespace Web_API.Services
@@ -45,6 +47,18 @@ namespace Web_API.Services
 
 
             return trees;
+        }
+
+        public void UploadImageToDatabase(byte[] image, Guid treeId)
+        {
+            var tree = Context.Trees.FirstOrDefault(c => c.Id == treeId);
+            if (tree != null)
+            {
+                tree.Image = image;
+                Context.Trees.Update(tree);
+                Context.SaveChanges();
+            }
+            
         }
     }
 }

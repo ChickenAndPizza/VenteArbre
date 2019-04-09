@@ -5,10 +5,10 @@ export class Tree {
     public ageHeight: string;
     public price: string;
     public description: string;
-    public image: string;
+    public image: any;
     public idTreeCategory: string;
 
-    constructor(id: string, name: string, zone: string, ageHeight: string, price: string, description: string, image: string, idTreeCategory: string) 
+    constructor(id: string, name: string, zone: string, ageHeight: string, price: string, description: string, image: any, idTreeCategory: string) 
     { 
         this.id = id;
         this.name = name;

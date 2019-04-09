@@ -23,7 +23,9 @@
                         <form [formGroup]="treeInfo">
                             <div class="row">
                                 <div class="col-md-4" style="text-align:center;">
-                                    <img class="treeImg" src="./assets/img/environment/apple_tree.jpg" />
+                                    <!--<img class="treeImg" src="./assets/img/environment/apple_tree.jpg" />-->
+                                    <img class="treeImg" src="data:image/jpeg;base64,{{image.value}}" />
+                                    
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">

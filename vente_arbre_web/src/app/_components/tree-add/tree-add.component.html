@@ -104,8 +104,8 @@
                             </div>-->
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="file" placeholder="Ajouter une image" name="image"
-                                        formControlName="image" accept="image/png, image/jpeg, image/jpg, image/gif">
+                                        <input id="imagePath" class="form-control" type="file" placeholder="Ajouter une image" (change)="fileChangeEvent($event.target.files)" name="image" accept="image/*" />
+                                  
                                 </div>
                             </div>
                             <button mat-raised-button type="submit" class="btn btn-green pull-right"

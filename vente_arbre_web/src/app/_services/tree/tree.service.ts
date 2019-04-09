@@ -1,8 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpRequest } from '@angular/common/http';
 import { MainService } from '../main/main.service';
 import { Tree } from 'app/_models';
+import { AlertService } from '..';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,11 @@ export class TreeService extends MainService {
     super(injector);
   }
 
-  setCurrentTree(tree: string){
+  setCurrentTree(tree: string) {
     this.currentTree = tree;
   }
 
-  getCurrentTree(){
+  getCurrentTree() {
     return this.currentTree;
   }
 
@@ -34,7 +35,7 @@ export class TreeService extends MainService {
 
   validateTreeOfCategory(description: string, categoryId: string, treeId: string) {
     let url = '';
-    if(treeId){
+    if (treeId) {
       url = this.apiUrl.toString() + "Tree/Description?description=" + description + "&categoryId=" + categoryId + "&treeId=" + treeId;
     } else {
       url = this.apiUrl.toString() + "Tree/Description?description=" + description + "&categoryId=" + categoryId;
@@ -55,6 +56,16 @@ export class TreeService extends MainService {
       }
     )
   };
+
+  postImage(fileToUpload: File, treeId: string): Observable<any> {
+    const url = this.apiUrl.toString() + "Tree/Image";
+    const formData: FormData = new FormData();
+    console.log(fileToUpload);
+    formData.append('image', fileToUpload, fileToUpload.name);
+    formData.append('treeId', treeId);
+    const upload = new HttpRequest('POST', url, formData);
+    return this.http.request(upload);
+  }
 
   delete(id: string) {
     const url = this.apiUrl.toString() + "Tree/" + id;
