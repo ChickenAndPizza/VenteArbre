@@ -29,11 +29,12 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    
+    this.cartForm = this.formBuilder.group({
+      orderDetail: this.formBuilder.array([this.addOrderDetailFormGroup('','','','','','','','','',)])
+    });
     if(this.currentUser) {
       this.currentUser = decodeToken(this.currentUser);
-      this.cartForm = this.formBuilder.group({
-        orderDetail: this.formBuilder.array([this.addOrderDetailFormGroup('','','','','','','','','',)])
-      });
       this.loadCartOfCustomer(this.currentUser.id);
     }
   }
@@ -98,6 +99,22 @@ export class CartComponent implements OnInit {
         });
       }
     });
+  }
+
+  canCommand() {
+    if(this.currentUser) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  disableButtonWhenNotConnected() {
+    if(this.currentUser) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
 }

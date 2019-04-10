@@ -30,6 +30,10 @@ export class TreeInfoComponent implements OnInit {
     this.treeId = this.route.snapshot.queryParams['id'] || "";
     this.categoryId = this.route.snapshot.queryParams['categ'] || "";
     this.categoryDescr = this.route.snapshot.queryParams['descr'] || "";
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(this.currentUser) {
+      this.currentUser = decodeToken(this.currentUser);
+    }
 
 
     this.treeInfo = this.formBuilder.group({
@@ -66,9 +70,6 @@ export class TreeInfoComponent implements OnInit {
   get quantity() { return this.quantityInfo.get('quantity'); }
 
   addToCart(treeToAdd: number) {
-    console.log(treeToAdd);
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.currentUser = decodeToken(this.currentUser);
     this.customerOrderService.getCustomerCart(this.currentUser.id).subscribe(order => {
       console.log(order);
       if(order !== null) {
@@ -81,8 +82,13 @@ export class TreeInfoComponent implements OnInit {
         });
       }
     });
+  }
 
-    
-    
+  canAddToCart() {
+    if(this.currentUser && this.quantityInfo.valid) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
