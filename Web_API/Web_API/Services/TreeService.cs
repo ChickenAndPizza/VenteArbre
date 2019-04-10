@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Linq;
 using Web_API.DataLayer;
@@ -59,6 +60,19 @@ namespace Web_API.Services
                 Context.SaveChanges();
             }
             
+        }
+
+        public override Guid AddOrUpdate(Tree entity)
+        {
+            if (entity.Image == null)
+            {
+                var tree = Context.Trees.AsNoTracking().FirstOrDefault(c => c.Id == entity.Id);
+                if(tree != null && tree.Image != null)
+                {
+                    entity.Image = tree.Image;
+                }
+            }
+            return base.AddOrUpdate(entity);
         }
     }
 }

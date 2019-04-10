@@ -23,7 +23,6 @@ export class DialogDistributionPointComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogDistributionPointComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     ) {
-      console.log(data);
     this.modalTitle = data.title;
     this.modalPrecisions = data.precisions;
     this.modalField = data.field;
@@ -45,7 +44,6 @@ export class DialogDistributionPointComponent implements OnInit {
   get description() { return this.form.get('description'); }
 
   submit(form) {
-    console.log(form);
     this.dialogRef.close(form.value);
   }
 }

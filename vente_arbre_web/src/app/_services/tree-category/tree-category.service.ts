@@ -15,14 +15,6 @@ export class TreeCategoryService extends MainService {
     super(injector);
   }
 
-  setCurrentCategory(category: TreeCategory){
-    this.currentCategory = category;
-  }
-
-  getCurrentCategory(){
-    return this.currentCategory;
-  }
-
   getCategoriesWithTrees():Observable<any[]> {
     const url = this.apiUrl.toString() + "TreeCategory/GetCategoriesWithTrees";
       return this.http.get<any[]>(url);

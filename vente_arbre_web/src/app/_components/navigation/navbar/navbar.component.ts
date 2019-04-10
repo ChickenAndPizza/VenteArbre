@@ -116,10 +116,15 @@ export class NavbarComponent implements OnInit {
       {
         return 'Profil';
       }
-
-      if (titlee.indexOf("returnUrl") > 0 && titlee.indexOf("tree-add") > 0 && titlee.indexOf("tree-list") > 0 && titlee.indexOf("tree-add") < titlee.indexOf("tree-list"))
+      else if (titlee.indexOf("id") <= 0 && titlee.indexOf("returnUrl") > 0 && titlee.indexOf("tree-add") > 0 && titlee.indexOf("tree-list") > 0 && titlee.indexOf("tree-add") < titlee.indexOf("tree-list"))
       {
         return "Ajouter un arbre";
+      }
+      else if (titlee.indexOf("id") > 0 && titlee.indexOf("returnUrl") > 0 && titlee.indexOf("tree-add") > 0 && titlee.indexOf("tree-list") > 0 && titlee.indexOf("tree-add") < titlee.indexOf("tree-list")){
+        return "Modifier un arbre";
+      }
+      else if (titlee.indexOf("tree-info") > 0){
+          return "Visionner un arbre";
       }
 
 

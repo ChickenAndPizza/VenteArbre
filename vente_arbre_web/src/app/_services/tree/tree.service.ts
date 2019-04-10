@@ -10,28 +10,17 @@ import { AlertService } from '..';
 })
 export class TreeService extends MainService {
 
-  currentTree: string;
-
-
   constructor(injector: Injector) {
     super(injector);
   }
 
-  setCurrentTree(tree: string) {
-    this.currentTree = tree;
-  }
-
-  getCurrentTree() {
-    return this.currentTree;
-  }
-
-  getTree(): Observable<Tree> {
-    let url = this.apiUrl.toString() + "Tree/" + this.currentTree;
+  getTree(treeId : string): Observable<Tree> {
+    let url = this.apiUrl.toString() + "Tree/" + treeId;
 
     let headers = new HttpHeaders();
     headers = headers.set('Access-Control-Allow-Origin', '*');
     return this.http.get<Tree>(url);
-  }
+  } 
 
   validateTreeOfCategory(description: string, categoryId: string, treeId: string) {
     let url = '';
@@ -60,7 +49,6 @@ export class TreeService extends MainService {
   postImage(fileToUpload: File, treeId: string): Observable<any> {
     const url = this.apiUrl.toString() + "Tree/Image";
     const formData: FormData = new FormData();
-    console.log(fileToUpload);
     formData.append('image', fileToUpload, fileToUpload.name);
     formData.append('treeId', treeId);
     const upload = new HttpRequest('POST', url, formData);

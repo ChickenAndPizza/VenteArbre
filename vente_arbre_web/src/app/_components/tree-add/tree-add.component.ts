@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TreeCategoryService, TreeService, AlertService } from 'app/_services';
+import { TreeService, AlertService } from 'app/_services';
 import { existingTreeOfCategoryValidator } from 'app/_shared';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
@@ -14,14 +14,14 @@ import 'rxjs/add/operator/catch';
 export class TreeAddComponent implements OnInit {
 
   returnUrl: string;
-  addstate: string;
+  treeId: string;
+  categoryId: string;
+  categoryDescr: string;
   newtree: FormGroup;
-  category: String;
-  image: File;
+  imageToAdd: File;
 
   constructor(
     private treeService: TreeService,
-    private TreeCategoryService: TreeCategoryService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -31,19 +31,23 @@ export class TreeAddComponent implements OnInit {
   ngOnInit() {
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.addstate = this.route.snapshot.queryParams['addstate'] || true;
-    this.category = this.TreeCategoryService.getCurrentCategory().description;
+    this.treeId = this.route.snapshot.queryParams['id'] || "";
+    this.categoryId = this.route.snapshot.queryParams['categ'] || "";
+    this.categoryDescr = this.route.snapshot.queryParams['descr'] || "";
 
     this.newtree = this.formBuilder.group({
-      name: ["", Validators.required, existingTreeOfCategoryValidator(this.treeService, this.TreeCategoryService, null)],
+      name: ["", Validators.required, existingTreeOfCategoryValidator(this.treeService, this.categoryId, null)],
       zone: ["", Validators.required,],
       price: ["", Validators.required,],
       ageHeight: ["", Validators.required,],
       description: ["", Validators.required,],
-      idTreeCategory: [this.TreeCategoryService.getCurrentCategory().id, ,]
+      image: ["", ,],
+      idTreeCategory: [this.categoryId, ,]
     });
 
-    if (this.addstate == 'false') {
+    this.image.setValue("");
+
+    if (this.treeId !== "") {
 
       this.newtree = this.formBuilder.group({
         id: ["", ,],
@@ -52,18 +56,20 @@ export class TreeAddComponent implements OnInit {
         price: ["", Validators.required,],
         ageHeight: ["", Validators.required,],
         description: ['', Validators.required,],
-        idTreeCategory: [this.TreeCategoryService.getCurrentCategory().id, ,]
+        image: ["", ,],
+        idTreeCategory: [this.categoryId, ,]
       });
 
-      this.treeService.getTree().subscribe(tree => {
+      this.treeService.getTree(this.treeId).subscribe(tree => {
         this.id.setValue(tree.id);
         this.name.setValue(tree.name);
         this.zone.setValue(tree.zone);
         this.price.setValue(tree.price);
         this.ageHeight.setValue(tree.ageHeight);
         this.description.setValue(tree.description);
+        this.image.setValue("data:image/jpeg;base64," + tree.image);
 
-        this.name.setAsyncValidators(existingTreeOfCategoryValidator(this.treeService, this.TreeCategoryService, this.id.value));
+        this.name.setAsyncValidators(existingTreeOfCategoryValidator(this.treeService, this.categoryId, this.id.value));
 
       });
     }
@@ -75,14 +81,19 @@ export class TreeAddComponent implements OnInit {
   get price() { return this.newtree.get('price'); }
   get ageHeight() { return this.newtree.get('ageHeight'); }
   get description() { return this.newtree.get('description'); }
+  get image() { return this.newtree.get('image'); }
 
-  addState() { return (this.addstate == 'true'); }
+  addState() { return (this.treeId == ""); }
 
   onSubmit() {
     if (this.treeService) {
+      this.image.setValue(null);
       this.treeService.addOrUpdateTree(this.newtree.value).subscribe(c => {
         let treeId = c.id;
-        this.treeService.postImage(this.image, treeId).subscribe();//.map(() => { return true; });
+
+        if (this.imageToAdd) {
+          this.treeService.postImage(this.imageToAdd, treeId).subscribe();
+        }
         //.catch(e => this.alertService.error(e));
 
         this.router.navigate([this.returnUrl]);
@@ -90,10 +101,17 @@ export class TreeAddComponent implements OnInit {
     }
   }
 
-  fileChangeEvent(files:any[]) {
+  fileChangeEvent(files: any[]) {
     if (files && files.length > 0) {
       let file = files[0];
-      this.image = file;
+      this.imageToAdd = file;
+
+      var reader = new FileReader();
+      reader.onloadend = (e) => {
+        let tempImage =  reader.result;
+        this.image.setValue(tempImage);
+      }
+      reader.readAsDataURL(file);
     }
   }
 }

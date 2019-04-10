@@ -128,17 +128,12 @@ export class TreeListComponent implements OnInit {
     });
   }
 
-  public AddTreeOfCategory(id: string, description: string,) {
-    let category = new TreeCategory(id,description);
-    this.treeCategoryService.setCurrentCategory(category);
-    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', addstate: true}});
+  public AddTreeOfCategory(categoryId: string, categoryDescr: string,) {
+    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', categ: categoryId, descr: categoryDescr}});
   }
 
-  public ModifyTreeOfCategory(categoryId: string, description: string, treeId: string) {
-    let category = new TreeCategory(categoryId,description);
-    this.treeCategoryService.setCurrentCategory(category);
-    this.treeService.setCurrentTree(treeId);
-    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', addstate: false}});
+  public ModifyTreeOfCategory(categoryId: string, categoryDescr: string, treeId: string) {
+    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', id: treeId, categ: categoryId, descr: categoryDescr}});
   }
 
   public DeleteTreeValidation(id: string){
@@ -162,10 +157,7 @@ export class TreeListComponent implements OnInit {
     });
   }
 
-  public ViewTree(categoryId: string, description: string, treeId: string){
-    let category = new TreeCategory(categoryId,description);
-    this.treeCategoryService.setCurrentCategory(category);
-    this.treeService.setCurrentTree(treeId);
-    this.router.navigate(['/tree-info']);
+  public ViewTree(categoryId: string, categoryDescr: string, treeId: string){
+    this.router.navigate(['/tree-info'], { queryParams: { id: treeId, categ: categoryId, descr: categoryDescr}});
   }
 }
