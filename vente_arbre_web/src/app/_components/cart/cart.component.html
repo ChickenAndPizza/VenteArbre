@@ -3,14 +3,15 @@
     <div class="row">
 
       <div class="col-md-12">
-        <div class="card">
-          <div class="card-header card-header-green">
-            <h3 class="card-title">Panier</h3>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <form [formGroup]="cartForm" (ngSubmit)="saveChange()">
-                <div formArrayName="orderDetail">
+        <form [formGroup]="cartForm" (ngSubmit)="saveChange()">
+          <div formArrayName="orderDetail">
+            <div class="card">
+              <div class="card-header card-header-green">
+                <h3 class="card-title">Panier</h3>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+
                   <table class="table">
                     <thead class=" text-primary">
                       <th> Produit </th>
@@ -18,7 +19,7 @@
                       <th> Âge/Hauteur </th>
                       <th> Prix/u </th>
                       <th style="text-align: center"> Quantité</th>
-                      <th> Total </th>
+                      <th style="text-align: center"> Total </th>
                     </thead>
                     <tbody>
                       <tr class="form-group"
@@ -26,32 +27,51 @@
                         <td> {{cartForm.controls.orderDetail.controls[i].controls.name.value}} </td>
                         <td> {{cartForm.controls.orderDetail.controls[i].controls.zone.value}} </td>
                         <td> {{cartForm.controls.orderDetail.controls[i].controls.ageHeight.value}} </td>
-                        <td> {{cartForm.controls.orderDetail.controls[i].controls.price.value}} </td>
-                        <div [formGroupName]="i">
-                          <td style="text-align: center">
+                        <td> {{cartForm.controls.orderDetail.controls[i].controls.price.value}} $ </td>
+                        <div style="text-align: -webkit-center;" [formGroupName]="i">
+                          <td>
                             <input formControlName="quantity" style="width: 50px" min="0" matInput type="number"
                               name="quantity">
                           </td>
                         </div>
-                        <td> {{cartForm.controls.orderDetail.controls[i].controls.totalPrice.value}} </td>
-                        <td> <a class="nav-link"> <i (click)="deleteItem(cartForm.controls.orderDetail.controls[i].controls.id.value, i)" style="cursor:pointer;text-align: center;"
-                              class="material-icons">clear</i> </a> </td>
+                        <td style="text-align: center">
+                          {{cartForm.controls.orderDetail.controls[i].controls.totalPrice.value}} $ </td>
+                        <td style="text-align: right;"> <a class="nav-link"> <i
+                              (click)="deleteItem(cartForm.controls.orderDetail.controls[i].controls.id.value, i)"
+                              style="cursor:pointer;text-align: center;" class="material-icons">clear</i> </a> </td>
                       </tr>
                     </tbody>
                   </table>
                   <div class="col-md-12">
-                      <button [disabled]="!cartForm.valid || !cartForm.dirty" mat-raised-button type="submit" class="btn btn-green pull-right" style="color:white;">Sauvegarder les changements</button>
-                    </div>
+                    <button [disabled]="!cartForm.valid || !cartForm.dirty" mat-raised-button type="submit"
+                      class="btn btn-green pull-right" style="color:white;">Sauvegarder les changements</button>
+                  </div>
+
                 </div>
-              </form>
+              </div>
+            </div>
+            <div class="rowCommand pull-right">
+              <div>
+                <div class="card">
+                  <!-- <div class="card-header card-header-green">
+
+              </div> -->
+                  <div class="card-body"> 
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead class=" text-primary">
+                          <th> Total de la commande: {{commandTotal}} $</th>
+                        </thead>
+                      </table>
+                    </div>
+
+                    <a class="btn btn-green pull-right" style="color:white;" role="button">Passer la commande</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <a class="btn btn-green pull-right" style="color:white;" role="button">Passer la commande</a>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
