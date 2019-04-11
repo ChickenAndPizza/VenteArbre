@@ -8,6 +8,6 @@ export function treeImageFormatValidator(control: AbstractControl): {[key: strin
     let type = control.value.toString().split('.');
     type = type[type.length-1];
     let typeArray = ['png','jpeg','jpg','gif'];
-    let include = typeArray.includes(type);
+    let include = typeArray.includes(type.toLowerCase());
     return include ? null : { "fileError": true } ;
 }
