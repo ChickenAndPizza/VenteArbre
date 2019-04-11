@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Web_API.DataLayer;
 using Web_API.Models;
+using Web_API.Models.Enum;
 using Web_API.Services.Base;
 
 namespace Web_API.Services
@@ -12,6 +14,42 @@ namespace Web_API.Services
     {
         public CustomerOrderService(IDatabaseContext context) : base(context)
         {
+        }
+
+        public CustomerOrder GetCustomerCart(Guid id)
+        {
+            return Context.CustomerOrders
+                 .Include(c => c.OrderDetails)
+                 .ThenInclude(detail => detail.Tree)
+                 .Where(c => c.IdCustomer == id && c.IsActive == true && c.State == 0)
+                 .Select(c => new CustomerOrder
+                 {
+                     Id = c.Id,
+                     State = c.State,
+                     IdCustomer = c.IdCustomer,
+                     OrderDetails = c.OrderDetails.Where(x => x.IsActive).Select(y => new CustomerOrderDetail
+                     {
+                         Id = y.Id,
+                         Quantity = y.Quantity,
+                         IdTree = y.IdTree,
+                         Tree = y.Tree,
+                         IdCustomerOrder = c.Id
+                     }).ToList(),
+                     IsActive = c.IsActive,
+                     
+                 }).ToList().FirstOrDefault();
+        }
+
+        public CustomerOrder CreateCart(Guid id)
+        {
+            var customerCart = new CustomerOrder
+            {
+                IdCustomer = id,
+                State = Order.Cart,
+            };
+            Context.CustomerOrders.Add(customerCart);
+            Context.SaveChanges();
+            return customerCart;
         }
     }
 }

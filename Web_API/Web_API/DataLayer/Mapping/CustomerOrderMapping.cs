@@ -13,6 +13,7 @@ namespace Web_API.DataLayer.Mapping
         {
             b.HasOne(c => c.Customer).WithMany().HasForeignKey(c => c.IdCustomer);
             b.HasMany(c => c.OrderDetails).WithOne(c => c.Order).HasForeignKey(c => c.IdCustomerOrder);
+            b.HasOne(c => c.DistributionPoint).WithMany().HasForeignKey(c => c.IdDistributionPoint);
         }
     }
 }

@@ -8,6 +8,21 @@ use VenteArbre;
 
 
 #------------------------------------------------------------
+# Table: distribution_point
+#------------------------------------------------------------
+
+CREATE TABLE distribution_point(
+        id                Varchar (36) NOT NULL ,
+        map_link		  Text ,
+        web_link          Varchar (254) ,
+        web_name		  Varchar (254) NOT NULL ,
+        description 	  Text NOT NULL ,	
+        is_active         Bool NOT NULL
+	,CONSTRAINT distribution_point_PK PRIMARY KEY (id)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
 # Table: customer
 #------------------------------------------------------------
 
@@ -29,14 +44,16 @@ CREATE TABLE customer(
 #------------------------------------------------------------
 
 CREATE TABLE customer_order(
-        id               Varchar (36) NOT NULL ,
-        transaction_date Date NOT NULL ,
-        state            TinyINT NOT NULL ,
-        id_customer      Varchar (36) NOT NULL,
-        is_active        Bool NOT NULL
+        id               	  Varchar (36) NOT NULL ,
+        transaction_date 	  Date ,
+        state            	  TinyINT NOT NULL ,
+        id_customer      	  Varchar (36) NOT NULL,
+        id_distribution_point Varchar(36),
+        is_active        	  Bool NOT NULL
 	,CONSTRAINT customer_order_PK PRIMARY KEY (id)
 
 	,CONSTRAINT customer_order_customer_FK FOREIGN KEY (id_customer) REFERENCES customer(id)
+    ,CONSTRAINT customer_order_id_distribution_point_FK FOREIGN KEY (id_distribution_point) REFERENCES distribution_point(id)
 )ENGINE=InnoDB;
 
 
@@ -136,18 +153,3 @@ CREATE TABLE supplier_order_detail(
 	,CONSTRAINT supplier_order_detail_supplier_order_FK FOREIGN KEY (id_supplier_order) REFERENCES supplier_order(id)
 	,CONSTRAINT supplier_order_detail_tree_FK FOREIGN KEY (id_tree) REFERENCES tree(id)
 )ENGINE=InnoDB;
-
-#------------------------------------------------------------
-# Table: distribution_point
-#------------------------------------------------------------
-
-CREATE TABLE distribution_point(
-        id                Varchar (36) NOT NULL ,
-        map_link		  Text ,
-        web_link          Varchar (254) ,
-        web_name		  Varchar (254) NOT NULL ,
-        description 	  Text NOT NULL ,	
-        is_active         Bool NOT NULL
-	,CONSTRAINT distribution_point_PK PRIMARY KEY (id)
-)ENGINE=InnoDB;
-

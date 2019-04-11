@@ -75,7 +75,6 @@ export class DistributionPointsComponent implements OnInit {
     if (this.distributionPointService) {
       this.distributionPointService.addOrUpdateDistributionPoint(this.newDistributionPoint.value).subscribe(c => {
         this.loadDistributionPoint();
-        this.newDistributionPoint.get('id').setValue('');
         this.newDistributionPoint.get('mapLink').setValue('');
         this.newDistributionPoint.get('webLink').setValue('');
         this.newDistributionPoint.get('webName').setValue('');
@@ -126,7 +125,7 @@ export class DistributionPointsComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       title: 'Voulez-vous vraiment supprimer ce point de distribution?',
-      precisions: 'Il ne sera plus affiché parmis la liste des choix.'
+      precisions: 'Il ne sera plus affiché parmis la liste des choix'
     };
     this.dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     this.dialogRef.afterClosed().subscribe(result => {

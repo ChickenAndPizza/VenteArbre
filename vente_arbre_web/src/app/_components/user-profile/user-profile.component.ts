@@ -54,7 +54,8 @@ export class UserProfileComponent implements OnInit {
             phoneNumber: [this.currentUser.phoneNumber, [Validators.required]],
             email: [this.currentUser.email, [Validators.required, Validators.email], existingEmailValidator(this.currentUser.id, this.customerService)],
             password: ['', ,],
-            passwordConfirm: ['', ,]
+            passwordConfirm: ['', ,],
+            isAdmin: [this.currentUser.isAdmin, ,]
         });
 
         this.onChanges();
@@ -77,6 +78,7 @@ export class UserProfileComponent implements OnInit {
     get firstName() { return this.profile.get('firstName'); }
     get password() { return this.profile.get('password'); }
     get passwordConfirm() { return this.profile.get('passwordConfirm'); }
+    get isAdmin() { return this.profile.get('isAdmin'); }
 
     public onModify() {
         if(this.customerService){
@@ -86,7 +88,8 @@ export class UserProfileComponent implements OnInit {
                 this.password.value,
                 this.firstName.value,
                 this.lastName.value,
-                this.phoneNumber.value
+                this.phoneNumber.value,
+                this.isAdmin.value
             );
             if(this.password.value === '') {
                 customer.password = this.currentUser.password;

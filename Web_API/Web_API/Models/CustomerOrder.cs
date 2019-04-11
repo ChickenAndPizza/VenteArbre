@@ -7,12 +7,14 @@ namespace Web_API.Models
 {
     public class CustomerOrder : BaseModel
     {
-        public DateTime TransactionDate { get; set; }
+        public DateTime? TransactionDate { get; set; }
         public Order State { get; set; }
 
         public Guid IdCustomer { get; set; }
+        public Guid? IdDistributionPoint { get; set; }
 
         public Customer Customer { get; set; }
+        public DistributionPoint DistributionPoint { get; set; }
         public ICollection<CustomerOrderDetail> OrderDetails { get; set; }
     }
 }
