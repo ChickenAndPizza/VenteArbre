@@ -11,8 +11,10 @@ namespace Web_API.Models
         public Order State { get; set; }
 
         public Guid IdCustomer { get; set; }
+        public Guid? IdDistributionPoint { get; set; }
 
         public Customer Customer { get; set; }
+        public DistributionPoint DistributionPoint { get; set; }
         public ICollection<CustomerOrderDetail> OrderDetails { get; set; }
     }
 }
