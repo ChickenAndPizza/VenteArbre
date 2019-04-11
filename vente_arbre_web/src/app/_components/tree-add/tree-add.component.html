@@ -17,9 +17,9 @@
                 <div class="card">
                     <div class="card-header card-header-green">
                         <h3 class="card-title" *ngIf="!addState()">Modification de : {{name.value}} pour la catégorie
-                            {{category}}</h3>
+                            {{categoryDescr}}</h3>
                         <h3 class="card-title" *ngIf="addState()">Ajout d'un arbre pour la catégorie
-                            {{category}}</h3>
+                            {{categoryDescr}}</h3>
                     </div>
 
                     <div class="card-body">
@@ -71,16 +71,18 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput pattern="([0-9]+(\.[0-9]+)?)" placeholder="Prix de l'arbre" name="price"
-                                            formControlName="price" maxlength="10"
+                                        <input matInput pattern="([0-9]+(\.[0-9]+)?)" placeholder="Prix de l'arbre"
+                                            name="price" formControlName="price" maxlength="10"
                                             [class.is-invalid]="price.invalid && price.touched">
                                     </mat-form-field>
                                     <small *ngIf="price.errors && price.invalid && price.touched" class="text-danger">
                                         <div *ngIf="price.errors?.required">Le prix est requis</div>
-                                        <div *ngIf="price.errors?.pattern">Le prix doit être saisi avec ce format : chiffres - point - chiffres</div>
+                                        <div *ngIf="price.errors?.pattern">Le prix doit être saisi avec ce format :
+                                            chiffres - point - chiffres</div>
                                     </small>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -101,13 +103,21 @@
                                         <i (click)="ShowAddImage();" class="material-icons">add_photo_alternate</i>
                                     </a>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type='file' placeholder="Ajouter une image" name="image"
-                                        formControlName="image" accept="image/png, image/jpeg, image/jpg, image/gif">
+                                    <input id="imagePath" class="form-control" type="file"
+                                        placeholder="Ajouter une image" (change)="fileChangeEvent($event.target.files)"
+                                        name="image" accept="image/*" formControlName="addingImage" />
+                                    <small *ngIf="addingImage.errors" class="text-danger">
+                                        <div *ngIf="addingImage.errors.fileError">Le format de fichier est invalide</div>
+                                    </small>
                                 </div>
-                            </div>-->
+                                <div class="col-md-6">
+                                    <img class="treeImg" *ngIf="image" src="{{image.value}}" />
+                                </div>
+
+                            </div>
                             <button mat-raised-button type="submit" class="btn btn-green pull-right"
                                 [disabled]="!newtree.valid">Ajouter</button>
                         </form>

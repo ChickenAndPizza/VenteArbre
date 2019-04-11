@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { existingTreeOfCategoryValidator } from 'app/_shared';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { TreeCategoryService, TreeService } from 'app/_services';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tree-info',
@@ -11,16 +11,22 @@ import { TreeCategoryService, TreeService } from 'app/_services';
 export class TreeInfoComponent implements OnInit {
 
   treeInfo: FormGroup;
-  category: String;
+  treeId: string;
+  categoryId: string;
+  categoryDescr: string;
 
   constructor(
     private treeCategoryService: TreeCategoryService,
     private treeService: TreeService,
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.category = this.treeCategoryService.getCurrentCategory().description;
+    this.treeId = this.route.snapshot.queryParams['id'] || "";
+    this.categoryId = this.route.snapshot.queryParams['categ'] || "";
+    this.categoryDescr = this.route.snapshot.queryParams['descr'] || "";
+
 
     this.treeInfo = this.formBuilder.group({
       name: ["", , ],
@@ -28,15 +34,17 @@ export class TreeInfoComponent implements OnInit {
       price: [{value: "", disabled: true}, ,],
       ageHeight: [{value: "", disabled: true}, ,],
       description: [{value: "", disabled: true}, ,],
-      idTreeCategory: [this.treeCategoryService.getCurrentCategory().id, ,]
+      image: [null, ,],
+      idTreeCategory: [this.categoryId, ,]
     });
 
-    this.treeService.getTree().subscribe(tree => {
+    this.treeService.getTree(this.treeId).subscribe(tree => {
         this.name.setValue(tree.name);
         this.zone.setValue(tree.zone);
         this.price.setValue(tree.price);
         this.ageHeight.setValue(tree.ageHeight);
         this.description.setValue(tree.description);
+        this.image.setValue(tree.image);
     });
   }
 
@@ -45,5 +53,6 @@ export class TreeInfoComponent implements OnInit {
   get price() { return this.treeInfo.get('price'); }
   get ageHeight() { return this.treeInfo.get('ageHeight'); }
   get description() { return this.treeInfo.get('description'); }
+  get image() { return this.treeInfo.get('image'); }
 
 }

@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 using Web_API.Controllers.Base;
 using Web_API.Models;
+using Web_API.Models.DTO;
 using Web_API.Services;
+using System.Web.Http;
+using System.IO;
 
 namespace Web_API.Controllers
 {
@@ -34,6 +38,26 @@ namespace Web_API.Controllers
         public ActionResult GetRandomTree()
         {
             return Ok(Service.GetRandomTrees());
+        }
+
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("Image")]
+        public ActionResult UploadImage()
+        {
+            var file = Request.Form.Files[0];
+            var treeId = Request.Form["treeId"];
+
+            using (var ms = new MemoryStream())
+            {
+                file.CopyTo(ms);
+                byte[] fileBytes = ms.ToArray();
+                Service.UploadImageToDatabase(fileBytes, Guid.Parse(treeId));
+
+                //string s = Convert.ToBase64String(fileBytes);
+            }
+
+
+            return Ok();
         }
     }
 }
