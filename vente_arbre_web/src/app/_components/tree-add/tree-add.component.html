@@ -108,10 +108,13 @@
                                 <div class="col-md-6">
                                     <input id="imagePath" class="form-control" type="file"
                                         placeholder="Ajouter une image" (change)="fileChangeEvent($event.target.files)"
-                                        name="image" accept="image/*" />
+                                        name="image" accept="image/*" formControlName="addingImage" />
+                                    <small *ngIf="addingImage.errors" class="text-danger">
+                                        <div *ngIf="addingImage.errors.fileError">Le format de fichier est invalide</div>
+                                    </small>
                                 </div>
                                 <div class="col-md-6">
-                                    <img class="treeImg" *ngIf="image" src="{{image.value}}"/>
+                                    <img class="treeImg" *ngIf="image" src="{{image.value}}" />
                                 </div>
 
                             </div>

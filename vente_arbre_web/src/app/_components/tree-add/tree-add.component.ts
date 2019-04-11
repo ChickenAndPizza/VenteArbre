@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TreeService, AlertService } from 'app/_services';
-import { existingTreeOfCategoryValidator } from 'app/_shared';
+import { existingTreeOfCategoryValidator, treeImageFormatValidator } from 'app/_shared';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
 
@@ -42,6 +42,7 @@ export class TreeAddComponent implements OnInit {
       ageHeight: ["", Validators.required,],
       description: ["", Validators.required,],
       image: ["", ,],
+      addingImage: ["", treeImageFormatValidator,],
       idTreeCategory: [this.categoryId, ,]
     });
 
@@ -57,6 +58,7 @@ export class TreeAddComponent implements OnInit {
         ageHeight: ["", Validators.required,],
         description: ['', Validators.required,],
         image: ["", ,],
+        addingImage: ["", treeImageFormatValidator,],
         idTreeCategory: [this.categoryId, ,]
       });
 
@@ -82,6 +84,7 @@ export class TreeAddComponent implements OnInit {
   get ageHeight() { return this.newtree.get('ageHeight'); }
   get description() { return this.newtree.get('description'); }
   get image() { return this.newtree.get('image'); }
+  get addingImage() { return this.newtree.get('addingImage'); }
 
   addState() { return (this.treeId == ""); }
 
