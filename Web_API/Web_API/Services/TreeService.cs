@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Web_API.DataLayer;
 using Web_API.Models;
@@ -18,6 +19,32 @@ namespace Web_API.Services
                 return false;
             else
                 return Context.Trees.Any(c => c.Name == name && c.IdTreeCategory == categoryId);
+        }
+
+        public List<Tree> GetRandomTrees()
+        {
+            var trees = new List<Tree>();
+            var query = Context.Trees.Where(c => c.IsActive);
+            var count1 = query.Count();
+
+            if(query.Count() <= 2)
+                return query.ToList();
+
+            do
+            {
+
+                int count = query.Count(); // 1st round-trip
+                int index = new Random().Next(count);
+
+                Tree tree = query.Skip(index).FirstOrDefault(); // 2nd round-trip
+
+                if(!trees.Contains(tree))
+                    trees.Add(tree);
+
+            } while (trees.Count < 2);
+
+
+            return trees;
         }
     }
 }

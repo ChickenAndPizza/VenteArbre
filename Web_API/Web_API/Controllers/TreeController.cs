@@ -28,5 +28,12 @@ namespace Web_API.Controllers
             var entity = Service.Get(id);
             return Ok(entity);
         }
+
+        [HttpGet, AllowAnonymous]
+        [Route("RandomTrees")]
+        public ActionResult GetRandomTree()
+        {
+            return Ok(Service.GetRandomTrees());
+        }
     }
 }
