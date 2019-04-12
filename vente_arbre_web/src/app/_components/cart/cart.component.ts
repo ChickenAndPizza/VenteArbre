@@ -62,6 +62,7 @@ export class CartComponent implements OnInit {
           orderDetail: this.formBuilder.array([this.addOrderDetailFormGroup('','','','','','','','','',)])
         });
         this.commandTotal = 0;
+        (<FormArray>this.cartForm.get('orderDetail')).removeAt(0);
         this.cart.forEach(orderDetail => {
           let detailprice = (orderDetail.quantity*orderDetail.tree.price);
           (<FormArray>this.cartForm.get('orderDetail')).push(this.addOrderDetailFormGroup(orderDetail.id, orderDetail.idTree, orderDetail.idCustomerOrder, orderDetail.tree.name,orderDetail.tree.zone, orderDetail.tree.ageHeight,orderDetail.tree.price,orderDetail.quantity,(orderDetail.quantity*orderDetail.tree.price).toFixed(2)));
