@@ -55,18 +55,20 @@ export class CartComponent implements OnInit {
 
   loadCartOfCustomer(id: string) {
     this.customerOrderService.getCustomerCart(id).subscribe(customerOrder =>{
-      this.cart = customerOrder.orderDetails;
-      this.cartForm = this.formBuilder.group({
-        orderDetail: this.formBuilder.array([this.addOrderDetailFormGroup('','','','','','','','','',)])
-      });
-      this.commandTotal = 0;
       (<FormArray>this.cartForm.get('orderDetail')).removeAt(0);
-      this.cart.forEach(orderDetail => {
-        let detailprice = (orderDetail.quantity*orderDetail.tree.price);
-        (<FormArray>this.cartForm.get('orderDetail')).push(this.addOrderDetailFormGroup(orderDetail.id, orderDetail.idTree, orderDetail.idCustomerOrder, orderDetail.tree.name,orderDetail.tree.zone, orderDetail.tree.ageHeight,orderDetail.tree.price,orderDetail.quantity,(orderDetail.quantity*orderDetail.tree.price).toFixed(2)));
-        this.commandTotal += detailprice;
-      });
-        this.commandTotal = Number.parseFloat(this.commandTotal.toFixed(2));
+      if(customerOrder) {
+        this.cart = customerOrder.orderDetails;
+        this.cartForm = this.formBuilder.group({
+          orderDetail: this.formBuilder.array([this.addOrderDetailFormGroup('','','','','','','','','',)])
+        });
+        this.commandTotal = 0;
+        this.cart.forEach(orderDetail => {
+          let detailprice = (orderDetail.quantity*orderDetail.tree.price);
+          (<FormArray>this.cartForm.get('orderDetail')).push(this.addOrderDetailFormGroup(orderDetail.id, orderDetail.idTree, orderDetail.idCustomerOrder, orderDetail.tree.name,orderDetail.tree.zone, orderDetail.tree.ageHeight,orderDetail.tree.price,orderDetail.quantity,(orderDetail.quantity*orderDetail.tree.price).toFixed(2)));
+          this.commandTotal += detailprice;
+        });
+          this.commandTotal = Number.parseFloat(this.commandTotal.toFixed(2));
+      }
     }); 
   }
 
@@ -111,6 +113,14 @@ export class CartComponent implements OnInit {
 
   disableButtonWhenNotConnected() {
     if(this.currentUser) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  disableButtonWhenNotConnectedAndNoCard() {
+    if(this.currentUser && this.cart) {
       return false;
     } else {
       return true;
