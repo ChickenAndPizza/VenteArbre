@@ -5,8 +5,30 @@
                 <h3>Découvrir</h3>
             </div>
         </div>
-        
+
         <div class="row">
+            <div class="col-md-6" *ngFor="let tree of randomTrees">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a>
+                            <img class="img" src="data:image/jpeg;base64,{{tree.image}}" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{tree.name}}</h4>
+                        <h6 class="card-category text-gray">{{tree.price}} $</h6>
+                        <button mat-raised-button type="button"
+                            (click)="ViewTree(tree.idTreeCategory, tree.id)"
+                            class="btn btn-green btn-round">Détails</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!--<div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header card-header-warning card-header-icon">
@@ -443,6 +465,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>

@@ -5,8 +5,8 @@
             <div class="col-md-12" *ngIf="admin">
                 <div class="row">
                     <div class="col-md-1">
-                        <a class="nav-link">
-                            <i (click)="ShowNewCategory()" class="material-icons NewCategoryIcon">add_circle</i>
+                        <a>
+                            <i (click)="ShowNewCategory()" class="material-icons mainIcon">add_circle</i>
                         </a>
                     </div>
                     <div id="newCategory" class="col-md-11" style="display:none;">
@@ -26,11 +26,10 @@
 
                                 <div class="col-md-3" style="text-align: left">
                                     <button [disabled]="!newCategory.valid" type="submit" mat-icon-button>
-                                        <i class="material-icons NewCategoryIconOption">check</i>
+                                        <i class="material-icons addIcon">check</i>
                                     </button>
-                                    <a class="nav-link NewIconOption">
-                                        <i (click)="HideNewCategory()"
-                                            class="material-icons NewCategoryIconOption">close</i>
+                                    <a>
+                                        <i (click)="HideNewCategory()" class="material-icons cancelIcon">close</i>
                                     </a>
                                 </div>
                             </div>
@@ -47,13 +46,13 @@
                                 <h3 class="card-title">{{ treeCategory.description }}</h3>
                             </div>
                             <div class="col-md-3" style="text-align: right" *ngIf="admin">
-                                <a class="nav-link NewIconOption">
+                                <a>
                                     <i (click)="ModifyCategoryDescription(treeCategory.id, treeCategory.description)"
-                                        class="material-icons CategoryIcon">settings</i>
+                                        class="material-icons mainIconWhite">settings</i>
                                 </a>
-                                <a class="nav-link NewIconOption">
+                                <a>
                                     <i (click)="DeleteCategoryValidation(treeCategory.id);"
-                                        class="material-icons CategoryIcon">delete</i>
+                                        class="material-icons mainIconWhite">delete</i>
                                 </a>
                             </div>
                         </div>
@@ -62,7 +61,7 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
-                                <thead class=" text-primary">
+                                <thead class="text-primary">
                                     <th> Nom </th>
                                     <th> Zone </th>
                                     <th> Âge/Hauteur </th>
@@ -71,7 +70,7 @@
                                     <th *ngIf="admin" style="text-align: right">
                                         <a>
                                             <i (click)="AddTreeOfCategory(treeCategory.id, treeCategory.description)"
-                                                class="material-icons NewSubCategoryIcon">add_circle</i>
+                                                class="material-icons subIcon">add_circle</i>
                                         </a>
                                     </th>
                                 </thead>
@@ -87,13 +86,13 @@
                                                 class="btn btn-primary pull-right">Consulter</button>
                                         </td>
                                         <td style="text-align: right" *ngIf="admin">
-                                            <a class="nav-link NewIconOption">
+                                            <a>
                                                 <i (click)="ModifyTreeOfCategory(treeCategory.id, treeCategory.description, tree.id)"
-                                                    class="material-icons SubCategoryIcon">settings</i>
+                                                    class="material-icons subIcon">settings</i>
                                             </a>
-                                            <a class="nav-link NewIconOption">
+                                            <a>
                                                 <i (click)="DeleteTreeValidation(tree.id);"
-                                                    class="material-icons SubCategoryIcon">delete</i>
+                                                    class="material-icons subIcon">delete</i>
                                             </a>
                                         </td>
                                     </tr>

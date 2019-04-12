@@ -20,6 +20,13 @@ export class TreeCategoryService extends MainService {
       return this.http.get<any[]>(url);
   }
 
+  getCategoryDescription(categoryId: string): Observable<any> {
+    let url = this.apiUrl.toString() + "TreeCategory/GetDescription?categoryId=" + categoryId;
+    let headers = new HttpHeaders();
+    headers = headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.get<any>(url);
+  } 
+
   validateTreeCategory(description: string, categoryId: string) {
     let url = '';
     if(categoryId){

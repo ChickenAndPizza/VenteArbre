@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using Web_API.Controllers.Base;
 using Web_API.Models;
@@ -26,6 +27,13 @@ namespace Web_API.Controllers
         public ActionResult<bool> IsDescriptionAlreadyUsed(string description, string categoryId)
         {
             return Service.IsDescriptionAlreadyUsed(description, categoryId);
+        }
+
+        [HttpGet, AllowAnonymous]
+        [Route("GetDescription")]
+        public ActionResult<string> GetDescription(Guid categoryId)
+        {
+            return Service.GetDescription(categoryId);
         }
     }
 }
