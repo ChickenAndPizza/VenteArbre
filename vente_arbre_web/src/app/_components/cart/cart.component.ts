@@ -121,7 +121,7 @@ export class CartComponent implements OnInit {
   }
 
   disableButtonWhenNotConnectedAndNoCard() {
-    if(this.currentUser && this.cart) {
+    if(this.currentUser && this.cart && (<FormArray>this.cartForm.get('orderDetail')).length > 0) {
       return false;
     } else {
       return true;
