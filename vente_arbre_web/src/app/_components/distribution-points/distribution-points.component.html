@@ -5,9 +5,9 @@
             <div class="col-md-12" *ngIf="admin">
                 <div class="row">
                     <div class="col-md-1">
-                        <a class="nav-link">
+                        <a>
                             <i (click)="ShowNewDistributionPoint()"
-                                class="material-icons NewDistributionPointIcon">add_location</i>
+                                class="material-icons mainIcon">add_location</i>
                         </a>
                     </div>
                     <div id="newDistributionPoint" class="col-md-11" style="display:none;">
@@ -48,11 +48,11 @@
 
                                 <div class="col-md-3" style="text-align: left">
                                     <button [disabled]="!newDistributionPoint.valid" type="submit" mat-icon-button>
-                                        <i class="material-icons NewDistributionPointIconOption">check</i>
+                                        <i class="material-icons addIcon">check</i>
                                     </button>
-                                    <a class="nav-link NewIconOption">
+                                    <a>
                                         <i (click)="HideNewDistributionPoint()"
-                                            class="material-icons NewDistributionPointIconOption">close</i>
+                                            class="material-icons cancelIcon">close</i>
                                     </a>
                                 </div>
                             </div>
@@ -81,13 +81,13 @@
                                             </a>
                                         </div>
                                         <div *ngIf="admin" class="col-md-4" style="text-align:right">
-                                            <a class="nav-link NewIconOption">
+                                            <a>
                                                 <i (click)="ModifyDistributionPoint(point.id, point)"
-                                                    class="material-icons DistributionPointIcon">settings</i>
+                                                    class="material-icons subIcon">settings</i>
                                             </a>
-                                            <a class="nav-link NewIconOption">
+                                            <a>
                                                 <i (click)="DeleteDistributionPointValidation(point.id);"
-                                                    class="material-icons DistributionPointIcon">delete</i>
+                                                    class="material-icons subIcon">delete</i>
                                             </a>
                                         </div>
                                     </thead>

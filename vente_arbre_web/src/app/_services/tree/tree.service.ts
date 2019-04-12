@@ -22,6 +22,14 @@ export class TreeService extends MainService {
     return this.http.get<Tree>(url);
   } 
 
+  getRandomTrees(): Observable<Tree[]> {
+    let url = this.apiUrl.toString() + "Tree/RandomTrees";
+
+    let headers = new HttpHeaders();
+    headers = headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.get<Tree[]>(url);
+  } 
+
   validateTreeOfCategory(description: string, categoryId: string, treeId: string) {
     let url = '';
     if (treeId) {

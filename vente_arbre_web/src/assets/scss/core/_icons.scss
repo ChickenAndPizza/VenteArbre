@@ -1,0 +1,53 @@
+.mainIcon {
+    color:#0097a7;
+    cursor:pointer;
+    text-align: left;
+    font-size: 40px;
+}
+
+i.mainIcon:hover { 
+    color :#006e7a;
+}
+
+.addIcon {
+    color:#0097a7;
+    cursor:pointer;
+    text-align: left;
+    font-size: 35px;
+}
+
+i.addIcon:hover { 
+    color :#60a01c;
+}
+
+.cancelIcon {
+    color:#0097a7;
+    cursor:pointer;
+    text-align: left;
+    font-size: 35px;
+}
+
+i.cancelIcon:hover { 
+    color :#af0c1f;
+}
+
+.mainIconWhite {
+    color:#ffffff;
+    cursor:pointer;
+    text-align: center;
+    font-size: 35px;
+}
+
+i.mainIconWhite:hover { 
+    color :#dbdbdb;
+}
+
+.subIcon {
+    color:#0097a7;
+    cursor:pointer;
+    font-size: 25px;
+}
+
+i.subIcon:hover { 
+    color :#006e7a;
+}

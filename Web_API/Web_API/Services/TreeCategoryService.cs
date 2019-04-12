@@ -40,5 +40,13 @@ namespace Web_API.Services
             else
                 return Context.TreeCategories.Any(c => c.Description == description);
         }
+
+        public string GetDescription(Guid categoryId)
+        {
+            var category = Context.TreeCategories
+                .FirstOrDefault(c => c.Id == categoryId);
+
+            return category.Description;
+        }
     }
 }
