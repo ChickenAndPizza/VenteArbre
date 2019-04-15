@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { decodeToken } from 'app/_helpers';
 import { CustomerOrderService, CustomerOrderDetailService } from 'app/_services';
 import { CustomerOrder } from 'app/_models/customer-order';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { MatDialogConfig, MatDialog, MatDialogRef } from '@angular/material';
 import { DialogComponent } from 'app/_directives';
 import { detachProjectedView } from '@angular/core/src/view/view_attach';
@@ -50,7 +50,7 @@ export class CartComponent implements OnInit {
       zone: [zone, ,],
       ageHeight: [ageHeight, ,],
       price: [price, ,],
-      quantity: [quantity, ,],
+      quantity: [quantity, Validators.required,],
       totalPrice: [totalPrice, ,],
     });
   }
@@ -127,10 +127,10 @@ export class CartComponent implements OnInit {
   }
 
   disableButtonWhenNotConnectedAndNoCard() {
-    if(this.currentUser && this.cart && (<FormArray>this.cartForm.get('orderDetail')).length > 0) {
+    if(this.cartForm.valid && this.currentUser && this.cart && (<FormArray>this.cartForm.get('orderDetail')).length > 0) {
       return false;
     } else {
-      return true;
+      return true;  
     }
   }
 

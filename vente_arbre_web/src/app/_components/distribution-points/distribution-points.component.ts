@@ -79,6 +79,9 @@ export class DistributionPointsComponent implements OnInit {
         this.newDistributionPoint.get('webLink').setValue('');
         this.newDistributionPoint.get('webName').setValue('');
         this.newDistributionPoint.get('description').setValue('');
+        this.newDistributionPoint.markAsPristine();
+        this.newDistributionPoint.markAsUntouched();
+        this.newDistributionPoint.updateValueAndValidity();
       });
     }
   }
