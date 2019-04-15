@@ -143,7 +143,7 @@ export class TreeListComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       title: 'Voulez-vous vraiment supprimer cet arbre?',
-      precisions: 'Cet arbre ne sera plus affichée parmis la liste des choix.'
+      precisions: 'Cet arbre ne sera plus affiché parmis la liste des choix.'
     };
     this.dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     this.dialogRef.afterClosed().subscribe(result => {
