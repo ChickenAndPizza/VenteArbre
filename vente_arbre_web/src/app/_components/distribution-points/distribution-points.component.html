@@ -1,13 +1,11 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-
             <div class="col-md-12" *ngIf="admin">
                 <div class="row">
                     <div class="col-md-1">
                         <a>
-                            <i (click)="ShowNewDistributionPoint()"
-                                class="material-icons mainIcon">add_location</i>
+                            <i (click)="ShowNewDistributionPoint()" class="material-icons mainIcon">add_location</i>
                         </a>
                     </div>
                     <div id="newDistributionPoint" class="col-md-11" style="display:none;">
@@ -34,7 +32,8 @@
                                         class="text-danger">
                                         <div *ngIf="webName.errors?.pointExists">Le point de distribution est déjà
                                             existant</div>
-                                            <div *ngIf="webName.errors?.required">Le nom du point de distribution est requis</div>
+                                        <div *ngIf="webName.errors?.required">Le nom du point de distribution est requis
+                                        </div>
                                     </small>
                                     <mat-form-field class="example-full-width">
                                         <textarea rows="5" matInput placeholder="Description du point*"
@@ -77,7 +76,8 @@
                                                 {{point.webName}}
                                             </div>
                                             <a *ngIf="point.webLink" style="cursor:pointer;" target="_blank"
-                                                [href]="point.webLink">{{point.webName}}<i class="material-icons" style="font-size: 24px">help</i>
+                                                [href]="point.webLink">{{point.webName}}<i class="material-icons"
+                                                    style="font-size: 24px">help</i>
                                             </a>
                                         </div>
                                         <div *ngIf="admin" class="col-md-4" style="text-align:right">
@@ -108,5 +108,39 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-green">
+                        <h3 class="card-title">Informations</h3>
+                        <p class="card-category">À propos de la cueillette d'arbres
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>Lorsque vous commandez des arbres par l'intermédiaire du site Web, 
+                                    vous avez la responsabilité de venir chercher ceux-ci lorsque la commande
+                                    saisonale est acheminée. Le CER, à la réception des arbres, se déplacera
+                                    aux points de distribution mentionnés ci-haut afin de distribuer les arbres
+                                    aux divers acheteurs. </p>
+                                    <p>Chaque point sera visité à une date précise qui sera
+                                    décidée à la fin de la saison. Vous devez donc être à l'affût des dates décidées
+                                    par le commité et venir chercher vos propres arbres au moment prévu.</p>
+                                    <p>Une pièce d'identité sera demandée sur place afin d'identifier l'acheteur.</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <img style="width:100%;border: solid white 10px;margin:auto 0;overflow: hidden;padding: 0;border-radius: 15px;" src="./assets/img/environment/cba_photo_1.jpg" />
+            </div>
+        </div>
+
     </div>
 </div>
