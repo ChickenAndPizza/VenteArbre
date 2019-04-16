@@ -35,5 +35,17 @@ namespace Web_API.Controllers
         {
             return Service.GetDescription(categoryId);
         }
+
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(200)]
+        public override ActionResult Delete(Guid id)
+        {
+            if (Service.RemoveWithChildren(id))
+                return NoContent();
+
+            return BadRequest();
+        }
     }
 }

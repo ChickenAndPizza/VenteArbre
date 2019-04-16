@@ -85,6 +85,9 @@
                                         </small>
                                 </div>
                             </div>
+                            <div  *ngIf="save" [@fadeInOnEnter]  [@fadeOutOnLeave]>
+                                <i class="material-icons pull-right" style="color: green;font-size:36px;margin-top: 7px">check</i>
+                            </div>
                             <button [disabled]="canAddToCart()" type="submit" class="btn btn-green btn-round" style="color:white;">Ajouter</button>
                         </form>
                     </div>
