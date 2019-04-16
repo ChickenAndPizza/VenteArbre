@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CustomerOrderService } from 'app/_services';
 
 @Component({
-  selector: 'app-orders-in-progress',
-  templateUrl: './orders-in-progress.component.html',
-  styleUrls: ['./orders-in-progress.component.scss']
+  selector: 'app-orders-processed',
+  templateUrl: './orders-processed.component.html',
+  styleUrls: ['./orders-processed.component.scss']
 })
-export class OrdersInProgressComponent implements OnInit {
+export class OrdersProcessedComponent implements OnInit {
 
   hasOrders = false;
   customerOrders: any[];
@@ -16,11 +16,11 @@ export class OrdersInProgressComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadOrdersInProgress();
+    this.loadOrdersProcessed();
   }
 
-  private loadOrdersInProgress() {
-    this.customerOrderService.getOrdersInProgress().subscribe(
+  private loadOrdersProcessed() {
+    this.customerOrderService.getOrdersProcessed().subscribe(
       orders => {
         this.customerOrders = orders;
         if (orders[0])

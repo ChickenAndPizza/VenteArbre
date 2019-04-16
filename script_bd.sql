@@ -49,6 +49,7 @@ CREATE TABLE customer_order(
         state            	  TinyINT NOT NULL ,
         id_customer      	  Varchar (36) NOT NULL,
         id_distribution_point Varchar(36),
+        total                 Decimal(10, 2) NOT NULL,
         is_active        	  Bool NOT NULL
 	,CONSTRAINT customer_order_PK PRIMARY KEY (id)
 
@@ -130,6 +131,7 @@ CREATE TABLE customer_order_detail(
         quantity          Int NOT NULL ,
         id_tree           Varchar (36) NOT NULL ,
         id_customer_order Varchar (36) NOT NULL,
+        price             Decimal(10,2) NOT NULL,
         is_active         Bool NOT NULL
 	,CONSTRAINT customer_order_detail_PK PRIMARY KEY (id)
 

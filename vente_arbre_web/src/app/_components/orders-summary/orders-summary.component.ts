@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerOrderService } from 'app/_services';
 
 @Component({
   selector: 'app-orders-summary',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersSummaryComponent implements OnInit {
 
-  constructor() { }
+  hasValues: boolean = false;
+  totalByCategory: any[];
+
+  constructor(
+    private customerOrderService : CustomerOrderService
+  ) { }
 
   ngOnInit() {
+
+    this.loadTotalByCategory();
+  }
+  loadTotalByCategory(): any {
+    this.customerOrderService.getTotalByCategory().subscribe(
+      total => {
+        this.totalByCategory = total;
+        if (total[0])
+          this.hasValues = true;
+      }
+    );
   }
 
 }

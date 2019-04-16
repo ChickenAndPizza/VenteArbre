@@ -3,6 +3,9 @@
     public enum Order
     {
         Cart,
-        Paid
+        Paid,
+        InProcess,
+        Processed,
+        Delivered
     }
 }

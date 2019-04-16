@@ -8,6 +8,7 @@ declare interface RouteInfo {
   icon: string;
   class: string;
 }
+
 export const ROUTES: RouteInfo[] = [
   { path: '/dashboard', title: 'Accueil', icon: 'dashboard', class: '' },
   { path: '/tree-list', title: 'Liste des produits', icon: 'view_list', class: '' },
@@ -17,7 +18,10 @@ export const ROUTES: RouteInfo[] = [
   { path: '/user-profile', title: 'Profil', icon: 'person', class: '' },
   { path: '/about-us', title: 'À propos', icon: 'chat', class: '' },
   { path: '/connection', title: 'Connexion', icon: 'person', class: '' },
-  { path: '/cart', title: 'Panier', icon: 'shopping_cart', class: '' }
+  { path: '/cart', title: 'Panier', icon: 'shopping_cart', class: '' },
+  { path: '/orders-in-progress', title: 'Commandes en cours', icon: 'shopping_cart', class: '' },
+  { path: '/orders-summary', title: 'Bilan des commandes', icon: 'shopping_cart', class: '' },
+  { path: '/orders-processed', title: 'Commandes traitées', icon: 'shopping_cart', class: '' },
 ];
 
 @Component({
@@ -39,8 +43,7 @@ export class SidebarComponent implements OnInit {
     if (this.admin)
       this.menuItems = ROUTES.filter(menuItem => menuItem.title !== 'Connexion' && menuItem.title !== 'Ajouter un arbre' && menuItem.title !== 'Visionner un arbre' && menuItem.title !== 'Panier');
     else
-      this.menuItems = ROUTES.filter(menuItem => menuItem.title !== 'Connexion' && menuItem.title !== 'Ajouter un arbre' && menuItem.title !== 'Visionner un arbre' && menuItem.title !== 'Panier');
-
+      this.menuItems = ROUTES.filter(menuItem => menuItem.title !== 'Connexion' && menuItem.title !== 'Ajouter un arbre' && menuItem.title !== 'Visionner un arbre' && menuItem.title !== 'Panier' && menuItem.title !== 'Commandes en cours' && menuItem.title !== 'Bilan des commandes' && menuItem.title !== 'Commandes traitées');
   }
 
   isMobileMenu() {

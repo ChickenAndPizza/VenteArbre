@@ -80,11 +80,11 @@ export class TreeInfoComponent implements OnInit {
     this.save = true;
     this.customerOrderService.getCustomerCart(this.currentUser.id).subscribe(order => {
       if(order !== null) {
-        let orderDetail = {'idTree': this.treeId, 'quantity': treeToAdd, 'idCustomerOrder': order.id};
+        let orderDetail = {'idTree': this.treeId, 'quantity': qtyToAdd, 'price': this.price.value, 'idCustomerOrder': order.id};
         this.customerOrderDetailService.addOrUpdateCustomerOrderDetail(orderDetail).subscribe();
       } else {
         this.customerOrderService.createCustomerCart(this.currentUser.id).subscribe(cart => {
-          let orderDetail = {'idTree': this.treeId, 'quantity': treeToAdd, 'idCustomerOrder': cart.id};
+          let orderDetail = {'idTree': this.treeId, 'quantity': qtyToAdd, 'price': this.price.value, 'idCustomerOrder': cart.id};
           this.customerOrderDetailService.addOrUpdateCustomerOrderDetail(orderDetail).subscribe();
         });
       }

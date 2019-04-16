@@ -15,6 +15,7 @@ namespace Web_API.Models
 
         public Customer Customer { get; set; }
         public DistributionPoint DistributionPoint { get; set; }
+        public Decimal Total { get; set; }
         public ICollection<CustomerOrderDetail> OrderDetails { get; set; }
     }
 }

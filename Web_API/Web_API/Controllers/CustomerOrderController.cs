@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Web_API.Controllers.Base;
 using Web_API.Models;
 using Web_API.Services;
@@ -42,6 +39,27 @@ namespace Web_API.Controllers
         public ActionResult Command(Guid id, Guid idDistributionPoint)
         {
             return Ok(Service.CommandObjectInsideCart(id, idDistributionPoint));
+        }
+
+        [HttpGet]
+        [Route("GetOrdersInProgress")]
+        public ActionResult GetOrdersInProgress()
+        {
+            return Ok(Service.GetOrdersInProgress());
+        }
+
+        [HttpGet]
+        [Route("GetOrdersProcessed")]
+        public ActionResult GetOrdersProcessed()
+        {
+            return Ok(Service.GetOrdersProcessed());
+        }
+
+        [HttpGet]
+        [Route("GetTotalByCategory")]
+        public ActionResult GetTotalByCategory()
+        {
+            return Ok(Service.GetTotalByCategory());
         }
     }
 }
