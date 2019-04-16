@@ -3,15 +3,106 @@
     <div class="row">
 
       <div class="col-md-12">
-        <div class="card">
-          <div class="card-header card-header-green">
-            <h3 class="card-title">Panier</h3>
-            <p *ngIf="disableButtonWhenNotConnected()" class="card-category">Pour avoir un panier, vous devez être
-              connecter!</p>
+        <form [formGroup]="cartForm" (ngSubmit)="paid()">
+          <div class="card">
+            <div class="card-header card-header-green">
+              <h3 class="card-title">Finalisation de la commande</h3>
+            </div>
+            <div class="card-body">
+
+              <div style="display: flex;font-size:16px;">
+                <i class="material-icons" style="font-size:20px;margin-top:1px;">looks_one</i>
+                &nbsp;<p style="font-weight: bold"> Choix du point de distribution où aller chercher votre commande</p>
+              </div>
+              <div style="display: flex;font-size:12px; margin-top:-15px;">
+                <i class="material-icons" style="font-size:15px;margin-top:4px;margin-left:20px;">warning</i>
+                &nbsp;Pour en savoir plus à propos des points, veuillez visiter la section «Points De Distribution»
+              </div>
+
+              <mat-form-field [formGroup]='distributionPointForm'>
+                <mat-label>Lieu</mat-label>
+                <mat-select name="distributionPoint" formControlName="distributionPoint">
+                  <mat-option *ngFor="let distributionPoint of distributionPoints" [value]="distributionPoint.id">
+                    {{distributionPoint.webName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div style="display: flex;font-size:16px;margin-top: 20px;">
+                <i class="material-icons" style="font-size:20px;margin-top:1px;">looks_two</i>
+                &nbsp;<p style="font-weight: bold;">Validation des informations du compte</p>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  Nom: {{currentUser.lastName}}
+                </div>
+                <div class="col-md-4">
+                  Prénom: {{currentUser.firstName}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  Email: {{currentUser.email}}
+                </div>
+                <div class="col-md-4">
+                  Téléphone: {{currentUser.phoneNumber}}
+                </div>
+              </div>
+
+
+              <div style="display: flex;font-size:16px;margin-top: 40px;">
+                <i class="material-icons" style="font-size:20px;margin-top:1px;">looks_3</i>
+                &nbsp;<p style="font-weight: bold;">Validation des items de la commande</p>
+              </div>
+
+              <div formArrayName="orderDetail">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th> Produit </th>
+                      <th> Zone </th>
+                      <th> Âge/Hauteur </th>
+                      <th> Prix/u </th>
+                      <th> Quantité</th>
+                      <th> Total </th>
+                    </thead>
+                    <tbody>
+                      <tr class="form-group"
+                        *ngFor="let detail of cartForm.controls.orderDetail.controls; let i = index">
+                        <td> {{cartForm.controls.orderDetail.controls[i].controls.name.value}} </td>
+                        <td> {{cartForm.controls.orderDetail.controls[i].controls.zone.value}} </td>
+                        <td> {{cartForm.controls.orderDetail.controls[i].controls.ageHeight.value}} </td>
+                        <td> {{cartForm.controls.orderDetail.controls[i].controls.price.value}} $ </td>
+                        <td style="text-align: center">
+                          {{cartForm.controls.orderDetail.controls[i].controls.quantity.value}} </td>
+                        <td style="text-align: center">
+                          {{cartForm.controls.orderDetail.controls[i].controls.totalPrice.value}} $ </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="card-body">
+          <div class="rowCommand pull-right">
+            <div>
+              <div class="card">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th> Total de la commande: {{commandTotal}} $</th>
+                      </thead>
+                    </table>
+                  </div>
+                  <button [disabled]="!distributionPointForm.valid" class="btn btn-green pull-right"
+                    style="color:white;" type="submit">Payer</button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>

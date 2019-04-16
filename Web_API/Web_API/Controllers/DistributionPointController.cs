@@ -22,7 +22,7 @@ namespace Web_API.Controllers
         [ProducesResponseType(200)]
         public override ActionResult Get()
         {
-            var result = Service.GetList();
+            var result = Service.GetList().OrderBy(c=> c.WebName);
 
             return Ok(result);
         }
