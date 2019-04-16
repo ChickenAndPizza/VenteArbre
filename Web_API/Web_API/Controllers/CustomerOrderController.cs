@@ -36,5 +36,12 @@ namespace Web_API.Controllers
             var cart = Service.CreateCart(id);
             return Ok(cart);
         }
+
+        [HttpGet]
+        [Route("Command/{id:Guid}")]
+        public ActionResult Command(Guid id)
+        {
+            return Ok(Service.CommandObjectInsideCart(id));
+        }
     }
 }

@@ -112,6 +112,12 @@ export class CartComponent implements OnInit {
     }
   }
 
+  command() {
+    this.customerOrderService.commandObjectInsideCart(
+      (<FormArray>this.cartForm.get('orderDetail')).controls[0].get('idCustomerOrder').value)
+      .subscribe();
+  }
+
   disableButtonWhenNotConnected() {
     if(this.currentUser) {
       return false;
