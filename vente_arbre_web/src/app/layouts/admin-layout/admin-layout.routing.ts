@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from 'app/_guards';
 import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent } from 'app/_components';
+import { CommandComponent } from 'app/_components/command/command.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -35,4 +36,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'icons', component: IconsComponent },
     { path: 'notifications', component: NotificationsComponent },
     { path: 'cart', component: CartComponent },
+    { path: 'command', component: CommandComponent },
 ];
