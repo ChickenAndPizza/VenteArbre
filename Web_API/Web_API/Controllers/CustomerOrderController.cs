@@ -42,6 +42,20 @@ namespace Web_API.Controllers
         }
 
         [HttpGet]
+        [Route("GetTotalOrdersInProgress")]
+        public ActionResult GetTotalOrdersInProgress()
+        {
+            return Ok(Service.GetTotalOrdersInProgress());
+        }
+
+        [HttpGet]
+        [Route("Get72hOrdersInProgress")]
+        public ActionResult Get72hOrdersInProgress()
+        {
+            return Ok(Service.Get72hOrdersInProgress());
+        }
+
+        [HttpGet]
         [Route("GetOrdersInProgress")]
         public ActionResult GetOrdersInProgress()
         {
@@ -60,6 +74,41 @@ namespace Web_API.Controllers
         public ActionResult GetTotalByCategory()
         {
             return Ok(Service.GetTotalByCategory());
+        }
+
+        [HttpGet]
+        [Route("GetTotalByDistributionPoint")]
+        public ActionResult GetTotalByDistributionPoint()
+        {
+            return Ok(Service.GetTotalByDistributionPoint());
+        }
+
+        [HttpGet]
+        [Route("GetTotalByAll")]
+        public ActionResult GetTotalByAll()
+        {
+            return Ok(Service.GetTotalByAll());
+        }
+
+        [HttpGet]
+        [Route("GetTotalOrdersProcessed")]
+        public ActionResult GetTotalOrdersProcessed()
+        {
+            return Ok(Service.GetTotalOrdersProcessed());
+        }
+        
+        [HttpGet]
+        [Route("SetOrdersInProgressInProcess")]
+        public ActionResult SetOrdersInProgressInProcess()
+        {
+            return Ok(Service.SetOrdersInProgressInProcess());
+        }
+
+        [HttpGet]
+        [Route("SetOrdersInProcessProcessed")]
+        public ActionResult SetOrdersInProcessProcessed()
+        {
+            return Ok(Service.SetOrdersInProcessProcessed());
         }
     }
 }

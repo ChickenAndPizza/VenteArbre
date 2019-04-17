@@ -126,6 +126,9 @@ export class NavbarComponent implements OnInit {
       else if (titlee.indexOf("tree-info") > 0){
           return "Visionner un arbre";
       }
+      else if (titlee.indexOf("orderInProcess")> 0){
+        return "Commande au fournisseur";
+      }
 
 
       if(titlee.charAt(0) === '#'){

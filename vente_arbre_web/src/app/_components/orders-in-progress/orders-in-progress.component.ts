@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerOrderService } from 'app/_services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders-in-progress',
@@ -10,16 +11,25 @@ export class OrdersInProgressComponent implements OnInit {
 
   hasOrders = false;
   customerOrders: any[];
+  totalOrdersInProgress: any;
+  total72hOrdersInProgress: any;
 
   constructor(
     private customerOrderService: CustomerOrderService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.loadTotalOrdersInProgress();
+    this.load72hOrdersInProgress();
     this.loadOrdersInProgress();
   }
 
-  private loadOrdersInProgress() {
+  passOrderToSupplier(){
+    this.router.navigate(['/orders-summary'], { queryParams: { returnUrl: "orders-in-progress", orderInProcess: true }});
+  }
+
+  loadOrdersInProgress() {
     this.customerOrderService.getOrdersInProgress().subscribe(
       orders => {
         this.customerOrders = orders;
@@ -29,4 +39,23 @@ export class OrdersInProgressComponent implements OnInit {
     );
   }
 
+  loadTotalOrdersInProgress(): any {
+    this.customerOrderService.getTotalOrdersInProgress().subscribe(
+      total => {
+        this.totalOrdersInProgress = total;
+        if (total)
+          this.hasOrders = true;
+      }
+    );
+  }
+
+  load72hOrdersInProgress(): any {
+    this.customerOrderService.get72hOrdersInProgress().subscribe(
+      total => {
+        this.total72hOrdersInProgress = total;
+        if (total)
+          this.hasOrders = true;
+      }
+    );
+  }
 }

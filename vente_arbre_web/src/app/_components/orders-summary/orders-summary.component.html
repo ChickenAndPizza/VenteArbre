@@ -3,7 +3,39 @@
 
     <p *ngIf="!hasValues" class="text-danger">Il n'y a aucun arbre à commander!</p>
 
-    <div class="row" *ngIf="hasValues">
+    <div class="row" *ngIf="hasValues && isOrderInProcess && !canContinue">
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-warning">
+            <h3 class="card-title">Passer la commande</h3>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-12">
+                  Vous devez maintenant effectuer la commande au fournisseur. Les commandes
+                  passées jusqu'à cette date seront traitées et ne s'afficheront plus dans
+                  les commandes en cours. Elles resterons par contre dans le système jusqu'à
+                  leur distribution.
+                </div>
+              </div>
+              <div class="row" style="margin-top:30px;">
+                <div class="col-md-6">
+                  <button mat-raised-button type="button" (click)="GoBack()"
+                    class="btn btn-danger pull-left">Annuler</button>
+                </div>
+                <div class="col-md-6">
+                  <button mat-raised-button type="button" (click)="Continue()"
+                    class="btn btn-green pull-right">Continuer</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="hasValues && !isOrderInProcess || isOrderInProcess && canContinue">
       <div class="col-md-9">
         <div class="row">
           <div class="col-md-12">
@@ -25,7 +57,7 @@
                         </div>
 
                         <div class="col-md-6 text-primary" style="text-align: right;">
-                            Total pour la catégorie: {{totalOfCategory.categoryTotal}}
+                          Total pour la catégorie: {{totalOfCategory.categoryTotal}}
                         </div>
                       </thead>
                       <div class="col-md-12" *ngFor="let totalOfTree of totalOfCategory.treesByCategory"
@@ -33,10 +65,10 @@
                         <div class="col-md-5">
                         </div>
                         <div class="text-primary col-md-3" style="text-align: right;">
-                            {{totalOfTree.treeName}}
-                          </div>
+                          {{totalOfTree.treeName}}
+                        </div>
                         <div class="text-primary col-md-4" style="text-align:right;">
-                            Total pour l'arbre: {{totalOfTree.treeTotal}}
+                          Total pour l'arbre: {{totalOfTree.treeTotal}}
                         </div>
                       </div>
                       <div style="height:65px;"></div>
@@ -55,29 +87,65 @@
                 <h3 class="card-title">Arbres par points de ditribution</h3>
               </div>
               <div class="card-body">
-                <form>
-                  <div class="row">
-                    <div class="col-md-12">
+                <div class="table-responsive" style="overflow: unset">
+                  <table class="table">
 
+                    <div *ngFor="let totalOfDistributionPoint of totalByDistributionPoint" class="row">
+                      <thead class="col-md-12" style="display: flex;">
+                        <div class="col-md-8">
+                          <h5 class="text-primary" style="font-weight:bold">
+                            {{totalOfDistributionPoint.distributionPointName}}
+                          </h5>
+                        </div>
+
+                        <div class="col-md-4 text-primary" style="text-align: right;">
+                          Total pour le point: {{totalOfDistributionPoint.distributionPointTotal}}
+                        </div>
+                      </thead>
                     </div>
-                  </div>
-                </form>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="col-md-3">
-        <div class="card card-stats">
-          <div class="card-header card-header-green card-header-icon">
-            <div class="card-icon">
-              <h1>34</h1>
-            </div>
-          </div>
-          <div class="card-body" style="text-align: left">
-            <h4>Arbres commandés pour cette saison</h4>
+        <div class="row">
+          <div class="col-md-12">
+              <div class="card card-stats">
+                  <div class="card-header card-header-green card-header-icon">
+                    <div class="card-icon">
+                      <h1>{{totalByAll}}</h1>
+                    </div>
+                  </div>
+                  <div class="card-body" style="text-align: left">
+                    <h4>Arbres commandés pour cette saison</h4>
+                  </div>
+                </div>
           </div>
         </div>
+        
+
+        <div class="row" *ngIf="isOrderInProcess && canContinue">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-tabs card-header-warning">
+                  <h3 class="card-title">Commande terminée</h3>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <button mat-raised-button type="button" (click)="Quit()"
+                          class="btn btn-green pull-right">Quitter</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>

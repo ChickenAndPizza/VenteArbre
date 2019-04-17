@@ -7,6 +7,7 @@ namespace Web_API.Models.DTO
 {
     public class TotalByDistributionPoint
     {
+        public Guid IdDistributionPoint { get; set; }
         public String DistributionPointName { get; set; }
         public int DistributionPointTotal { get; set; }
     }
