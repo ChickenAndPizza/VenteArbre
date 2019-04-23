@@ -40,11 +40,12 @@ namespace Web_API.Services
                  }).ToList().FirstOrDefault();
         }
 
-        public Guid CommandObjectInsideCart(Guid idOrder)
+        public Guid CommandObjectInsideCart(Guid idOrder, Guid idDistributionPoint)
         {
             var cart = Context.CustomerOrders.FirstOrDefault(c => c.Id == idOrder && c.State == Order.Cart);
             cart.State = Order.Paid;
             cart.TransactionDate = DateTime.Now;
+            cart.IdDistributionPoint = idDistributionPoint;
             Context.Update(cart);
             Context.SaveChanges();
             return cart.Id;

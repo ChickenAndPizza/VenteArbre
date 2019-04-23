@@ -88,7 +88,8 @@ export class CommandComponent implements OnInit {
 
   paid() {
     this.customerOrderService.commandObjectInsideCart(
-      (<FormArray>this.cartForm.get('orderDetail')).controls[0].get('idCustomerOrder').value)
+      (<FormArray>this.cartForm.get('orderDetail')).controls[0].get('idCustomerOrder').value,
+      this.distributionPoint.value)
       .subscribe();
   }
 
