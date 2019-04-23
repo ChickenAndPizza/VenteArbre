@@ -110,5 +110,12 @@ namespace Web_API.Controllers
         {
             return Ok(Service.SetOrdersInProcessProcessed());
         }
+
+        [HttpGet]
+        [Route("SetProcessedOrdersToShipped")]
+        public ActionResult SetProcessedOrdersToShipped(String[] orders)
+        {
+            return Ok(Service.SetProcessedOrdersToShipped(orders));
+        }
     }
 }

@@ -113,39 +113,39 @@
       <div class="col-md-3">
         <div class="row">
           <div class="col-md-12">
-              <div class="card card-stats">
-                  <div class="card-header card-header-green card-header-icon">
-                    <div class="card-icon">
-                      <h1>{{totalByAll}}</h1>
-                    </div>
-                  </div>
-                  <div class="card-body" style="text-align: left">
-                    <h4>Arbres commandés pour cette saison</h4>
-                  </div>
+            <div class="card card-stats">
+              <div class="card-header card-header-green card-header-icon">
+                <div class="card-icon">
+                  <h1>{{totalByAll}}</h1>
                 </div>
-          </div>
-        </div>
-        
-
-        <div class="row" *ngIf="isOrderInProcess && canContinue">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-tabs card-header-warning">
-                  <h3 class="card-title">Commande terminée</h3>
-                </div>
-                <div class="card-body">
-                  <form>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <button mat-raised-button type="button" (click)="Quit()"
-                          class="btn btn-green pull-right">Quitter</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
+              </div>
+              <div class="card-body" style="text-align: left">
+                <h4>Arbres commandés pour cette saison</h4>
               </div>
             </div>
           </div>
+        </div>
+
+
+        <div class="row" *ngIf="isOrderInProcess && canContinue">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-tabs card-header-warning">
+                <h3 class="card-title">Commande terminée</h3>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button mat-raised-button type="button" (click)="Quit()"
+                        class="btn btn-green pull-right">Quitter</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

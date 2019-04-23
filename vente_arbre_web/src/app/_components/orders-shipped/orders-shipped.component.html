@@ -1,0 +1,114 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="row" *ngIf="!canContinue">
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-warning">
+            <h3 class="card-title">Bilan de livraison</h3>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-12">
+                  Vous devez maintenant remplir le bilan de livraison. Les clients ayant récupéré leur(s)
+                  arbre(s) avec succès pourront être filtrés des commandes traitées et non-livrée. Ceux
+                  n'ayant pas récuréré leurs biens devront rester dans la liste afin qu'un contact soit
+                  établit le plus tôt possible.
+                </div>
+              </div>
+              <div class="row" style="margin-top:30px;">
+                <div class="col-md-6">
+                  <button mat-raised-button type="button" (click)="GoBack()"
+                    class="btn btn-danger pull-left">Annuler</button>
+                </div>
+                <div class="col-md-6">
+                  <button mat-raised-button type="button" (click)="Continue()"
+                    class="btn btn-green pull-right">Continuer</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="canContinue">
+      <div class="col-md-12">
+        <div class="card" id="print-content">
+          <div class="card-header card-header-tabs card-header-green TitlPrint">
+            <h3 class="card-title">Cégep Beauce-Appalaches (Saint-Georges)</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive" style="overflow: unset">
+              <table class="table">
+                <div *ngFor="let order of customerOrders" class="row OrderPrint">
+                  <thead class="col-md-12" style="display: flex; align-items: center;">
+
+                    <div class="form-check col-md-1">
+                      <label class="form-check-label">
+                        <input class="form-check-input" id="{{order.id}}" type="checkbox" value="" checked (click)="UpdateShippedList(order.id)">
+                        <span class="form-check-sign">
+                          <span class="check"></span>
+                        </span>
+                      </label>
+                    </div>
+
+                    <div class="text-primary col-md-2" style="font-weight:bold">
+                      {{order.customer.lastName}}, {{order.customer.firstName}}
+                    </div>
+                    <div class="col-md-3">
+                      Téléphone: {{order.customer.phoneNumber}}
+                    </div>
+                    <div class="col-md-4">
+                      Courriel: {{order.customer.email}}
+                    </div>
+                    <div class="text-primary col-md-2" style="text-align:right;font-weight:bold">
+                      Total: {{order.total}}$
+                    </div>
+                  </thead>
+                  <div class="col-md-12 OrderDetailPrint" *ngFor="let orderDetail of order.orderDetails"
+                    style="display:flex; align-items:right; margin-bottom:-10px;">
+                    <div class="col-md-7">
+                    </div>
+                    <div class="col-md-3" style="display:flex;">
+                      <p class="text-primary" style="font-weight:bold">{{orderDetail.quantity}}</p>
+                      <p>&nbsp;X {{orderDetail.tree.name}}</p>
+                      <p class="text-primary">&nbsp;({{orderDetail.price}}$)</p>
+                    </div>
+                    <div class="text-primary col-md-2" style="text-align:right;">
+                      <p>&nbsp;{{orderDetail.quantity * orderDetail.price}}$</p>
+                    </div>
+                  </div>
+                  <div style="height:65px;"></div>
+                </div>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="canContinue">
+      <div class="col-md-9"></div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-warning">
+            <h3 class="card-title">Bilan terminé</h3>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-12">
+                  <button mat-raised-button type="button" (click)="Quit()"
+                    class="btn btn-green pull-right">Continuer</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

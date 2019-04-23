@@ -281,6 +281,20 @@ namespace Web_API.Services
             return "Ok";
         }
 
+        public string SetProcessedOrdersToShipped(String[] orders)
+        {
+            var customerOrdersListInProgress = GetCustomerOrdersWithDetails(Order.Processed);
+
+            foreach (CustomerOrder customerOrder in customerOrdersListInProgress)
+            {
+                customerOrder.State = Order.Delivered;
+                Context.CustomerOrders.Update(customerOrder);
+            }
+            Context.SaveChanges();
+
+            return "Ok";
+        }
+
         public List<CustomerOrder> GetCustomerOrdersWithDetails(Order order)
         {
             var customerOrdersList = Context.CustomerOrders

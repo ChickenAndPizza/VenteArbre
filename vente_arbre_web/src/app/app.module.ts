@@ -1,24 +1,21 @@
+import { AgmCoreModule } from '@agm/core';
 import { NgModule, forwardRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { AppRoutingModule, routing } from './app.routing';
+import { AppComponent } from './app.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AppComponent } from './app.component';
-import { AppRoutingModule, routing } from './app.routing';
-import {
-  AgmCoreModule
-} from '@agm/core';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
-import { AlertComponent, DialogComponent, DialogEntryComponent } from './_directives';
+
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { AlertComponent, DialogComponent, DialogEntryComponent, DialogDistributionPointComponent } from './_directives';
 import { AuthGuard } from './_guards';
 import { AlertService, AuthenticationService, UserService, CustomerService, CustomerOrderDetailService } from './_services';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { ComponentsModule } from './_components/navigation';
-import { DialogDistributionPointComponent } from './_directives/dialog-distribution-point/dialog-distribution-point.component';
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -57,7 +54,13 @@ import { DialogDistributionPointComponent } from './_directives/dialog-distribut
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [DialogComponent, DialogEntryComponent, DialogDistributionPointComponent]
+  bootstrap: [
+    AppComponent
+  ],
+  entryComponents: [
+    DialogComponent, 
+    DialogEntryComponent, 
+    DialogDistributionPointComponent
+  ]
 })
 export class AppModule { }

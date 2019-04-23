@@ -129,6 +129,9 @@ export class NavbarComponent implements OnInit {
       else if (titlee.indexOf("orderInProcess")> 0){
         return "Commande au fournisseur";
       }
+      else if (titlee.indexOf("orders-shipped")> 0){
+        return "Bilan de livraison";
+      }
 
 
       if(titlee.charAt(0) === '#'){

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerOrderService } from 'app/_services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders-processed',
@@ -11,14 +12,24 @@ export class OrdersProcessedComponent implements OnInit {
   hasOrders = false;
   customerOrders: any[];
   totalOrdersProcessed: any;
+  showOptions: boolean = false;
 
   constructor(
     private customerOrderService: CustomerOrderService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.loadTotalOrdersProcessed();
     this.loadOrdersProcessed();
+  }
+
+  openPreviousOrders() {
+    this.router.navigate(['/previous-orders-supplier']);
+  }
+
+  shippingOfProcessedOrders() {
+    this.router.navigate(['/orders-shipped']);
   }
 
   loadTotalOrdersProcessed(): any {
@@ -31,7 +42,7 @@ export class OrdersProcessedComponent implements OnInit {
     );
   }
 
-  private loadOrdersProcessed() {
+  loadOrdersProcessed() {
     this.customerOrderService.getOrdersProcessed().subscribe(
       orders => {
         this.customerOrders = orders;
@@ -52,7 +63,7 @@ export class OrdersProcessedComponent implements OnInit {
           <style>
             .OrderDetailPrint {margin-top: -30px; margin-bottom: -30px;}
             .OrderPrint {margin-top: -40px; margin-bottom: -40px;}
-            .TitlPrint {margin-bottom: 100px;}
+            .TitlePrint {margin-bottom: 100px;}
           </style>
           <title>Liste des commandes à terme</title>
         </head>

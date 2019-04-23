@@ -22,6 +22,8 @@ export const ROUTES: RouteInfo[] = [
   { path: '/orders-in-progress', title: 'Commandes en cours', icon: 'shopping_cart', class: '' },
   { path: '/orders-summary', title: 'Bilan des commandes', icon: 'shopping_cart', class: '' },
   { path: '/orders-processed', title: 'Commandes traitées', icon: 'shopping_cart', class: '' },
+  { path: '/orders-shipped', title: 'Bilan de livraison', icon: 'shopping_cart', class: '' },
+  { path: '/previous-orders-supplier', title: 'Commandes précédentes au fournisseur', icon: 'shopping_cart', class: '' },
 ];
 
 @Component({
@@ -41,9 +43,9 @@ export class SidebarComponent implements OnInit {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
 
     if (this.admin)
-      this.menuItems = ROUTES.filter(menuItem => menuItem.title !== 'Connexion' && menuItem.title !== 'Ajouter un arbre' && menuItem.title !== 'Visionner un arbre' && menuItem.title !== 'Panier');
+      this.menuItems = ROUTES.filter(menuItem => menuItem.title !== 'Connexion' && menuItem.title !== 'Ajouter un arbre' && menuItem.title !== 'Visionner un arbre' && menuItem.title !== 'Panier' && menuItem.title !== 'Bilan de livraison' && menuItem.title !== 'Commandes précédentes au fournisseur'); 
     else
-      this.menuItems = ROUTES.filter(menuItem => menuItem.title !== 'Connexion' && menuItem.title !== 'Ajouter un arbre' && menuItem.title !== 'Visionner un arbre' && menuItem.title !== 'Panier' && menuItem.title !== 'Commandes en cours' && menuItem.title !== 'Bilan des commandes' && menuItem.title !== 'Commandes traitées');
+      this.menuItems = ROUTES.filter(menuItem => menuItem.title !== 'Connexion' && menuItem.title !== 'Ajouter un arbre' && menuItem.title !== 'Visionner un arbre' && menuItem.title !== 'Panier' && menuItem.title !== 'Bilan de livraison' && menuItem.title !== 'Commandes précédentes au fournisseur' && menuItem.title !== 'Commandes en cours' && menuItem.title !== 'Bilan des commandes' && menuItem.title !== 'Commandes traitées');
   }
 
   isMobileMenu() {

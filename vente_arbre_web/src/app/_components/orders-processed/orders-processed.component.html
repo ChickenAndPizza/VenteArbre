@@ -2,26 +2,58 @@
   <div class="container-fluid">
 
     <p *ngIf="!hasOrders" class="text-danger">Il n'y a aucune commande en attente de livraison!</p>
-      
+
     <div class="row" *ngIf="hasOrders">
-        <div class="col-md-5">
-            <div class="card card-stats">
-              <div class="card-header card-header-green card-header-icon">
-                <div class="card-icon">
-                  <h1>{{totalOrdersProcessed}}</h1>
-                </div>
-                <h3 class="card-title">Commandes traitées pour cette saison</h3>
-              </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <i class="material-icons">warning</i>
-                  &nbsp; En attente de livraison
-                </div>
-              </div>
+      <div class="col-md-12 text-center">
+        <button mat-raised-button *ngIf="!showOptions" type="button" (click)="this.showOptions = true;" class="btn btn-primary">Options</button>
+        <button mat-raised-button *ngIf="showOptions" type="button" (click)="this.showOptions = false;" class="btn btn-primary">Cacher</button>
+
+      </div>
+    </div>
+
+    <div class="row" *ngIf="hasOrders && showOptions">
+      <div class="col-md-5">
+        <div class="card card-stats">
+          <div class="card-header card-header-green card-header-icon">
+            <div class="card-icon">
+              <h1>{{totalOrdersProcessed}}</h1>
+            </div>
+            <h3 class="card-title">Commandes traitées pour cette saison</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">warning</i>
+              &nbsp; En attente de livraison
             </div>
           </div>
-    
-          <div class="col-md-2"></div>
+        </div>
+      </div>
+
+      <div class="col-md-2"></div>
+
+      <div class="col-md-5">
+        <div class="card card-stats">
+          <div class="card-header card-header-green card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">local_shipping</i>
+            </div>
+            <p class="card-category">Bilan de la livraison</p>
+            <button mat-raised-button type="button" class="btn btn-primary pull-right"
+              (click)="shippingOfProcessedOrders()">
+              <i class="material-icons addIcon" style="color:white">arrow_forward</i>
+            </button>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">warning</i>
+              &nbsp;Attention! Cette action ne peut être réversée
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="hasOrders  && showOptions">
       <div class="col-md-5">
         <div class="card card-stats">
           <div class="card-header card-header-green card-header-icon">
@@ -29,7 +61,29 @@
               <i class="material-icons">print</i>
             </div>
             <p class="card-category">Imprimer les commandes</p>
-            <button mat-raised-button type="button" (click)="print()" class="btn btn-primary pull-right">Imprimer</button>
+            <button mat-raised-button type="button" (click)="print()"
+              class="btn btn-primary pull-right">Imprimer</button>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">info</i>
+              &nbsp;Version PDF
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2"></div>
+
+      <div class="col-md-5">
+        <div class="card card-stats">
+          <div class="card-header card-header-green card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">view_list</i>
+            </div>
+            <p class="card-category">Commandes précédentes</p>
+            <button mat-raised-button type="button" (click)="openPreviousOrders()"
+              class="btn btn-primary pull-right">Visionner</button>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -42,48 +96,50 @@
     </div>
 
     <div class="row" *ngIf="hasOrders">
-      <div class="col-md-12">
-        <div class="card" id="print-content">
-          <div class="card-header card-header-tabs card-header-green TitlPrint">
-            <h3 class="card-title">Cégep Beauce-Appalaches (Saint-Georges)</h3>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive" style="overflow: unset">
-              <table class="table">
-                <div *ngFor="let order of customerOrders" class="row OrderPrint">
-                  <thead class="col-md-12" style="display: flex; align-items: center;">
-                    <div class="text-primary col-md-3" style="font-weight:bold">
-                      {{order.customer.lastName}}, {{order.customer.firstName}}
-                    </div>
-                    <div class="col-md-3">
-                      Téléphone: {{order.customer.phoneNumber}}
-                    </div>
-                    <div class="col-md-4">
-                      Courriel: {{order.customer.email}}
-                    </div>
-                    <div class="text-primary col-md-2" style="text-align:right;font-weight:bold">
-                      Total: {{order.total}}$
-                    </div>
-                  </thead>
-                  <div class="col-md-12 OrderDetailPrint" *ngFor="let orderDetail of order.orderDetails" style="display:flex; align-items:right; margin-bottom:-10px;">
-                    <div class="col-md-7">
-                    </div>
-                    <div class="col-md-3" style="display:flex;">
-                      <p class="text-primary" style="font-weight:bold">{{orderDetail.quantity}}</p>
-                      <p>&nbsp;X {{orderDetail.tree.name}}</p>
-                      <p class="text-primary">&nbsp;({{orderDetail.price}}$)</p>
-                    </div>
-                    <div class="text-primary col-md-2" style="text-align:right;">
-                      <p>&nbsp;{{orderDetail.quantity * orderDetail.price}}$</p>
-                    </div>
+      <div class="card" id="print-content">
+        <div class="card-header card-header-tabs card-header-green TitlePrint">
+          <h3 class="card-title">Cégep Beauce-Appalaches (Saint-Georges)</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive" style="overflow: unset">
+            <table class="table">
+              <div *ngFor="let order of customerOrders" class="row OrderPrint">
+                <thead class="col-md-12" style="display: flex; align-items: center;">
+                  <div class="text-primary col-md-3" style="font-weight:bold">
+                    {{order.customer.lastName}}, {{order.customer.firstName}}
                   </div>
-                  <div style="height:65px;"></div>
+                  <div class="col-md-3">
+                    Téléphone: {{order.customer.phoneNumber}}
+                  </div>
+                  <div class="col-md-4">
+                    Courriel: {{order.customer.email}}
+                  </div>
+                  <div class="text-primary col-md-2" style="text-align:right;font-weight:bold">
+                    Total: {{order.total}}$
+                  </div>
+                </thead>
+                <div class="col-md-12 OrderDetailPrint" *ngFor="let orderDetail of order.orderDetails"
+                  style="display:flex; align-items:right; margin-bottom:-10px;">
+                  <div class="col-md-7">
+                  </div>
+                  <div class="col-md-3" style="display:flex;">
+                    <p class="text-primary" style="font-weight:bold">{{orderDetail.quantity}}</p>
+                    <p>&nbsp;X {{orderDetail.tree.name}}</p>
+                    <p class="text-primary">&nbsp;({{orderDetail.price}}$)</p>
+                  </div>
+                  <div class="text-primary col-md-2" style="text-align:right;">
+                    <p>&nbsp;{{orderDetail.quantity * orderDetail.price}}$</p>
+                  </div>
                 </div>
-              </table>
-            </div>
+                <div style="height:65px;"></div>
+              </div>
+            </table>
           </div>
         </div>
       </div>
+
+
+
     </div>
   </div>
 </div>
