@@ -18,6 +18,9 @@ import { AlertService, AuthenticationService, UserService, CustomerService, Cust
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { ComponentsModule } from './_components/navigation';
 import { DialogDistributionPointComponent } from './_directives/dialog-distribution-point/dialog-distribution-point.component';
+import { OrdersInProgressComponent } from './_components/orders-in-progress/orders-in-progress.component';
+import { OrdersCompletedComponent } from './_components/orders-completed/orders-completed.component';
+import { OrdersSummaryComponent } from './_components/orders-summary/orders-summary.component';
 
 @NgModule({
   imports: [
@@ -45,7 +48,10 @@ import { DialogDistributionPointComponent } from './_directives/dialog-distribut
     AlertComponent,
     DialogComponent,
     DialogEntryComponent,
-    DialogDistributionPointComponent
+    DialogDistributionPointComponent,
+    OrdersInProgressComponent,
+    OrdersCompletedComponent,
+    OrdersSummaryComponent
   ],
   providers: [
     AuthGuard,

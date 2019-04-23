@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { MatDialogConfig, MatDialog, MatDialogRef } from '@angular/material';
 import { DialogComponent } from 'app/_directives';
 import { detachProjectedView } from '@angular/core/src/view/view_attach';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -25,6 +26,7 @@ export class CartComponent implements OnInit {
     private customerOrderService: CustomerOrderService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -110,6 +112,10 @@ export class CartComponent implements OnInit {
     } else {
       return true;
     }
+  }
+
+  command() {
+    this.router.navigate(['/command']);
   }
 
   disableButtonWhenNotConnected() {

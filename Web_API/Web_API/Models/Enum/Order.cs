@@ -3,6 +3,6 @@
     public enum Order
     {
         Cart,
-
+        Paid
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +37,18 @@ namespace Web_API.Services
                          IdCustomerOrder = c.Id
                      }).ToList(),
                      IsActive = c.IsActive,
-                     
                  }).ToList().FirstOrDefault();
+        }
+
+        public Guid CommandObjectInsideCart(Guid idOrder, Guid idDistributionPoint)
+        {
+            var cart = Context.CustomerOrders.FirstOrDefault(c => c.Id == idOrder && c.State == Order.Cart);
+            cart.State = Order.Paid;
+            cart.TransactionDate = DateTime.Now;
+            cart.IdDistributionPoint = idDistributionPoint;
+            Context.Update(cart);
+            Context.SaveChanges();
+            return cart.Id;
         }
 
         public CustomerOrder CreateCart(Guid id)
