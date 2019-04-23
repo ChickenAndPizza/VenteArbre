@@ -9,13 +9,13 @@
       <h6>{{modalPrecisions}}</h6>
       <mat-dialog-content>
         <mat-form-field class="example-full-width">
-          <input matInput formControlName="mapLink" placeholder="URL Google Map*" class="example-full-width">
+          <input matInput formControlName="mapLink" placeholder="Lien de Google Map*" class="example-full-width">
         </mat-form-field>
         <small *ngIf="mapLink.errors && mapLink.invalid && mapLink.touched" class="text-danger">
           <div *ngIf="mapLink.errors?.required">L'URL de google map est requis</div>
         </small>
         <mat-form-field class="example-full-width">
-          <input matInput formControlName="webLink" placeholder="URL du point" class="example-full-width">
+          <input matInput formControlName="webLink" placeholder="Adresse du site web" class="example-full-width">
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <input matInput formControlName="webName" placeholder="Nom du point*" class="example-full-width">

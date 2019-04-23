@@ -3,11 +3,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TreeCategoryService, TreeService, CustomerOrderDetailService, CustomerOrderService } from 'app/_services';
 import { ActivatedRoute } from '@angular/router';
 import { decodeToken } from 'app/_helpers';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-tree-info',
   templateUrl: './tree-info.component.html',
-  styleUrls: ['./tree-info.component.scss']
+  styleUrls: ['./tree-info.component.scss'],
+  animations: [
+    fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation(),
+  ]
 })
 export class TreeInfoComponent implements OnInit {
 
@@ -17,6 +22,7 @@ export class TreeInfoComponent implements OnInit {
   treeId: string;
   categoryId: string;
   categoryDescr: string;
+  save = false;
 
   constructor(
     private customerOrderService: CustomerOrderService,
@@ -71,6 +77,7 @@ export class TreeInfoComponent implements OnInit {
   get quantity() { return this.quantityInfo.get('quantity'); }
 
   addToCart(treeToAdd: number) {
+    this.save = true;
     this.customerOrderService.getCustomerCart(this.currentUser.id).subscribe(order => {
       if(order !== null) {
         let orderDetail = {'idTree': this.treeId, 'quantity': treeToAdd, 'idCustomerOrder': order.id};
@@ -81,6 +88,11 @@ export class TreeInfoComponent implements OnInit {
           this.customerOrderDetailService.addOrUpdateCustomerOrderDetail(orderDetail).subscribe();
         });
       }
+      setTimeout( () => {
+        this.save = false;
+    }, 3000);
+      this.quantity.setValue(0);
+      this.quantityInfo.markAsUntouched();
     });
   }
 

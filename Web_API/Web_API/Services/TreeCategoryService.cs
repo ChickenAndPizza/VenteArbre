@@ -41,6 +41,23 @@ namespace Web_API.Services
                 return Context.TreeCategories.Any(c => c.Description == description);
         }
 
+        public bool RemoveWithChildren(Guid id)
+        {
+            var entity = Context.TreeCategories.Find(id);
+
+            if (entity == null)
+                return false;
+            entity.IsActive = false;
+            var children = Context.Trees.Where(c => c.IsActive && c.IdTreeCategory == id).ToList();
+            foreach (var tree in children)
+            {
+                tree.IsActive = false;
+            }
+            Context.SaveChanges();
+
+            return true;
+        }
+
         public string GetDescription(Guid categoryId)
         {
             var category = Context.TreeCategories

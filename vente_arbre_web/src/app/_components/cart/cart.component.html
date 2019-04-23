@@ -8,7 +8,8 @@
             <div class="card">
               <div class="card-header card-header-green">
                 <h3 class="card-title">Panier</h3>
-                <p *ngIf="disableButtonWhenNotConnected()" class="card-category">Pour avoir un panier, vous devez être connecter!</p>
+                <p *ngIf="disableButtonWhenNotConnected()" class="card-category">Pour avoir un panier, vous devez être
+                  connecter!</p>
               </div>
               <div class="card-body">
                 <div class="table-responsive" *ngIf="!disableButtonWhenNotConnected()">
@@ -31,8 +32,8 @@
                         <td> {{cartForm.controls.orderDetail.controls[i].controls.price.value}} $ </td>
                         <div style="text-align: -webkit-center;" [formGroupName]="i">
                           <td>
-                            <input formControlName="quantity" style="width: 50px" min="0" matInput type="number"
-                              name="quantity">
+                            <input formControlName="quantity" style="width: 50px" matInput type="number"
+                              name="quantity" pattern="^[0123456789]{1,3}$" min="1">
                           </td>
                         </div>
                         <td style="text-align: center">
@@ -43,9 +44,13 @@
                       </tr>
                     </tbody>
                   </table>
+                  <small *ngIf="cartForm.invalid" class="text-danger">
+                    <div>La quantité minimale est de 1</div>
+                  </small>
                   <div class="col-md-12">
-                    <button [disabled]="disableButtonWhenNotConnectedAndNoCard() && !cartForm.valid || !cartForm.dirty " mat-raised-button type="submit"
-                      class="btn btn-green pull-right" style="color:white;">Sauvegarder les changements</button>
+                    <button [disabled]="!cartForm.valid && disableButtonWhenNotConnectedAndNoCard()" mat-raised-button
+                      type="submit" class="btn btn-green pull-right" style="color:white;">Sauvegarder les
+                      changements</button>
                   </div>
 
                 </div>
@@ -57,7 +62,7 @@
                   <!-- <div class="card-header card-header-green">
 
               </div> -->
-                  <div class="card-body"> 
+                  <div class="card-body">
                     <div class="table-responsive">
                       <table class="table">
                         <thead class=" text-primary">
