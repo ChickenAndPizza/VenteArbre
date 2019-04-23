@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TreeCategoryService, TreeService, CustomerOrderDetailService, CustomerOrderService } from 'app/_services';
 import { ActivatedRoute } from '@angular/router';
 import { decodeToken } from 'app/_helpers';
+import { canAddTreeValidator } from 'app/_shared';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
@@ -50,11 +51,11 @@ export class TreeInfoComponent implements OnInit {
       ageHeight: [{value: "", disabled: true}, ,],
       description: [{value: "", disabled: true}, ,],
       image: [null, ,],
-      idTreeCategory: [this.categoryId, ,]
+      idTreeCategory: [this.categoryId, ,],
     });
 
     this.quantityInfo = this.formBuilder.group({
-      quantity: ['', [Validators.required,Validators.min(1)]]
+      quantity: ['', [Validators.required,Validators.min(1)], canAddTreeValidator(this.treeService, this.treeId)]
     });
 
     this.treeService.getTree(this.treeId).subscribe(tree => {
