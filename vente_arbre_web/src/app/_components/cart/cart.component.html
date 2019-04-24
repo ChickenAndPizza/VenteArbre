@@ -44,9 +44,12 @@
                       </tr>
                     </tbody>
                   </table>
-                  <small *ngIf="cartForm.invalid" class="text-danger">
-                    <div>La quantité minimale est de 1</div>
-                  </small>
+                  <div *ngFor="let error of quantityError">  
+                    <small class="text-danger">
+                      <div>{{error}}</div>
+                    </small>
+                  </div>
+      
                   <div class="col-md-12">
                     <button [disabled]="!cartForm.valid && disableButtonWhenNotConnectedAndNoCard()" mat-raised-button
                       type="submit" class="btn btn-green pull-right" style="color:white;">Sauvegarder les

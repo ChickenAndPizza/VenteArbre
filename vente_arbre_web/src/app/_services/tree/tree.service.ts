@@ -51,6 +51,13 @@ export class TreeService extends MainService {
     return this.http.get<boolean[]>(url);
   }
 
+  getRemainingQuantity(idTree: string) {
+    const url = this.apiUrl.toString() + "Tree/GetRemainingQuantityForTree/" + idTree;
+    let headers = new HttpHeaders();
+    headers = headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.get<number>(url);
+  }
+
   addOrUpdateTree(newTree: any): Observable<any> {
     const url = this.apiUrl.toString() + "Tree";
     return this.http.post(

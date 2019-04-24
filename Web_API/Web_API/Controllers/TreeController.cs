@@ -63,5 +63,12 @@ namespace Web_API.Controllers
         {
             return Ok(Service.CustomerCanOrder(idTree, number));
         }
+
+        [HttpGet]
+        [Route("GetRemainingQuantityForTree/{idTree:Guid}")]
+        public ActionResult GetRemainingQuantityForTree(Guid idTree)
+        {
+            return Ok(Service.CustomerCannotOrderReturnRemaining(idTree));
+        }
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerOrderDetailService, CustomerOrderService, DistributionPointService } from 'app/_services';
+import { CustomerOrderDetailService, CustomerOrderService, DistributionPointService, TreeService } from 'app/_services';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { decodeToken } from 'app/_helpers';
@@ -16,11 +16,13 @@ export class CommandComponent implements OnInit {
   commandTotal: number;
   public distributionPoints: any[];
   distributionPointForm: FormGroup;
+  quantityError = [];
 
   constructor(
     private distributionPointService: DistributionPointService,
     private customerOrderDetailService: CustomerOrderDetailService,
     private customerOrderService: CustomerOrderService,
+    private treeService: TreeService,
     private formBuilder: FormBuilder,
     private router: Router
   ) { }
@@ -87,10 +89,34 @@ export class CommandComponent implements OnInit {
   }
 
   paid() {
-    this.customerOrderService.commandObjectInsideCart(
-      (<FormArray>this.cartForm.get('orderDetail')).controls[0].get('idCustomerOrder').value,
-      this.distributionPoint.value)
-      .subscribe();
+    let formLength = (<FormArray>this.cartForm.get('orderDetail')).controls.length;
+    let index = 1;
+    this.quantityError = [];
+    (<FormArray>this.cartForm.get('orderDetail')).controls.forEach(orderDetail => {
+      this.treeService.validateCustomerOrderDetailTree(
+        orderDetail.get('idTree').value,
+        orderDetail.get('quantity').value).subscribe(canAdd => {
+          if (!canAdd) {
+            orderDetail.get('quantity').setErrors({ 'notEnough': true });
+            this.treeService.getRemainingQuantity(orderDetail.get('idTree').value).subscribe(c => {
+              orderDetail.updateValueAndValidity();
+              if(c == 0) {
+                this.quantityError.push("Rupture de stock pour " + orderDetail.get('name').value);
+              } else {
+                this.quantityError.push("Il reste seulement " + c + " " + orderDetail.get('name').value + " en stock.");
+              }
+            });
+          } else if (index === formLength) {
+            if (this.quantityError.length < 1) {
+              this.customerOrderService.commandObjectInsideCart(
+                (<FormArray>this.cartForm.get('orderDetail')).controls[0].get('idCustomerOrder').value,
+                this.distributionPoint.value)
+                .subscribe();
+            }
+          }
+          index++;
+        });
+    });
   }
 
 }

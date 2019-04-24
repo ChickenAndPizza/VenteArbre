@@ -80,7 +80,7 @@ namespace Web_API.Services
         {
             var order = Context.CustomerOrders
                 .Include(c => c.OrderDetails)
-                .Where(c => c.State == Order.Cart)
+                .Where(c => c.State == Order.Paid)
                 .SelectMany(c => c.OrderDetails.Where(x => x.IdTree == idTree).Select(x => x.Quantity))
                 .ToList();
             var count = 0;
@@ -93,6 +93,25 @@ namespace Web_API.Services
             var maximum = Context.Trees.FirstOrDefault(c => c.Id == idTree).Maximum;
 
             return (count + number) <= maximum;
+        }
+
+        public int CustomerCannotOrderReturnRemaining(Guid idTree)
+        {
+            var order = Context.CustomerOrders
+                .Include(c => c.OrderDetails)
+                .Where(c => c.State == Order.Paid)
+                .SelectMany(c => c.OrderDetails.Where(x => x.IdTree == idTree).Select(x => x.Quantity))
+                .ToList();
+            var count = 0;
+
+            foreach (int numberOfTree in order)
+            {
+                count += numberOfTree;
+            }
+
+            var maximum = Context.Trees.FirstOrDefault(c => c.Id == idTree).Maximum;
+
+            return (maximum - count);
         }
     }
 }

@@ -24,6 +24,7 @@ export class TreeInfoComponent implements OnInit {
   categoryId: string;
   categoryDescr: string;
   save = false;
+  remainQuantity = 0;
 
   constructor(
     private customerOrderService: CustomerOrderService,
@@ -57,6 +58,9 @@ export class TreeInfoComponent implements OnInit {
     this.quantityInfo = this.formBuilder.group({
       quantity: ['', [Validators.required,Validators.min(1)], canAddTreeValidator(this.treeService, this.treeId)]
     });
+    this.treeService.getRemainingQuantity(this.treeId).subscribe(quantity => {
+      this.remainQuantity = quantity;
+    })
 
     this.treeService.getTree(this.treeId).subscribe(tree => {
         this.name.setValue(tree.name);
