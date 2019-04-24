@@ -76,7 +76,7 @@ export class TreeInfoComponent implements OnInit {
 
   get quantity() { return this.quantityInfo.get('quantity'); }
 
-  addToCart(treeToAdd: number) {
+  addToCart(qtyToAdd: number) {
     this.save = true;
     this.customerOrderService.getCustomerCart(this.currentUser.id).subscribe(order => {
       if(order !== null) {

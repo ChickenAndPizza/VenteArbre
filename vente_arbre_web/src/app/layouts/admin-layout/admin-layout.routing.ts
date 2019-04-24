@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from 'app/_guards';
-import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent, OrdersProcessedComponent, OrdersInProgressComponent, OrdersSummaryComponent, OrdersShippedComponent, PreviousOrdersSupplierComponent } from 'app/_components';
+import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent, OrdersProcessedComponent, OrdersInProgressComponent, OrdersSummaryComponent, OrdersShippedComponent, PreviousOrdersSupplierComponent, CommandComponent } from 'app/_components';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -40,6 +40,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'orders-summary', component: OrdersSummaryComponent },
     { path: 'orders-shipped', component: OrdersShippedComponent },
     { path: 'previous-orders-supplier', component: PreviousOrdersSupplierComponent },
-    
     { path: 'command', component: CommandComponent },
 ];

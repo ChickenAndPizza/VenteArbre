@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerOrderService } from 'app/_services';
+import { CustomerOrderService, SupplierOrderService } from 'app/_services';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,6 +13,7 @@ export class PreviousOrdersSupplierComponent implements OnInit {
   customerOrders: any[];
 
   constructor(
+    private supplierOrderService: SupplierOrderService,
     private customerOrderService: CustomerOrderService,
     private router: Router
   ) { }
@@ -23,7 +24,7 @@ export class PreviousOrdersSupplierComponent implements OnInit {
   }
 
   loadOrdersSupplier() {
-    this.customerOrderService.getOrdersSupplier().subscribe(
+    this.supplierOrderService.getPreviousSupplierOrders().subscribe(
       orders => {
         this.supplierOrders = orders;
       }

@@ -75,8 +75,8 @@ export class CustomerOrderService extends MainService {
           return this.http.get<any>(url);
     }
 
-    setOrdersInProgressInProcess():Observable<any> {
-        const url = this.apiUrl.toString() + "CustomerOrder/SetOrdersInProgressInProcess";
+    setOrdersInProgressInProcess(idSupplierOrder: string):Observable<any> {
+        const url = this.apiUrl.toString() + "CustomerOrder/SetOrdersInProgressInProcess?idSupplierOrder=" + idSupplierOrder;
           return this.http.get<any>(url);
     }
 
@@ -89,10 +89,5 @@ export class CustomerOrderService extends MainService {
     setProcessedOrdersToShipped(ordersShipped: string[]):Observable<any> {
         const url = this.apiUrl.toString() + "CustomerOrder/SetProcessedOrdersToShipped?ordersShipped=" + ordersShipped;
         return this.http.get<any>(url);
-    }
-
-    getOrdersSupplier():Observable<any[]> {
-        const url = this.apiUrl.toString() + "SupplierOrder/GetOrdersSupplier";
-          return this.http.get<any[]>(url);
     }
 }

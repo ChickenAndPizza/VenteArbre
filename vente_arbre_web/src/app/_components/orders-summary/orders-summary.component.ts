@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerOrderService } from 'app/_services';
+import { CustomerOrderService, SupplierOrderService } from 'app/_services';
 import { ActivatedRoute, Router } from '@angular/router';
+import { decodeToken } from 'app/_helpers';
 
 @Component({
   selector: 'app-orders-summary',
@@ -9,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class OrdersSummaryComponent implements OnInit {
 
+  currentUser: any;
   returnUrl: any;
   hasValues: boolean = false;
   totalByCategory: any[];
@@ -19,7 +21,8 @@ export class OrdersSummaryComponent implements OnInit {
   isOrderInProcess: boolean = false;
 
   constructor(
-    private customerOrderService : CustomerOrderService,
+    private customerOrderService: CustomerOrderService,
+    private supplierOrderService: SupplierOrderService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -32,21 +35,30 @@ export class OrdersSummaryComponent implements OnInit {
     this.loadTotalByCategory();
     this.loadTotalByDistributionPoint();
     this.loadTotalByAll();
+
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (this.currentUser) {
+      this.currentUser = decodeToken(this.currentUser);
+    }
   }
 
-  GoBack(){
+  GoBack() {
     this.router.navigate([this.returnUrl]);
   }
 
-  Continue(){
+  Continue() {
     this.canContinue = true;
-    this.customerOrderService.setOrdersInProgressInProcess().subscribe( c => {
-        this.router.navigate(['/orders-summary'], { queryParams: { orderInProcess: true, canContinue: true }});
+
+    this.supplierOrderService.createSupplierOrder(this.currentUser.id, '0de52078-06c1-44d4-8a74-170e01aca1aa').subscribe(idSupplierOrder => {
+      this.customerOrderService.setOrdersInProgressInProcess(idSupplierOrder).subscribe(c => {
+        this.router.navigate(['/orders-summary'], { queryParams: { orderInProcess: true, canContinue: true } });
+      });
     });
+
   }
 
-  Quit(){
-    this.customerOrderService.setOrdersInProcessProcessed().subscribe( c => {
+  Quit() {
+    this.customerOrderService.setOrdersInProcessProcessed().subscribe(c => {
       this.router.navigate(['/orders-processed']);
     });
   }
@@ -57,7 +69,7 @@ export class OrdersSummaryComponent implements OnInit {
         this.totalByCategory = total;
         if (total[0])
           this.hasValues = true;
-    });
+      });
   }
 
   loadTotalByDistributionPoint(): any {
@@ -66,7 +78,7 @@ export class OrdersSummaryComponent implements OnInit {
         this.totalByDistributionPoint = total;
         if (total[0])
           this.hasValues = true;
-    });
+      });
   }
 
   loadTotalByAll(): any {
@@ -75,6 +87,6 @@ export class OrdersSummaryComponent implements OnInit {
         this.totalByAll = total;
         if (total)
           this.hasValues = true;
-    });
+      });
   }
 }

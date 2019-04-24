@@ -122,6 +122,7 @@ namespace Web_API.Services
                     }).ToList(),
                     Total = c.Total,
                     IsActive = c.IsActive,
+                    IdSupplierOrder = c.IdSupplierOrder,
                 })
             .OrderBy(c => c.Customer.LastName)
             .ToList();
@@ -149,6 +150,7 @@ namespace Web_API.Services
                     }).ToList(),
                     Total = c.Total,
                     IsActive = c.IsActive,
+                    IdSupplierOrder = c.IdSupplierOrder,
                 })
             .OrderBy(c => c.Customer.LastName)
             .ToList();
@@ -254,12 +256,13 @@ namespace Web_API.Services
             return totalByAll;
         }
 
-        public string SetOrdersInProgressInProcess()
+        public string SetOrdersInProgressInProcess(Guid idSupplierOrder)
         {
             var customerOrdersListInProgress = GetCustomerOrdersWithDetails(Order.Paid);
 
             foreach (CustomerOrder customerOrder in customerOrdersListInProgress) {
                 customerOrder.State = Order.InProcess;
+                customerOrder.IdSupplierOrder = idSupplierOrder;
                 Context.CustomerOrders.Update(customerOrder);
             }
             Context.SaveChanges();
@@ -312,6 +315,7 @@ namespace Web_API.Services
                     DistributionPoint = c.DistributionPoint,
                     Total = c.Total,
                     IsActive = c.IsActive,
+                    IdSupplierOrder = c.IdSupplierOrder,
                     OrderDetails = c.OrderDetails
                         .Where(x => x.IsActive)
                         .Select(y => new CustomerOrderDetail {

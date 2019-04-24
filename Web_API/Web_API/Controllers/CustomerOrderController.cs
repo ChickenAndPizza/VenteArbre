@@ -99,9 +99,9 @@ namespace Web_API.Controllers
         
         [HttpGet]
         [Route("SetOrdersInProgressInProcess")]
-        public ActionResult SetOrdersInProgressInProcess()
+        public ActionResult SetOrdersInProgressInProcess(Guid idSupplierOrder)
         {
-            return Ok(Service.SetOrdersInProgressInProcess());
+            return Ok(Service.SetOrdersInProgressInProcess(idSupplierOrder));
         }
 
         [HttpGet]

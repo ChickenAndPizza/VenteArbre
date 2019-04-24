@@ -37,7 +37,8 @@ export class OrdersShippedComponent implements OnInit {
   }
 
   UpdateShippedList(id: string){
-    let checked = $('#'+id).prop('checked');
+    //let checked = $('#'+id).prop('checked');
+    let checked = true;
     if (checked) {
       this.ordersShipped.push(id);
     }
