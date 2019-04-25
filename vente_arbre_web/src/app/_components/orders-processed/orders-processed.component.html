@@ -3,7 +3,7 @@
 
     <p *ngIf="!hasOrders" class="text-danger">Il n'y a aucune commande en attente de livraison!</p>
 
-    <div class="row" *ngIf="hasOrders">
+    <div class="row">
       <div class="col-md-12 text-center">
         <button mat-raised-button *ngIf="!showOptions" type="button" (click)="this.showOptions = true;" class="btn btn-primary">Options</button>
         <button mat-raised-button *ngIf="showOptions" type="button" (click)="this.showOptions = false;" class="btn btn-primary">Cacher</button>
@@ -11,9 +11,9 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="hasOrders && showOptions">
+    <div class="row" *ngIf="showOptions">
       <div class="col-md-5">
-        <div class="card card-stats">
+        <div class="card card-stats" *ngIf="hasOrders">
           <div class="card-header card-header-green card-header-icon">
             <div class="card-icon">
               <h1>{{totalOrdersProcessed}}</h1>
@@ -32,7 +32,7 @@
       <div class="col-md-2"></div>
 
       <div class="col-md-5">
-        <div class="card card-stats">
+        <div class="card card-stats" *ngIf="hasOrders">
           <div class="card-header card-header-green card-header-icon">
             <div class="card-icon">
               <i class="material-icons">local_shipping</i>
@@ -53,9 +53,9 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="hasOrders  && showOptions">
+    <div class="row" *ngIf="showOptions">
       <div class="col-md-5">
-        <div class="card card-stats">
+        <div class="card card-stats" *ngIf="hasOrders">
           <div class="card-header card-header-green card-header-icon">
             <div class="card-icon">
               <i class="material-icons">print</i>

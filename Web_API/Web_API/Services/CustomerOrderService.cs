@@ -284,14 +284,16 @@ namespace Web_API.Services
             return "Ok";
         }
 
-        public string SetProcessedOrdersToShipped(String[] orders)
+        public string SetProcessedOrdersToShipped(List<Guid> orders)
         {
             var customerOrdersListInProgress = GetCustomerOrdersWithDetails(Order.Processed);
 
             foreach (CustomerOrder customerOrder in customerOrdersListInProgress)
             {
-                customerOrder.State = Order.Delivered;
-                Context.CustomerOrders.Update(customerOrder);
+                if (orders.Contains(customerOrder.Id)){
+                    customerOrder.State = Order.Delivered;
+                    Context.CustomerOrders.Update(customerOrder);
+                }
             }
             Context.SaveChanges();
 

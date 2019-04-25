@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using Web_API.Controllers.Base;
 using Web_API.Models;
 using Web_API.Services;
@@ -111,11 +112,11 @@ namespace Web_API.Controllers
             return Ok(Service.SetOrdersInProcessProcessed());
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("SetProcessedOrdersToShipped")]
-        public ActionResult SetProcessedOrdersToShipped(String[] orders)
+        public ActionResult SetProcessedOrdersToShipped([FromBody] List<Guid> ordersShipped)
         {
-            return Ok(Service.SetProcessedOrdersToShipped(orders));
+            return Ok(Service.SetProcessedOrdersToShipped(ordersShipped));
         }
     }
 }

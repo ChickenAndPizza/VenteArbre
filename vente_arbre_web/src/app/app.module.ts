@@ -1,21 +1,23 @@
-import { AgmCoreModule } from '@agm/core';
-import { NgModule, forwardRef } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
-import { AppRoutingModule, routing } from './app.routing';
-import { AppComponent } from './app.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule, routing } from './app.routing';
+import { NgModule, forwardRef } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
+import { AgmCoreModule } from '@agm/core';
+import { HttpModule } from '@angular/http';
+import * as $ from 'jquery';
 
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AlertComponent, DialogComponent, DialogEntryComponent, DialogDistributionPointComponent } from './_directives';
-import { AuthGuard } from './_guards';
 import { AlertService, AuthenticationService, UserService, CustomerService, CustomerOrderDetailService } from './_services';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ComponentsModule } from './_components/navigation';
+import { AuthGuard } from './_guards';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -63,4 +65,5 @@ import { ComponentsModule } from './_components/navigation';
     DialogDistributionPointComponent
   ]
 })
+
 export class AppModule { }

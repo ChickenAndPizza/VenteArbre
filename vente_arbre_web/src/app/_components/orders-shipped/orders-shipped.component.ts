@@ -37,8 +37,7 @@ export class OrdersShippedComponent implements OnInit {
   }
 
   UpdateShippedList(id: string){
-    //let checked = $('#'+id).prop('checked');
-    let checked = true;
+    let checked = $('#'+id).prop('checked');
     if (checked) {
       this.ordersShipped.push(id);
     }
@@ -52,6 +51,7 @@ export class OrdersShippedComponent implements OnInit {
   }
 
   Quit(){
+    console.log(this.ordersShipped);
     this.customerOrderService.setProcessedOrdersToShipped(this.ordersShipped).subscribe( c => {
       this.router.navigate(['/orders-processed']);
     });

@@ -87,7 +87,13 @@ export class CustomerOrderService extends MainService {
     }
 
     setProcessedOrdersToShipped(ordersShipped: string[]):Observable<any> {
-        const url = this.apiUrl.toString() + "CustomerOrder/SetProcessedOrdersToShipped?ordersShipped=" + ordersShipped;
-        return this.http.get<any>(url);
-    }
+        const url = this.apiUrl.toString() + "CustomerOrder/SetProcessedOrdersToShipped";
+        return this.http.post(
+          url,
+          JSON.stringify(ordersShipped),
+          {
+            headers: this.headers
+          }
+        )
+      };
 }

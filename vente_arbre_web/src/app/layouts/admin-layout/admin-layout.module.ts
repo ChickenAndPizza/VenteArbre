@@ -1,18 +1,12 @@
-import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent, OrdersInProgressComponent, OrdersSummaryComponent, OrdersProcessedComponent, OrdersShippedComponent, PreviousOrdersSupplierComponent, CommandComponent } from 'app/_components';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { MatButtonModule, MatInputModule, MatRippleModule, MatFormFieldModule, MatTooltipModule, MatSelectModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import {
-  MatButtonModule,
-  MatInputModule,
-  MatRippleModule,
-  MatFormFieldModule,
-  MatTooltipModule,
-  MatSelectModule
-} from '@angular/material';
+import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent, OrdersInProgressComponent, OrdersSummaryComponent, OrdersProcessedComponent, OrdersShippedComponent, PreviousOrdersSupplierComponent, CommandComponent, OrderSupplierInfoComponent } from 'app/_components';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -40,6 +34,7 @@ import {
     TypographyComponent,
     IconsComponent,
     NotificationsComponent,
+    OrderSupplierInfoComponent,
     OrdersInProgressComponent,
     OrdersSummaryComponent,
     OrdersProcessedComponent,

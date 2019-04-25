@@ -19,19 +19,31 @@ export class PreviousOrdersSupplierComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadOrdersSupplier();
-    this.loadOrdersProcessed();
+    this.LoadOrdersSupplier();
+    this.LoadOrdersProcessed();
   }
 
-  loadOrdersSupplier() {
+  OpenSupplierOrderSummary(id: string){
+    this.router.navigate(['/order-supplier-info'], { queryParams: { id: id }});
+  }
+
+  LoadOrdersSupplier() {
     this.supplierOrderService.getPreviousSupplierOrders().subscribe(
       orders => {
         this.supplierOrders = orders;
+        
+        for (let cpt = 0; cpt < this.supplierOrders.length; cpt++){
+          let date = this.supplierOrders[cpt].transactionDate.toString();
+          let bindex = date.indexOf("T");
+          let eindex = date.length;
+          date = date.replace(date.substring(bindex, eindex), "");
+          this.supplierOrders[cpt].transactionDate = date;
+        }
       }
     );
   }
 
-  loadOrdersProcessed() {
+  LoadOrdersProcessed() {
     this.customerOrderService.getOrdersProcessed().subscribe(
       orders => {
         this.customerOrders = orders;

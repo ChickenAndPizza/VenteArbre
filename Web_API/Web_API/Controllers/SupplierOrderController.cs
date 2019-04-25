@@ -27,5 +27,26 @@ namespace Web_API.Controllers
         {
             return Ok(Service.GetPreviousSupplierOrders());
         }
+
+        [HttpGet]
+        [Route("GetTotalByCategory")]
+        public ActionResult GetTotalByCategory(Guid idSupplierOrder)
+        {
+            return Ok(Service.GetTotalByCategory(idSupplierOrder));
+        }
+
+        [HttpGet]
+        [Route("GetTotalByDistributionPoint")]
+        public ActionResult GetTotalByDistributionPoint(Guid idSupplierOrder)
+        {
+            return Ok(Service.GetTotalByDistributionPoint(idSupplierOrder));
+        }
+
+        [HttpGet]
+        [Route("GetTotalByAll")]
+        public ActionResult GetTotalByAll(Guid idSupplierOrder)
+        {
+            return Ok(Service.GetTotalByAll(idSupplierOrder));
+        }
     }
 }
