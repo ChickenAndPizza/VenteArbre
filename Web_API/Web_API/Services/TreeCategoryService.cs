@@ -6,29 +6,52 @@ using System.Linq;
 using System.Threading.Tasks;
 using Web_API.DataLayer;
 using Web_API.Models;
+using Web_API.Models.DTO;
 using Web_API.Services.Base;
 
 namespace Web_API.Services
 {
     public class TreeCategoryService : BaseCrudService<TreeCategory>
     {
-        public TreeCategoryService(IDatabaseContext context) : base(context)
+        private readonly TreeService treeService;
+
+        public TreeCategoryService(IDatabaseContext context, TreeService treeService) : base(context)
         {
+            this.treeService = treeService;
         }
 
-        public List<TreeCategory> GetCategoryWithTrees()
+        public List<TreeCategoryWithTreeQuantity> GetCategoryWithTrees()
         {
-           var query = Context.TreeCategories.Where(c => c.IsActive == true)
-                .Include(c => c.Trees)
-                .Select(c => new TreeCategory
+            var query = Context.TreeCategories.Where(c => c.IsActive == true)
+                 .Include(c => c.Trees)
+                 .Select(c => new TreeCategoryWithTreeQuantity
+                 {
+                     Id = c.Id,
+                     Description = c.Description,
+                     Trees = c.Trees.Where(x => x.IsActive).Select(x => new TreeWithQuantity
+                     {
+                         Id = x.Id,
+                         IdTreeCategory = x.IdTreeCategory,
+                         AgeHeight = x.AgeHeight,
+                         Description = x.Description,
+                         Image = x.Image,
+                         IsActive = x.IsActive,
+                         Name = x.Name,
+                         Price = x.Price,
+                         Zone = x.Zone,
+                         Maximum = x.Maximum
+                     }).ToList(),
+                     IsActive = c.IsActive
+                 }).ToList();
+            foreach(var category in query)
+            {
+                foreach(var tree in category.Trees)
                 {
-                    Id = c.Id,
-                    Description = c.Description,
-                    Trees = c.Trees.Where(x => x.IsActive).ToList(),
-                    IsActive = c.IsActive       
-                })
-            .OrderBy(c => c.Description)
-            .ToList();
+                    tree.Quantity = treeService.CustomerCannotOrderReturnRemaining(tree.Id);
+                }
+            }
+            query = query.OrderBy(c => c.Description)
+                    .ToList();
 
             return query;
         }
