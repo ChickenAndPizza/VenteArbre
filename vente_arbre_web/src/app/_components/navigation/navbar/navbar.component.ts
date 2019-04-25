@@ -111,11 +111,8 @@ export class NavbarComponent implements OnInit {
 
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
-      if(titlee.indexOf("/command") <= 0)
-      {
-        return "Commande";
-      } 
-      else if (titlee.indexOf("returnUrl") > 0 && titlee.indexOf("connection") > 0 && titlee.indexOf("user-profile") > 0 && titlee.indexOf("connection") < titlee.indexOf("user-profile"))
+
+      if (titlee.indexOf("returnUrl") > 0 && titlee.indexOf("connection") > 0 && titlee.indexOf("user-profile") > 0 && titlee.indexOf("connection") < titlee.indexOf("user-profile"))
       {
         return 'Profil';
       }
