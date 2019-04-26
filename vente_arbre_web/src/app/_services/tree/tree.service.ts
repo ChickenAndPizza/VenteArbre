@@ -43,6 +43,21 @@ export class TreeService extends MainService {
     return this.http.get<boolean[]>(url);
   }
 
+  validateCustomerOrderDetailTree(idTree: string, number: number) {
+    const url = this.apiUrl.toString() + "Tree/ValidateCustomerOrderDetail/" + idTree + "/" + number;
+
+    let headers = new HttpHeaders();
+    headers = headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.get<boolean[]>(url);
+  }
+
+  getRemainingQuantity(idTree: string) {
+    const url = this.apiUrl.toString() + "Tree/GetRemainingQuantityForTree/" + idTree;
+    let headers = new HttpHeaders();
+    headers = headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.get<number>(url);
+  }
+
   addOrUpdateTree(newTree: any): Observable<any> {
     const url = this.apiUrl.toString() + "Tree";
     return this.http.post(
@@ -53,6 +68,14 @@ export class TreeService extends MainService {
       }
     )
   };
+
+  resetTreeMaximumQuantity() {
+    const url = this.apiUrl.toString() + "Tree/ResetTreeMaximumQuantity";
+
+    let headers = new HttpHeaders();
+    headers = headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.get<any>(url);
+  }
 
   postImage(fileToUpload: File, treeId: string): Observable<any> {
     const url = this.apiUrl.toString() + "Tree/Image";

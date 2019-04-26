@@ -59,7 +59,7 @@ CREATE TABLE supplier(
 
 CREATE TABLE supplier_order(
         id               Varchar (36) NOT NULL ,
-        transaction_date Date NOT NULL ,
+        transaction_date datetime NOT NULL ,
         id_customer      Varchar (36) NOT NULL ,
         id_supplier      Varchar (36) NOT NULL,
         is_active        Bool NOT NULL
@@ -115,6 +115,7 @@ CREATE TABLE tree(
         age_height           Varchar (20) NOT NULL ,
         price       	     Decimal(10, 2) NOT NULL,
         description 	     TEXT NOT NULL ,
+        maximum				 Int NOT NULL,
 		id_tree_category 	 Varchar (36) NOT NULL,
 		is_active   		 Bool NOT NULL,
         image                mediumblob

@@ -66,6 +66,7 @@
                                     <th> Zone </th>
                                     <th> Âge/Hauteur </th>
                                     <th> Prix </th>
+                                    <th style="text-align: center"> Quantité restante</th>
                                     <th> </th>
                                     <th *ngIf="admin" style="text-align: right">
                                         <a>
@@ -76,10 +77,15 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let tree of treeCategory.trees">
-                                        <td> {{tree.name}} </td>
+                                        <td> <div style="text-align: center; font-weight: bold">{{tree.name}}</div>
+                                            <div style="text-align: center">
+                                                  <img class="treeImg" src="data:image/jpeg;base64,{{tree.image}}" />
+                                            </div>
+                                        </td>
                                         <td> {{tree.zone}} </td>
                                         <td> {{tree.ageHeight}} </td>
                                         <td> {{tree.price}}$ </td>
+                                        <td style="text-align: center"> {{tree.quantity}} </td>
                                         <td>
                                             <button mat-raised-button type="button"
                                                 (click)="ViewTree(treeCategory.id, treeCategory.description, tree.id)"

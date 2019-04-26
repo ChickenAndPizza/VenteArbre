@@ -41,6 +41,7 @@ export class TreeAddComponent implements OnInit {
       price: ["", Validators.required,],
       ageHeight: ["", Validators.required,],
       description: ["", Validators.required,],
+      maximum: ["", Validators.required,],
       image: ["", ,],
       addingImage: ["", treeImageFormatValidator,],
       idTreeCategory: [this.categoryId, ,]
@@ -57,6 +58,7 @@ export class TreeAddComponent implements OnInit {
         price: ["", Validators.required,],
         ageHeight: ["", Validators.required,],
         description: ['', Validators.required,],
+        maximum: ["", Validators.required,],
         image: ["", ,],
         addingImage: ["", treeImageFormatValidator,],
         idTreeCategory: [this.categoryId, ,]
@@ -69,6 +71,7 @@ export class TreeAddComponent implements OnInit {
         this.price.setValue(tree.price);
         this.ageHeight.setValue(tree.ageHeight);
         this.description.setValue(tree.description);
+        this.maximum.setValue(tree.maximum);
         this.image.setValue("data:image/jpeg;base64," + tree.image);
 
         this.name.setAsyncValidators(existingTreeOfCategoryValidator(this.treeService, this.categoryId, this.id.value));
@@ -83,6 +86,7 @@ export class TreeAddComponent implements OnInit {
   get price() { return this.newtree.get('price'); }
   get ageHeight() { return this.newtree.get('ageHeight'); }
   get description() { return this.newtree.get('description'); }
+  get maximum() { return this.newtree.get('maximum'); }
   get image() { return this.newtree.get('image'); }
   get addingImage() { return this.newtree.get('addingImage'); }
 

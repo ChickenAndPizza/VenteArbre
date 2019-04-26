@@ -7,6 +7,7 @@ using Web_API.DataLayer;
 using Web_API.Models;
 using Web_API.Models.DTO;
 using Web_API.Services.Base;
+using Web_API.Models.Enum;
 
 namespace Web_API.Services
 {
@@ -73,6 +74,54 @@ namespace Web_API.Services
                 }
             }
             return base.AddOrUpdate(entity);
+        }
+
+        public bool CustomerCanOrder(Guid idTree, int number)
+        {
+            var order = Context.CustomerOrders
+                .Include(c => c.OrderDetails)
+                .Where(c => c.State == Order.Paid)
+                .SelectMany(c => c.OrderDetails.Where(x => x.IdTree == idTree).Select(x => x.Quantity))
+                .ToList();
+            var count = 0;
+
+            foreach(int numberOfTree in order)
+            {
+                count += numberOfTree;
+            }
+
+            var maximum = Context.Trees.FirstOrDefault(c => c.Id == idTree).Maximum;
+
+            return (count + number) <= maximum;
+        }
+
+        public void ResetTreeMaximumQuantity()
+        {
+            var trees = Context.Trees.Where(c => c.IsActive).ToList();
+            foreach(var tree in trees)
+            {
+                tree.Maximum = 0;
+            }
+            Context.SaveChanges();
+        }
+
+        public int CustomerCannotOrderReturnRemaining(Guid idTree)
+        {
+            var order = Context.CustomerOrders
+                .Include(c => c.OrderDetails)
+                .Where(c => c.State == Order.Paid)
+                .SelectMany(c => c.OrderDetails.Where(x => x.IdTree == idTree).Select(x => x.Quantity))
+                .ToList();
+            var count = 0;
+
+            foreach (int numberOfTree in order)
+            {
+                count += numberOfTree;
+            }
+
+            var maximum = Context.Trees.FirstOrDefault(c => c.Id == idTree).Maximum;
+
+            return (maximum - count);
         }
     }
 }

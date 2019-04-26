@@ -52,11 +52,30 @@ namespace Web_API.Controllers
                 file.CopyTo(ms);
                 byte[] fileBytes = ms.ToArray();
                 Service.UploadImageToDatabase(fileBytes, Guid.Parse(treeId));
-
-                //string s = Convert.ToBase64String(fileBytes);
             }
 
+            return Ok();
+        }
 
+        [HttpGet]
+        [Route("ValidateCustomerOrderDetail/{idTree:Guid}/{number:int}")]
+        public ActionResult ValidateCustomerOrderDetail(Guid idTree, int number)
+        {
+            return Ok(Service.CustomerCanOrder(idTree, number));
+        }
+
+        [HttpGet, AllowAnonymous]
+        [Route("GetRemainingQuantityForTree/{idTree:Guid}")]
+        public ActionResult GetRemainingQuantityForTree(Guid idTree)
+        {
+            return Ok(Service.CustomerCannotOrderReturnRemaining(idTree));
+        }
+
+        [HttpGet]
+        [Route("ResetTreeMaximumQuantity")]
+        public ActionResult ResetTreeMaximumQuantity()
+        {
+            Service.ResetTreeMaximumQuantity();
             return Ok();
         }
     }

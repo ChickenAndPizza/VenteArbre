@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerOrderService, SupplierOrderService } from 'app/_services';
+import { CustomerOrderService, SupplierOrderService, TreeService } from 'app/_services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { decodeToken } from 'app/_helpers';
 
@@ -23,6 +23,7 @@ export class OrdersSummaryComponent implements OnInit {
   constructor(
     private customerOrderService: CustomerOrderService,
     private supplierOrderService: SupplierOrderService,
+    private treeService: TreeService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -51,6 +52,7 @@ export class OrdersSummaryComponent implements OnInit {
 
     this.supplierOrderService.createSupplierOrder(this.currentUser.id, '0de52078-06c1-44d4-8a74-170e01aca1aa').subscribe(idSupplierOrder => {
       this.customerOrderService.setOrdersInProgressInProcess(idSupplierOrder).subscribe(c => {
+        this.treeService.resetTreeMaximumQuantity().subscribe();
         this.router.navigate(['/orders-summary'], { queryParams: { orderInProcess: true, canContinue: true } });
       });
     });

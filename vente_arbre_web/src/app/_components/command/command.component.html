@@ -81,6 +81,11 @@
                       </tr>
                     </tbody>
                   </table>
+                  <div *ngFor="let error of quantityError">  
+                    <small class="text-danger">
+                      <div>{{error}}</div>
+                    </small>
+                  </div>
                 </div>
               </div>
             </div>
