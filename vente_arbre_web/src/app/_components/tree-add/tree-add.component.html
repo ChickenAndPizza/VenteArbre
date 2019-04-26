@@ -99,6 +99,20 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input pattern="^[0123456789]{1,5}$"
+                                            [class.is-invalid]="maximum.invalid && maximum.touched" name="maximum"
+                                            matInput placeholder="Nombre maximum d'arbre pouvant être acheté" formControlName="maximum">
+                                    </mat-form-field>
+                                    <small *ngIf="maximum.errors && maximum.invalid && maximum.touched"
+                                        class="text-danger">
+                                        <div *ngIf="maximum.errors?.required">Le maximum d'arbre est requis</div>
+                                        <div *ngIf="maximum.errors?.pattern">Seulement des chiffres (Maximum de 99 999)</div>
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <input id="imagePath" class="form-control" type="file"
                                         placeholder="Ajouter une image" (change)="fileChangeEvent($event.target.files)"
                                         name="image" accept="image/*" formControlName="addingImage" />
@@ -108,19 +122,6 @@
                                 </div>
                                 <div class="col-md-6">
                                     <img class="treeImg" *ngIf="image" src="{{image.value}}" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input maxlength="20"
-                                            [class.is-invalid]="maximum.invalid && maximum.touched" name="maximum"
-                                            matInput placeholder="Nombre maximum d'arbre pouvant être acheté" formControlName="maximum">
-                                    </mat-form-field>
-                                    <small *ngIf="maximum.errors && maximum.invalid && maximum.touched"
-                                        class="text-danger">
-                                        <div *ngIf="maximum.errors?.required">Le maximum d'arbre est requis</div>
-                                    </small>
                                 </div>
                             </div>
                             <button mat-raised-button type="submit" class="btn btn-green pull-right"
