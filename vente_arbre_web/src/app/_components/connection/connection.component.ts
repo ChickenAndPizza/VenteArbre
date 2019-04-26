@@ -70,9 +70,11 @@ export class ConnectionComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          if (this.isAdmin())
+          this.router.navigate([this.returnUrl]).then(c => {
+            if (this.isAdmin())
             window.location.reload(true);
-          this.router.navigate([this.returnUrl]);
+          });
+
         },
         error => {
           this.alertService.error(error);
