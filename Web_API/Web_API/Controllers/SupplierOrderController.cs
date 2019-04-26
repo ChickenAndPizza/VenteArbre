@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Web_API.Controllers.Base;
 using Web_API.Models.Supplier;
 using Web_API.Services;
@@ -14,6 +12,41 @@ namespace Web_API.Controllers
     {
         public SupplierOrderController(SupplierOrderService service) : base(service)
         {
+        }
+
+        [HttpGet, AllowAnonymous]
+        [Route("CreateSupplierOrder")]
+        public ActionResult CreateSupplierOrder(Guid idCustomer, Guid idSupplier)
+        {
+            return Ok(Service.CreateSupplierOrder(idCustomer, idSupplier));
+        }
+
+        [HttpGet]
+        [Route("GetPreviousSupplierOrders")]
+        public ActionResult GetPreviousSupplierOrders()
+        {
+            return Ok(Service.GetPreviousSupplierOrders());
+        }
+
+        [HttpGet]
+        [Route("GetTotalByCategory")]
+        public ActionResult GetTotalByCategory(Guid idSupplierOrder)
+        {
+            return Ok(Service.GetTotalByCategory(idSupplierOrder));
+        }
+
+        [HttpGet]
+        [Route("GetTotalByDistributionPoint")]
+        public ActionResult GetTotalByDistributionPoint(Guid idSupplierOrder)
+        {
+            return Ok(Service.GetTotalByDistributionPoint(idSupplierOrder));
+        }
+
+        [HttpGet]
+        [Route("GetTotalByAll")]
+        public ActionResult GetTotalByAll(Guid idSupplierOrder)
+        {
+            return Ok(Service.GetTotalByAll(idSupplierOrder));
         }
     }
 }

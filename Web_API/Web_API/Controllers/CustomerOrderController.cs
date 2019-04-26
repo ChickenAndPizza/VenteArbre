@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Web_API.Controllers.Base;
 using Web_API.Models;
+using Web_API.Models.Enum;
 using Web_API.Services;
 
 namespace Web_API.Controllers
@@ -42,6 +41,76 @@ namespace Web_API.Controllers
         public ActionResult Command(Guid id, Guid idDistributionPoint)
         {
             return Ok(Service.CommandObjectInsideCart(id, idDistributionPoint));
+        }
+
+        [HttpGet]
+        [Route("GetTotalOrdersInProgress")]
+        public ActionResult GetTotalOrdersInProgress()
+        {
+            return Ok(Service.GetTotalOrdersInProgress());
+        }
+
+        [HttpGet]
+        [Route("Get72hOrdersInProgress")]
+        public ActionResult Get72hOrdersInProgress()
+        {
+            return Ok(Service.Get72hOrdersInProgress());
+        }
+
+        [HttpGet]
+        [Route("GetOrders")]
+        public ActionResult GetOrders(Order order)
+        {
+            return Ok(Service.GetOrders(order));
+        }
+
+        [HttpGet]
+        [Route("GetTotalByCategory")]
+        public ActionResult GetTotalByCategory()
+        {
+            return Ok(Service.GetTotalByCategory());
+        }
+
+        [HttpGet]
+        [Route("GetTotalByDistributionPoint")]
+        public ActionResult GetTotalByDistributionPoint()
+        {
+            return Ok(Service.GetTotalByDistributionPoint());
+        }
+
+        [HttpGet]
+        [Route("GetTotalByAll")]
+        public ActionResult GetTotalByAll()
+        {
+            return Ok(Service.GetTotalByAll());
+        }
+
+        [HttpGet]
+        [Route("GetTotalOrdersProcessed")]
+        public ActionResult GetTotalOrdersProcessed()
+        {
+            return Ok(Service.GetTotalOrdersProcessed());
+        }
+        
+        [HttpGet]
+        [Route("SetOrdersInProgressInProcess")]
+        public ActionResult SetOrdersInProgressInProcess(Guid idSupplierOrder)
+        {
+            return Ok(Service.SetOrdersInProgressInProcess(idSupplierOrder));
+        }
+
+        [HttpGet]
+        [Route("SetOrdersInProcessProcessed")]
+        public ActionResult SetOrdersInProcessProcessed()
+        {
+            return Ok(Service.SetOrdersInProcessProcessed());
+        }
+
+        [HttpPost]
+        [Route("SetProcessedOrdersToShipped")]
+        public ActionResult SetProcessedOrdersToShipped([FromBody] List<Guid> ordersShipped)
+        {
+            return Ok(Service.SetProcessedOrdersToShipped(ordersShipped));
         }
     }
 }

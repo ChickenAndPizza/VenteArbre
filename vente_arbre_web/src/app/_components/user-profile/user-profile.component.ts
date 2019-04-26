@@ -122,6 +122,8 @@ export class UserProfileComponent implements OnInit {
 
     public logout() {
         this.authenticationService.logout();
+        if(this.ifIsAdmin())
+            window.location.reload(true);
     }
 
     deleteValidation() {
@@ -138,8 +140,14 @@ export class UserProfileComponent implements OnInit {
             if (result) {
                 this.userService.delete(decodeToken(this.currentUser).id).subscribe()
                 this.logout();
-                location.reload(true);
             }
         });
+    }
+
+    ifIsAdmin(): boolean {
+        if (this.currentUser && this.currentUser.isAdmin && this.currentUser.isAdmin.toLowerCase() != 'false')
+          return true;
+        else
+          return false;
     }
 }

@@ -1,0 +1,27 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-1">
+            <a>
+              <i [routerLink]="['/orders-processed']" class="material-icons mainIcon">arrow_back</i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p *ngIf="!hasSupplierOrders" class="text-danger">Aucune commande n'a été passée au fournisseur!</p>
+
+    <div *ngFor="let supplierOrder of supplierOrders">
+      <div class="row">
+        <div class="col-md-2">
+          <button mat-raised-button type="button" class="btn btn-primary"
+            (click)="OpenSupplierOrderSummary(supplierOrder.id)">{{supplierOrder.transactionDate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

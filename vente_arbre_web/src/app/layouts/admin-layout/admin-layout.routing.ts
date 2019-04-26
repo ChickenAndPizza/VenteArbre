@@ -1,29 +1,9 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from 'app/_guards';
-import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent } from 'app/_components';
-import { CommandComponent } from 'app/_components/command/command.component';
+
+import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent, OrdersProcessedComponent, OrdersInProgressComponent, OrdersSummaryComponent, OrdersShippedComponent, PreviousOrdersSupplierComponent, CommandComponent, OrderSupplierInfoComponent } from 'app/_components';
 
 export const AdminLayoutRoutes: Routes = [
-    // {
-    //   path: '',
-    //   children: [ {
-    //     path: 'dashboard',
-    //     component: DashboardComponent
-    // }]}, 
-    // {
-    //     path: '',
-    //     children: [{
-    //         path: 'user-profile',
-    //         component: UserProfileComponent,
-    //         canActivate : [AuthGuard]
-    //     }]
-    // }, {
-    //     path: '',
-    //     children: [ {
-    //         path: 'typography',
-    //         component: TypographyComponent
-    //     }]
-    // }
     { path: 'dashboard', component: DashboardComponent },
     { path: 'user-profile', component: UserProfileComponent, canActivate : [AuthGuard] },
     { path: 'connection', component: ConnectionComponent },
@@ -36,5 +16,11 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'icons', component: IconsComponent },
     { path: 'notifications', component: NotificationsComponent },
     { path: 'cart', component: CartComponent },
+    { path: 'order-supplier-info', component: OrderSupplierInfoComponent },
+    { path: 'orders-processed', component: OrdersProcessedComponent },
+    { path: 'orders-in-progress', component: OrdersInProgressComponent },
+    { path: 'orders-summary', component: OrdersSummaryComponent },
+    { path: 'orders-shipped', component: OrdersShippedComponent },
+    { path: 'previous-orders-supplier', component: PreviousOrdersSupplierComponent },
     { path: 'command', component: CommandComponent },
 ];

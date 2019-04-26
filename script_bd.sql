@@ -40,24 +40,6 @@ CREATE TABLE customer(
 
 
 #------------------------------------------------------------
-# Table: customer_order
-#------------------------------------------------------------
-
-CREATE TABLE customer_order(
-        id               	  Varchar (36) NOT NULL ,
-        transaction_date 	  Date ,
-        state            	  TinyINT NOT NULL ,
-        id_customer      	  Varchar (36) NOT NULL,
-        id_distribution_point Varchar(36),
-        is_active        	  Bool NOT NULL
-	,CONSTRAINT customer_order_PK PRIMARY KEY (id)
-
-	,CONSTRAINT customer_order_customer_FK FOREIGN KEY (id_customer) REFERENCES customer(id)
-    ,CONSTRAINT customer_order_id_distribution_point_FK FOREIGN KEY (id_distribution_point) REFERENCES distribution_point(id)
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
 # Table: supplier
 #------------------------------------------------------------
 
@@ -65,7 +47,7 @@ CREATE TABLE supplier(
         id           Varchar (36) NOT NULL ,
         name         Varchar (100) NOT NULL ,
         phone_number Varchar (10) NOT NULL ,
-        email        Varchar (10) NOT NULL,
+        email        Varchar (80) NOT NULL,
         is_active    Bool NOT NULL
 	,CONSTRAINT supplier_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
@@ -85,6 +67,27 @@ CREATE TABLE supplier_order(
 
 	,CONSTRAINT supplier_order_customer_FK FOREIGN KEY (id_customer) REFERENCES customer(id)
 	,CONSTRAINT supplier_order_supplier_FK FOREIGN KEY (id_supplier) REFERENCES supplier(id)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: customer_order
+#------------------------------------------------------------
+
+CREATE TABLE customer_order(
+        id               	  Varchar (36) NOT NULL ,
+        transaction_date 	  Date ,
+        state            	  TinyINT NOT NULL ,
+        id_customer      	  Varchar (36) NOT NULL,
+        id_distribution_point Varchar(36),
+        total                 Decimal(10, 2) NOT NULL,
+        id_supplier_order     Varchar (36),
+        is_active        	  Bool NOT NULL
+	,CONSTRAINT customer_order_PK PRIMARY KEY (id)
+
+	,CONSTRAINT customer_order_customer_FK FOREIGN KEY (id_customer) REFERENCES customer(id)
+    ,CONSTRAINT customer_order_id_distribution_point_FK FOREIGN KEY (id_distribution_point) REFERENCES distribution_point(id)
+    ,CONSTRAINT customer_order_id_supplier_order_FK FOREIGN KEY (id_supplier_order) REFERENCES supplier_order(id)
 )ENGINE=InnoDB;
 
 
@@ -130,6 +133,7 @@ CREATE TABLE customer_order_detail(
         quantity          Int NOT NULL ,
         id_tree           Varchar (36) NOT NULL ,
         id_customer_order Varchar (36) NOT NULL,
+        price             Decimal(10,2) NOT NULL,
         is_active         Bool NOT NULL
 	,CONSTRAINT customer_order_detail_PK PRIMARY KEY (id)
 

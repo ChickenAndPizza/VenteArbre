@@ -33,5 +33,61 @@ export class CustomerOrderService extends MainService {
         let headers = new HttpHeaders();
         headers = headers.set('Access-Control-Allow-Origin', '*');
         return this.http.get<any>(url);
-      }
+    }
+
+    getTotalOrdersInProgress():Observable<any> {
+        const url = this.apiUrl.toString() + "CustomerOrder/GetTotalOrdersInProgress";
+          return this.http.get<any>(url);
+    }
+
+    get72hOrdersInProgress():Observable<any> {
+        const url = this.apiUrl.toString() + "CustomerOrder/Get72hOrdersInProgress";
+          return this.http.get<any>(url);
+    }
+
+    getTotalOrdersProcessed():Observable<any> {
+        const url = this.apiUrl.toString() + "CustomerOrder/GetTotalOrdersProcessed";
+          return this.http.get<any>(url);
+    }
+
+    getOrders(order: string):Observable<any[]> {
+      const url = this.apiUrl.toString() + "CustomerOrder/GetOrders?order=" + order;
+        return this.http.get<any[]>(url);
+    }
+
+    getTotalByCategory():Observable<any[]> {
+        const url = this.apiUrl.toString() + "CustomerOrder/GetTotalByCategory";
+          return this.http.get<any[]>(url);
+    }
+
+    getTotalByDistributionPoint():Observable<any[]> {
+        const url = this.apiUrl.toString() + "CustomerOrder/GetTotalByDistributionPoint";
+          return this.http.get<any[]>(url);
+    }
+
+    getTotalByAll():Observable<any> {
+        const url = this.apiUrl.toString() + "CustomerOrder/GetTotalByAll";
+          return this.http.get<any>(url);
+    }
+
+    setOrdersInProgressInProcess(idSupplierOrder: string):Observable<any> {
+        const url = this.apiUrl.toString() + "CustomerOrder/SetOrdersInProgressInProcess?idSupplierOrder=" + idSupplierOrder;
+          return this.http.get<any>(url);
+    }
+
+    setOrdersInProcessProcessed():Observable<any> {
+        const url = this.apiUrl.toString() + "CustomerOrder/SetOrdersInProcessProcessed";
+          return this.http.get<any>(url);
+    }
+
+    setProcessedOrdersToShipped(ordersShipped: string[]):Observable<any> {
+        const url = this.apiUrl.toString() + "CustomerOrder/SetProcessedOrdersToShipped";
+        return this.http.post(
+          url,
+          JSON.stringify(ordersShipped),
+          {
+            headers: this.headers
+          }
+        )
+      };
 }

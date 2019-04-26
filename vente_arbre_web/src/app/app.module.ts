@@ -1,26 +1,22 @@
-import { NgModule, forwardRef } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AppComponent } from './app.component';
-import { AppRoutingModule, routing } from './app.routing';
-import {
-  AgmCoreModule
-} from '@agm/core';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
-import { AlertComponent, DialogComponent, DialogEntryComponent } from './_directives';
-import { AuthGuard } from './_guards';
-import { AlertService, AuthenticationService, UserService, CustomerService, CustomerOrderDetailService } from './_services';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule, routing } from './app.routing';
+import { NgModule, forwardRef } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
+import { AgmCoreModule } from '@agm/core';
+import { HttpModule } from '@angular/http';
+import * as $ from 'jquery';
+
+import { AlertComponent, DialogComponent, DialogEntryComponent, DialogDistributionPointComponent } from './_directives';
+import { AlertService, AuthenticationService, UserService, CustomerService, CustomerOrderDetailService } from './_services';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ComponentsModule } from './_components/navigation';
-import { DialogDistributionPointComponent } from './_directives/dialog-distribution-point/dialog-distribution-point.component';
-import { OrdersInProgressComponent } from './_components/orders-in-progress/orders-in-progress.component';
-import { OrdersCompletedComponent } from './_components/orders-completed/orders-completed.component';
-import { OrdersSummaryComponent } from './_components/orders-summary/orders-summary.component';
+import { AuthGuard } from './_guards';
 
 @NgModule({
   imports: [
@@ -48,10 +44,7 @@ import { OrdersSummaryComponent } from './_components/orders-summary/orders-summ
     AlertComponent,
     DialogComponent,
     DialogEntryComponent,
-    DialogDistributionPointComponent,
-    OrdersInProgressComponent,
-    OrdersCompletedComponent,
-    OrdersSummaryComponent
+    DialogDistributionPointComponent
   ],
   providers: [
     AuthGuard,
@@ -63,7 +56,14 @@ import { OrdersSummaryComponent } from './_components/orders-summary/orders-summ
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [DialogComponent, DialogEntryComponent, DialogDistributionPointComponent]
+  bootstrap: [
+    AppComponent
+  ],
+  entryComponents: [
+    DialogComponent, 
+    DialogEntryComponent, 
+    DialogDistributionPointComponent
+  ]
 })
+
 export class AppModule { }
