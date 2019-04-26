@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { ConnectionInfo } from 'app/_models';
 import { AuthenticationService, CustomerService, AlertService } from 'app/_services';
 import { existingEmailValidator } from 'app/_shared';
+import { decodeToken } from 'app/_helpers';
 
 declare const $: any;
 
@@ -22,6 +23,8 @@ export class ConnectionComponent implements OnInit {
   returnUrl: string;
   register: FormGroup;
   connection: FormGroup;
+
+  currentUser: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,6 +70,8 @@ export class ConnectionComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          if (this.isAdmin())
+            window.location.reload(true);
           this.router.navigate([this.returnUrl]);
         },
         error => {
@@ -85,6 +90,16 @@ export class ConnectionComponent implements OnInit {
       });
 
     }
+  }
+
+  isAdmin(): boolean {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = decodeToken(this.currentUser);
+
+    if (this.currentUser && this.currentUser.isAdmin && this.currentUser.isAdmin.toLowerCase() != 'false')
+      return true;
+    else
+      return false;
   }
 
   isMobileMenu() {
