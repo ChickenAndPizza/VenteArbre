@@ -112,5 +112,12 @@ namespace Web_API.Controllers
         {
             return Ok(Service.SetProcessedOrdersToShipped(ordersShipped));
         }
+
+        [HttpGet]
+        [Route("GetTotalOrdersForCustomer")]
+        public ActionResult GetTotalOrdersForCustomer(Guid customerId)
+        {
+            return Ok(Service.GetTotalOrdersForCustomer(customerId));
+        }
     }
 }

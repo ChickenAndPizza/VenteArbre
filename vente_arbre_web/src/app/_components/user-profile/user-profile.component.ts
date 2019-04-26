@@ -1,28 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
+import { UserService, CustomerService, AuthenticationService, CustomerOrderService } from 'app/_services';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup, Validators,  } from '@angular/forms';
-import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
-import { DialogComponent } from 'app/_directives';
-import { UserService, CustomerService, AuthenticationService } from 'app/_services';
+import { Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
+
+import { existingEmailValidator, checkPasswords } from 'app/_shared';
 import { User, ConnectionInfo } from 'app/_models';
-
+import { DialogComponent } from 'app/_directives';
 import { decodeToken } from 'app/_helpers';
-import { existingEmailValidator } from 'app/_shared';
-
-
-function checkPasswords(form: FormGroup): { [key: string]: boolean} | null {
-    const password = form.get('password');
-    const confirmPassword = form.get('passwordConfirm');
- 
-    return password && confirmPassword && password.value !== confirmPassword.value ?
-     {'notSame': true} : null;
-    }
 
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
-    styleUrls: ['./user-profile.component.css'],
+    styleUrls: ['./user-profile.component.scss'],
     animations: [
         fadeInOnEnterAnimation(),
         fadeOutOnLeaveAnimation(),
@@ -31,6 +22,7 @@ function checkPasswords(form: FormGroup): { [key: string]: boolean} | null {
 export class UserProfileComponent implements OnInit {
 
     currentUser: any;
+    ordersQuantity: number;
     users: User[] = [];
     dialogRef: MatDialogRef<DialogComponent>;
     profile: FormGroup;
@@ -41,7 +33,8 @@ export class UserProfileComponent implements OnInit {
         private userService: UserService,
         private customerService: CustomerService,
         private dialog: MatDialog,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private customerOrderService: CustomerOrderService
     ) { }
 
     ngOnInit() {
@@ -59,6 +52,7 @@ export class UserProfileComponent implements OnInit {
         });
 
         this.onChanges();
+        this.getTotalOrdersForCustomer();
     }
 
     onChanges(): void {
@@ -149,5 +143,13 @@ export class UserProfileComponent implements OnInit {
           return true;
         else
           return false;
+    }
+
+    getTotalOrdersForCustomer(){
+        this.customerOrderService.getTotalOrdersForCustomer(this.currentUser.id).subscribe(
+            qty => {
+              this.ordersQuantity = qty;
+            }
+          );
     }
 }

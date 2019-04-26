@@ -99,11 +99,14 @@ export class TreeAddComponent implements OnInit {
         let treeId = c.id;
 
         if (this.imageToAdd) {
-          this.treeService.postImage(this.imageToAdd, treeId).subscribe();
+          this.treeService.postImage(this.imageToAdd, treeId).subscribe(c => {
+            this.router.navigate([this.returnUrl]);
+          });
         }
         //.catch(e => this.alertService.error(e));
-
-        this.router.navigate([this.returnUrl]);
+        else
+          this.router.navigate([this.returnUrl]);
+        
       });
     }
   }

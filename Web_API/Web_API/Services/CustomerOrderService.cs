@@ -323,6 +323,11 @@ namespace Web_API.Services
             return "Ok";
         }
 
+        public int GetTotalOrdersForCustomer(Guid customerId)
+        {
+            return Context.CustomerOrders.AsNoTracking().Count(c => c.IsActive == true && (int)c.State >= (int)Order.Paid && c.IdCustomer == customerId);
+        }
+
         public List<DistributionPoint> GetDistributionPoints()
         {
             return Context.DistributionPoints.AsNoTracking().Where(c => c.IsActive).Select(c => new DistributionPoint
