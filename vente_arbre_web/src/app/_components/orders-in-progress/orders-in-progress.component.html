@@ -46,14 +46,14 @@
 
     <div class="row" *ngIf="hasOrders">
       <div class="col-md-12">
-        <div class="card">
+        <div class="card" *ngFor="let distributionPoint of distributionPointsWithCustomerOrders">
           <div class="card-header card-header-tabs card-header-green">
-            <h3 class="card-title">Cégep Beauce-Appalaches (Saint-Georges)</h3>
+            <h3 class="card-title">{{distributionPoint.distributionPointName}}</h3>
           </div>
           <div class="card-body">
             <div class="table-responsive" style="overflow: unset">
               <table class="table">
-                <div *ngFor="let order of customerOrders" class="row">
+                <div *ngFor="let order of distributionPoint.customerOrders" class="row">
                   <thead class="col-md-12" style="display: flex; align-items: center;">
                     <div class="text-primary col-md-3" style="font-weight:bold">
                       {{order.customer.lastName}}, {{order.customer.firstName}}

@@ -11,6 +11,7 @@ export class PreviousOrdersSupplierComponent implements OnInit {
 
   supplierOrders: any[];
   customerOrders: any[];
+  hasSupplierOrders = false;
 
   constructor(
     private supplierOrderService: SupplierOrderService,
@@ -31,6 +32,9 @@ export class PreviousOrdersSupplierComponent implements OnInit {
     this.supplierOrderService.getPreviousSupplierOrders().subscribe(
       orders => {
         this.supplierOrders = orders;
+
+        if (orders[0])
+          this.hasSupplierOrders = true;
         
         for (let cpt = 0; cpt < this.supplierOrders.length; cpt++){
           let date = this.supplierOrders[cpt].transactionDate.toString();
@@ -44,7 +48,7 @@ export class PreviousOrdersSupplierComponent implements OnInit {
   }
 
   LoadOrdersProcessed() {
-    this.customerOrderService.getOrdersProcessed().subscribe(
+    this.customerOrderService.getOrders("Processed").subscribe(
       orders => {
         this.customerOrders = orders;
       }

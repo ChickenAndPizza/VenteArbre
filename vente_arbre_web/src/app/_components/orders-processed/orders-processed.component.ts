@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class OrdersProcessedComponent implements OnInit {
 
   hasOrders = false;
-  customerOrders: any[];
+  distributionPointsWithCustomerOrders: any[];
   totalOrdersProcessed: any;
   showOptions: boolean = false;
 
@@ -43,9 +43,9 @@ export class OrdersProcessedComponent implements OnInit {
   }
 
   loadOrdersProcessed() {
-    this.customerOrderService.getOrdersProcessed().subscribe(
+    this.customerOrderService.getOrders("Processed").subscribe(
       orders => {
-        this.customerOrders = orders;
+        this.distributionPointsWithCustomerOrders = orders;
         if (orders[0])
           this.hasOrders = true;
       }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Web_API.Controllers.Base;
 using Web_API.Models;
+using Web_API.Models.Enum;
 using Web_API.Services;
 
 namespace Web_API.Controllers
@@ -57,17 +58,10 @@ namespace Web_API.Controllers
         }
 
         [HttpGet]
-        [Route("GetOrdersInProgress")]
-        public ActionResult GetOrdersInProgress()
+        [Route("GetOrders")]
+        public ActionResult GetOrders(Order order)
         {
-            return Ok(Service.GetOrdersInProgress());
-        }
-
-        [HttpGet]
-        [Route("GetOrdersProcessed")]
-        public ActionResult GetOrdersProcessed()
-        {
-            return Ok(Service.GetOrdersProcessed());
+            return Ok(Service.GetOrders(order));
         }
 
         [HttpGet]

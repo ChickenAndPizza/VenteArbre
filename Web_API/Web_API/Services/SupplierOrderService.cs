@@ -25,6 +25,7 @@ namespace Web_API.Services
                 IdCustomer = idCustomer,
                 IdSupplier = idSupplier
             };
+
             Context.SupplierOrders.Add(newSupplierOrder);
             Context.SaveChanges();
 
@@ -68,7 +69,7 @@ namespace Web_API.Services
                 CategoryTotal = 0
             }).ToList();
 
-            var customerOrdersList = GetCustomerOrdersWithDetails(Order.Processed, idSupplierOrder);
+            var customerOrdersList = GetCustomerOrdersWithDetailsForSupplierOrder(Order.Processed, idSupplierOrder);
             List<TotalByTree> treeCount = new List<TotalByTree>();
             var categoryToDelete = new List<Guid>();
 
@@ -130,7 +131,7 @@ namespace Web_API.Services
             }).ToList();
 
             var distributionPointsWithTotal = new List<TotalByDistributionPoint>();
-            var customerOrdersList = GetCustomerOrdersWithDetails(Order.Processed, idSupplierOrder);
+            var customerOrdersList = GetCustomerOrdersWithDetailsForSupplierOrder(Order.Processed, idSupplierOrder);
 
             foreach (var distributionPoint in distributionPoints)
             {
@@ -164,7 +165,7 @@ namespace Web_API.Services
         public int GetTotalByAll(Guid idSupplierOrder)
         {
             var totalByAll = 0;
-            var customerOrdersList = GetCustomerOrdersWithDetails(Order.Processed, idSupplierOrder);
+            var customerOrdersList = GetCustomerOrdersWithDetailsForSupplierOrder(Order.Processed, idSupplierOrder);
             foreach (var customerOrder in customerOrdersList)
             {
                 foreach (var detail in customerOrder.OrderDetails)
@@ -175,7 +176,7 @@ namespace Web_API.Services
             return totalByAll;
         }
 
-        public List<CustomerOrder> GetCustomerOrdersWithDetails(Order order, Guid idSupplierOrder)
+        public List<CustomerOrder> GetCustomerOrdersWithDetailsForSupplierOrder(Order order, Guid idSupplierOrder)
         {
             var customerOrdersList = Context.CustomerOrders
                 .AsNoTracking()
@@ -210,6 +211,5 @@ namespace Web_API.Services
 
             return customerOrdersList;
         }
-
     }
 }

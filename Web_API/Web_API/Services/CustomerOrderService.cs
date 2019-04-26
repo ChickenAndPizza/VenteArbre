@@ -6,6 +6,7 @@ using Web_API.DataLayer;
 using Web_API.Models;
 using Web_API.Models.DTO;
 using Web_API.Models.Enum;
+using Web_API.Models.Supplier;
 using Web_API.Services.Base;
 
 namespace Web_API.Services
@@ -39,10 +40,25 @@ namespace Web_API.Services
 
         public Guid CommandObjectInsideCart(Guid idOrder, Guid idDistributionPoint)
         {
-            var cart = Context.CustomerOrders.FirstOrDefault(c => c.Id == idOrder && c.State == Order.Cart);
+            var cart = Context.CustomerOrders
+                .Include(c => c.OrderDetails)
+                .FirstOrDefault(c => c.Id == idOrder && c.State == Order.Cart);
             cart.State = Order.Paid;
             cart.TransactionDate = DateTime.Now;
             cart.IdDistributionPoint = idDistributionPoint;
+            
+            List<CustomerOrderDetail> customerOrderDetails = cart.OrderDetails.ToList();
+            decimal cartTotal = 0;
+            for (var index = 0; index < customerOrderDetails.Count; index++)
+            {
+                var customerOrderDetail = customerOrderDetails[index];
+                var treePrice = Context.Trees.FirstOrDefault(c => c.Id == customerOrderDetail.IdTree).Price;
+                customerOrderDetails[index].Price = treePrice;
+                cartTotal += ( treePrice * customerOrderDetail.Quantity);
+            }
+            cart.OrderDetails = customerOrderDetails;
+            cart.Total = cartTotal;
+
             Context.Update(cart);
             Context.SaveChanges();
             return cart.Id;
@@ -102,60 +118,46 @@ namespace Web_API.Services
             return customerOrdersList.Count();
         }
 
-        public List<CustomerOrder> GetOrdersInProgress()
+        public List<DistributionPointWithOrders> GetOrders(Order order)
         {
-            var query = Context.CustomerOrders.Where(c => c.IsActive == true && c.State == Order.Paid)
-                .Include(c => c.Customer)
-                .Include(c => c.OrderDetails)
-                .ThenInclude(c => c.Tree)
-                .Select(c => new CustomerOrder {
-                    Id = c.Id,
-                    TransactionDate = c.TransactionDate,
-                    Customer = c.Customer,
-                    OrderDetails = c.OrderDetails.Where(x => x.IsActive).Select(y => new CustomerOrderDetail {
-                        Id = y.Id,
-                        Quantity = y.Quantity,
-                        Price = y.Price,
-                        IdTree = y.IdTree,
-                        Tree = y.Tree,
-                        IdCustomerOrder = c.Id
-                    }).ToList(),
-                    Total = c.Total,
-                    IsActive = c.IsActive,
-                    IdSupplierOrder = c.IdSupplierOrder,
-                })
-            .OrderBy(c => c.Customer.LastName)
-            .ToList();
+            var distributionPoints = GetDistributionPoints();
 
-            return query;
-        }
+            var distributionPointsWithOrders = new List<DistributionPointWithOrders>();
+            foreach (var distributionPoint in distributionPoints)
+            {
+                var distributionPointWithOrder = new DistributionPointWithOrders
+                {
+                    IdDistributionPoint = distributionPoint.Id,
+                    DistributionPointName = distributionPoint.WebName,
+                    CustomerOrders = new List<CustomerOrder>()
+                };
+                distributionPointsWithOrders.Add(distributionPointWithOrder);
+            }
 
-        public List<CustomerOrder> GetOrdersProcessed()
-        {
-            var query = Context.CustomerOrders.Where(c => c.IsActive == true && c.State == Order.Processed)
-                .Include(c => c.Customer)
-                .Include(c => c.OrderDetails)
-                .ThenInclude(c => c.Tree)
-                .Select(c => new CustomerOrder {
-                    Id = c.Id,
-                    TransactionDate = c.TransactionDate,
-                    Customer = c.Customer,
-                    OrderDetails = c.OrderDetails.Where(x => x.IsActive).Select(y => new CustomerOrderDetail {
-                        Id = y.Id,
-                        Quantity = y.Quantity,
-                        Price = y.Price,
-                        IdTree = y.IdTree,
-                        Tree = y.Tree,
-                        IdCustomerOrder = c.Id
-                    }).ToList(),
-                    Total = c.Total,
-                    IsActive = c.IsActive,
-                    IdSupplierOrder = c.IdSupplierOrder,
-                })
-            .OrderBy(c => c.Customer.LastName)
-            .ToList();
+            var customerOrders = GetCustomerOrdersWithDetails(order);
 
-            return query;
+            foreach (var distributionPointWithOrder in distributionPointsWithOrders)
+            {
+                foreach (var customerOrder in customerOrders)
+                {
+                    if (customerOrder.DistributionPoint.Id == distributionPointWithOrder.IdDistributionPoint)
+                    {
+                        distributionPointWithOrder.CustomerOrders.Add(customerOrder);
+                    }
+                }
+            }
+
+            var pointsToDelete = new List<Guid>();
+            for (int index = 0; index < distributionPointsWithOrders.Count; index++)
+            {
+                if (distributionPointsWithOrders[index].CustomerOrders.Count == 0)
+                    pointsToDelete.Add(distributionPointsWithOrders[index].IdDistributionPoint);
+            }
+
+            foreach (var delete in pointsToDelete)
+                distributionPointsWithOrders.RemoveAll(c => c.IdDistributionPoint == delete);
+
+            return distributionPointsWithOrders;
         }
 
         public List<TotalByCategory> GetTotalByCategory()
@@ -259,14 +261,35 @@ namespace Web_API.Services
         public string SetOrdersInProgressInProcess(Guid idSupplierOrder)
         {
             var customerOrdersListInProgress = GetCustomerOrdersWithDetails(Order.Paid);
+            List<SupplierOrderDetail> supplierOrderDetails = new List<SupplierOrderDetail>();
 
             foreach (CustomerOrder customerOrder in customerOrdersListInProgress) {
                 customerOrder.State = Order.InProcess;
                 customerOrder.IdSupplierOrder = idSupplierOrder;
                 Context.CustomerOrders.Update(customerOrder);
-            }
-            Context.SaveChanges();
+                
+                foreach (var customerOrderDetail in customerOrder.OrderDetails) {
 
+                    if (supplierOrderDetails.FirstOrDefault(c => c.IdTree == customerOrderDetail.IdTree) != null) {
+                        supplierOrderDetails.FirstOrDefault(c => c.IdTree == customerOrderDetail.IdTree)
+                            .Quantity += customerOrderDetail.Quantity;
+                    }
+                    else {
+                        var supplierOrderDetail = new SupplierOrderDetail
+                        {
+                            Quantity = customerOrderDetail.Quantity,
+                            IdSupplierOrder = idSupplierOrder,
+                            IdTree = customerOrderDetail.IdTree
+                        };
+                        supplierOrderDetails.Add(supplierOrderDetail);
+                    }
+                }
+            }
+            var supplierOrder = Context.SupplierOrders.FirstOrDefault(c => c.Id == idSupplierOrder);
+            supplierOrder.OrderDetails = supplierOrderDetails;
+            Context.SupplierOrders.Update(supplierOrder);
+
+            Context.SaveChanges();
             return "Ok";
         }
 
@@ -298,6 +321,20 @@ namespace Web_API.Services
             Context.SaveChanges();
 
             return "Ok";
+        }
+
+        public List<DistributionPoint> GetDistributionPoints()
+        {
+            return Context.DistributionPoints.AsNoTracking().Where(c => c.IsActive).Select(c => new DistributionPoint
+            {
+                Id = c.Id,
+                MapLink = c.MapLink,
+                WebLink = c.WebLink,
+                WebName = c.WebName,
+                Description = c.Description
+            })
+            .OrderBy(c => c.WebName)
+            .ToList();
         }
 
         public List<CustomerOrder> GetCustomerOrdersWithDetails(Order order)

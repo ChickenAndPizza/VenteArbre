@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class OrdersInProgressComponent implements OnInit {
 
   hasOrders = false;
-  customerOrders: any[];
+  distributionPointsWithCustomerOrders: any[];
   totalOrdersInProgress: any;
   total72hOrdersInProgress: any;
 
@@ -30,11 +30,12 @@ export class OrdersInProgressComponent implements OnInit {
   }
 
   loadOrdersInProgress() {
-    this.customerOrderService.getOrdersInProgress().subscribe(
+    this.customerOrderService.getOrders("Paid").subscribe(
       orders => {
-        this.customerOrders = orders;
+        this.distributionPointsWithCustomerOrders = orders;
         if (orders[0])
           this.hasOrders = true;
+        console.log(this.distributionPointsWithCustomerOrders);
       }
     );
   }

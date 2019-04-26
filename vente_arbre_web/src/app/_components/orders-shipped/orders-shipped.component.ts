@@ -9,7 +9,7 @@ import { CustomerOrderService } from 'app/_services';
 })
 export class OrdersShippedComponent implements OnInit {
 
-  customerOrders: any[];
+  distributionPointsWithCustomerOrders: any[];
   ordersShipped: string[] = [];
   canContinue: boolean = false;
 
@@ -26,12 +26,14 @@ export class OrdersShippedComponent implements OnInit {
   }
 
   LoadOrdersProcessed() {
-    this.customerOrderService.getOrdersProcessed().subscribe( orders => {
-        this.customerOrders = orders;
+    this.customerOrderService.getOrders("Processed").subscribe( orders => {
+        this.distributionPointsWithCustomerOrders = orders;
 
-        for (let order of this.customerOrders) {
-          this.ordersShipped.push(order.id);
-       }
+        for (let distributionPoint of this.distributionPointsWithCustomerOrders) {
+          for (let order of distributionPoint.customerOrders) {
+            this.ordersShipped.push(order.id);
+         }
+        }
       }
     );
   }

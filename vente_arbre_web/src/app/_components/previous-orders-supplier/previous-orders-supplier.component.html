@@ -13,6 +13,8 @@
       </div>
     </div>
 
+    <p *ngIf="!hasSupplierOrders" class="text-danger">Aucune commande n'a été passée au fournisseur!</p>
+
     <div *ngFor="let supplierOrder of supplierOrders">
       <div class="row">
         <div class="col-md-2">
