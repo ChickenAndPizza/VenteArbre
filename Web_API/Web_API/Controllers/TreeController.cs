@@ -70,5 +70,13 @@ namespace Web_API.Controllers
         {
             return Ok(Service.CustomerCannotOrderReturnRemaining(idTree));
         }
+
+        [HttpGet]
+        [Route("ResetTreeMaximumQuantity")]
+        public ActionResult ResetTreeMaximumQuantity()
+        {
+            Service.ResetTreeMaximumQuantity();
+            return Ok();
+        }
     }
 }

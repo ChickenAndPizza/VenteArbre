@@ -69,6 +69,14 @@ export class TreeService extends MainService {
     )
   };
 
+  resetTreeMaximumQuantity() {
+    const url = this.apiUrl.toString() + "Tree/ResetTreeMaximumQuantity";
+
+    let headers = new HttpHeaders();
+    headers = headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.get<any>(url);
+  }
+
   postImage(fileToUpload: File, treeId: string): Observable<any> {
     const url = this.apiUrl.toString() + "Tree/Image";
     const formData: FormData = new FormData();

@@ -95,6 +95,16 @@ namespace Web_API.Services
             return (count + number) <= maximum;
         }
 
+        public void ResetTreeMaximumQuantity()
+        {
+            var trees = Context.Trees.Where(c => c.IsActive).ToList();
+            foreach(var tree in trees)
+            {
+                tree.Maximum = 0;
+            }
+            Context.SaveChanges();
+        }
+
         public int CustomerCannotOrderReturnRemaining(Guid idTree)
         {
             var order = Context.CustomerOrders
