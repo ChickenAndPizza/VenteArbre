@@ -103,6 +103,17 @@
                   </div>
                   <button [disabled]="!distributionPointForm.valid" class="btn btn-green pull-right"
                     style="color:white;" type="submit">Payer</button>
+                    <div>
+                      <button [disabled]="!distributionPointForm.valid" class="btn btn-green pull-right"
+                      style="color:white;" (click)="checkout($event)">
+                        Payer {{commandTotal}} $
+                      </button>
+
+                      <hr>
+
+                      <div *ngIf="loading"> Loading....</div>
+                      <pre *ngIf="confirmation">{{confirmation | json}}</pre>
+                    </div>
                 </div>
               </div>
             </div>
