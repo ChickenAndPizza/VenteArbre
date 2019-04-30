@@ -13,5 +13,10 @@ namespace Web_API.Services
         public SupplierService(IDatabaseContext context) : base(context)
         {
         }
+
+        public List<Supplier> GetSuppliers()
+        {
+            return Context.Suppliers.Where(c => c.IsActive).ToList();
+        }
     }
 }

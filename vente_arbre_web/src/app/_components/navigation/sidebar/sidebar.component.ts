@@ -27,6 +27,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/orders-processed', title: 'Commandes traitées', icon: 'shopping_cart', class: '', inSidebar: true, isAdmin: true },
   { path: '/orders-shipped', title: 'Bilan de livraison', icon: '', class: '', inSidebar: false, isAdmin: false },
   { path: '/previous-orders-supplier', title: 'Commandes précédentes au fournisseur', icon: '', class: '', inSidebar: false, isAdmin: false },
+  { path: '/management', title: 'Gestion', icon: 'settings', class: '', inSidebar: true, isAdmin: true },
 ];
 
 @Component({

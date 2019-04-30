@@ -28,5 +28,42 @@ namespace Web_API.Services
         {
             return Context.Customers.FirstOrDefault(c => c.Email == email);
         }
+
+        public string SetAdministrator(string email)
+        {
+            var customer = Context.Customers.FirstOrDefault(c => c.Email == email);
+            customer.IsAdmin = true;
+            Context.Customers.Update(customer);
+            Context.SaveChanges();
+            return "Ok";
+        }
+
+        public string DeleteAdministrator(Guid id)
+        {
+            var customer = Context.Customers.FirstOrDefault(c => c.Id == id);
+            customer.IsAdmin = false;
+            Context.Customers.Update(customer);
+            Context.SaveChanges();
+            return "Ok";
+        }
+
+        public List<TempCustomer> GetAdministrators()
+        {
+            List<Customer> customers = Context.Customers.Where(c => c.IsActive && c.IsAdmin).ToList();
+            List<TempCustomer> tempCustomers = new List<TempCustomer>();
+
+            foreach(var customer in customers)
+            {
+                var tempCustomer = new TempCustomer
+                {
+                    Id = customer.Id,
+                    FirstName = customer.FirstName,
+                    LastName = customer.LastName,
+                    PhoneNumber = customer.PhoneNumber
+                };
+                tempCustomers.Add(tempCustomer);
+            }
+            return tempCustomers;
+        }
     }
 }

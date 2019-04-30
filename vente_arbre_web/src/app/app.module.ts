@@ -12,7 +12,7 @@ import { AgmCoreModule } from '@agm/core';
 import { HttpModule } from '@angular/http';
 import * as $ from 'jquery';
 
-import { AlertComponent, DialogComponent, DialogEntryComponent, DialogDistributionPointComponent } from './_directives';
+import { AlertComponent, DialogComponent, DialogAdministratorComponent, DialogEntryComponent, DialogDistributionPointComponent, DialogSupplierComponent, DialogOrdersInProcessComponent } from './_directives';
 import { AlertService, AuthenticationService, UserService, CustomerService, CustomerOrderDetailService } from './_services';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ComponentsModule } from './_components/navigation';
@@ -43,8 +43,10 @@ import { AuthGuard } from './_guards';
     AdminLayoutComponent,
     AlertComponent,
     DialogComponent,
+    DialogAdministratorComponent,
     DialogEntryComponent,
-    DialogDistributionPointComponent
+    DialogDistributionPointComponent,
+    DialogOrdersInProcessComponent
   ],
   providers: [
     AuthGuard,
@@ -60,9 +62,11 @@ import { AuthGuard } from './_guards';
     AppComponent
   ],
   entryComponents: [
-    DialogComponent, 
+    DialogComponent,
+    DialogAdministratorComponent,
     DialogEntryComponent, 
-    DialogDistributionPointComponent
+    DialogDistributionPointComponent,
+    DialogOrdersInProcessComponent,
   ]
 })
 

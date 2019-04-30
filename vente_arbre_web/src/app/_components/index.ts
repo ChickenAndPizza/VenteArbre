@@ -5,6 +5,7 @@ export * from './connection/connection.component';
 export * from './dashboard/dashboard.component';
 export * from './distribution-points/distribution-points.component';
 export * from './icons/icons.component';
+export * from './management/management.component';
 export * from './notifications/notifications.component';
 export * from './order-supplier-info/order-supplier-info.component';
 export * from './orders-processed/orders-processed.component';

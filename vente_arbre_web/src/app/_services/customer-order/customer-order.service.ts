@@ -95,4 +95,10 @@ export class CustomerOrderService extends MainService {
     const url = this.apiUrl.toString() + "CustomerOrder/GetTotalOrdersForCustomer?customerId=" + customerId;
     return this.http.get<any>(url);
   }
+
+  cancelProcessOfOrders(): Observable<any> {
+    const url = this.apiUrl.toString() + "CustomerOrder/CancelProcessOfOrders";
+    return this.http.get<any>(url);
+  }
+
 }

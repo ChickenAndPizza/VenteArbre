@@ -12,10 +12,24 @@ export class CustomerService extends MainService {
     super(injector);
   }
 
-
   getCustomer() {
     const url = this.apiUrl.toString() + "Customer";
       return this.http.get(url);
+  }
+
+  getAdministrators():Observable<any[]> {
+    const url = this.apiUrl.toString() + "Customer/GetAdministrators";
+    return this.http.get<any[]>(url);
+  }
+
+  setNewAdmin(email: string):Observable<any> {
+    const url = this.apiUrl.toString() + "Customer/SetAdministrator?email=" + email;
+    return this.http.get<any>(url);
+  }
+
+  deleteAdmin(id: string):Observable<any>{
+    const url = this.apiUrl.toString() + "Customer/DeleteAdministrator?id=" + id;
+    return this.http.get<any>(url);
   }
 
   addOrUpdateCustomer(newCustomer: any): Observable<any> {
@@ -29,7 +43,7 @@ export class CustomerService extends MainService {
     )
   }
 
-  validateEmail(id: string, email: string) {
+  validateEmailExisting(id: string, email: string) {
     let url = '';
     if(id){
       url = this.apiUrl.toString() + "Customer/Email?id="+ id + "&email=" + email;

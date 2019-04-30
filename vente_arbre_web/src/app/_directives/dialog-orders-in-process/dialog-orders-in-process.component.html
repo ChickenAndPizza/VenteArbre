@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-12" style="text-align: right">
+    <button type="submit" class="btn" mat-dialog-close>
+      <i class="material-icons addIcon" style="color:red">close</i>
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" style="text-align: center">
+    <h2 mat-dialog-title>Poursuivre le traitement</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" style="text-align:center;">
+    <h6>Choisissez une option</h6>
+  </div>
+</div>
+
+<div class="row" style="margin-top:15px;">
+
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12" style="text-align: right">
+        Poursuivre le traitement avec les commandes en cours de traitement seulement:
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button mat-raised-button type="button" class="btn btn-primary pull-right"
+          (click)="ContinueProcessOfOrdersInProcess()">
+          <i class="material-icons addIcon" style="color:white">arrow_forward</i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12" style="text-align: right">
+        Poursuivre le traitement en incluant les nouvelles commandes en cours:
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button mat-raised-button type="button" class="btn btn-primary pull-right"
+          (click)="ContinueProcessOfAllOrders()">
+          <i class="material-icons addIcon" style="color:white">arrow_forward</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

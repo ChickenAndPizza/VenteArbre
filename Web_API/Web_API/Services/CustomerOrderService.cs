@@ -328,6 +328,19 @@ namespace Web_API.Services
             return Context.CustomerOrders.AsNoTracking().Count(c => c.IsActive == true && (int)c.State >= (int)Order.Paid && c.IdCustomer == customerId);
         }
 
+        public string CancelProcessOfOrders()
+        {
+            var customerOrdersListInProgress = GetCustomerOrdersWithDetails(Order.InProcess);
+
+            foreach (CustomerOrder customerOrder in customerOrdersListInProgress)
+            {
+                customerOrder.State = Order.Paid;
+                Context.CustomerOrders.Update(customerOrder);
+            }
+            Context.SaveChanges();
+            return "Ok";
+        }
+
         public List<DistributionPoint> GetDistributionPoints()
         {
             return Context.DistributionPoints.AsNoTracking().Where(c => c.IsActive).Select(c => new DistributionPoint
