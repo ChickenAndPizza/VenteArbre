@@ -101,4 +101,9 @@ export class CustomerOrderService extends MainService {
     return this.http.get<any>(url);
   }
 
+  getPreviousCustomerOrders(id: string):Observable<any[]> {
+    const url = this.apiUrl.toString() + "CustomerOrder/GetPreviousCustomerOrders";
+      return this.http.get<any[]>(url);
+}
+
 }
