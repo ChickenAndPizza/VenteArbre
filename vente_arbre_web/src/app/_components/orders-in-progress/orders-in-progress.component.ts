@@ -1,8 +1,6 @@
 import { CustomerOrderService } from 'app/_services';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialogConfig, MatDialogRef, MatDialog } from '@angular/material';
-import { DialogComponent, DialogOrdersInProcessComponent } from 'app/_directives';
 
 @Component({
   selector: 'app-orders-in-progress',
@@ -18,14 +16,10 @@ export class OrdersInProgressComponent implements OnInit {
   hasOrders = false;
   hasOrdersInProcess = false;
 
-  dialogRef: MatDialogRef<DialogComponent>;
-  dialogOrdersInProcessRef: MatDialogRef<DialogOrdersInProcessComponent>;
-
   constructor(
     
     private customerOrderService: CustomerOrderService,
     private router: Router,
-    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -49,27 +43,7 @@ export class OrdersInProgressComponent implements OnInit {
   }
 
   public ContinueProcessing() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.hasBackdrop = false;
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "50vw";
-    dialogConfig.data = { };
-    this.dialogOrdersInProcessRef = this.dialog.open(DialogOrdersInProcessComponent, dialogConfig);
-    this.dialogOrdersInProcessRef.afterClosed()
-      .pipe(c => c)
-      .subscribe(c => {
-        if (captureEvents && c) {
-          if (this.customerOrderService) {
-            /*let supplier = new Supplier(c.name, c.email, c.phoneNumber);
-            this.supplierService.addOrUpdateSupplier(supplier).subscribe(c => {
-              this.LoadSuppliers();
-            });*/
-
-
-          }
-        }
-      });
+    this.router.navigate(['/orders-summary'], { queryParams: { returnUrl: "orders-in-progress", orderInProcess: true, canContinue: true}});
   }
 
   private LoadTotalOrdersInProgress(): any {
