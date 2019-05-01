@@ -118,7 +118,7 @@ namespace Web_API.Services
             return customerOrdersList.Count();
         }
 
-        public List<DistributionPointWithOrders> GetOrders(Order order)
+        public List<DistributionPointWithOrders> GetOrders(Order state)
         {
             var distributionPoints = GetDistributionPoints();
 
@@ -134,7 +134,7 @@ namespace Web_API.Services
                 distributionPointsWithOrders.Add(distributionPointWithOrder);
             }
 
-            var customerOrders = GetCustomerOrdersWithDetails(order);
+            var customerOrders = GetCustomerOrdersWithDetails(state);
 
             foreach (var distributionPointWithOrder in distributionPointsWithOrders)
             {
@@ -160,7 +160,7 @@ namespace Web_API.Services
             return distributionPointsWithOrders;
         }
 
-        public List<TotalByCategory> GetTotalByCategory()
+        public List<TotalByCategory> GetTotalByCategory(Order state)
         {
             var categoriesWithTotal = Context.TreeCategories.AsNoTracking().Where(c => c.IsActive).Select(c => new TotalByCategory {
                 CategoryName = c.Description,
@@ -168,7 +168,7 @@ namespace Web_API.Services
                 CategoryTotal = 0
             }).ToList();
             
-            var customerOrdersList = GetCustomerOrdersWithDetails(Order.Paid);
+            var customerOrdersList = GetCustomerOrdersWithDetails(state);
             List<TotalByTree> treeCount = new List<TotalByTree>();
             var categoryToDelete = new List<Guid>();
 
@@ -210,7 +210,7 @@ namespace Web_API.Services
         }
 
 
-        public List<TotalByDistributionPoint> GetTotalByDistributionPoint()
+        public List<TotalByDistributionPoint> GetTotalByDistributionPoint(Order state)
         {
             var distributionPoints = Context.DistributionPoints.AsNoTracking().Where(c => c.IsActive).Select(c => new DistributionPoint
             {
@@ -222,7 +222,7 @@ namespace Web_API.Services
             }).ToList();
             
             var distributionPointsWithTotal = new List<TotalByDistributionPoint>();
-            var customerOrdersList = GetCustomerOrdersWithDetails(Order.Paid);
+            var customerOrdersList = GetCustomerOrdersWithDetails(state);
 
             foreach (var distributionPoint in distributionPoints) {
                 foreach (var customerOrder in customerOrdersList) {
@@ -246,10 +246,10 @@ namespace Web_API.Services
             return distributionPointsWithTotal;
         }
 
-        public int GetTotalByAll()
+        public int GetTotalByAll(Order state)
         {
             var totalByAll = 0;
-            var customerOrdersList = GetCustomerOrdersWithDetails(Order.Paid);
+            var customerOrdersList = GetCustomerOrdersWithDetails(state);
             foreach (var customerOrder in customerOrdersList) {
                 foreach (var detail in customerOrder.OrderDetails) {
                     totalByAll += detail.Quantity;

@@ -83,7 +83,7 @@
                     <mat-form-field class="example-full-width">
                       <input maxlength="80" [class.is-invalid]="email.invalid && email.touched" name="email" matInput
                         placeholder="Adresse couriel" formControlName="email"
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                     </mat-form-field>
                     <small *ngIf="email.errors && email.invalid && email.touched" class="text-danger">
                       <div *ngIf="email.errors?.required">L'email est requis</div>

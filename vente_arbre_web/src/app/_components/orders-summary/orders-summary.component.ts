@@ -41,12 +41,12 @@ export class OrdersSummaryComponent implements OnInit {
     this.isOrderInProcess = this.route.snapshot.queryParams['orderInProcess'] || false;
     this.canContinue = this.route.snapshot.queryParams['canContinue'] || false;
 
-    if(this.canContinue) { //commandes avec un status de "en cours"
+    if(this.canContinue) {
       this.LoadTotalByCategory("InProcess");
       this.LoadTotalByDistributionPoint("InProcess");
       this.LoadTotalByAll("InProcess");
     }
-    else { //commandes avec un status de "payé"
+    else {
       this.LoadTotalByCategory("Paid");
       this.LoadTotalByDistributionPoint("Paid");
       this.LoadTotalByAll("Paid");

@@ -51,7 +51,7 @@ export class CustomerOrderService extends MainService {
   }
 
   getOrders(state: string): Observable<any[]> {
-    const url = this.apiUrl.toString() + "CustomerOrder/GetOrders?order=" + state;
+    const url = this.apiUrl.toString() + "CustomerOrder/GetOrders?state=" + state;
     return this.http.get<any[]>(url);
   }
 

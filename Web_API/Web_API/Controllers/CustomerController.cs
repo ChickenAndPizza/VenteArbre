@@ -25,7 +25,7 @@ namespace Web_API.Controllers
                 newPhoneNumber = newPhoneNumber.Replace('-', ' ');
                 newPhoneNumber = newPhoneNumber.Replace('(', ' ');
                 newPhoneNumber = newPhoneNumber.Replace(')', ' ');
-                newPhoneNumber = newPhoneNumber.Replace(" ", String.Empty);
+                newPhoneNumber = newPhoneNumber.Replace(" ", string.Empty);
                 entity.PhoneNumber = newPhoneNumber;
             }
 
