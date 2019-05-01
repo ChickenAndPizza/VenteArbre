@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent, OrdersInProgressComponent, OrdersSummaryComponent, OrdersProcessedComponent, OrdersShippedComponent, PreviousOrdersSupplierComponent, CommandComponent, OrderSupplierInfoComponent, ManagementComponent, PreviousOrdersCustomerComponent, OrderCustomerInfoComponent } from 'app/_components';
+import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent, OrdersInProgressComponent, OrdersSummaryComponent, OrdersProcessedComponent, OrdersShippedComponent, PreviousOrdersSupplierComponent, CommandComponent, OrderSupplierInfoComponent, ManagementComponent, PreviousOrdersCustomerComponent, OrderCustomerInfoComponent, OrderSupplierInfoCustomersComponent } from 'app/_components';
 
 @NgModule({
   imports: [
@@ -36,6 +36,7 @@ import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeList
     NotificationsComponent,
     OrderCustomerInfoComponent,
     OrderSupplierInfoComponent,
+    OrderSupplierInfoCustomersComponent,
     OrdersInProgressComponent,
     OrdersSummaryComponent,
     OrdersProcessedComponent,

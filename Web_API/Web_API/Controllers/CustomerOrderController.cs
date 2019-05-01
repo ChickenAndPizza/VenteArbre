@@ -140,5 +140,19 @@ namespace Web_API.Controllers
         {
             return Service.GetCustomerOrder(customerOrderId);
         }
+
+        [HttpGet]
+        [Route("GetTotalOrdersOfSupplierOrder")]
+        public ActionResult GetTotalOrdersOfSupplierOrder(Guid supplierOrderId)
+        {
+            return Ok(Service.GetTotalOrdersOfSupplierOrder(supplierOrderId));
+        }
+
+        [HttpGet]
+        [Route("GetOrdersOfSupplierOrder")]
+        public ActionResult GetOrdersOfSupplierOrder(Guid supplierOrderId)
+        {
+            return Ok(Service.GetOrdersOfSupplierOrder(supplierOrderId));
+        }
     }
 }

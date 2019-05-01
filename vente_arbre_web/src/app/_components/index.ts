@@ -9,6 +9,7 @@ export * from './management/management.component';
 export * from './notifications/notifications.component'
 export * from './order-customer-info//order-customer-info.component';
 export * from './order-supplier-info/order-supplier-info.component';
+export * from './order-supplier-info-customers//order-supplier-info-customers.component';
 export * from './orders-processed/orders-processed.component';
 export * from './orders-in-progress/orders-in-progress.component';
 export * from './orders-shipped/orders-shipped.component';

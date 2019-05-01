@@ -414,6 +414,92 @@ namespace Web_API.Services
             return query;
         }
 
+        public int GetTotalOrdersOfSupplierOrder(Guid supplierOrderId)
+        {
+            var customerOrdersList = Context.CustomerOrders.AsNoTracking().Where(c => c.IsActive == true && c.IdSupplierOrder == supplierOrderId)
+                .Include(c => c.OrderDetails)
+                .ThenInclude(c => c.Tree)
+                .Select(c => new CustomerOrder
+                {
+                    Total = c.Total,
+                    IsActive = c.IsActive,
+                    DistributionPoint = c.DistributionPoint,
+                }).ToList();
+
+            return customerOrdersList.Count();
+        }
+
+        public List<DistributionPointWithOrders> GetOrdersOfSupplierOrder(Guid supplierOrderId)
+        {
+            var distributionPoints = GetDistributionPoints();
+
+            var distributionPointsWithOrders = new List<DistributionPointWithOrders>();
+            foreach (var distributionPoint in distributionPoints)
+            {
+                var distributionPointWithOrder = new DistributionPointWithOrders
+                {
+                    IdDistributionPoint = distributionPoint.Id,
+                    DistributionPointName = distributionPoint.WebName,
+                    CustomerOrders = new List<CustomerOrder>()
+                };
+                distributionPointsWithOrders.Add(distributionPointWithOrder);
+            }
+
+            var customerOrders = Context.CustomerOrders
+                .AsNoTracking()
+                .Where(c => c.IsActive == true && c.IdSupplierOrder == supplierOrderId)
+                .Include(c => c.OrderDetails)
+                .ThenInclude(c => c.Tree)
+                .Select(c => new CustomerOrder
+                {
+                    Id = c.Id,
+                    TransactionDate = c.TransactionDate,
+                    State = c.State,
+                    IdCustomer = c.IdCustomer,
+                    IdDistributionPoint = c.IdDistributionPoint,
+                    Customer = c.Customer,
+                    DistributionPoint = c.DistributionPoint,
+                    Total = c.Total,
+                    IsActive = c.IsActive,
+                    IdSupplierOrder = c.IdSupplierOrder,
+                    OrderDetails = c.OrderDetails
+                        .Where(x => x.IsActive)
+                        .Select(y => new CustomerOrderDetail
+                        {
+                            Id = y.Id,
+                            Quantity = y.Quantity,
+                            Price = y.Price,
+                            IdTree = y.IdTree,
+                            IdCustomerOrder = y.IdCustomerOrder,
+                            Tree = y.Tree,
+                            Order = y.Order,
+                        }).ToList(),
+                }).ToList();
+
+            foreach (var distributionPointWithOrder in distributionPointsWithOrders)
+            {
+                foreach (var customerOrder in customerOrders)
+                {
+                    if (customerOrder.DistributionPoint.Id == distributionPointWithOrder.IdDistributionPoint)
+                    {
+                        distributionPointWithOrder.CustomerOrders.Add(customerOrder);
+                    }
+                }
+            }
+
+            var pointsToDelete = new List<Guid>();
+            for (int index = 0; index < distributionPointsWithOrders.Count; index++)
+            {
+                if (distributionPointsWithOrders[index].CustomerOrders.Count == 0)
+                    pointsToDelete.Add(distributionPointsWithOrders[index].IdDistributionPoint);
+            }
+
+            foreach (var delete in pointsToDelete)
+                distributionPointsWithOrders.RemoveAll(c => c.IdDistributionPoint == delete);
+
+            return distributionPointsWithOrders;
+        }
+
         public List<DistributionPoint> GetDistributionPoints()
         {
             return Context.DistributionPoints.AsNoTracking().Where(c => c.IsActive).Select(c => new DistributionPoint

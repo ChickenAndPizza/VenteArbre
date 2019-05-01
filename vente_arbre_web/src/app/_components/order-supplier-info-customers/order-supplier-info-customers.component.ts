@@ -1,53 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerOrderService } from 'app/_services';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-orders-processed',
-  templateUrl: './orders-processed.component.html',
-  styleUrls: ['./orders-processed.component.scss']
+  selector: 'app-order-supplier-info-customers',
+  templateUrl: './order-supplier-info-customers.component.html',
+  styleUrls: ['./order-supplier-info-customers.component.scss']
 })
-export class OrdersProcessedComponent implements OnInit {
+export class OrderSupplierInfoCustomersComponent implements OnInit {
 
-  hasOrders = false;
   distributionPointsWithCustomerOrders: any[];
   totalOrdersProcessed: any;
-  showOptions: boolean = false;
+
+  public supplierOrderId:any;
 
   constructor(
     private customerOrderService: CustomerOrderService,
-    private router: Router
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.loadTotalOrdersProcessed();
-    this.loadOrdersProcessed();
+    this.supplierOrderId = this.route.snapshot.queryParams['supplierOrderId'] || "";
+
+    this.LoadTotalOrdersOfSupplierOrder(this.supplierOrderId);
+    this.LoadOrdersOfSupplierOrder(this.supplierOrderId);
   }
 
-  openPreviousOrders() {
-    this.router.navigate(['/previous-orders-supplier']);
+  GoBack(){
+    this.router.navigate(['/order-supplier-info'], { queryParams: { id: this.supplierOrderId } });
   }
 
-  shippingOfProcessedOrders() {
-    this.router.navigate(['/orders-shipped']);
-  }
-
-  loadTotalOrdersProcessed(): any {
-    this.customerOrderService.getTotalOrdersProcessed().subscribe(
+  LoadTotalOrdersOfSupplierOrder(supplierOrderId: string): any {
+    this.customerOrderService.getTotalOrdersOfSupplierOrder(supplierOrderId).subscribe(
       total => {
         this.totalOrdersProcessed = total;
-        if (total)
-          this.hasOrders = true;
       }
     );
   }
 
-  loadOrdersProcessed() {
-    this.customerOrderService.getOrders("Processed").subscribe(
+  LoadOrdersOfSupplierOrder(supplierOrderId: string) {
+    this.customerOrderService.getOrdersOfSupplierOrder(supplierOrderId).subscribe(
       orders => {
         this.distributionPointsWithCustomerOrders = orders;
-        if (orders[0])
-          this.hasOrders = true;
       }
     );
   }

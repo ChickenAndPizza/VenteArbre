@@ -1,20 +1,20 @@
 <div class="main-content">
   <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-1">
-              <a>
-                <i [routerLink]="['/previous-orders-supplier']" class="material-icons mainIcon">arrow_back</i>
-              </a>
-            </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-1">
+            <a>
+              <i [routerLink]="['/previous-orders-supplier']" class="material-icons mainIcon">arrow_back</i>
+            </a>
           </div>
         </div>
       </div>
-      
+    </div>
+
     <div class="row">
       <div class="col-md-9">
-        
+
         <div class="row">
           <div class="col-md-12">
             <div class="card">
@@ -101,6 +101,13 @@
                 <h4>Arbres commandés pour cette saison</h4>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <button mat-raised-button type="button" (click)="ViewCustomerOrdersOfSupplierOrder()"
+              class="btn btn-primary pull-right">Voir les commandes</button>
           </div>
         </div>
       </div>
