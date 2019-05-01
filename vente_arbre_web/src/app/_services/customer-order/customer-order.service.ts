@@ -116,6 +116,11 @@ export class CustomerOrderService extends MainService {
     return this.http.get<any>(url);
   }
 
+  getTotalOrdersNotShippedOfSupplierOrder(supplierOrderId: string): Observable<any> {
+    const url = this.apiUrl.toString() + "CustomerOrder/GetTotalOrdersNotShippedOfSupplierOrder?supplierOrderId=" + supplierOrderId;
+    return this.http.get<any>(url);
+  }
+
   getOrdersOfSupplierOrder(supplierOrderId: string): Observable<any[]> {
     const url = this.apiUrl.toString() + "CustomerOrder/GetOrdersOfSupplierOrder?supplierOrderId=" + supplierOrderId;
     return this.http.get<any[]>(url);

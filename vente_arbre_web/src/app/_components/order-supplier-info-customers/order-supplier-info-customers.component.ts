@@ -11,6 +11,7 @@ export class OrderSupplierInfoCustomersComponent implements OnInit {
 
   distributionPointsWithCustomerOrders: any[];
   totalOrdersProcessed: any;
+  totalOrdersNotShipped: any;
 
   public supplierOrderId:any;
 
@@ -24,6 +25,7 @@ export class OrderSupplierInfoCustomersComponent implements OnInit {
     this.supplierOrderId = this.route.snapshot.queryParams['supplierOrderId'] || "";
 
     this.LoadTotalOrdersOfSupplierOrder(this.supplierOrderId);
+    this.LoadTotalOrdersNotShippedOfSupplierOrder(this.supplierOrderId);
     this.LoadOrdersOfSupplierOrder(this.supplierOrderId);
   }
 
@@ -35,6 +37,14 @@ export class OrderSupplierInfoCustomersComponent implements OnInit {
     this.customerOrderService.getTotalOrdersOfSupplierOrder(supplierOrderId).subscribe(
       total => {
         this.totalOrdersProcessed = total;
+      }
+    );
+  }
+
+  LoadTotalOrdersNotShippedOfSupplierOrder(supplierOrderId: string): any {
+    this.customerOrderService.getTotalOrdersNotShippedOfSupplierOrder(supplierOrderId).subscribe(
+      total => {
+        this.totalOrdersNotShipped = total;
       }
     );
   }

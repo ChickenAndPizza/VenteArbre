@@ -429,6 +429,21 @@ namespace Web_API.Services
             return customerOrdersList.Count();
         }
 
+        public int GetTotalOrdersNotShippedOfSupplierOrder(Guid supplierOrderId)
+        {
+            var customerOrdersList = Context.CustomerOrders.AsNoTracking().Where(c => c.IsActive == true && c.IdSupplierOrder == supplierOrderId && (int)c.State < (int)Order.Delivered)
+                .Include(c => c.OrderDetails)
+                .ThenInclude(c => c.Tree)
+                .Select(c => new CustomerOrder
+                {
+                    Total = c.Total,
+                    IsActive = c.IsActive,
+                    DistributionPoint = c.DistributionPoint,
+                }).ToList();
+
+            return customerOrdersList.Count();
+        }
+
         public List<DistributionPointWithOrders> GetOrdersOfSupplierOrder(Guid supplierOrderId)
         {
             var distributionPoints = GetDistributionPoints();

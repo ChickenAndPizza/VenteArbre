@@ -149,6 +149,13 @@ namespace Web_API.Controllers
         }
 
         [HttpGet]
+        [Route("GetTotalOrdersNotShippedOfSupplierOrder")]
+        public ActionResult GetTotalOrdersNotShippedOfSupplierOrder(Guid supplierOrderId)
+        {
+            return Ok(Service.GetTotalOrdersNotShippedOfSupplierOrder(supplierOrderId));
+        }
+
+        [HttpGet]
         [Route("GetOrdersOfSupplierOrder")]
         public ActionResult GetOrdersOfSupplierOrder(Guid supplierOrderId)
         {
