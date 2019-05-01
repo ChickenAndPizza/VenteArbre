@@ -95,8 +95,8 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="hasOrders">
-      <div class="card" id="print-content" *ngFor="let distributionPoint of distributionPointsWithCustomerOrders">
+    <div class="row"id="print-content" *ngIf="hasOrders">
+      <div class="card" *ngFor="let distributionPoint of distributionPointsWithCustomerOrders">
         <div class="card-header card-header-tabs card-header-green TitlePrint">
           <h3 class="card-title">{{distributionPoint.distributionPointName}}</h3>
         </div>
