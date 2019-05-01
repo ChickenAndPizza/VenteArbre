@@ -13,6 +13,7 @@ namespace Web_API
     {
         public static IServiceCollection InjectDataServices(this IServiceCollection services)
         {
+            services.AddTransient<SupplierService>();
             services.AddTransient<SupplierOrderService>();
             services.AddTransient<CustomerService>();
             services.AddTransient<CustomerOrderService>();

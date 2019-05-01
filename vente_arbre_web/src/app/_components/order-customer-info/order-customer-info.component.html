@@ -1,0 +1,67 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-1">
+            <a>
+              <i [routerLink]="['/previous-orders-customer']" class="material-icons mainIcon">arrow_back</i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-green">
+            <h3 class="card-title">Commande</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th> Produit </th>
+                  <th> Zone </th>
+                  <th> Âge/Hauteur </th>
+                  <th> Prix/u </th>
+                  <th style="text-align: center"> Quantité </th>
+                  <th style="text-align: center"> Total </th>
+                </thead>
+                <tbody>
+                  <tr class="form-group" *ngFor="let orderDetail of customerOrder.orderDetails">
+                    <td> {{orderDetail.tree.name}} </td>
+                    <td> {{orderDetail.tree.zone}} </td>
+                    <td> {{orderDetail.tree.ageHeight}} </td>
+                    <td> {{orderDetail.price}} $ </td>
+                    <td> {{orderDetail.quantity}} </td>
+                    <td> {{orderDetail.price * orderDetail.quantity}} $ </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row pull-right">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th> Total de la commande: {{customerOrder.total}} $</th>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

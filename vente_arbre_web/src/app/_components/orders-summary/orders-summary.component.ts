@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CustomerOrderService, SupplierOrderService, TreeService } from 'app/_services';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+
+import { CustomerOrderService, SupplierOrderService, TreeService, SupplierService } from 'app/_services';
 import { decodeToken } from 'app/_helpers';
 
 @Component({
@@ -12,20 +14,26 @@ export class OrdersSummaryComponent implements OnInit {
 
   currentUser: any;
   returnUrl: any;
-  hasValues: boolean = false;
+
   totalByCategory: any[];
   totalByDistributionPoint: any[];
   totalByAll: any;
-  canContinue: boolean = false;
 
+  hasValues: boolean = false;
+  canContinue: boolean = false;
   isOrderInProcess: boolean = false;
+
+  formSupplier: FormGroup;
+  suppliers: any[];
 
   constructor(
     private customerOrderService: CustomerOrderService,
     private supplierOrderService: SupplierOrderService,
+    private supplierService: SupplierService,
     private treeService: TreeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
@@ -33,30 +41,38 @@ export class OrdersSummaryComponent implements OnInit {
     this.isOrderInProcess = this.route.snapshot.queryParams['orderInProcess'] || false;
     this.canContinue = this.route.snapshot.queryParams['canContinue'] || false;
 
-    this.loadTotalByCategory();
-    this.loadTotalByDistributionPoint();
-    this.loadTotalByAll();
-
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (this.currentUser) {
-      this.currentUser = decodeToken(this.currentUser);
+    if(this.canContinue) {
+      this.LoadTotalByCategory("InProcess");
+      this.LoadTotalByDistributionPoint("InProcess");
+      this.LoadTotalByAll("InProcess");
     }
+    else {
+      this.LoadTotalByCategory("Paid");
+      this.LoadTotalByDistributionPoint("Paid");
+      this.LoadTotalByAll("Paid");
+    }
+    this.LoadSuppliers();
+    this.SetCurrentUser();
+    
+    this.formSupplier = this.formBuilder.group({
+      supplier: ["", Validators.required,]
+    })
   }
+
+  get supplier() { return this.formSupplier.get('supplier'); }
 
   GoBack() {
     this.router.navigate([this.returnUrl]);
-  }
+  } 
 
-  Continue() {
+  SubmitSupplierOrder() {
     this.canContinue = true;
-
-    this.supplierOrderService.createSupplierOrder(this.currentUser.id, '0de52078-06c1-44d4-8a74-170e01aca1aa').subscribe(idSupplierOrder => {
+    this.supplierOrderService.createSupplierOrder(this.currentUser.id, this.formSupplier.get('supplier').value).subscribe(idSupplierOrder => {
       this.customerOrderService.setOrdersInProgressInProcess(idSupplierOrder).subscribe(c => {
         this.treeService.resetTreeMaximumQuantity().subscribe();
         this.router.navigate(['/orders-summary'], { queryParams: { orderInProcess: true, canContinue: true } });
       });
     });
-
   }
 
   Quit() {
@@ -65,8 +81,8 @@ export class OrdersSummaryComponent implements OnInit {
     });
   }
 
-  loadTotalByCategory(): any {
-    this.customerOrderService.getTotalByCategory().subscribe(
+  private LoadTotalByCategory(state: string): any {
+    this.customerOrderService.getTotalByCategory(state).subscribe(
       total => {
         this.totalByCategory = total;
         if (total[0])
@@ -74,8 +90,8 @@ export class OrdersSummaryComponent implements OnInit {
       });
   }
 
-  loadTotalByDistributionPoint(): any {
-    this.customerOrderService.getTotalByDistributionPoint().subscribe(
+  private LoadTotalByDistributionPoint(state: string): any {
+    this.customerOrderService.getTotalByDistributionPoint(state).subscribe(
       total => {
         this.totalByDistributionPoint = total;
         if (total[0])
@@ -83,12 +99,26 @@ export class OrdersSummaryComponent implements OnInit {
       });
   }
 
-  loadTotalByAll(): any {
-    this.customerOrderService.getTotalByAll().subscribe(
+  private LoadTotalByAll(state: string): any {
+    this.customerOrderService.getTotalByAll(state).subscribe(
       total => {
         this.totalByAll = total;
         if (total)
           this.hasValues = true;
       });
+  }
+
+  private LoadSuppliers(): any {
+    this.supplierService.getSuppliers().subscribe(
+      suppliers => {
+        this.suppliers = suppliers;
+      });
+  }
+
+  private SetCurrentUser(){
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (this.currentUser) {
+      this.currentUser = decodeToken(this.currentUser);
+    }
   }
 }

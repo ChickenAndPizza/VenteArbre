@@ -62,6 +62,7 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="text-primary">
+                                    <th> </th>
                                     <th> Nom </th>
                                     <th> Zone </th>
                                     <th> Âge/Hauteur </th>
@@ -77,11 +78,8 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let tree of treeCategory.trees">
-                                        <td> <div style="text-align: center; font-weight: bold">{{tree.name}}</div>
-                                            <div style="text-align: center">
-                                                  <img class="treeImg" src="data:image/jpeg;base64,{{tree.image}}" />
-                                            </div>
-                                        </td>
+                                        <td> <img class="treeImg" src="data:image/jpeg;base64,{{tree.image}}" /> </td>
+                                        <td style="font-weight: bold"> {{tree.name}} </td>
                                         <td> {{tree.zone}} </td>
                                         <td> {{tree.ageHeight}} </td>
                                         <td> {{tree.price}}$ </td>

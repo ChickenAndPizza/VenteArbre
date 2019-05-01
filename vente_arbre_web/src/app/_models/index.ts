@@ -3,6 +3,7 @@ export * from './connection/connectionInfo';
 export * from './connection/connectionValidation';
 export * from './distributionPoint/distributionPoint';
 export * from './register/registerInfo';
+export * from './supplier/supplier';
 export * from './tree/tree';
 export * from './tree-category/tree-category';
 export * from './user/user';

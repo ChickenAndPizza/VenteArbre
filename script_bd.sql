@@ -76,7 +76,7 @@ CREATE TABLE supplier_order(
 
 CREATE TABLE customer_order(
         id               	  Varchar (36) NOT NULL ,
-        transaction_date 	  Date ,
+        transaction_date 	  Datetime ,
         state            	  TinyINT NOT NULL ,
         id_customer      	  Varchar (36) NOT NULL,
         id_distribution_point Varchar(36),

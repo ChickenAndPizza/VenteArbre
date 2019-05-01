@@ -59,30 +59,30 @@ namespace Web_API.Controllers
 
         [HttpGet]
         [Route("GetOrders")]
-        public ActionResult GetOrders(Order order)
+        public ActionResult GetOrders(Order state)
         {
-            return Ok(Service.GetOrders(order));
+            return Ok(Service.GetOrders(state));
         }
 
         [HttpGet]
         [Route("GetTotalByCategory")]
-        public ActionResult GetTotalByCategory()
+        public ActionResult GetTotalByCategory(Order state)
         {
-            return Ok(Service.GetTotalByCategory());
+            return Ok(Service.GetTotalByCategory(state));
         }
 
         [HttpGet]
         [Route("GetTotalByDistributionPoint")]
-        public ActionResult GetTotalByDistributionPoint()
+        public ActionResult GetTotalByDistributionPoint(Order state)
         {
-            return Ok(Service.GetTotalByDistributionPoint());
+            return Ok(Service.GetTotalByDistributionPoint(state));
         }
 
         [HttpGet]
         [Route("GetTotalByAll")]
-        public ActionResult GetTotalByAll()
+        public ActionResult GetTotalByAll(Order state)
         {
-            return Ok(Service.GetTotalByAll());
+            return Ok(Service.GetTotalByAll(state));
         }
 
         [HttpGet]
@@ -118,6 +118,27 @@ namespace Web_API.Controllers
         public ActionResult GetTotalOrdersForCustomer(Guid customerId)
         {
             return Ok(Service.GetTotalOrdersForCustomer(customerId));
+        }
+
+        [HttpGet]
+        [Route("CancelProcessOfOrders")]
+        public ActionResult CancelProcessOfOrders()
+        {
+            return Ok(Service.CancelProcessOfOrders());
+        }
+
+        [HttpGet]
+        [Route("GetPreviousCustomerOrders")]
+        public ActionResult GetPreviousCustomerOrders(Guid customerId)
+        {
+            return Ok(Service.GetPreviousCustomerOrders(customerId));
+        }
+
+        [HttpGet]
+        [Route("GetCustomerOrder")]
+        public ActionResult<CustomerOrder> GetCustomerOrder(Guid customerOrderId)
+        {
+            return Service.GetCustomerOrder(customerOrderId);
         }
     }
 }

@@ -3,6 +3,36 @@
 
     <p *ngIf="!hasOrders" class="text-danger">Il n'y a aucune commande en attente de traitement!</p>
 
+    <div class="row" *ngIf="hasOrdersInProcess">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-warning">
+            <h3 class="card-title">Poursuivre le traitement</h3>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-12">
+                  Des commandes en cours de traitement ont précédemment été laissées dans le système.
+                  Voulez-vous poursuivre le traitement de ces commandes?
+                </div>
+              </div>
+              <div class="row" style="margin-top:30px;">
+                <div class="col-md-6">
+                  <button mat-raised-button type="button" (click)="EndProcessing()"
+                    class="btn btn-danger pull-left">Annuler le traitement</button>
+                </div>
+                <div class="col-md-6">
+                  <button mat-raised-button type="button" (click)="ContinueProcessing()"
+                    class="btn btn-green pull-right">Poursuivre le traitement</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row" *ngIf="hasOrders">
       <div class="col-md-5">
         <div class="card card-stats">
@@ -23,7 +53,7 @@
 
       <div class="col-md-2"></div>
 
-      <div class="col-md-5">
+      <div class="col-md-5" *ngIf="!hasOrdersInProcess">
         <div class="card card-stats">
           <div class="card-header card-header-green card-header-icon">
             <div class="card-icon">
@@ -68,7 +98,8 @@
                       Total: {{order.total}}$
                     </div>
                   </thead>
-                  <div class="col-md-12" *ngFor="let orderDetail of order.orderDetails" style="display:flex; align-items:right; margin-bottom:-10px;">
+                  <div class="col-md-12" *ngFor="let orderDetail of order.orderDetails"
+                    style="display:flex; align-items:right; margin-bottom:-10px;">
                     <div class="col-md-7">
                     </div>
                     <div class="col-md-3" style="display:flex;">

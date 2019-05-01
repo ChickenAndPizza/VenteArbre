@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2 mat-dialog-title>Ajouter un administrateur</h2>
+  </div>
+</div>
+<div>
+  <form [formGroup]="form" (ngSubmit)="submit(form)">
+    <div class="col-md-12">
+      <p>Veuillez rechercher un courriel...</p>
+      <mat-dialog-content>
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName="email"  class="example-full-width">
+        </mat-form-field>
+        <small class="text-danger">
+          <div *ngIf="!email.errors?.emailExists">L'email n'existe pas</div>
+        </small>
+      </mat-dialog-content>
+    </div>
+
+    <mat-dialog-actions>
+      <div class="row" style="padding-top: 15px;">
+        <div class="col-md-12">
+          <button [disabled]="form.valid" mat-raised-button type="submit"
+            class="btn btn-green pull-right">Ajouter</button>
+          <button mat-raised-button mat-dialog-close class="btn btn-green pull-right">Annuler</button>
+        </div>
+      </div>
+    </mat-dialog-actions>
+  </form>
+</div>

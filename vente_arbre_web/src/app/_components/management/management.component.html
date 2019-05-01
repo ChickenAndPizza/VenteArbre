@@ -1,0 +1,83 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-green">
+            <h3 class="card-title">Administrateurs</h3>
+          </div>
+
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th> Nom Complet </th>
+                  <th> Téléphone </th>
+                  <th style="text-align: right">
+                    <a>
+                      <i (click)="AddAdministrator()" class="material-icons subIcon">add_circle</i>
+                    </a>
+                  </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let admin of administrators">
+                    <td> {{admin.firstName}} &nbsp; {{admin.lastName}}</td>
+                    <td> {{admin.phoneNumber}} </td>
+                    <td style="text-align: right">
+                      <a>
+                        <i (click)="DeleteAdministrator(admin.id);" class="material-icons subIcon">delete</i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-green">
+            <h3 class="card-title">Fournisseurs</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th> Nom </th>
+                  <th> Courriel </th>
+                  <th> Téléphone </th>
+                  <th style="text-align: right">
+                    <a>
+                      <i (click)="AddSupplier()" class="material-icons subIcon">add_circle</i>
+                    </a>
+                  </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let supplier of suppliers">
+                    <td> {{supplier.name}} </td>
+                    <td> {{supplier.email}} </td>
+                    <td> {{supplier.phoneNumber}} </td>
+                    <td style="text-align: right">
+                      <a>
+                        <i (click)="ModifySupplier(supplier)" class="material-icons subIcon">settings</i>
+                      </a>
+                      <a>
+                        <i (click)="DeleteSupplier(supplier.id);" class="material-icons subIcon">delete</i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

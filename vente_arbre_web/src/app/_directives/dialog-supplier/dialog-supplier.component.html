@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2 mat-dialog-title>Ajouter un fournisseur</h2>
+  </div>
+</div>
+
+<div>
+  <form [formGroup]="form" (ngSubmit)="submit(form)">
+    <div class="col-md-12">
+      <mat-dialog-content>
+
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName="name" pattern="[a-zA-Z-'. ëéèàçï]{1,}" placeholder="Nom du fournisseur"
+            class="example-full-width" minlength="3" maxlength="100">
+        </mat-form-field>
+        <small *ngIf="name.errors && name.invalid && name.touched" class="text-danger">
+          <div *ngIf="name.errors.pattern">Le nom ne doit contenir que des lettres et les symboles (',-,.)</div>
+          <div *ngIf="name.errors.required">Le nom est requis</div>
+          <div *ngIf="name.errors.minlength">La longueur minimale du nom est de 3 caractères
+          </div>
+        </small>
+
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+            placeholder="Courriel" class="example-full-width" maxlength="80">
+        </mat-form-field>
+        <small *ngIf="email.errors && email.invalid && email.touched" class="text-danger">
+          <div *ngIf="email.errors?.required">L'email est requis</div>
+          <div *ngIf="email.errors?.pattern">L'email n'est pas valide</div>
+        </small>
+
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName="phoneNumber" pattern="^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$"
+            placeholder="Numéro de téléphone" class="example-full-width" maxlength="14">
+        </mat-form-field>
+        <small *ngIf="phoneNumber.errors && phoneNumber.invalid && phoneNumber.touched" class="text-danger">
+          <div *ngIf="phoneNumber.errors?.required">Numéro de téléphone requis</div>
+          <div *ngIf="phoneNumber.errors?.pattern">Le format du numéro est invalide</div>
+        </small>
+
+      </mat-dialog-content>
+    </div>
+
+    <mat-dialog-actions>
+      <div class="row" style="padding-top: 15px;">
+        <div class="col-md-12">
+          <button [disabled]="!form.valid" mat-raised-button type="submit"
+            class="btn btn-green pull-right">Confirmer</button>
+          <button mat-raised-button mat-dialog-close class="btn btn-green pull-right">Annuler</button>
+        </div>
+      </div>
+    </mat-dialog-actions>
+
+  </form>
+</div>

@@ -21,12 +21,15 @@ export const ROUTES: RouteInfo[] = [
   { path: '/about-us', title: 'À propos', icon: 'chat', class: '', inSidebar: true, isAdmin: false },
   { path: '/connection', title: 'Connexion', icon: '', class: '', inSidebar: false, isAdmin: false },
   { path: '/cart', title: 'Panier', icon: '', class: '', inSidebar: false, isAdmin: false },
+  { path: '/order-customer-info', title: 'Détail de la commande', icon: '', class: '', inSidebar: false, isAdmin: false },
   { path: '/order-supplier-info', title: 'Détail de la commande au fournisseur', icon: '', class: '', inSidebar: false, isAdmin: false },
   { path: '/orders-in-progress', title: 'Commandes en cours', icon: 'shopping_cart', class: '', inSidebar: true, isAdmin: true },
   { path: '/orders-summary', title: 'Bilan des commandes', icon: 'shopping_cart', class: '', inSidebar: true, isAdmin: true },
   { path: '/orders-processed', title: 'Commandes traitées', icon: 'shopping_cart', class: '', inSidebar: true, isAdmin: true },
   { path: '/orders-shipped', title: 'Bilan de livraison', icon: '', class: '', inSidebar: false, isAdmin: false },
+  { path: '/previous-orders-customer', title: 'Commandes précédentes', icon: '', class: '', inSidebar: false, isAdmin: false },
   { path: '/previous-orders-supplier', title: 'Commandes précédentes au fournisseur', icon: '', class: '', inSidebar: false, isAdmin: false },
+  { path: '/management', title: 'Gestion', icon: 'settings', class: '', inSidebar: true, isAdmin: true },
 ];
 
 @Component({

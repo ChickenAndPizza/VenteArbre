@@ -1,201 +1,194 @@
 <div class="main-content">
-    <div class="container-fluid">
+  <div class="container-fluid">
 
-        <!-- Entête création -->
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header card-header-tabs card-header-green">
-                        <h4 class="card-title">Vous voulez passer une commande?</h4>
-                        <p class="card-category">Créez votre compte afin de pouvoir remplir votre panier, ou
-                            connectez-vous!</p>
-                        <div *ngIf="isMobileMenu()" align="center" style="padding-top:15px;">
-                            <div class="nav-tabs-navigation">
-                                <div class="nav-tabs-wrapper">
-                                    <ul class="nav nav-tabs" data-tabs="tabs">
-                                        <li class="nav-item" (click)="ShowCreate()">
-                                            <a mat-button class="nav-link active" data-toggle="tab">
-                                                Créer un compte
-                                                <div class="ripple-container"></div>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" style="margin-left:10px;" (click)="ShowConnection()">
-                                            <a mat-button class="nav-link" data-toggle="tab">
-                                                Se connecter
-                                                <div class="ripple-container"></div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <div id="createaccount">
-                            <form [formGroup]="register" (ngSubmit)="onRegister()">
-                                <h5 class="card-title">Vous voulez créer un compte?</h5>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <mat-form-field class="example-full-width">
-                                            <input matInput pattern="[a-zA-Z-'. ëéèàçï]{2,}"
-                                                placeholder="Prénom" name="firstName" formControlName="firstName"
-                                                minlength="3" maxlength="30"
-                                                [class.is-invalid]="firstName.invalid && firstName.touched">
-                                        </mat-form-field>
-                                        <small *ngIf="firstName.errors && firstName.invalid && firstName.touched"
-                                            class="text-danger">
-                                            <div *ngIf="firstName.errors.pattern">Le prénom doit seulement contenir des
-                                                lettres et les symboles (',-,.)</div>
-                                            <div *ngIf="firstName.errors.required">Le prénom est requis</div>
-                                            <div *ngIf="firstName.errors.minlength">La longueur minimale est de 3
-                                                caractères
-                                            </div>
-                                        </small>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <mat-form-field class="example-full-width">
-                                            <input matInput pattern="[a-zA-Z-'. ëéèàçï]{3,}" placeholder="Nom"
-                                                name="lastName" formControlName="lastName" maxlength="30" minlength="3"
-                                                [class.is-invalid]="lastName.invalid && lastName.touched">
-                                        </mat-form-field>
-                                        <small *ngIf="lastName.errors && lastName.invalid && lastName.touched"
-                                            class="text-danger">
-                                            <div *ngIf="lastName.errors.pattern">Le prénom doit seulement contenir des
-                                                lettres et les symboles (',-,.)</div>
-                                            <div *ngIf="lastName.errors.required">Le prénom est requis</div>
-                                            <div *ngIf="lastName.errors.minlength">La longueur minimale est de 3
-                                                caractères
-                                            </div>
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <mat-form-field class="example-full-width">
-                                            <input matInput placeholder="Numéro de téléphone" name="phoneNumber"
-                                                formControlName="phoneNumber" maxlength="14"
-                                                [class.is-invalid]="phoneNumber.invalid && phoneNumber.touched"
-                                                pattern="^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$">
-                                        </mat-form-field>
-                                        <small *ngIf="phoneNumber.errors && phoneNumber.invalid && phoneNumber.touched"
-                                            class="text-danger">
-                                            <div *ngIf="phoneNumber.errors?.required">Numéro de téléphone requis</div>
-                                            <div *ngIf="phoneNumber.errors?.pattern">Le format du numéro est invalide
-                                            </div>
-                                        </small>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <mat-form-field class="example-full-width">
-                                            <input maxlength="80" [class.is-invalid]="email.invalid && email.touched"
-                                                name="email" matInput placeholder="Adresse couriel"
-                                                formControlName="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-                                        </mat-form-field>
-                                        <small *ngIf="email.errors && email.invalid && email.touched"
-                                            class="text-danger">
-                                            <div *ngIf="email.errors?.required">L'email est requis</div>
-                                            <div *ngIf="email.errors?.pattern">L'email n'est pas valide</div>
-                                            <div *ngIf="email.errors?.emailExists">L'email est déjà utilisé</div>
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <mat-form-field class="example-full-width">
-                                            <input minlength="6" maxlength="30" matInput placeholder="Mot de passe"
-                                                type="password" name="password" formControlName="password"
-                                                [class.is-invalid]="password.invalid && password.touched">
-                                        </mat-form-field>
-                                        <small *ngIf="password.errors && password.invalid && password.touched"
-                                            class="text-danger">
-                                            <div *ngIf="password.errors.required"> Le mot de passe est requis</div>
-                                            <div *ngIf="password.errors.minlength"> Le mot de passe doit contenir entre
-                                                6 et
-                                                30 caractères</div>
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="height:25px;"></div>
-                                </div>
-                                <button [disabled]='!register.valid' mat-raised-button type="submit"
-                                    class="btn btn-green pull-right">Créer un compte</button>
-                                <div class="clearfix"></div>
-                            </form>
-                        </div>
-
-                        <div id="connection">
-                            <form [formGroup]="connection" (ngSubmit)="onConnection()">
-                                <h5 class="card-title">Vous êtes déjà inscrit?</h5>
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input maxlength="80" type="email" formControlName="email" name="email"
-                                                [class.is-invalid]="emailConnection.invalid && emailConnection.touched" matInput
-                                                placeholder="Adresse courriel">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <mat-form-field class="example-full-width">
-                                            <input minlength="6" maxlength="30" type="password" formControlName="password" name="password"
-                                                [class.is-invalid]="passwordConnection.invalid && passwordConnection.touched" matInput
-                                                placeholder="Mot de passe">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <button mat-raised-button type="submit" class="btn btn-green pull-right"
-                                    [disabled]="!connection.valid">Se connecter</button>
-                            </form>
-                        </div>
-                    </div>
+    <!-- Entête création -->
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-green">
+            <h4 class="card-title">Vous voulez passer une commande?</h4>
+            <p class="card-category">Créez votre compte afin de pouvoir remplir votre panier, ou
+              connectez-vous!</p>
+            <div *ngIf="isMobileMenu()" align="center" style="padding-top:15px;">
+              <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                  <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item" (click)="ShowCreate()">
+                      <a mat-button class="nav-link active" data-toggle="tab">
+                        Créer un compte
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                    <li class="nav-item" style="margin-left:10px;" (click)="ShowConnection()">
+                      <a mat-button class="nav-link" data-toggle="tab">
+                        Se connecter
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div id="createaccount">
+              <form [formGroup]="register" (ngSubmit)="onRegister()">
+                <h5 class="card-title">Vous voulez créer un compte?</h5>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput pattern="[a-zA-Z-'. ëéèàçï]{2,}" placeholder="Prénom" name="firstName"
+                        formControlName="firstName" minlength="3" maxlength="30"
+                        [class.is-invalid]="firstName.invalid && firstName.touched">
+                    </mat-form-field>
+                    <small *ngIf="firstName.errors && firstName.invalid && firstName.touched" class="text-danger">
+                      <div *ngIf="firstName.errors.pattern">Le prénom ne doit contenir que des lettres et les symboles
+                        (',-,.)</div>
+                      <div *ngIf="firstName.errors.required">Le prénom est requis</div>
+                      <div *ngIf="firstName.errors.minlength">La longueur minimale du prénom est de 3 caractères
+                      </div>
+                    </small>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput pattern="[a-zA-Z-'. ëéèàçï]{3,}" placeholder="Nom" name="lastName"
+                        formControlName="lastName" maxlength="30" minlength="3"
+                        [class.is-invalid]="lastName.invalid && lastName.touched">
+                    </mat-form-field>
+                    <small *ngIf="lastName.errors && lastName.invalid && lastName.touched" class="text-danger">
+                      <div *ngIf="lastName.errors.pattern">Le prénom doit seulement contenir des
+                        lettres et les symboles (',-,.)</div>
+                      <div *ngIf="lastName.errors.required">Le prénom est requis</div>
+                      <div *ngIf="lastName.errors.minlength">La longueur minimale est de 3
+                        caractères
+                      </div>
+                    </small>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Numéro de téléphone" name="phoneNumber" formControlName="phoneNumber"
+                        maxlength="14" [class.is-invalid]="phoneNumber.invalid && phoneNumber.touched"
+                        pattern="^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$">
+                    </mat-form-field>
+                    <small *ngIf="phoneNumber.errors && phoneNumber.invalid && phoneNumber.touched" class="text-danger">
+                      <div *ngIf="phoneNumber.errors?.required">Numéro de téléphone requis</div>
+                      <div *ngIf="phoneNumber.errors?.pattern">Le format du numéro est invalide
+                      </div>
+                    </small>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input maxlength="80" [class.is-invalid]="email.invalid && email.touched" name="email" matInput
+                        placeholder="Adresse couriel" formControlName="email"
+                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                    </mat-form-field>
+                    <small *ngIf="email.errors && email.invalid && email.touched" class="text-danger">
+                      <div *ngIf="email.errors?.required">L'email est requis</div>
+                      <div *ngIf="email.errors?.pattern">L'email n'est pas valide</div>
+                      <div *ngIf="email.errors?.emailExists">L'email est déjà utilisé</div>
+                    </small>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input minlength="6" maxlength="30" matInput placeholder="Mot de passe" type="password"
+                        name="password" formControlName="password"
+                        [class.is-invalid]="password.invalid && password.touched">
+                    </mat-form-field>
+                    <small *ngIf="password.errors && password.invalid && password.touched" class="text-danger">
+                      <div *ngIf="password.errors.required"> Le mot de passe est requis</div>
+                      <div *ngIf="password.errors.minlength"> Le mot de passe doit contenir entre
+                        6 et
+                        30 caractères</div>
+                    </small>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12" style="height:25px;"></div>
+                </div>
+                <button [disabled]='!register.valid' mat-raised-button type="submit"
+                  class="btn btn-green pull-right">Créer un compte</button>
+                <div class="clearfix"></div>
+              </form>
             </div>
 
-            <!-- Entête connexion -->
-            <div class="col-md-4">
-                <div class="card card-profile">
-                    <div class="card-avatar">
-                        <img class="img" src="./assets/img/environment/apple_1.jpg" />
-                    </div>
-
-                    <div class="card-body">
-                        <h4 class="card-title">Des questions?</h4>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label (click)="SetShipping()" style="cursor:pointer;text-decoration:underline">Lieux de livraison</label>
-                                <div id="shipping" class="example-full-width" style="display:none" disabled>
-                                    Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal.
-                                    Pour plus d'informations concernant la livraison, veuillez consulter les
-                                    points de distribution,
-                                    ou prendre contact avec nous à l'adresse cre_cba@hotmail.com
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label (click)="SetWhyCreate()"
-                                    style="cursor:pointer;text-decoration: underline">Pourquoi devrais-je créer
-                                    un
-                                    compte?</label>
-                                <div id="whycreate" class="example-full-width" style="display:none" disabled>
-                                    Pour pouvoir passer une commande, vous devez créer un compte. Lorsque vous
-                                    effectuez une commande,
-                                    nous avons besoin de vos informations pour vous avertir de l'état de votre
-                                    commande, si nécessaire,
-                                    ainsi que de l'arrivée de vos produits.
-                                    De plus, nous souhaitons vérifier l'authenticité des utilisateurs utilisants
-                                    nos
-                                    services.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div id="connection">
+              <form [formGroup]="connection" (ngSubmit)="onConnection()">
+                <h5 class="card-title">Vous êtes déjà inscrit?</h5>
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <mat-form-field class="example-full-width">
+                      <input maxlength="80" type="email" formControlName="email" name="email"
+                        [class.is-invalid]="emailConnection.invalid && emailConnection.touched" matInput
+                        placeholder="Adresse courriel">
+                    </mat-form-field>
+                  </div>
                 </div>
-
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <mat-form-field class="example-full-width">
+                      <input minlength="6" maxlength="30" type="password" formControlName="password" name="password"
+                        [class.is-invalid]="passwordConnection.invalid && passwordConnection.touched" matInput
+                        placeholder="Mot de passe">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <button mat-raised-button type="submit" class="btn btn-green pull-right"
+                  [disabled]="!connection.valid">Se connecter</button>
+              </form>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Entête connexion -->
+      <div class="col-md-4">
+        <div class="card card-profile">
+          <div class="card-avatar">
+            <img class="img" src="./assets/img/environment/apple_1.jpg" />
+          </div>
+
+          <div class="card-body">
+            <h4 class="card-title">Des questions?</h4>
+            <div class="row">
+              <div class="col-md-12">
+                <label (click)="SetShipping()" style="cursor:pointer;text-decoration:underline">Lieux de
+                  livraison</label>
+                <div id="shipping" class="example-full-width" style="display:none" disabled>
+                  Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal.
+                  Pour plus d'informations concernant la livraison, veuillez consulter les
+                  points de distribution,
+                  ou prendre contact avec nous à l'adresse cre_cba@hotmail.com
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label (click)="SetWhyCreate()" style="cursor:pointer;text-decoration: underline">Pourquoi devrais-je
+                  créer
+                  un
+                  compte?</label>
+                <div id="whycreate" class="example-full-width" style="display:none" disabled>
+                  Pour pouvoir passer une commande, vous devez créer un compte. Lorsque vous
+                  effectuez une commande,
+                  nous avons besoin de vos informations pour vous avertir de l'état de votre
+                  commande, si nécessaire,
+                  ainsi que de l'arrivée de vos produits.
+                  De plus, nous souhaitons vérifier l'authenticité des utilisateurs utilisants
+                  nos
+                  services.
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
+      </div>
     </div>
+
+  </div>
 </div>
