@@ -3,6 +3,7 @@ import { UserService, CustomerService, AuthenticationService, CustomerOrderServi
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup, Validators,  } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { existingEmailValidator, checkPasswords } from 'app/_shared';
@@ -34,7 +35,8 @@ export class UserProfileComponent implements OnInit {
         private customerService: CustomerService,
         private dialog: MatDialog,
         private authenticationService: AuthenticationService,
-        private customerOrderService: CustomerOrderService
+        private customerOrderService: CustomerOrderService,
+        private router: Router,
     ) { }
 
     ngOnInit() {
@@ -152,4 +154,8 @@ export class UserProfileComponent implements OnInit {
             }
           );
     }
+
+    public OpenPreviousOrders() {
+        this.router.navigate(['/previous-orders-customer']);
+      }
 }

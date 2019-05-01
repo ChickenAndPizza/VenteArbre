@@ -27,12 +27,12 @@ export class PreviousOrdersCustomerComponent implements OnInit {
     }
   }
 
-  OpenSupplierOrderSummary(id: string){
-    this.router.navigate(['/order-supplier-info'], { queryParams: { id: id }});
+  OpenCustomerOrderSummary(customerOrderId: string){
+    this.router.navigate(['/order-customer-info'], { queryParams: { customerOrderId: customerOrderId }});
   }
 
-  LoadOrdersCustomer(id: string) {
-    this.customerOrderService.getPreviousCustomerOrders(id).subscribe(
+  LoadOrdersCustomer(customerId: string) {
+    this.customerOrderService.getPreviousCustomerOrders(customerId).subscribe(
       orders => {
         this.customerOrders = orders;
 

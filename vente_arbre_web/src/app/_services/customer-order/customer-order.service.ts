@@ -50,23 +50,23 @@ export class CustomerOrderService extends MainService {
     return this.http.get<any>(url);
   }
 
-  getOrders(order: string): Observable<any[]> {
-    const url = this.apiUrl.toString() + "CustomerOrder/GetOrders?order=" + order;
+  getOrders(state: string): Observable<any[]> {
+    const url = this.apiUrl.toString() + "CustomerOrder/GetOrders?order=" + state;
     return this.http.get<any[]>(url);
   }
 
-  getTotalByCategory(): Observable<any[]> {
-    const url = this.apiUrl.toString() + "CustomerOrder/GetTotalByCategory";
+  getTotalByCategory(state: string): Observable<any[]> {
+    const url = this.apiUrl.toString() + "CustomerOrder/GetTotalByCategory?state=" + state;
     return this.http.get<any[]>(url);
   }
 
-  getTotalByDistributionPoint(): Observable<any[]> {
-    const url = this.apiUrl.toString() + "CustomerOrder/GetTotalByDistributionPoint";
+  getTotalByDistributionPoint(state: string): Observable<any[]> {
+    const url = this.apiUrl.toString() + "CustomerOrder/GetTotalByDistributionPoint?state=" + state;
     return this.http.get<any[]>(url);
   }
 
-  getTotalByAll(): Observable<any> {
-    const url = this.apiUrl.toString() + "CustomerOrder/GetTotalByAll";
+  getTotalByAll(state: string): Observable<any> {
+    const url = this.apiUrl.toString() + "CustomerOrder/GetTotalByAll?state=" + state;
     return this.http.get<any>(url);
   }
 
@@ -101,9 +101,14 @@ export class CustomerOrderService extends MainService {
     return this.http.get<any>(url);
   }
 
-  getPreviousCustomerOrders(id: string):Observable<any[]> {
-    const url = this.apiUrl.toString() + "CustomerOrder/GetPreviousCustomerOrders";
-      return this.http.get<any[]>(url);
-}
+  getPreviousCustomerOrders(customerId: string): Observable<any[]> {
+    const url = this.apiUrl.toString() + "CustomerOrder/GetPreviousCustomerOrders?customerId=" + customerId;
+    return this.http.get<any[]>(url);
+  }
+
+  getCustomerOrder(customerOrderId: string): Observable<any> {
+    const url = this.apiUrl.toString() + "CustomerOrder/GetCustomerOrder?customerOrderId=" + customerOrderId;
+    return this.http.get<any>(url);
+  }
 
 }

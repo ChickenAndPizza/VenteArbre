@@ -41,16 +41,19 @@ export class OrdersSummaryComponent implements OnInit {
     this.isOrderInProcess = this.route.snapshot.queryParams['orderInProcess'] || false;
     this.canContinue = this.route.snapshot.queryParams['canContinue'] || false;
 
-    this.loadTotalByCategory();
-    this.loadTotalByDistributionPoint();
-    this.loadTotalByAll();
-    this.LoadSuppliers();
-
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (this.currentUser) {
-      this.currentUser = decodeToken(this.currentUser);
+    if(this.canContinue) { //commandes avec un status de "en cours"
+      this.LoadTotalByCategory("InProcess");
+      this.LoadTotalByDistributionPoint("InProcess");
+      this.LoadTotalByAll("InProcess");
     }
-
+    else { //commandes avec un status de "payé"
+      this.LoadTotalByCategory("Paid");
+      this.LoadTotalByDistributionPoint("Paid");
+      this.LoadTotalByAll("Paid");
+    }
+    this.LoadSuppliers();
+    this.SetCurrentUser();
+    
     this.formSupplier = this.formBuilder.group({
       supplier: ["", Validators.required,]
     })
@@ -78,8 +81,8 @@ export class OrdersSummaryComponent implements OnInit {
     });
   }
 
-  private loadTotalByCategory(): any {
-    this.customerOrderService.getTotalByCategory().subscribe(
+  private LoadTotalByCategory(state: string): any {
+    this.customerOrderService.getTotalByCategory(state).subscribe(
       total => {
         this.totalByCategory = total;
         if (total[0])
@@ -87,8 +90,8 @@ export class OrdersSummaryComponent implements OnInit {
       });
   }
 
-  private loadTotalByDistributionPoint(): any {
-    this.customerOrderService.getTotalByDistributionPoint().subscribe(
+  private LoadTotalByDistributionPoint(state: string): any {
+    this.customerOrderService.getTotalByDistributionPoint(state).subscribe(
       total => {
         this.totalByDistributionPoint = total;
         if (total[0])
@@ -96,8 +99,8 @@ export class OrdersSummaryComponent implements OnInit {
       });
   }
 
-  private loadTotalByAll(): any {
-    this.customerOrderService.getTotalByAll().subscribe(
+  private LoadTotalByAll(state: string): any {
+    this.customerOrderService.getTotalByAll(state).subscribe(
       total => {
         this.totalByAll = total;
         if (total)
@@ -110,5 +113,12 @@ export class OrdersSummaryComponent implements OnInit {
       suppliers => {
         this.suppliers = suppliers;
       });
+  }
+
+  private SetCurrentUser(){
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (this.currentUser) {
+      this.currentUser = decodeToken(this.currentUser);
+    }
   }
 }

@@ -126,5 +126,19 @@ namespace Web_API.Controllers
         {
             return Ok(Service.CancelProcessOfOrders());
         }
+
+        [HttpGet]
+        [Route("GetPreviousCustomerOrders")]
+        public ActionResult GetPreviousCustomerOrders(Guid customerId)
+        {
+            return Ok(Service.GetPreviousCustomerOrders(customerId));
+        }
+
+        [HttpGet]
+        [Route("GetCustomerOrder")]
+        public ActionResult<CustomerOrder> GetCustomerOrder(Guid customerOrderId)
+        {
+            return Service.GetCustomerOrder(customerOrderId);
+        }
     }
 }

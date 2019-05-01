@@ -17,7 +17,6 @@ import { AlertService, AuthenticationService, UserService, CustomerService, Cust
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ComponentsModule } from './_components/navigation';
 import { AuthGuard } from './_guards';
-import { PreviousOrdersCustomerComponent } from './_components/previous-orders-customer/previous-orders-customer.component';
 
 @NgModule({
   imports: [
@@ -48,7 +47,6 @@ import { PreviousOrdersCustomerComponent } from './_components/previous-orders-c
     DialogEntryComponent,
     DialogDistributionPointComponent,
     DialogSupplierComponent,
-    PreviousOrdersCustomerComponent,
   ],
   providers: [
     AuthGuard,

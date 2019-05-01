@@ -341,6 +341,77 @@ namespace Web_API.Services
             return "Ok";
         }
 
+        public List<CustomerOrder> GetPreviousCustomerOrders(Guid customerId)
+        {
+            var query = Context.CustomerOrders
+                 .AsNoTracking()
+                 .Where(c => c.IsActive == true && c.IdCustomer == customerId && (int)c.State >= (int)Order.Paid)
+                 .Include(c => c.OrderDetails)
+                 .ThenInclude(c => c.Tree)
+                 .Select(c => new CustomerOrder
+                 {
+                     Id = c.Id,
+                     TransactionDate = c.TransactionDate,
+                     State = c.State,
+                     IdCustomer = c.IdCustomer,
+                     IdDistributionPoint = c.IdDistributionPoint,
+                     Customer = c.Customer,
+                     DistributionPoint = c.DistributionPoint,
+                     Total = c.Total,
+                     IsActive = c.IsActive,
+                     IdSupplierOrder = c.IdSupplierOrder,
+                     OrderDetails = c.OrderDetails
+                        .Where(x => x.IsActive)
+                        .Select(y => new CustomerOrderDetail
+                        {
+                            Id = y.Id,
+                            Quantity = y.Quantity,
+                            Price = y.Price,
+                            IdTree = y.IdTree,
+                            IdCustomerOrder = y.IdCustomerOrder,
+                            Tree = y.Tree,
+                            Order = y.Order,
+                        }).ToList(),
+                 }).ToList();
+
+            return query;
+        }
+
+        public CustomerOrder GetCustomerOrder(Guid customerOrderId)
+        {
+            var query = Context.CustomerOrders
+                 .Include(c => c.OrderDetails)
+                 .ThenInclude(c => c.Tree)
+                 .Select(c => new CustomerOrder
+                 {
+                     Id = c.Id,
+                     TransactionDate = c.TransactionDate,
+                     State = c.State,
+                     IdCustomer = c.IdCustomer,
+                     IdDistributionPoint = c.IdDistributionPoint,
+                     Customer = c.Customer,
+                     DistributionPoint = c.DistributionPoint,
+                     Total = c.Total,
+                     IsActive = c.IsActive,
+                     IdSupplierOrder = c.IdSupplierOrder,
+                     OrderDetails = c.OrderDetails
+                        .Where(x => x.IsActive)
+                        .Select(y => new CustomerOrderDetail
+                        {
+                            Id = y.Id,
+                            Quantity = y.Quantity,
+                            Price = y.Price,
+                            IdTree = y.IdTree,
+                            IdCustomerOrder = y.IdCustomerOrder,
+                            Tree = y.Tree,
+                            Order = y.Order,
+                        }).ToList(),
+                 })
+                 .FirstOrDefault(c => c.IsActive == true && c.Id == customerOrderId);
+
+            return query;
+        }
+
         public List<DistributionPoint> GetDistributionPoints()
         {
             return Context.DistributionPoints.AsNoTracking().Where(c => c.IsActive).Select(c => new DistributionPoint
