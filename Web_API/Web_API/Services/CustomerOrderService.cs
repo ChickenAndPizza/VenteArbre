@@ -372,7 +372,9 @@ namespace Web_API.Services
                             Tree = y.Tree,
                             Order = y.Order,
                         }).ToList(),
-                 }).ToList();
+                 })
+                 .OrderByDescending(c => c.TransactionDate)
+                 .ToList();
 
             return query;
         }

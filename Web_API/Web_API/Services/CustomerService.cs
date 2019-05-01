@@ -47,6 +47,11 @@ namespace Web_API.Services
             return "Ok";
         }
 
+        private string Unauthorized(object p)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<TempCustomer> GetAdministrators()
         {
             List<Customer> customers = Context.Customers.Where(c => c.IsActive && c.IsAdmin).ToList();

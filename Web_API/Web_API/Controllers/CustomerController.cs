@@ -51,9 +51,18 @@ namespace Web_API.Controllers
 
         [HttpGet]
         [Route("DeleteAdministrator")]
-        public ActionResult<string> DeleteAdministrator(Guid id)
+        public ActionResult DeleteAdministrator(Guid id)
         {
-            return Service.DeleteAdministrator(id);
+            if (id != Guid.Parse("6d8edaeb-215a-4bb0-83e5-22769270b8c3"))
+            {
+                return Ok(Service.DeleteAdministrator(id));
+            }
+            else
+            {
+                return Unauthorized(new { message = "Vous ne pouvez pas supprimer cet administrateur" });
+            }
+
+            
         }
 
         [HttpGet]

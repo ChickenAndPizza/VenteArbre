@@ -1,10 +1,11 @@
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
-import { filter } from 'rxjs/operators';
+import { filter, first } from 'rxjs/operators';
 
 import { DialogComponent, DialogAdministratorComponent, DialogSupplierComponent } from 'app/_directives';
-import { CustomerService, SupplierService } from 'app/_services';
+import { CustomerService, SupplierService, AlertService } from 'app/_services';
 import { Supplier } from 'app/_models/supplier/supplier';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-management',
@@ -24,6 +25,7 @@ export class ManagementComponent implements OnInit {
     private customerService: CustomerService,
     private supplierService: SupplierService,
     private dialog: MatDialog,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit() {
@@ -76,9 +78,23 @@ export class ManagementComponent implements OnInit {
     this.dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     this.dialogRef.afterClosed().subscribe(result => {
         if (result) {
-            this.customerService.deleteAdmin(id).subscribe(c => {
+
+          this.customerService.deleteAdmin(id)
+          .pipe(first())
+          .subscribe(
+            data => {
               this.LoadAdministrators();
+            },
+            error => {
+              this.alertService.error(error);
             });
+
+
+
+
+            /*this.customerService.deleteAdmin(id).subscribe(c => {
+              this.LoadAdministrators();
+            });*/
         }
     });
   }

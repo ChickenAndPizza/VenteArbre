@@ -24,8 +24,8 @@ export class PreviousOrdersSupplierComponent implements OnInit {
     this.LoadOrdersProcessed();
   }
 
-  OpenSupplierOrderSummary(id: string){
-    this.router.navigate(['/order-supplier-info'], { queryParams: { id: id }});
+  OpenSupplierOrderSummary(id: string) {
+    this.router.navigate(['/order-supplier-info'], { queryParams: { id: id } });
   }
 
   LoadOrdersSupplier() {
@@ -35,8 +35,8 @@ export class PreviousOrdersSupplierComponent implements OnInit {
 
         if (orders[0])
           this.hasSupplierOrders = true;
-        
-        for (let cpt = 0; cpt < this.supplierOrders.length; cpt++){
+
+        for (let cpt = 0; cpt < this.supplierOrders.length; cpt++) {
           let date = this.supplierOrders[cpt].transactionDate.toString();
           let bindex = date.indexOf("T");
           let eindex = date.length;
