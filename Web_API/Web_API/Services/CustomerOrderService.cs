@@ -489,7 +489,9 @@ namespace Web_API.Services
                             Tree = y.Tree,
                             Order = y.Order,
                         }).ToList(),
-                }).ToList();
+                })
+                .OrderByDescending(c => c.TransactionDate)
+                .ToList();
 
             foreach (var distributionPointWithOrder in distributionPointsWithOrders)
             {
@@ -558,7 +560,9 @@ namespace Web_API.Services
                             Tree = y.Tree,
                             Order = y.Order,
                         }).ToList(),
-                }).ToList();
+                })
+                .OrderByDescending(c => c.TransactionDate)
+                .ToList();
 
             return customerOrdersList;
         }

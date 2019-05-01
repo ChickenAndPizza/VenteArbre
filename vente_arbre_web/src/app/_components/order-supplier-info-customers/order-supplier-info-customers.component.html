@@ -62,6 +62,9 @@
           <div class="table-responsive" style="overflow: unset">
             <table class="table">
               <div *ngFor="let order of distributionPoint.customerOrders" class="row OrderPrint">
+                <div class="col-md-12" style="display: flex; align-items: center;">
+                  <div class="text-primary col-md-3"> {{order.transactionDate.replace("T", " ")}} </div>
+                </div>
                 <thead class="col-md-12" style="display: flex; align-items: center;">
                   <div class="text-primary col-md-3" style="font-weight:bold">
                     {{order.customer.lastName}}, {{order.customer.firstName}}
