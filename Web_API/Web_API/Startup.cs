@@ -65,10 +65,6 @@ namespace Web_API
                 };
             });
 
-            var config = Configuration.GetSection("StripeKey");
-            var key = config.GetValue<string>("secretKey");
-            StripeConfiguration.SetApiKey(key);
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -84,7 +80,6 @@ namespace Web_API
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            var stripe = new StripeKey();
             app.UseAuthentication();
 
             app.UseHttpsRedirection();

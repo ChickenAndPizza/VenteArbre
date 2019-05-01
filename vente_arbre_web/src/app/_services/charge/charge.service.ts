@@ -1,6 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpRequest } from '@angular/common/http';
 import { MainService } from '../main/main.service';
 
 @Injectable({
@@ -13,14 +12,14 @@ export class ChargeService extends MainService {
   }
 
 
-  charge(stripeToken: any) {
+  charge(stripeToken: any, amount: number) {
     const url = this.apiUrl.toString() + "Charge";
-    return this.http.post(
-      url,
-      stripeToken,
-      {
-        headers: this.headers
-      }
-    );
+
+    const formData: FormData = new FormData();
+    formData.append('stripeToken', stripeToken.id);
+    formData.append('amount', amount.toString());
+    formData.append('email', stripeToken.email);
+    const upload = new HttpRequest('POST', url, formData);
+    return this.http.request(upload);
   }
 }
