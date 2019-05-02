@@ -58,6 +58,7 @@ import { AuthGuard } from './_guards';
     AuthenticationService,
     UserService,
     CustomerService,
+    CustomerOrderService,
     CustomerOrderDetailService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
