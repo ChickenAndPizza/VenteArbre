@@ -67,19 +67,18 @@ export class ManagementComponent implements OnInit {
       });
   }
 
-  public DeleteAdministrator(id: string){
+  public DeleteAdministrator(id: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
-        title: 'Voulez-vous vraiment supprimer cet administrateur?'
+      title: 'Voulez-vous vraiment supprimer cet administrateur?'
     };
     this.dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     this.dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-
-          this.customerService.deleteAdmin(id)
+      if (result) {
+        this.customerService.deleteAdmin(id)
           .pipe(first())
           .subscribe(
             data => {
@@ -88,14 +87,7 @@ export class ManagementComponent implements OnInit {
             error => {
               this.alertService.error(error);
             });
-
-
-
-
-            /*this.customerService.deleteAdmin(id).subscribe(c => {
-              this.LoadAdministrators();
-            });*/
-        }
+      }
     });
   }
 
@@ -105,7 +97,7 @@ export class ManagementComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "50vw";
-    dialogConfig.data = { };
+    dialogConfig.data = {};
     this.dialogSupplierRef = this.dialog.open(DialogSupplierComponent, dialogConfig);
     this.dialogSupplierRef.afterClosed()
       .pipe(c => c)
@@ -127,7 +119,7 @@ export class ManagementComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "50vw";
-    dialogConfig.data = { 
+    dialogConfig.data = {
       id: supplier.id,
       name: supplier.name,
       email: supplier.email,
@@ -147,7 +139,7 @@ export class ManagementComponent implements OnInit {
       });
   }
 
-  public DeleteSupplier(id: string){
+  public DeleteSupplier(id: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -167,4 +159,33 @@ export class ManagementComponent implements OnInit {
       }
     });
   }
+
+  public CopyCustomersToClipboard(state: string) {
+    this.customerService.copyCustomers(state).subscribe(emails => {
+
+
+      let selBox = document.createElement('textarea');
+      selBox.style.position = 'fixed';
+      selBox.style.left = '0';
+      selBox.style.top = '0';
+      selBox.style.opacity = '0';
+      selBox.value = emails;
+      document.body.appendChild(selBox);
+      selBox.focus();
+      selBox.select();
+      document.execCommand('copy');
+      document.body.removeChild(selBox);
+
+    });
+
+    /*document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (emails));
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
+  });*/
+
+  }
+
 }

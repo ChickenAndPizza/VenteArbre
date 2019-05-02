@@ -79,5 +79,40 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-green">
+            <h3 class="card-title">Usagers</h3>
+            <p class="card-category">Contactez rapidement vos clients au besoin</p>
+          </div>
+
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th> Commandes en cours </th>
+                  <th> Commandes traitées </th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td> 
+                      <button mat-raised-button type="button"
+                        (click)="CopyCustomersToClipboard('Paid')"
+                        class="btn btn-primary">Copier</button>
+                    </td>
+                    <td> <button mat-raised-button type="button"
+                      (click)="CopyCustomersToClipboard('Processed')"
+                      class="btn btn-primary">Copier</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

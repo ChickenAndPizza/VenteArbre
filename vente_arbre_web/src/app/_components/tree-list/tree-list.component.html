@@ -1,111 +1,109 @@
 <div class="main-content">
-    <div class="container-fluid">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-12" *ngIf="admin">
         <div class="row">
-
-            <div class="col-md-12" *ngIf="admin">
-                <div class="row">
-                    <div class="col-md-1">
-                        <a>
-                            <i (click)="ShowNewCategory()" class="material-icons mainIcon">add_circle</i>
-                        </a>
-                    </div>
-                    <div id="newCategory" class="col-md-11" style="display:none;">
-                        <form [formGroup]="newCategory" (ngSubmit)="AddNewCategory()">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nouvelle catégorie" name="newCategory"
-                                            formControlName="description" maxlength="80">
-                                    </mat-form-field>
-                                    <small *ngIf="description.errors && description.invalid && description.touched"
-                                        class="text-danger">
-                                        <div *ngIf="description.errors?.treeCategoryExists">La catégorie est déjà
-                                            existante</div>
-                                    </small>
-                                </div>
-
-                                <div class="col-md-3" style="text-align: left">
-                                    <button [disabled]="!newCategory.valid" type="submit" mat-icon-button>
-                                        <i class="material-icons addIcon">check</i>
-                                    </button>
-                                    <a>
-                                        <i (click)="HideNewCategory()" class="material-icons cancelIcon">close</i>
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+          <div class="col-md-1">
+            <a>
+              <i (click)="ShowNewCategory()" class="material-icons mainIcon">add_circle</i>
+            </a>
+          </div>
+          <div id="newCategory" class="col-md-11" style="display:none;">
+            <form [formGroup]="newCategory" (ngSubmit)="AddNewCategory()">
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Nouvelle catégorie" name="newCategory" formControlName="description"
+                      maxlength="80">
+                  </mat-form-field>
+                  <small *ngIf="description.errors && description.invalid && description.touched" class="text-danger">
+                    <div *ngIf="description.errors?.treeCategoryExists">La catégorie est déjà
+                      existante</div>
+                  </small>
                 </div>
-            </div>
 
-            <div class="col-md-12" *ngFor="let treeCategory of treeCategories">
-                <div class="card">
-                    <div class="card-header card-header-green">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <h3 class="card-title">{{ treeCategory.description }}</h3>
-                            </div>
-                            <div class="col-md-3" style="text-align: right" *ngIf="admin">
-                                <a>
-                                    <i (click)="ModifyCategoryDescription(treeCategory.id, treeCategory.description)"
-                                        class="material-icons mainIconWhite">settings</i>
-                                </a>
-                                <a>
-                                    <i (click)="DeleteCategoryValidation(treeCategory.id);"
-                                        class="material-icons mainIconWhite">delete</i>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="text-primary">
-                                    <th> </th>
-                                    <th> Nom </th>
-                                    <th> Zone </th>
-                                    <th> Âge/Hauteur </th>
-                                    <th> Prix </th>
-                                    <th style="text-align: center"> Quantité restante</th>
-                                    <th> </th>
-                                    <th *ngIf="admin" style="text-align: right">
-                                        <a>
-                                            <i (click)="AddTreeOfCategory(treeCategory.id, treeCategory.description)"
-                                                class="material-icons subIcon">add_circle</i>
-                                        </a>
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let tree of treeCategory.trees">
-                                        <td> <img class="treeImg" src="data:image/jpeg;base64,{{tree.image}}" /> </td>
-                                        <td style="font-weight: bold"> {{tree.name}} </td>
-                                        <td> {{tree.zone}} </td>
-                                        <td> {{tree.ageHeight}} </td>
-                                        <td> {{tree.price}}$ </td>
-                                        <td style="text-align: center"> {{tree.quantity}} </td>
-                                        <td>
-                                            <button mat-raised-button type="button"
-                                                (click)="ViewTree(treeCategory.id, treeCategory.description, tree.id)"
-                                                class="btn btn-primary pull-right">Consulter</button>
-                                        </td>
-                                        <td style="text-align: right" *ngIf="admin">
-                                            <a>
-                                                <i (click)="ModifyTreeOfCategory(treeCategory.id, treeCategory.description, tree.id)"
-                                                    class="material-icons subIcon">settings</i>
-                                            </a>
-                                            <a>
-                                                <i (click)="DeleteTreeValidation(tree.id);"
-                                                    class="material-icons subIcon">delete</i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="col-md-3" style="text-align: left">
+                  <button [disabled]="!newCategory.valid" type="submit" mat-icon-button>
+                    <i class="material-icons addIcon">check</i>
+                  </button>
+                  <a>
+                    <i (click)="HideNewCategory()" class="material-icons cancelIcon">close</i>
+                  </a>
                 </div>
-            </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
+
+      <div class="col-md-12" *ngFor="let treeCategory of treeCategories">
+        <div class="card">
+          <div class="card-header card-header-green">
+            <div class="row">
+              <div class="col-md-9">
+                <h3 class="card-title">{{ treeCategory.description }}</h3>
+              </div>
+              <div class="col-md-3" style="text-align: right" *ngIf="admin">
+                <a>
+                  <i (click)="ModifyCategoryDescription(treeCategory.id, treeCategory.description)"
+                    class="material-icons mainIconWhite">settings</i>
+                </a>
+                <a>
+                  <i (click)="DeleteCategoryValidation(treeCategory.id);"
+                    class="material-icons mainIconWhite">delete</i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th> </th>
+                  <th> Nom </th>
+                  <th> Zone </th>
+                  <th> Âge/Hauteur </th>
+                  <th> Prix </th>
+                  <th style="text-align: center"> Quantité restante</th>
+                  <th> </th>
+                  <th *ngIf="admin" style="text-align: right">
+                    <a>
+                      <i (click)="AddTreeOfCategory(treeCategory.id, treeCategory.description)"
+                        class="material-icons subIcon">add_circle</i>
+                    </a>
+                  </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let tree of treeCategory.trees">
+                    <td> <img class="treeImg" src="data:image/jpeg;base64,{{tree.image}}" /> </td>
+                    <td style="font-weight: bold"> {{tree.name}} </td>
+                    <td> {{tree.zone}} </td>
+                    <td> {{tree.ageHeight}} </td>
+                    <td> {{tree.price}}$ </td>
+                    <td style="text-align: center"> {{tree.quantity}} </td>
+                    <td>
+                      <button mat-raised-button type="button"
+                        (click)="ViewTree(treeCategory.id, treeCategory.description, tree.id)"
+                        class="btn btn-primary pull-right">Consulter</button>
+                    </td>
+                    <td style="text-align: right" *ngIf="admin">
+                      <a>
+                        <i (click)="ModifyTreeOfCategory(treeCategory.id, treeCategory.description, tree.id)"
+                          class="material-icons subIcon">settings</i>
+                      </a>
+                      <a>
+                        <i (click)="DeleteTreeValidation(tree.id);" class="material-icons subIcon">delete</i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

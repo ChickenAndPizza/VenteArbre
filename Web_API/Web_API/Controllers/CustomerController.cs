@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Web_API.Controllers.Base;
 using Web_API.Models;
 using Web_API.Models.DTO;
+using Web_API.Models.Enum;
 using Web_API.Services;
 
 namespace Web_API.Controllers
@@ -70,6 +71,13 @@ namespace Web_API.Controllers
         public ActionResult<List<TempCustomer>> GetAdministrators()
         {
             return Service.GetAdministrators();
+        }
+
+        [HttpGet]
+        [Route("CopyCustomers")]
+        public ActionResult CopyCustomers(Order state)
+        {
+            return Ok(Service.CopyCustomers(state));
         }
     }
 

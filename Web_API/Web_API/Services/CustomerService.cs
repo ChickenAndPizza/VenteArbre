@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Web_API.DataLayer;
 using Web_API.Models;
 using Web_API.Models.DTO;
+using Web_API.Models.Enum;
 using Web_API.Services.Base;
 
 namespace Web_API.Services
@@ -70,5 +72,32 @@ namespace Web_API.Services
             }
             return tempCustomers;
         }
+
+        public string CopyCustomers(Order state)
+        {
+            var customersList = new List<Customer>();
+
+            var customerOrders = Context.CustomerOrders
+                .Include(c => c.Customer)
+                .Where(c => c.IsActive == true && c.State == state)
+                .ToList();
+
+            foreach (var customerOrder in customerOrders)
+            {
+                if (!customersList.Any(c => c.Id == customerOrder.IdCustomer))
+                {
+                    customersList.Add(customerOrder.Customer);
+                }
+            }
+
+            string emails = "";
+            foreach (var customer in customersList)
+            {
+                emails = emails + customer.Email + ";";
+            }
+
+            return emails;
+        }
+
     }
 }

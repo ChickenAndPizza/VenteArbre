@@ -55,4 +55,9 @@ export class CustomerService extends MainService {
     headers = headers.set('Access-Control-Allow-Origin', '*');
     return this.http.get<boolean[]>(url);
   }
+
+  copyCustomers(state: string):Observable<any>{
+    const url = this.apiUrl.toString() + "Customer/CopyCustomers?state=" + state;
+    return this.http.get<any>(url);
+  }
 }

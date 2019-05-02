@@ -67,7 +67,7 @@ export class OrderSupplierInfoCustomersComponent implements OnInit {
         <head>
           <style>
             .OrderDetailPrint {margin-top: -30px; margin-bottom: -30px;}
-            .OrderPrint {margin-top: -40px; margin-bottom: -40px;}
+            .OrderPrint {margin-top: -40px}
             .TitlePrint {margin-bottom: 100px;}
           </style>
           <title>Liste des commandes à terme</title>
