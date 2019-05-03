@@ -9,7 +9,7 @@
                 class="material-icons mainIcon">add_location</i>
             </a>
           </div>
-          <div *ngIf="showNewDistributionPoint" class="col-md-11" style="display:none;">
+          <div *ngIf="showNewDistributionPoint" class="col-md-11">
             <form [formGroup]="newDistributionPoint" (ngSubmit)="addNewDistributionPoint()">
               <div class="row">
                 <div class="col-md-7">
@@ -47,7 +47,7 @@
                     <i class="material-icons addIcon">check</i>
                   </button>
                   <a>
-                    <i (click)="HideNewDistributionPoint()" class="material-icons cancelIcon">close</i>
+                    <i (click)="showNewDistributionPoint = !showNewDistributionPoint" class="material-icons cancelIcon">close</i>
                   </a>
                 </div>
               </div>
