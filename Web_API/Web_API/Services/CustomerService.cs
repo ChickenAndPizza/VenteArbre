@@ -96,7 +96,10 @@ namespace Web_API.Services
                 emails = emails + customer.Email + ";";
             }
 
-            return emails;
+            if (emails != "")
+                return emails;
+            else
+                return "Aucune adresse à copier";
         }
 
     }

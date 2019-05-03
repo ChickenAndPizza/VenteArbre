@@ -173,8 +173,11 @@ export class ManagementComponent implements OnInit {
       document.body.appendChild(selBox);
       selBox.focus();
       selBox.select();
+      console.log(selBox.value);
       document.execCommand('copy');
       document.body.removeChild(selBox);
+
+      document.getElementById('contentToCopy').innerHTML = emails
 
     });
 
