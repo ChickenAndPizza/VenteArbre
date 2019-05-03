@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from 'app/_guards';
 
-import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent, OrdersProcessedComponent, OrdersInProgressComponent, OrdersSummaryComponent, OrdersShippedComponent, PreviousOrdersSupplierComponent, CommandComponent, OrderSupplierInfoComponent, ManagementComponent, PreviousOrdersCustomerComponent, OrderCustomerInfoComponent, OrderSupplierInfoCustomersComponent } from 'app/_components';
+import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent, OrdersProcessedComponent, OrdersInProgressComponent, OrdersSummaryComponent, OrdersShippedComponent, PreviousOrdersSupplierComponent, OrderComponent, OrderSupplierInfoComponent, ManagementComponent, PreviousOrdersCustomerComponent, OrderCustomerInfoComponent, OrderSupplierInfoCustomersComponent } from 'app/_components';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -26,5 +26,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'previous-orders-customer', component: PreviousOrdersCustomerComponent },
     { path: 'previous-orders-supplier', component: PreviousOrdersSupplierComponent },
     { path: 'management', component: ManagementComponent },
-    { path: 'command', component: CommandComponent },
+    { path: 'order', component: OrderComponent },
 ];

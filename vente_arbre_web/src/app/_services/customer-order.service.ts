@@ -27,8 +27,8 @@ export class CustomerOrderService extends MainService {
     return this.http.get<any>(url);
   }
 
-  commandObjectInsideCart(id: string, idDistributionPoint): Observable<any> {
-    let url = this.apiUrl.toString() + "CustomerOrder/Command/" + id + "/" + idDistributionPoint;
+  orderObjectInsideCart(id: string, idDistributionPoint): Observable<any> {
+    let url = this.apiUrl.toString() + "CustomerOrder/Order/" + id + "/" + idDistributionPoint;
 
     let headers = new HttpHeaders();
     headers = headers.set('Access-Control-Allow-Origin', '*');

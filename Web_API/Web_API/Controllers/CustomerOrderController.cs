@@ -37,10 +37,10 @@ namespace Web_API.Controllers
         }
 
         [HttpGet]
-        [Route("Command/{id:Guid}/{idDistributionPoint:Guid}")]
-        public ActionResult Command(Guid id, Guid idDistributionPoint)
+        [Route("Order/{id:Guid}/{idDistributionPoint:Guid}")]
+        public ActionResult Order(Guid id, Guid idDistributionPoint)
         {
-            return Ok(Service.CommandObjectInsideCart(id, idDistributionPoint));
+            return Ok(Service.OrderObjectInsideCart(id, idDistributionPoint));
         }
 
         [HttpGet]

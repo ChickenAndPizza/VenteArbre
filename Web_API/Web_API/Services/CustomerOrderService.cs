@@ -38,7 +38,7 @@ namespace Web_API.Services
                  }).ToList().FirstOrDefault();
         }
 
-        public Guid CommandObjectInsideCart(Guid idOrder, Guid idDistributionPoint)
+        public Guid OrderObjectInsideCart(Guid idOrder, Guid idDistributionPoint)
         {
             var cart = Context.CustomerOrders
                 .Include(c => c.OrderDetails)

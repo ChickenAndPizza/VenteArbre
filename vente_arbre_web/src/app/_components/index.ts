@@ -1,6 +1,6 @@
 export * from './about-us/about-us.component';
 export * from './cart/cart.component';
-export * from './command/command.component';
+export * from './order/order.component';
 export * from './connection/connection.component';
 export * from './dashboard/dashboard.component';
 export * from './distribution-points/distribution-points.component';

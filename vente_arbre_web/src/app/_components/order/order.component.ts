@@ -5,15 +5,15 @@ import { Router } from '@angular/router';
 import { decodeToken } from 'app/_helpers';
 
 @Component({
-  selector: 'app-command',
-  templateUrl: './command.component.html',
-  styleUrls: ['./command.component.scss']
+  selector: 'app-order',
+  templateUrl: './order.component.html',
+  styleUrls: ['./order.component.scss']
 })
-export class CommandComponent implements OnInit {
+export class OrderComponent implements OnInit {
   currentUser: any;
   cartForm: FormGroup;
   cart: any;
-  commandTotal: number;
+  orderTotal: number;
   public distributionPoints: any[];
   distributionPointForm: FormGroup;
   quantityError = [];
@@ -69,14 +69,14 @@ export class CommandComponent implements OnInit {
         this.cartForm = this.formBuilder.group({
           orderDetail: this.formBuilder.array([this.addOrderDetailFormGroup('', '', '', '', '', '', '', '', '')])
         });
-        this.commandTotal = 0;
+        this.orderTotal = 0;
         (<FormArray>this.cartForm.get('orderDetail')).removeAt(0);
         this.cart.forEach(orderDetail => {
           let detailprice = (orderDetail.quantity * orderDetail.tree.price);
           (<FormArray>this.cartForm.get('orderDetail')).push(this.addOrderDetailFormGroup(orderDetail.id, orderDetail.idTree, orderDetail.idCustomerOrder, orderDetail.tree.name, orderDetail.tree.zone, orderDetail.tree.ageHeight, orderDetail.tree.price, orderDetail.quantity, (orderDetail.quantity * orderDetail.tree.price).toFixed(2)));
-          this.commandTotal += detailprice;
+          this.orderTotal += detailprice;
         });
-        this.commandTotal = Number.parseFloat(this.commandTotal.toFixed(2));
+        this.orderTotal = Number.parseFloat(this.orderTotal.toFixed(2));
       }
     });
   }
@@ -108,7 +108,7 @@ export class CommandComponent implements OnInit {
             });
           } else if (index === formLength) {
             if (this.quantityError.length < 1) {
-              this.customerOrderService.commandObjectInsideCart(
+              this.customerOrderService.orderObjectInsideCart(
                 (<FormArray>this.cartForm.get('orderDetail')).controls[0].get('idCustomerOrder').value,
                 this.distributionPoint.value)
                 .subscribe();
