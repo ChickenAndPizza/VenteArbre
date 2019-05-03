@@ -36,11 +36,11 @@ namespace Web_API.Controllers
 
             var service = new ChargeService();
             Stripe.Charge chargeStripe = service.Create(options);
-            if(chargeStripe.Paid)
+            if(chargeStripe.Paid && chargeStripe.Status == "succeeded")
             {
-
+                return Ok(true);
             }
-            return Ok();
+            return Ok(false);
         }
     }
 }
