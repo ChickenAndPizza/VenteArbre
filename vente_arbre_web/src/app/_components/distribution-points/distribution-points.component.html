@@ -5,7 +5,8 @@
         <div class="row">
           <div class="col-md-1">
             <a>
-              <i (click)="showNewDistributionPoint = !showNewDistributionPoint" class="material-icons mainIcon">add_location</i>
+              <i (click)="showNewDistributionPoint = !showNewDistributionPoint"
+                class="material-icons mainIcon">add_location</i>
             </a>
           </div>
           <div *ngIf="showNewDistributionPoint" class="col-md-11" style="display:none;">
@@ -123,6 +124,9 @@
                   <p>Chaque point sera visité à une date précise qui sera
                     décidée à la fin de la saison. Vous devez donc être à l'affût des dates décidées
                     par le commité et venir chercher vos propres arbres au moment prévu.</p>
+                  <p>Au cas où un inconvénient viendrait retarder la date de livraison annoncée pour 
+                    un point, un administrateur du site contactera par courriel les clients concernés 
+                    afin de leur confirmer une nouvelle date de livraison. </p>
                   <p>Une pièce d'identité sera demandée sur place afin d'identifier l'acheteur.</p>
                 </div>
               </div>
