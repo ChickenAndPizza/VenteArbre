@@ -1,34 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogConfig, MatDialogRef, MatDialog } from '@angular/material';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { Router, ActivatedRoute } from '@angular/router';
+
 import { DialogComponent, DialogEntryComponent } from 'app/_directives';
 import { TreeService, TreeCategoryService } from 'app/_services';
 import { existingTreeCategoryValidator } from 'app/_shared';
 import { decodeToken } from 'app/_helpers';
 import { TreeCategory } from 'app/_models';
 
+
 @Component({
   selector: 'app-tree-list',
   templateUrl: './tree-list.component.html',
-  styleUrls: ['./tree-list.component.css']
+  styleUrls: ['./tree-list.component.scss']
 })
 export class TreeListComponent implements OnInit {
 
-  treeCategories: any[];
-  currentUser: any;
   admin: boolean = false;
+  currentUser: any;
+
   newCategory: FormGroup;
+  treeCategories: any[];
+
   dialogRef: MatDialogRef<DialogComponent>;
   dialogEntryRef: MatDialogRef<DialogEntryComponent>;
+
+  showNewCategory: boolean = false;
 
   constructor(
     private treeCategoryService: TreeCategoryService,
     private treeService: TreeService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -42,34 +48,7 @@ export class TreeListComponent implements OnInit {
 
   get description() { return this.newCategory.get('description') }
 
-  private isAdmin(): boolean {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.currentUser = decodeToken(this.currentUser);
-
-    if (this.currentUser && this.currentUser.isAdmin && this.currentUser.isAdmin.toLowerCase() != 'false')
-      this.admin = true;
-
-    return this.admin;
-  }
-
-  private loadTreeCategories() {
-    this.treeCategoryService.getCategoriesWithTrees().subscribe(
-      categories => {
-        this.treeCategories = categories;
-      }
-    );
-  }
-
-  public ShowNewCategory() {
-    document.getElementById('newCategory').style.display = '';
-  }
-
-  public HideNewCategory() {
-    this.newCategory.get('description').setValue('');
-    document.getElementById('newCategory').style.display = 'none';
-  }
-
-  public AddNewCategory() {
+  addNewCategory() {
     if (this.treeCategoryService) {
       this.treeCategoryService.addOrUpdateCategory(this.newCategory.value).subscribe(c => {
         this.loadTreeCategories();
@@ -79,7 +58,7 @@ export class TreeListComponent implements OnInit {
     }
   }
 
-  public ModifyCategoryDescription(id: string, value: string) {
+  modifyCategoryDescription(id: string, value: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -97,7 +76,7 @@ export class TreeListComponent implements OnInit {
       .subscribe(description => {
         if (description) {
           if (this.treeCategoryService) {
-            let category = new TreeCategory(id,description);
+            let category = new TreeCategory(id, description);
             this.treeCategoryService.addOrUpdateCategory(category).subscribe(c => {
               this.loadTreeCategories();
               this.newCategory.get('description').setValue('');
@@ -107,7 +86,7 @@ export class TreeListComponent implements OnInit {
       });
   }
 
-  public DeleteCategoryValidation(id: string) {
+  deleteCategoryValidation(id: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -118,7 +97,7 @@ export class TreeListComponent implements OnInit {
     };
     this.dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     this.dialogRef.afterClosed().subscribe(result => {
-      if (result) { // if true
+      if (result) {
         if (this.treeCategoryService) {
           this.treeCategoryService.delete(id).subscribe(c => {
             this.loadTreeCategories();
@@ -128,15 +107,15 @@ export class TreeListComponent implements OnInit {
     });
   }
 
-  public AddTreeOfCategory(categoryId: string, categoryDescr: string,) {
-    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', categ: categoryId, descr: categoryDescr}});
+  addTreeOfCategory(categoryId: string, categoryDescr: string, ) {
+    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', categ: categoryId, descr: categoryDescr } });
   }
 
-  public ModifyTreeOfCategory(categoryId: string, categoryDescr: string, treeId: string) {
-    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', id: treeId, categ: categoryId, descr: categoryDescr}});
+  modifyTreeOfCategory(categoryId: string, categoryDescr: string, treeId: string) {
+    this.router.navigate(['/tree-add'], { queryParams: { returnUrl: 'tree-list', id: treeId, categ: categoryId, descr: categoryDescr } });
   }
 
-  public DeleteTreeValidation(id: string){
+  deleteTreeValidation(id: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -157,7 +136,25 @@ export class TreeListComponent implements OnInit {
     });
   }
 
-  public ViewTree(categoryId: string, categoryDescr: string, treeId: string){
-    this.router.navigate(['/tree-info'], { queryParams: { id: treeId, categ: categoryId, descr: categoryDescr}});
+  viewTree(categoryId: string, categoryDescr: string, treeId: string) {
+    this.router.navigate(['/tree-info'], { queryParams: { id: treeId, categ: categoryId, descr: categoryDescr } });
+  }
+
+  isAdmin(): boolean {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = decodeToken(this.currentUser);
+
+    if (this.currentUser && this.currentUser.isAdmin && this.currentUser.isAdmin.toLowerCase() != 'false')
+      this.admin = true;
+
+    return this.admin;
+  }
+
+  loadTreeCategories() {
+    this.treeCategoryService.getCategoriesWithTrees().subscribe(
+      categories => {
+        this.treeCategories = categories;
+      }
+    );
   }
 }

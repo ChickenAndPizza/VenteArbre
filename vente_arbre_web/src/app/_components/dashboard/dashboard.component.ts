@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeService, TreeCategoryService } from 'app/_services';
 import { Router } from '@angular/router';
 
+import { TreeService, TreeCategoryService } from 'app/_services';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 
@@ -18,13 +18,11 @@ export class DashboardComponent implements OnInit {
     private router: Router
   ) { }
 
-
-
   ngOnInit() {
     this.loadRandomTrees();
   }
 
-  private loadRandomTrees() {
+  loadRandomTrees() {
     this.treeService.getRandomTrees().subscribe(
       categories => {
         this.randomTrees = categories;
@@ -32,9 +30,9 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  private ViewTree(categoryId: string, treeId: string){
-    this.treeCategoryService.getCategoryDescription(categoryId).subscribe(categoryDescr =>{
-      this.router.navigate(['/tree-info'], { queryParams: { id: treeId, categ: categoryId, descr: categoryDescr}});
+  viewTree(categoryId: string, treeId: string) {
+    this.treeCategoryService.getCategoryDescription(categoryId).subscribe(categoryDescr => {
+      this.router.navigate(['/tree-info'], { queryParams: { id: treeId, categ: categoryId, descr: categoryDescr } });
     });
   }
 

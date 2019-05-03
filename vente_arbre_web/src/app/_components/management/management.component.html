@@ -16,7 +16,7 @@
                   <th> Téléphone </th>
                   <th style="text-align: right">
                     <a>
-                      <i (click)="AddAdministrator()" class="material-icons subIcon">add_circle</i>
+                      <i (click)="addAdministrator()" class="material-icons subIcon">add_circle</i>
                     </a>
                   </th>
                 </thead>
@@ -26,7 +26,7 @@
                     <td> {{admin.phoneNumber}} </td>
                     <td style="text-align: right">
                       <a>
-                        <i (click)="DeleteAdministrator(admin.id);" class="material-icons subIcon">delete</i>
+                        <i (click)="deleteAdministrator(admin.id);" class="material-icons subIcon">delete</i>
                       </a>
                     </td>
                   </tr>
@@ -53,7 +53,7 @@
                   <th> Téléphone </th>
                   <th style="text-align: right">
                     <a>
-                      <i (click)="AddSupplier()" class="material-icons subIcon">add_circle</i>
+                      <i (click)="addSupplier()" class="material-icons subIcon">add_circle</i>
                     </a>
                   </th>
                 </thead>
@@ -64,10 +64,10 @@
                     <td> {{supplier.phoneNumber}} </td>
                     <td style="text-align: right">
                       <a>
-                        <i (click)="ModifySupplier(supplier)" class="material-icons subIcon">settings</i>
+                        <i (click)="modifySupplier(supplier)" class="material-icons subIcon">settings</i>
                       </a>
                       <a>
-                        <i (click)="DeleteSupplier(supplier.id);" class="material-icons subIcon">delete</i>
+                        <i (click)="deleteSupplier(supplier.id);" class="material-icons subIcon">delete</i>
                       </a>
                     </td>
                   </tr>
@@ -96,21 +96,19 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td> 
-                      <button mat-raised-button type="button"
-                        (click)="CopyCustomersToClipboard('Paid')"
+                    <td>
+                      <button mat-raised-button type="button" (click)="copyCustomers('Paid')"
                         class="btn btn-primary">Copier</button>
                     </td>
-                    <td> <button mat-raised-button type="button"
-                      (click)="CopyCustomersToClipboard('Processed')"
-                      class="btn btn-primary">Copier</button>
+                    <td> <button mat-raised-button type="button" (click)="copyCustomers('Processed')"
+                        class="btn btn-primary">Copier</button>
                     </td>
                   </tr>
                   <tr>
-                      <td> 
-                        <p id="contentToCopy"></p>
-                      </td>
-                    </tr>
+                    <td>
+                      <p id="contentToCopy"></p>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>

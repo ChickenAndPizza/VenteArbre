@@ -1,6 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { SupplierOrderService } from 'app/_services';
 import { Component, OnInit } from '@angular/core';
+
+import { SupplierOrderService } from 'app/_services';
 
 @Component({
   selector: 'app-order-supplier-info',
@@ -13,7 +14,7 @@ export class OrderSupplierInfoComponent implements OnInit {
   public totalByDistributionPoint: any[];
   public totalByAll: any;
 
-  public idSupplierOrder:any;
+  public idSupplierOrder: any;
 
   constructor(
     private supplierOrderService: SupplierOrderService,
@@ -24,30 +25,30 @@ export class OrderSupplierInfoComponent implements OnInit {
   ngOnInit() {
     this.idSupplierOrder = this.route.snapshot.queryParams['id'] || "";
 
-    this.LoadTotalByCategory(this.idSupplierOrder);
-    this.LoadTotalByDistributionPoint(this.idSupplierOrder);
-    this.LoadTotalByAll(this.idSupplierOrder);
+    this.loadTotalByCategory(this.idSupplierOrder);
+    this.loadTotalByDistributionPoint(this.idSupplierOrder);
+    this.loadTotalByAll(this.idSupplierOrder);
   }
 
-  public ViewCustomerOrdersOfSupplierOrder(){
-    this.router.navigate(['/order-supplier-info-customers'], { queryParams: { supplierOrderId: this.idSupplierOrder }});
+  public viewCustomerOrdersOfSupplierOrder() {
+    this.router.navigate(['/order-supplier-info-customers'], { queryParams: { supplierOrderId: this.idSupplierOrder } });
   }
 
-  private LoadTotalByCategory(idSupplierOrder: string): any {
+  private loadTotalByCategory(idSupplierOrder: string): any {
     this.supplierOrderService.getTotalByCategory(idSupplierOrder).subscribe(
       total => {
         this.totalByCategory = total;
       });
   }
 
-  private LoadTotalByDistributionPoint(idSupplierOrder: string): any {
+  private loadTotalByDistributionPoint(idSupplierOrder: string): any {
     this.supplierOrderService.getTotalByDistributionPoint(idSupplierOrder).subscribe(
       total => {
         this.totalByDistributionPoint = total;
       });
   }
 
-  private LoadTotalByAll(idSupplierOrder: string): any {
+  private loadTotalByAll(idSupplierOrder: string): any {
     this.supplierOrderService.getTotalByAll(idSupplierOrder).subscribe(
       total => {
         this.totalByAll = total;

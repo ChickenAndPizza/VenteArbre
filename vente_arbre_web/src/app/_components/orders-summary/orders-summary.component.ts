@@ -41,19 +41,19 @@ export class OrdersSummaryComponent implements OnInit {
     this.isOrderInProcess = this.route.snapshot.queryParams['orderInProcess'] || false;
     this.canContinue = this.route.snapshot.queryParams['canContinue'] || false;
 
-    if(this.canContinue) {
-      this.LoadTotalByCategory("InProcess");
-      this.LoadTotalByDistributionPoint("InProcess");
-      this.LoadTotalByAll("InProcess");
+    if (this.canContinue) {
+      this.loadTotalByCategory("InProcess");
+      this.loadTotalByDistributionPoint("InProcess");
+      this.loadTotalByAll("InProcess");
     }
     else {
-      this.LoadTotalByCategory("Paid");
-      this.LoadTotalByDistributionPoint("Paid");
-      this.LoadTotalByAll("Paid");
+      this.loadTotalByCategory("Paid");
+      this.loadTotalByDistributionPoint("Paid");
+      this.loadTotalByAll("Paid");
     }
-    this.LoadSuppliers();
-    this.SetCurrentUser();
-    
+    this.loadSuppliers();
+    this.setCurrentUser();
+
     this.formSupplier = this.formBuilder.group({
       supplier: ["", Validators.required,]
     })
@@ -61,11 +61,11 @@ export class OrdersSummaryComponent implements OnInit {
 
   get supplier() { return this.formSupplier.get('supplier'); }
 
-  GoBack() {
+  goBack() {
     this.router.navigate([this.returnUrl]);
-  } 
+  }
 
-  SubmitSupplierOrder() {
+  submitSupplierOrder() {
     this.canContinue = true;
     this.supplierOrderService.createSupplierOrder(this.currentUser.id, this.formSupplier.get('supplier').value).subscribe(idSupplierOrder => {
       this.customerOrderService.setOrdersInProgressInProcess(idSupplierOrder).subscribe(c => {
@@ -75,13 +75,13 @@ export class OrdersSummaryComponent implements OnInit {
     });
   }
 
-  Quit() {
+  quit() {
     this.customerOrderService.setOrdersInProcessProcessed().subscribe(c => {
       this.router.navigate(['/orders-processed']);
     });
   }
 
-  private LoadTotalByCategory(state: string): any {
+  private loadTotalByCategory(state: string): any {
     this.customerOrderService.getTotalByCategory(state).subscribe(
       total => {
         this.totalByCategory = total;
@@ -90,7 +90,7 @@ export class OrdersSummaryComponent implements OnInit {
       });
   }
 
-  private LoadTotalByDistributionPoint(state: string): any {
+  private loadTotalByDistributionPoint(state: string): any {
     this.customerOrderService.getTotalByDistributionPoint(state).subscribe(
       total => {
         this.totalByDistributionPoint = total;
@@ -99,7 +99,7 @@ export class OrdersSummaryComponent implements OnInit {
       });
   }
 
-  private LoadTotalByAll(state: string): any {
+  private loadTotalByAll(state: string): any {
     this.customerOrderService.getTotalByAll(state).subscribe(
       total => {
         this.totalByAll = total;
@@ -108,14 +108,14 @@ export class OrdersSummaryComponent implements OnInit {
       });
   }
 
-  private LoadSuppliers(): any {
+  private loadSuppliers(): any {
     this.supplierService.getSuppliers().subscribe(
       suppliers => {
         this.suppliers = suppliers;
       });
   }
 
-  private SetCurrentUser(){
+  private setCurrentUser() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (this.currentUser) {
       this.currentUser = decodeToken(this.currentUser);

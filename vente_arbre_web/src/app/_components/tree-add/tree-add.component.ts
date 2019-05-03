@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TreeService, AlertService } from 'app/_services';
-import { existingTreeOfCategoryValidator, treeImageFormatValidator } from 'app/_shared';
+import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
+
+import { existingTreeOfCategoryValidator, treeImageFormatValidator } from 'app/_shared';
+import { TreeService, AlertService } from 'app/_services';
 
 @Component({
   selector: 'app-tree-add',
@@ -14,9 +15,11 @@ import 'rxjs/add/operator/catch';
 export class TreeAddComponent implements OnInit {
 
   returnUrl: string;
+
   treeId: string;
   categoryId: string;
   categoryDescr: string;
+
   newtree: FormGroup;
   imageToAdd: File;
 
@@ -24,16 +27,12 @@ export class TreeAddComponent implements OnInit {
     private treeService: TreeService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
-    private alertService: AlertService
+    private router: Router
   ) { }
 
   ngOnInit() {
 
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.treeId = this.route.snapshot.queryParams['id'] || "";
-    this.categoryId = this.route.snapshot.queryParams['categ'] || "";
-    this.categoryDescr = this.route.snapshot.queryParams['descr'] || "";
+    this.setValuesFromUrl();
 
     this.newtree = this.formBuilder.group({
       name: ["", Validators.required, existingTreeOfCategoryValidator(this.treeService, this.categoryId, null)],
@@ -103,10 +102,9 @@ export class TreeAddComponent implements OnInit {
             this.router.navigate([this.returnUrl]);
           });
         }
-        //.catch(e => this.alertService.error(e));
         else
           this.router.navigate([this.returnUrl]);
-        
+
       });
     }
   }
@@ -118,10 +116,17 @@ export class TreeAddComponent implements OnInit {
 
       var reader = new FileReader();
       reader.onloadend = (e) => {
-        let tempImage =  reader.result;
+        let tempImage = reader.result;
         this.image.setValue(tempImage);
       }
       reader.readAsDataURL(file);
     }
+  }
+
+  setValuesFromUrl() {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.treeId = this.route.snapshot.queryParams['id'] || "";
+    this.categoryId = this.route.snapshot.queryParams['categ'] || "";
+    this.categoryDescr = this.route.snapshot.queryParams['descr'] || "";
   }
 }

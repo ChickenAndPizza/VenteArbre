@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-md-4" style="text-align:center;">
                                     <img class="treeImg" src="data:image/jpeg;base64,{{image.value}}" />
-                                    
+
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
@@ -80,18 +80,21 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <input class="form-control" matInput formControlName="quantity" type="number" placeholder="Quantité"
-                                            name="quantity">
+                                        <input class="form-control" matInput formControlName="quantity" type="number"
+                                            placeholder="Quantité" name="quantity">
                                     </mat-form-field>
-                                    <small *ngIf="quantity.errors && quantity.invalid && quantity.touched" class="text-danger">
-                                            <div *ngIf="quantity.errors?.min">La quantité minimale est de 1</div>
-                                        </small>
+                                    <small *ngIf="quantity.errors && quantity.invalid && quantity.touched"
+                                        class="text-danger">
+                                        <div *ngIf="quantity.errors?.min">La quantité minimale est de 1</div>
+                                    </small>
                                 </div>
                             </div>
-                            <div  *ngIf="save" [@fadeInOnEnter]  [@fadeOutOnLeave]>
-                                <i class="material-icons pull-right" style="color: green;font-size:36px;margin-top: 7px">check</i>
+                            <div *ngIf="save" [@fadeInOnEnter] [@fadeOutOnLeave]>
+                                <i class="material-icons pull-right"
+                                    style="color: green;font-size:36px;margin-top: 7px">check</i>
                             </div>
-                            <button [disabled]="canAddToCart()" type="submit" class="btn btn-green btn-round" style="color:white;">Ajouter</button>
+                            <button [disabled]="canAddToCart()" type="submit" class="btn btn-green btn-round"
+                                style="color:white;">Ajouter</button>
                         </form>
                     </div>
                 </div>

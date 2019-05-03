@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from 'app/_guards';
 
-import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, TypographyComponent, IconsComponent, NotificationsComponent, CartComponent, OrdersProcessedComponent, OrdersInProgressComponent, OrdersSummaryComponent, OrdersShippedComponent, PreviousOrdersSupplierComponent, OrderComponent, OrderSupplierInfoComponent, ManagementComponent, PreviousOrdersCustomerComponent, OrderCustomerInfoComponent, OrderSupplierInfoCustomersComponent } from 'app/_components';
+import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeListComponent, TreeInfoComponent, TreeAddComponent, DistributionPointsComponent, AboutUsComponent, CartComponent, OrdersProcessedComponent, OrdersInProgressComponent, OrdersSummaryComponent, OrdersShippedComponent, PreviousOrdersSupplierComponent, OrderComponent, OrderSupplierInfoComponent, ManagementComponent, PreviousOrdersCustomerComponent, OrderCustomerInfoComponent, OrderSupplierInfoCustomersComponent } from 'app/_components';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -12,9 +12,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'tree-add', component: TreeAddComponent },
     { path: 'distribution-points', component: DistributionPointsComponent },
     { path: 'about-us', component: AboutUsComponent },
-    { path: 'typography', component: TypographyComponent },
-    { path: 'icons', component: IconsComponent },
-    { path: 'notifications', component: NotificationsComponent },
     { path: 'cart', component: CartComponent },
     { path: 'order-customer-info', component: OrderCustomerInfoComponent },
     { path: 'order-supplier-info', component: OrderSupplierInfoComponent },

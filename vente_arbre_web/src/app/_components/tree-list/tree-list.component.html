@@ -6,11 +6,11 @@
         <div class="row">
           <div class="col-md-1">
             <a>
-              <i (click)="ShowNewCategory()" class="material-icons mainIcon">add_circle</i>
+              <i (click)="showNewCategory = !showNewCategory" class="material-icons mainIcon">add_circle</i>
             </a>
           </div>
-          <div id="newCategory" class="col-md-11" style="display:none;">
-            <form [formGroup]="newCategory" (ngSubmit)="AddNewCategory()">
+          <div *ngIf="showNewCategory" class="col-md-11" style="display:none;">
+            <form [formGroup]="newCategory" (ngSubmit)="addNewCategory()">
               <div class="row">
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width">
@@ -28,7 +28,7 @@
                     <i class="material-icons addIcon">check</i>
                   </button>
                   <a>
-                    <i (click)="HideNewCategory()" class="material-icons cancelIcon">close</i>
+                    <i (click)="hideNewCategory()" class="material-icons cancelIcon">close</i>
                   </a>
                 </div>
               </div>
@@ -46,11 +46,11 @@
               </div>
               <div class="col-md-3" style="text-align: right" *ngIf="admin">
                 <a>
-                  <i (click)="ModifyCategoryDescription(treeCategory.id, treeCategory.description)"
+                  <i (click)="modifyCategoryDescription(treeCategory.id, treeCategory.description)"
                     class="material-icons mainIconWhite">settings</i>
                 </a>
                 <a>
-                  <i (click)="DeleteCategoryValidation(treeCategory.id);"
+                  <i (click)="deleteCategoryValidation(treeCategory.id);"
                     class="material-icons mainIconWhite">delete</i>
                 </a>
               </div>
@@ -70,7 +70,7 @@
                   <th> </th>
                   <th *ngIf="admin" style="text-align: right">
                     <a>
-                      <i (click)="AddTreeOfCategory(treeCategory.id, treeCategory.description)"
+                      <i (click)="addTreeOfCategory(treeCategory.id, treeCategory.description)"
                         class="material-icons subIcon">add_circle</i>
                     </a>
                   </th>
@@ -85,16 +85,16 @@
                     <td style="text-align: center"> {{tree.quantity}} </td>
                     <td>
                       <button mat-raised-button type="button"
-                        (click)="ViewTree(treeCategory.id, treeCategory.description, tree.id)"
+                        (click)="viewTree(treeCategory.id, treeCategory.description, tree.id)"
                         class="btn btn-primary pull-right">Consulter</button>
                     </td>
                     <td style="text-align: right" *ngIf="admin">
                       <a>
-                        <i (click)="ModifyTreeOfCategory(treeCategory.id, treeCategory.description, tree.id)"
+                        <i (click)="modifyTreeOfCategory(treeCategory.id, treeCategory.description, tree.id)"
                           class="material-icons subIcon">settings</i>
                       </a>
                       <a>
-                        <i (click)="DeleteTreeValidation(tree.id);" class="material-icons subIcon">delete</i>
+                        <i (click)="deleteTreeValidation(tree.id);" class="material-icons subIcon">delete</i>
                       </a>
                     </td>
                   </tr>

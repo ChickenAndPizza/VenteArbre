@@ -5,11 +5,11 @@
         <div class="row">
           <div class="col-md-1">
             <a>
-              <i (click)="ShowNewDistributionPoint()" class="material-icons mainIcon">add_location</i>
+              <i (click)="showNewDistributionPoint = !showNewDistributionPoint" class="material-icons mainIcon">add_location</i>
             </a>
           </div>
-          <div id="newDistributionPoint" class="col-md-11" style="display:none;">
-            <form [formGroup]="newDistributionPoint" (ngSubmit)="AddNewDistributionPoint()">
+          <div *ngIf="showNewDistributionPoint" class="col-md-11" style="display:none;">
+            <form [formGroup]="newDistributionPoint" (ngSubmit)="addNewDistributionPoint()">
               <div class="row">
                 <div class="col-md-7">
                   <mat-form-field class="example-full-width">
@@ -77,11 +77,11 @@
                     </div>
                     <div *ngIf="admin" class="col-md-4" style="text-align:right">
                       <a>
-                        <i (click)="ModifyDistributionPoint(point.id, point)"
+                        <i (click)="modifyDistributionPoint(point.id, point)"
                           class="material-icons subIcon">settings</i>
                       </a>
                       <a>
-                        <i (click)="DeleteDistributionPointValidation(point.id);"
+                        <i (click)="deleteDistributionPointValidation(point.id);"
                           class="material-icons subIcon">delete</i>
                       </a>
                     </div>

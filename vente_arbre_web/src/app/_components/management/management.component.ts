@@ -28,25 +28,25 @@ export class ManagementComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.LoadAdministrators();
-    this.LoadSuppliers();
+    this.loadAdministrators();
+    this.loadSuppliers();
   }
 
-  LoadAdministrators() {
+  loadAdministrators() {
     this.customerService.getAdministrators().subscribe(
       admins => {
         this.administrators = admins;
       });
   }
 
-  LoadSuppliers() {
+  loadSuppliers() {
     this.supplierService.getSuppliers().subscribe(
       suppliers => {
         this.suppliers = suppliers;
       });
   }
 
-  public AddAdministrator() {
+  addAdministrator() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -59,14 +59,14 @@ export class ManagementComponent implements OnInit {
         if (email) {
           if (this.customerService) {
             this.customerService.setNewAdmin(email).subscribe(c => {
-              this.LoadAdministrators();
+              this.loadAdministrators();
             });
           }
         }
       });
   }
 
-  public DeleteAdministrator(id: string) {
+  deleteAdministrator(id: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -81,7 +81,7 @@ export class ManagementComponent implements OnInit {
           .pipe(first())
           .subscribe(
             data => {
-              this.LoadAdministrators();
+              this.loadAdministrators();
             },
             error => {
               this.alertService.error(error);
@@ -90,7 +90,7 @@ export class ManagementComponent implements OnInit {
     });
   }
 
-  public AddSupplier() {
+  addSupplier() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -105,14 +105,14 @@ export class ManagementComponent implements OnInit {
           if (this.supplierService) {
             let supplier = new Supplier(c.name, c.email, c.phoneNumber);
             this.supplierService.addOrUpdateSupplier(supplier).subscribe(c => {
-              this.LoadSuppliers();
+              this.loadSuppliers();
             });
           }
         }
       });
   }
 
-  public ModifySupplier(supplier: any) {
+  modifySupplier(supplier: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -131,14 +131,14 @@ export class ManagementComponent implements OnInit {
         if (captureEvents && c) {
           if (this.supplierService) {
             this.supplierService.addOrUpdateSupplier(c).subscribe(c => {
-              this.LoadSuppliers();
+              this.loadSuppliers();
             });
           }
         }
       });
   }
 
-  public DeleteSupplier(id: string) {
+  deleteSupplier(id: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -152,14 +152,14 @@ export class ManagementComponent implements OnInit {
       if (result) {
         if (this.supplierService) {
           this.supplierService.delete(id).subscribe(c => {
-            this.LoadSuppliers();
+            this.loadSuppliers();
           })
         }
       }
     });
   }
 
-  public CopyCustomersToClipboard(state: string) {
+  copyCustomers(state: string) {
     this.customerService.copyCustomers(state).subscribe(emails => {
       document.getElementById('contentToCopy').innerHTML = emails
     });

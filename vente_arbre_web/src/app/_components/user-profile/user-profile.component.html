@@ -1,148 +1,146 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
 
-                    <div class="card-header card-header-green">
-                        <h3 class="card-title">Bonjour {{firstName.value}}!</h3>
-                        <p class="card-category">Informations reliées au compte</p>
+          <div class="card-header card-header-green">
+            <h3 class="card-title">Bonjour {{firstName.value}}!</h3>
+            <p class="card-category">Informations reliées au compte</p>
+          </div>
+
+          <div class="card-body">
+            <form [formGroup]="profile" (ngSubmit)="onModify()">
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput pattern="[a-zA-Z-'. ëéèàçï]{2,}" placeholder="Prénom" name="firstName"
+                      formControlName="firstName" minlength="3" maxlength="30"
+                      [class.is-invalid]="firstName.invalid && firstName.dirty">
+                  </mat-form-field>
+                  <small *ngIf="firstName.errors && firstName.invalid && firstName.touched" class="text-danger">
+                    <div *ngIf="firstName.errors.pattern">Le prénom doit seulement contenir des
+                      lettres et les symboles (',-,.)</div>
+                    <div *ngIf="firstName.errors.required">Le prénom est requis</div>
+                    <div *ngIf="firstName.errors.minlength">La longueur minimale est de 3
+                      caractères
                     </div>
-
-                    <div class="card-body">
-                        <form [formGroup]="profile" (ngSubmit)="onModify()">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput pattern="[a-zA-Z-'. ëéèàçï]{2,}" placeholder="Prénom"
-                                            name="firstName" formControlName="firstName" minlength="3" maxlength="30"
-                                            [class.is-invalid]="firstName.invalid && firstName.dirty">
-                                    </mat-form-field>
-                                    <small *ngIf="firstName.errors && firstName.invalid && firstName.touched"
-                                        class="text-danger">
-                                        <div *ngIf="firstName.errors.pattern">Le prénom doit seulement contenir des
-                                            lettres et les symboles (',-,.)</div>
-                                        <div *ngIf="firstName.errors.required">Le prénom est requis</div>
-                                        <div *ngIf="firstName.errors.minlength">La longueur minimale est de 3
-                                            caractères
-                                        </div>
-                                    </small>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput pattern="[a-zA-Z-'. ëéèàçï]{3,}" placeholder="Nom"
-                                            name="lastName" formControlName="lastName" maxlength="30" minlength="3"
-                                            [class.is-invalid]="lastName.invalid && lastName.touched">
-                                    </mat-form-field>
-                                    <small *ngIf="lastName.errors && lastName.invalid && lastName.touched"
-                                        class="text-danger">
-                                        <div *ngIf="lastName.errors.pattern">Le prénom doit seulement contenir des
-                                            lettres et les symboles (',-,.)</div>
-                                        <div *ngIf="lastName.errors.required">Le prénom est requis</div>
-                                        <div *ngIf="lastName.errors.minlength">La longueur minimale est de 3
-                                            caractères
-                                        </div>
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Numéro de téléphone" name="phoneNumber"
-                                            formControlName="phoneNumber" maxlength="14"
-                                            [class.is-invalid]="phoneNumber.invalid && phoneNumber.touched"
-                                            pattern="^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$">
-                                    </mat-form-field>
-                                    <small *ngIf="phoneNumber.errors && phoneNumber.invalid && phoneNumber.touched"
-                                        class="text-danger">
-                                        <div *ngIf="phoneNumber.errors?.required">Numéro de téléphone requis</div>
-                                        <div *ngIf="phoneNumber.errors?.pattern">Le format du numéro est invalide
-                                        </div>
-                                    </small>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input maxlength="80" [class.is-invalid]="email.invalid && email.touched"
-                                            name="email" matInput placeholder="Adresse couriel" formControlName="email">
-                                    </mat-form-field>
-                                    <small *ngIf="email.errors && email.invalid && email.dirty && email.touched" class="text-danger">
-                                        <div *ngIf="email.errors?.required">L'email est requis</div>
-                                        <div *ngIf="email.errors?.email">L'email n'est pas valide</div>
-                                        <div *ngIf="email.errors?.emailExists">L'email est déjà utilisé</div>
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input minlength="6" maxlength="30" matInput placeholder="Mot de passe"
-                                            type="password" name="password" formControlName="password"
-                                            [class.is-invalid]="password.invalid && password.touched">
-                                    </mat-form-field>
-                                    <small *ngIf="password.errors && password.invalid && password.touched"
-                                        class="text-danger">
-                                        <div *ngIf="password.errors?.required"> Le mot de passe est requis</div>
-                                        <div *ngIf="password.errors?.minlength"> Le mot de passe doit contenir entre
-                                            6 et
-                                            30 caractères</div>
-                                    </small>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input minlength="6" maxlength="30" matInput placeholder="Confirmation du mot de passe"
-                                            type="password" name="passwordConfirm" formControlName="passwordConfirm">
-                                    </mat-form-field>
-                                    <small class="text-danger">
-                                        <div *ngIf="profile.errors?.notSame"> Les mots de passe ne sont pas équivalent</div>
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2" style="text-align: right; top:14px;">
-
-                                </div>
-                                <div class="col-md-12">
-                                    <button [disabled]="!profile.valid || !profile.dirty" mat-raised-button type="submit" class="btn btn-green pull-right">Sauvegarder les changements</button>
-                                    <div  *ngIf="save" [@fadeInOnEnter]  [@fadeOutOnLeave]>
-                                        <i class="material-icons pull-right" style="color: green;font-size:36px;margin-top: 7px">check</i>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a (click)="logout()" [routerLink]="['/connection']"
-                                        class="btn btn-green pull-right" style="color:white;" role="button">Se
-                                        déconnecter</a>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="row" style="padding-top: 15px;">
-                                <div class="col-md-12" align="right">
-                                    <label (click)="deleteValidation()"
-                                        style="cursor:pointer;text-decoration: underline">Détruite ce compte</label>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                  </small>
                 </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card card-profile">
-                    <div class="card-header card-header-green">
-                        <h4 class="card-title">Accédez à vos commandes</h4>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput pattern="[a-zA-Z-'. ëéèàçï]{3,}" placeholder="Nom" name="lastName"
+                      formControlName="lastName" maxlength="30" minlength="3"
+                      [class.is-invalid]="lastName.invalid && lastName.touched">
+                  </mat-form-field>
+                  <small *ngIf="lastName.errors && lastName.invalid && lastName.touched" class="text-danger">
+                    <div *ngIf="lastName.errors.pattern">Le prénom doit seulement contenir des
+                      lettres et les symboles (',-,.)</div>
+                    <div *ngIf="lastName.errors.required">Le prénom est requis</div>
+                    <div *ngIf="lastName.errors.minlength">La longueur minimale est de 3
+                      caractères
                     </div>
-                    <div class="card-body">
-                        <h4 class="card-title text-primary">{{ordersQuantity}}</h4>
-                        <p class="card-description">
-                            Visionnez vos commande si vous avez fait des achats
-                        </p>
-                        <button (click)="OpenPreviousOrders()" class="btn btn-green btn-round">Continuer</button>
-                    </div>
+                  </small>
                 </div>
-            </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Numéro de téléphone" name="phoneNumber" formControlName="phoneNumber"
+                      maxlength="14" [class.is-invalid]="phoneNumber.invalid && phoneNumber.touched"
+                      pattern="^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$">
+                  </mat-form-field>
+                  <small *ngIf="phoneNumber.errors && phoneNumber.invalid && phoneNumber.touched" class="text-danger">
+                    <div *ngIf="phoneNumber.errors?.required">Numéro de téléphone requis</div>
+                    <div *ngIf="phoneNumber.errors?.pattern">Le format du numéro est invalide
+                    </div>
+                  </small>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input maxlength="80" [class.is-invalid]="email.invalid && email.touched" name="email" matInput
+                      placeholder="Adresse couriel" formControlName="email">
+                  </mat-form-field>
+                  <small *ngIf="email.errors && email.invalid && email.dirty && email.touched" class="text-danger">
+                    <div *ngIf="email.errors?.required">L'email est requis</div>
+                    <div *ngIf="email.errors?.email">L'email n'est pas valide</div>
+                    <div *ngIf="email.errors?.emailExists">L'email est déjà utilisé</div>
+                  </small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input minlength="6" maxlength="30" matInput placeholder="Mot de passe" type="password"
+                      name="password" formControlName="password"
+                      [class.is-invalid]="password.invalid && password.touched">
+                  </mat-form-field>
+                  <small *ngIf="password.errors && password.invalid && password.touched" class="text-danger">
+                    <div *ngIf="password.errors?.required"> Le mot de passe est requis</div>
+                    <div *ngIf="password.errors?.minlength"> Le mot de passe doit contenir entre
+                      6 et
+                      30 caractères</div>
+                  </small>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input minlength="6" maxlength="30" matInput placeholder="Confirmation du mot de passe"
+                      type="password" name="passwordConfirm" formControlName="passwordConfirm">
+                  </mat-form-field>
+                  <small class="text-danger">
+                    <div *ngIf="profile.errors?.notSame"> Les mots de passe ne sont pas équivalent
+                    </div>
+                  </small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2" style="text-align: right; top:14px;">
+
+                </div>
+                <div class="col-md-12">
+                  <button [disabled]="!profile.valid || !profile.dirty" mat-raised-button type="submit"
+                    class="btn btn-green pull-right">Sauvegarder les
+                    changements</button>
+                  <div *ngIf="save" [@fadeInOnEnter] [@fadeOutOnLeave]>
+                    <i class="material-icons pull-right" style="color: green;font-size:36px;margin-top: 7px">check</i>
+                  </div>
+
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <a (click)="logout()" [routerLink]="['/connection']" class="btn btn-green pull-right"
+                    style="color:white;" role="button">Se
+                    déconnecter</a>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="row" style="padding-top: 15px;">
+                <div class="col-md-12" align="right">
+                  <label (click)="deleteValidation()" style="cursor:pointer;text-decoration: underline">Détruite ce
+                    compte</label>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card card-profile">
+          <div class="card-header card-header-green">
+            <h4 class="card-title">Accédez à vos commandes</h4>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title text-primary">{{ordersQuantity}}</h4>
+            <p class="card-description">
+              Visionnez vos commande si vous avez fait des achats
+            </p>
+            <button (click)="openPreviousOrders()" class="btn btn-green btn-round">Continuer</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

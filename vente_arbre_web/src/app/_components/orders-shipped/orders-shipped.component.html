@@ -19,11 +19,11 @@
               </div>
               <div class="row" style="margin-top:30px;">
                 <div class="col-md-6">
-                  <button mat-raised-button type="button" (click)="GoBack()"
+                  <button mat-raised-button type="button" (click)="goBack()"
                     class="btn btn-danger pull-left">Annuler</button>
                 </div>
                 <div class="col-md-6">
-                  <button mat-raised-button type="button" (click)="Continue()"
+                  <button mat-raised-button type="button" (click)="continue()"
                     class="btn btn-green pull-right">Continuer</button>
                 </div>
               </div>
@@ -47,7 +47,8 @@
 
                     <div class="form-check col-md-1">
                       <label class="form-check-label">
-                        <input class="form-check-input" id="{{order.id}}" type="checkbox" value="" checked (click)="UpdateShippedList(order.id)">
+                        <input class="form-check-input" id="{{order.id}}" type="checkbox" value="" checked
+                          (click)="updateShippedList(order.id)">
                         <span class="form-check-sign">
                           <span class="check"></span>
                         </span>
@@ -101,7 +102,7 @@
             <form>
               <div class="row">
                 <div class="col-md-12">
-                  <button mat-raised-button type="button" (click)="Quit()"
+                  <button mat-raised-button type="button" (click)="quit()"
                     class="btn btn-green pull-right">Continuer</button>
                 </div>
               </div>

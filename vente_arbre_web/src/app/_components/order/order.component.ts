@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CustomerOrderDetailService, CustomerOrderService, DistributionPointService, TreeService } from 'app/_services';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { CustomerOrderDetailService, CustomerOrderService, DistributionPointService, TreeService } from 'app/_services';
 import { decodeToken } from 'app/_helpers';
 
 @Component({
@@ -10,21 +11,22 @@ import { decodeToken } from 'app/_helpers';
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
+
   currentUser: any;
+
   cartForm: FormGroup;
   cart: any;
   orderTotal: number;
-  public distributionPoints: any[];
+
+  distributionPoints: any[];
   distributionPointForm: FormGroup;
   quantityError = [];
 
   constructor(
     private distributionPointService: DistributionPointService,
-    private customerOrderDetailService: CustomerOrderDetailService,
     private customerOrderService: CustomerOrderService,
     private treeService: TreeService,
-    private formBuilder: FormBuilder,
-    private router: Router
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -100,7 +102,7 @@ export class OrderComponent implements OnInit {
             orderDetail.get('quantity').setErrors({ 'notEnough': true });
             this.treeService.getRemainingQuantity(orderDetail.get('idTree').value).subscribe(c => {
               orderDetail.updateValueAndValidity();
-              if(c == 0) {
+              if (c == 0) {
                 this.quantityError.push("Rupture de stock pour " + orderDetail.get('name').value);
               } else {
                 this.quantityError.push("Il reste seulement " + c + " " + orderDetail.get('name').value + " en stock.");

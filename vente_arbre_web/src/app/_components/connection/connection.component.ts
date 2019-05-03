@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { ConnectionInfo } from 'app/_models';
+
 import { AuthenticationService, CustomerService, AlertService } from 'app/_services';
 import { existingEmailValidator } from 'app/_shared';
+import { ConnectionInfo } from 'app/_models';
 import { decodeToken } from 'app/_helpers';
 
 declare const $: any;
@@ -16,15 +17,22 @@ declare const $: any;
 })
 export class ConnectionComponent implements OnInit {
 
+  returnUrl: string;
+  currentUser: any;
+
   connectionModel = new ConnectionInfo('', '');
   informations: FormGroup;
-  loading = false;
-  submitted = false;
-  returnUrl: string;
   register: FormGroup;
   connection: FormGroup;
 
-  currentUser: any;
+  loading: boolean = false;
+  submitted: boolean = false;
+
+  whyCreate: boolean = false;
+  shipping: boolean = false;
+
+  showCreateAccount: boolean = true;
+  showConnection: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,11 +40,13 @@ export class ConnectionComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
-    private customerService: CustomerService) { }
+    private customerService: CustomerService
+  ) { }
 
   ngOnInit() {
-    if (this.isMobileMenu())
-      this.ShowCreate();
+    if (this.isMobileMenu()){
+      this.showConnection = false;
+    }
 
     this.register = this.formBuilder.group({
       firstName: ['', [Validators.required]],
@@ -72,7 +82,7 @@ export class ConnectionComponent implements OnInit {
         data => {
           this.router.navigate([this.returnUrl]).then(c => {
             if (this.isAdmin())
-            window.location.reload(true);
+              window.location.reload(true);
           });
 
         },
@@ -111,31 +121,8 @@ export class ConnectionComponent implements OnInit {
     return true;
   };
 
-  public SetWhyCreate() {
-    if (document.getElementById('whycreate').style.display === '') {
-      document.getElementById('whycreate').style.display = 'none';
-    }
-    else {
-      document.getElementById('whycreate').style.display = '';
-    }
-  }
-
-  public SetShipping() {
-    if (document.getElementById('shipping').style.display === '') {
-      document.getElementById('shipping').style.display = 'none';
-    }
-    else {
-      document.getElementById('shipping').style.display = '';
-    }
-  }
-
-  public ShowCreate() {
-    document.getElementById('createaccount').style.display = '';
-    document.getElementById('connection').style.display = 'none';
-  }
-
-  public ShowConnection() {
-    document.getElementById('connection').style.display = '';
-    document.getElementById('createaccount').style.display = 'none';
+  public ChangeTabs() {
+    this.showCreateAccount = !this.showCreateAccount; 
+    this.showConnection = !this.showConnection
   }
 }

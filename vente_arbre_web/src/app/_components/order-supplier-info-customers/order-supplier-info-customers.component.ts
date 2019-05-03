@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { CustomerOrderService } from 'app/_services';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+
+import { CustomerOrderService } from 'app/_services';
 
 @Component({
   selector: 'app-order-supplier-info-customers',
@@ -13,7 +14,7 @@ export class OrderSupplierInfoCustomersComponent implements OnInit {
   totalOrdersProcessed: any;
   totalOrdersNotShipped: any;
 
-  public supplierOrderId:any;
+  supplierOrderId: any;
 
   constructor(
     private customerOrderService: CustomerOrderService,
@@ -24,16 +25,16 @@ export class OrderSupplierInfoCustomersComponent implements OnInit {
   ngOnInit() {
     this.supplierOrderId = this.route.snapshot.queryParams['supplierOrderId'] || "";
 
-    this.LoadTotalOrdersOfSupplierOrder(this.supplierOrderId);
-    this.LoadTotalOrdersNotShippedOfSupplierOrder(this.supplierOrderId);
-    this.LoadOrdersOfSupplierOrder(this.supplierOrderId);
+    this.loadTotalOrdersOfSupplierOrder(this.supplierOrderId);
+    this.loadTotalOrdersNotShippedOfSupplierOrder(this.supplierOrderId);
+    this.loadOrdersOfSupplierOrder(this.supplierOrderId);
   }
 
-  GoBack(){
+  goBack() {
     this.router.navigate(['/order-supplier-info'], { queryParams: { id: this.supplierOrderId } });
   }
 
-  LoadTotalOrdersOfSupplierOrder(supplierOrderId: string): any {
+  loadTotalOrdersOfSupplierOrder(supplierOrderId: string): any {
     this.customerOrderService.getTotalOrdersOfSupplierOrder(supplierOrderId).subscribe(
       total => {
         this.totalOrdersProcessed = total;
@@ -41,7 +42,7 @@ export class OrderSupplierInfoCustomersComponent implements OnInit {
     );
   }
 
-  LoadTotalOrdersNotShippedOfSupplierOrder(supplierOrderId: string): any {
+  loadTotalOrdersNotShippedOfSupplierOrder(supplierOrderId: string): any {
     this.customerOrderService.getTotalOrdersNotShippedOfSupplierOrder(supplierOrderId).subscribe(
       total => {
         this.totalOrdersNotShipped = total;
@@ -49,7 +50,7 @@ export class OrderSupplierInfoCustomersComponent implements OnInit {
     );
   }
 
-  LoadOrdersOfSupplierOrder(supplierOrderId: string) {
+  loadOrdersOfSupplierOrder(supplierOrderId: string) {
     this.customerOrderService.getOrdersOfSupplierOrder(supplierOrderId).subscribe(
       orders => {
         this.distributionPointsWithCustomerOrders = orders;
