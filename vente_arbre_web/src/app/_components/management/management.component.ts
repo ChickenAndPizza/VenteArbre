@@ -4,8 +4,7 @@ import { filter, first } from 'rxjs/operators';
 
 import { DialogComponent, DialogAdministratorComponent, DialogSupplierComponent } from 'app/_directives';
 import { CustomerService, SupplierService, AlertService } from 'app/_services';
-import { Supplier } from 'app/_models/supplier/supplier';
-import { pipe } from 'rxjs';
+import { Supplier } from 'app/_models/supplier';
 
 @Component({
   selector: 'app-management',
@@ -162,33 +161,8 @@ export class ManagementComponent implements OnInit {
 
   public CopyCustomersToClipboard(state: string) {
     this.customerService.copyCustomers(state).subscribe(emails => {
-
-
-      let selBox = document.createElement('textarea');
-      selBox.style.position = 'fixed';
-      selBox.style.left = '0';
-      selBox.style.top = '0';
-      selBox.style.opacity = '0';
-      selBox.value = emails;
-      document.body.appendChild(selBox);
-      selBox.focus();
-      selBox.select();
-      console.log(selBox.value);
-      document.execCommand('copy');
-      document.body.removeChild(selBox);
-
       document.getElementById('contentToCopy').innerHTML = emails
-
     });
-
-    /*document.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', (emails));
-      e.preventDefault();
-      document.removeEventListener('copy', null);
-    });
-    document.execCommand('copy');
-  });*/
-
   }
 
 }

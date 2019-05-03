@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { MainService } from '../main/main.service';
+import { MainService } from './main/main.service';
 
 @Injectable()
 export class AlertService extends MainService {

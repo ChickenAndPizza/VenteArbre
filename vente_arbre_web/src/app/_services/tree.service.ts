@@ -1,9 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpHeaders, HttpRequest } from '@angular/common/http';
-import { MainService } from '../main/main.service';
+import { MainService } from './main/main.service';
 import { Tree } from 'app/_models';
-import { AlertService } from '..';
+import { AlertService } from '.';
 
 @Injectable({
   providedIn: 'root'

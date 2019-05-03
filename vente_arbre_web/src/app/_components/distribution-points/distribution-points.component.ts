@@ -5,8 +5,8 @@ import { DialogComponent } from 'app/_directives/dialog/dialog.component';
 import { DistributionPointService } from 'app/_services';
 import { decodeToken } from 'app/_helpers';
 import { DialogDistributionPointComponent } from 'app/_directives';
-import { DistributionPoint } from 'app/_models/distributionPoint/distributionPoint';
-import { existingDistributionPointValidator } from 'app/_shared/distribution-validator/distribution-validator';
+import { DistributionPoint } from 'app/_models/distributionPoint';
+import { existingDistributionPointValidator } from 'app/_shared/distribution-validator';
 
 @Component({
   selector: 'app-distribution-points',

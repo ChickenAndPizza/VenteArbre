@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ConnectionInfo } from 'app/_models';
-import { MainService } from '../main/main.service';
+import { MainService } from './main/main.service';
 
 @Injectable()
 export class AuthenticationService extends MainService {
