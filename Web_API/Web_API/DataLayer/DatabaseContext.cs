@@ -22,6 +22,7 @@ namespace Web_API.DataLayer
         public DbSet<Tree> Trees { get; set; }
         public DbSet<TreeCategory> TreeCategories { get; set; }
         public DbSet<DistributionPoint> DistributionPoints { get; set; }
+        public DbSet<DashboardDescription> DashboardDescriptions { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {

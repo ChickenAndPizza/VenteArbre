@@ -50,11 +50,9 @@ export class OrdersShippedComponent implements OnInit {
         this.ordersShipped.splice(index, 1);
       }
     }
-    console.log(this.ordersShipped);
   }
 
   quit() {
-    console.log(this.ordersShipped);
     this.customerOrderService.setProcessedOrdersToShipped(this.ordersShipped).subscribe(c => {
       this.router.navigate(['/orders-processed']);
     });

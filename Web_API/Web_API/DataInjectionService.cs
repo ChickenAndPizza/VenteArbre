@@ -1,10 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Web_API.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Web_API.Services;
 
 namespace Web_API
@@ -22,6 +16,7 @@ namespace Web_API
             services.AddTransient<TreeCategoryService>();
             services.AddTransient<AuthService>();
             services.AddTransient<DistributionPointService>();
+            services.AddTransient<DashboardDescriptionService>();
             return services;
         }
     }

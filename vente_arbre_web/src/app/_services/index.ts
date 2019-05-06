@@ -3,6 +3,7 @@ export * from './authentication.service';
 export * from './customer.service';
 export * from './customer-order.service'
 export * from './customer-order-detail.service'
+export * from './dashboard-description.service';
 export * from './distribution-point.service';
 export * from './supplier.service';
 export * from './supplier-order.service';

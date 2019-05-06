@@ -21,6 +21,8 @@ namespace Web_API.DataLayer
 
         DbSet<DistributionPoint> DistributionPoints { get; set; }
 
+        DbSet<DashboardDescription> DashboardDescriptions { get; set; }
+
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
         EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;
         EntityEntry Update(object entity);
