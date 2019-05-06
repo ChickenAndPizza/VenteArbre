@@ -7,7 +7,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+
+      <slideshow style="width:1000px;height:500px;" [autoPlay]="true" [imageUrls]="imagesToShow" [lazyLoad]="imagesToShow?.length > 1" [autoPlayWaitForLazyLoad]="true"></slideshow>
+
+
+
+      <!-- <div class="col-md-6">
         <img style="width:100%;border: solid white 10px;margin:auto 0;overflow: hidden;padding: 0;border-radius: 15px;"
           src="./assets/img/environment/Diapositive5.JPG" />
       </div>
@@ -28,7 +33,7 @@
       <div class="col-md-4">
         <img style="width:100%;border: solid white 10px;margin:auto 0;overflow: hidden;padding: 0;border-radius: 15px;"
           src="./assets/img/environment/Diapositive7.JPG" />
-      </div>
+      </div> -->
     </div>
 
     <div class="row">

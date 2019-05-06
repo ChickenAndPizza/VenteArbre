@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IImage } from 'ng-simple-slideshow';
 import { Router } from '@angular/router';
 
 import { TreeService, TreeCategoryService } from 'app/_services';
@@ -11,6 +12,12 @@ import { TreeService, TreeCategoryService } from 'app/_services';
 export class DashboardComponent implements OnInit {
 
   randomTrees: any[];
+  imagesToShow : (string | IImage)[]  = [
+    { url: './assets/img/environment/Diapositive5.JPG' },
+    { url: './assets/img/environment/Diapositive6.JPG' },
+    { url: './assets/img/environment/Diapositive2.JPG' },
+    { url: './assets/img/environment/Diapositive8.JPG' },
+  ]
 
   constructor(
     private treeCategoryService: TreeCategoryService,

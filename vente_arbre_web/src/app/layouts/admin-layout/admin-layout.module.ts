@@ -1,6 +1,7 @@
 import { MatButtonModule, MatInputModule, MatRippleModule, MatFormFieldModule, MatTooltipModule, MatSelectModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
+import { SlideshowModule } from 'ng-simple-slideshow';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -19,6 +20,7 @@ import { DashboardComponent, UserProfileComponent, ConnectionComponent, TreeList
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    SlideshowModule,
   ],
   declarations: [
     DashboardComponent,
