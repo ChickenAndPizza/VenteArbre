@@ -5,8 +5,10 @@
 
     <div class="row">
       <div class="col-md-12 text-center">
-        <button mat-raised-button *ngIf="!showOptions" type="button" (click)="this.showOptions = true;" class="btn btn-primary">Options</button>
-        <button mat-raised-button *ngIf="showOptions" type="button" (click)="this.showOptions = false;" class="btn btn-primary">Cacher</button>
+        <button mat-raised-button *ngIf="!showOptions" type="button" (click)="this.showOptions = true;"
+          class="btn btn-primary">Options</button>
+        <button mat-raised-button *ngIf="showOptions" type="button" (click)="this.showOptions = false;"
+          class="btn btn-primary">Cacher</button>
 
       </div>
     </div>
@@ -95,8 +97,8 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="hasOrders">
-      <div class="card" id="print-content" *ngFor="let distributionPoint of distributionPointsWithCustomerOrders">
+    <div class="row" id="print-content" *ngIf="hasOrders">
+      <div class="card" *ngFor="let distributionPoint of distributionPointsWithCustomerOrders">
         <div class="card-header card-header-tabs card-header-green TitlePrint">
           <h3 class="card-title">{{distributionPoint.distributionPointName}}</h3>
         </div>
@@ -104,6 +106,9 @@
           <div class="table-responsive" style="overflow: unset">
             <table class="table">
               <div *ngFor="let order of distributionPoint.customerOrders" class="row OrderPrint">
+                <div class="col-md-12" style="display: flex; align-items: center;">
+                  <div class="text-primary col-md-3"> {{order.transactionDate.replace("T", " ")}} </div>
+                </div>
                 <thead class="col-md-12" style="display: flex; align-items: center;">
                   <div class="text-primary col-md-3" style="font-weight:bold">
                     {{order.customer.lastName}}, {{order.customer.firstName}}

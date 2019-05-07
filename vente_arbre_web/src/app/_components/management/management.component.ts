@@ -1,10 +1,10 @@
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
-import { filter } from 'rxjs/operators';
+import { filter, first } from 'rxjs/operators';
 
 import { DialogComponent, DialogAdministratorComponent, DialogSupplierComponent } from 'app/_directives';
-import { CustomerService, SupplierService } from 'app/_services';
-import { Supplier } from 'app/_models/supplier/supplier';
+import { CustomerService, SupplierService, AlertService } from 'app/_services';
+import { Supplier } from 'app/_models/supplier';
 
 @Component({
   selector: 'app-management',
@@ -24,28 +24,29 @@ export class ManagementComponent implements OnInit {
     private customerService: CustomerService,
     private supplierService: SupplierService,
     private dialog: MatDialog,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit() {
-    this.LoadAdministrators();
-    this.LoadSuppliers();
+    this.loadAdministrators();
+    this.loadSuppliers();
   }
 
-  LoadAdministrators() {
+  loadAdministrators() {
     this.customerService.getAdministrators().subscribe(
       admins => {
         this.administrators = admins;
       });
   }
 
-  LoadSuppliers() {
+  loadSuppliers() {
     this.supplierService.getSuppliers().subscribe(
       suppliers => {
         this.suppliers = suppliers;
       });
   }
 
-  public AddAdministrator() {
+  addAdministrator() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -58,38 +59,44 @@ export class ManagementComponent implements OnInit {
         if (email) {
           if (this.customerService) {
             this.customerService.setNewAdmin(email).subscribe(c => {
-              this.LoadAdministrators();
+              this.loadAdministrators();
             });
           }
         }
       });
   }
 
-  public DeleteAdministrator(id: string){
+  deleteAdministrator(id: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
-        title: 'Voulez-vous vraiment supprimer cet administrateur?'
+      title: 'Voulez-vous vraiment supprimer cet administrateur?'
     };
     this.dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     this.dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-            this.customerService.deleteAdmin(id).subscribe(c => {
-              this.LoadAdministrators();
+      if (result) {
+        this.customerService.deleteAdmin(id)
+          .pipe(first())
+          .subscribe(
+            data => {
+              this.loadAdministrators();
+            },
+            error => {
+              this.alertService.error(error);
             });
-        }
+      }
     });
   }
 
-  public AddSupplier() {
+  addSupplier() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "50vw";
-    dialogConfig.data = { };
+    dialogConfig.data = {};
     this.dialogSupplierRef = this.dialog.open(DialogSupplierComponent, dialogConfig);
     this.dialogSupplierRef.afterClosed()
       .pipe(c => c)
@@ -98,20 +105,20 @@ export class ManagementComponent implements OnInit {
           if (this.supplierService) {
             let supplier = new Supplier(c.name, c.email, c.phoneNumber);
             this.supplierService.addOrUpdateSupplier(supplier).subscribe(c => {
-              this.LoadSuppliers();
+              this.loadSuppliers();
             });
           }
         }
       });
   }
 
-  public ModifySupplier(supplier: any) {
+  modifySupplier(supplier: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "50vw";
-    dialogConfig.data = { 
+    dialogConfig.data = {
       id: supplier.id,
       name: supplier.name,
       email: supplier.email,
@@ -124,14 +131,14 @@ export class ManagementComponent implements OnInit {
         if (captureEvents && c) {
           if (this.supplierService) {
             this.supplierService.addOrUpdateSupplier(c).subscribe(c => {
-              this.LoadSuppliers();
+              this.loadSuppliers();
             });
           }
         }
       });
   }
 
-  public DeleteSupplier(id: string){
+  deleteSupplier(id: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -145,10 +152,17 @@ export class ManagementComponent implements OnInit {
       if (result) {
         if (this.supplierService) {
           this.supplierService.delete(id).subscribe(c => {
-            this.LoadSuppliers();
+            this.loadSuppliers();
           })
         }
       }
     });
   }
+
+  copyCustomers(state: string) {
+    this.customerService.copyCustomers(state).subscribe(emails => {
+      document.getElementById('contentToCopy').innerHTML = emails
+    });
+  }
+
 }

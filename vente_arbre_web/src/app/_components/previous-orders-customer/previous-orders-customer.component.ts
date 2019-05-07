@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { decodeToken } from 'app/_helpers';
-import { CustomerOrderService } from 'app/_services';
 import { Router } from '@angular/router';
+
+import { CustomerOrderService } from 'app/_services';
+import { decodeToken } from 'app/_helpers';
 
 @Component({
   selector: 'app-previous-orders-customer',
@@ -13,7 +14,7 @@ export class PreviousOrdersCustomerComponent implements OnInit {
   currentUser: any;
   customerOrders: any[];
   hasCustomerOrders: boolean = false;
-  
+
   constructor(
     private customerOrderService: CustomerOrderService,
     private router: Router,
@@ -23,23 +24,23 @@ export class PreviousOrdersCustomerComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (this.currentUser) {
       this.currentUser = decodeToken(this.currentUser);
-      this.LoadOrdersCustomer(this.currentUser.id);
+      this.loadOrdersCustomer(this.currentUser.id);
     }
   }
 
-  OpenCustomerOrderSummary(customerOrderId: string){
-    this.router.navigate(['/order-customer-info'], { queryParams: { customerOrderId: customerOrderId }});
+  openCustomerOrderSummary(customerOrderId: string) {
+    this.router.navigate(['/order-customer-info'], { queryParams: { customerOrderId: customerOrderId } });
   }
 
-  LoadOrdersCustomer(customerId: string) {
+  loadOrdersCustomer(customerId: string) {
     this.customerOrderService.getPreviousCustomerOrders(customerId).subscribe(
       orders => {
         this.customerOrders = orders;
 
         if (orders[0])
           this.hasCustomerOrders = true;
-        
-        for (let cpt = 0; cpt < this.customerOrders.length; cpt++){
+
+        for (let cpt = 0; cpt < this.customerOrders.length; cpt++) {
           let date = this.customerOrders[cpt].transactionDate.toString();
           let bindex = date.indexOf("T");
           let eindex = date.length;

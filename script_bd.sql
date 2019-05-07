@@ -6,6 +6,21 @@ use VenteArbre;
 #        Script MySQL.
 #------------------------------------------------------------
 
+#------------------------------------------------------------
+# Table: dashboard_description
+#------------------------------------------------------------
+
+CREATE TABLE dashboard_description(
+        id                Varchar (36) NOT NULL ,
+        title		      Varchar (254) NOT NULL ,
+        description 	  Text NOT NULL ,	
+        is_active         Bool NOT NULL
+	  ,CONSTRAINT dashboard_description_PK PRIMARY KEY (id)
+)ENGINE=InnoDB;
+
+INSERT INTO dashboard_description (id, title, description, is_active) 
+VALUES ('6d8edabe-225a-4bb0-83e5-22769271b8c3', 'Informations', ' Voici les dates : [.........]', 1);
+
 
 #------------------------------------------------------------
 # Table: distribution_point

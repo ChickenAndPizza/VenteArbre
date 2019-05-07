@@ -32,8 +32,8 @@
                         <td> {{cartForm.controls.orderDetail.controls[i].controls.price.value}} $ </td>
                         <div style="text-align: -webkit-center;" [formGroupName]="i">
                           <td>
-                            <input formControlName="quantity" style="width: 50px" matInput type="number"
-                              name="quantity" pattern="^[0123456789]{1,3}$" min="1">
+                            <input formControlName="quantity" style="width: 50px" matInput type="number" name="quantity"
+                              pattern="^[0123456789]{1,3}$" min="1">
                           </td>
                         </div>
                         <td style="text-align: center">
@@ -44,12 +44,12 @@
                       </tr>
                     </tbody>
                   </table>
-                  <div *ngFor="let error of quantityError">  
+                  <div *ngFor="let error of quantityError">
                     <small class="text-danger">
                       <div>{{error}}</div>
                     </small>
                   </div>
-      
+
                   <div class="col-md-12">
                     <button [disabled]="!cartForm.valid && disableButtonWhenNotConnectedAndNoCard()" mat-raised-button
                       type="submit" class="btn btn-green pull-right" style="color:white;">Sauvegarder les
@@ -59,22 +59,20 @@
                 </div>
               </div>
             </div>
-            <div class="rowCommand pull-right">
+            <div class="rowOrder pull-right">
               <div>
                 <div class="card">
-                  <!-- <div class="card-header card-header-green">
-
-              </div> -->
                   <div class="card-body">
                     <div class="table-responsive">
                       <table class="table">
                         <thead class=" text-primary">
-                          <th> Total de la commande: {{commandTotal}} $</th>
+                          <th> Total de la commande: {{orderTotal}} $</th>
                         </thead>
                       </table>
                     </div>
 
-                    <button [disabled]="disableButtonWhenNotConnectedAndNoCard()" (click)="command()" class="btn btn-green pull-right" style="color:white;">Passer la commande</button>
+                    <button [disabled]="disableButtonWhenNotConnectedAndNoCard()" (click)="order()"
+                      class="btn btn-green pull-right" style="color:white;">Passer la commande</button>
                   </div>
                 </div>
               </div>

@@ -23,6 +23,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/cart', title: 'Panier', icon: '', class: '', inSidebar: false, isAdmin: false },
   { path: '/order-customer-info', title: 'Détail de la commande', icon: '', class: '', inSidebar: false, isAdmin: false },
   { path: '/order-supplier-info', title: 'Détail de la commande au fournisseur', icon: '', class: '', inSidebar: false, isAdmin: false },
+  { path: '/order-supplier-info-customers', title: 'Détail de la commande au fournisseur > Commandes des clients', icon: '', class: '', inSidebar: false, isAdmin: false },
   { path: '/orders-in-progress', title: 'Commandes en cours', icon: 'shopping_cart', class: '', inSidebar: true, isAdmin: true },
   { path: '/orders-summary', title: 'Bilan des commandes', icon: 'shopping_cart', class: '', inSidebar: true, isAdmin: true },
   { path: '/orders-processed', title: 'Commandes traitées', icon: 'shopping_cart', class: '', inSidebar: true, isAdmin: true },

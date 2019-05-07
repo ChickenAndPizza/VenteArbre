@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Web_API.Controllers.Base;
 using Web_API.Models;
 using Web_API.Models.DTO;
+using Web_API.Models.Enum;
 using Web_API.Services;
 
 namespace Web_API.Controllers
@@ -51,9 +52,18 @@ namespace Web_API.Controllers
 
         [HttpGet]
         [Route("DeleteAdministrator")]
-        public ActionResult<string> DeleteAdministrator(Guid id)
+        public ActionResult DeleteAdministrator(Guid id)
         {
-            return Service.DeleteAdministrator(id);
+            if (id != Guid.Parse("6d8edaeb-215a-4bb0-83e5-22769270b8c3"))
+            {
+                return Ok(Service.DeleteAdministrator(id));
+            }
+            else
+            {
+                return Unauthorized(new { message = "Vous ne pouvez pas supprimer cet administrateur" });
+            }
+
+            
         }
 
         [HttpGet]
@@ -61,6 +71,13 @@ namespace Web_API.Controllers
         public ActionResult<List<TempCustomer>> GetAdministrators()
         {
             return Service.GetAdministrators();
+        }
+
+        [HttpGet]
+        [Route("CopyCustomers")]
+        public ActionResult CopyCustomers(Order state)
+        {
+            return Ok(Service.CopyCustomers(state));
         }
     }
 

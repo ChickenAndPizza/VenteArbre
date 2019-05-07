@@ -54,7 +54,7 @@ namespace Web_API.Services
                          Tree = y.Tree,
                      }).ToList(),
                  })
-             .OrderBy(c => c.Customer.LastName)
+             .OrderByDescending(c => c.TransactionDate)
              .ToList();
 
             return query;

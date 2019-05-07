@@ -102,12 +102,14 @@
                                     <mat-form-field class="example-full-width">
                                         <input pattern="^[0123456789]{1,5}$"
                                             [class.is-invalid]="maximum.invalid && maximum.touched" name="maximum"
-                                            matInput placeholder="Nombre maximum d'arbre pouvant être acheté" formControlName="maximum">
+                                            matInput placeholder="Nombre maximum d'arbre pouvant être acheté"
+                                            formControlName="maximum">
                                     </mat-form-field>
                                     <small *ngIf="maximum.errors && maximum.invalid && maximum.touched"
                                         class="text-danger">
                                         <div *ngIf="maximum.errors?.required">Le maximum d'arbre est requis</div>
-                                        <div *ngIf="maximum.errors?.pattern">Seulement des chiffres (Maximum de 99 999)</div>
+                                        <div *ngIf="maximum.errors?.pattern">Seulement des chiffres (Maximum de 99 999)
+                                        </div>
                                     </small>
                                 </div>
                             </div>
@@ -117,7 +119,8 @@
                                         placeholder="Ajouter une image" (change)="fileChangeEvent($event.target.files)"
                                         name="image" accept="image/*" formControlName="addingImage" />
                                     <small *ngIf="addingImage.errors" class="text-danger">
-                                        <div *ngIf="addingImage.errors.fileError">Le format de fichier est invalide</div>
+                                        <div *ngIf="addingImage.errors.fileError">Le format de fichier est invalide
+                                        </div>
                                     </small>
                                 </div>
                                 <div class="col-md-6">

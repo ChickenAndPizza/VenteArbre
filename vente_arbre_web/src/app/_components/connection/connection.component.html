@@ -13,13 +13,13 @@
               <div class="nav-tabs-navigation">
                 <div class="nav-tabs-wrapper">
                   <ul class="nav nav-tabs" data-tabs="tabs">
-                    <li class="nav-item" (click)="ShowCreate()">
+                    <li class="nav-item" (click)="ChangeTabs()">
                       <a mat-button class="nav-link active" data-toggle="tab">
                         Créer un compte
                         <div class="ripple-container"></div>
                       </a>
                     </li>
-                    <li class="nav-item" style="margin-left:10px;" (click)="ShowConnection()">
+                    <li class="nav-item" style="margin-left:10px;" (click)="ChangeTabs()">
                       <a mat-button class="nav-link" data-toggle="tab">
                         Se connecter
                         <div class="ripple-container"></div>
@@ -32,7 +32,7 @@
           </div>
 
           <div class="card-body">
-            <div id="createaccount">
+            <div *ngIf="showCreateAccount">
               <form [formGroup]="register" (ngSubmit)="onRegister()">
                 <h5 class="card-title">Vous voulez créer un compte?</h5>
                 <div class="row">
@@ -116,7 +116,7 @@
               </form>
             </div>
 
-            <div id="connection">
+            <div *ngIf="showConnection">
               <form [formGroup]="connection" (ngSubmit)="onConnection()">
                 <h5 class="card-title">Vous êtes déjà inscrit?</h5>
                 <div class="row">
@@ -156,10 +156,10 @@
             <h4 class="card-title">Des questions?</h4>
             <div class="row">
               <div class="col-md-12">
-                <label (click)="SetShipping()" style="cursor:pointer;text-decoration:underline">Lieux de
+                <label (click)="shipping = !shipping" style="cursor:pointer;text-decoration:underline">Lieux de
                   livraison</label>
-                <div id="shipping" class="example-full-width" style="display:none" disabled>
-                  Nous ne livrons de quand ces régions : Saint-Georges, Québec, Montréal.
+                <div *ngIf="shipping" class="example-full-width" disabled>
+                  Nous ne livrons pas d'arbres chez les clients.
                   Pour plus d'informations concernant la livraison, veuillez consulter les
                   points de distribution,
                   ou prendre contact avec nous à l'adresse cre_cba@hotmail.com
@@ -168,11 +168,11 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                <label (click)="SetWhyCreate()" style="cursor:pointer;text-decoration: underline">Pourquoi devrais-je
+                <label (click)="whyCreate = !whyCreate" style="cursor:pointer;text-decoration: underline">Pourquoi devrais-je
                   créer
                   un
                   compte?</label>
-                <div id="whycreate" class="example-full-width" style="display:none" disabled>
+                <div *ngIf="whyCreate" class="example-full-width" disabled>
                   Pour pouvoir passer une commande, vous devez créer un compte. Lorsque vous
                   effectuez une commande,
                   nous avons besoin de vos informations pour vous avertir de l'état de votre

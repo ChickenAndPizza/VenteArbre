@@ -1,0 +1,104 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-1">
+            <a>
+              <i (click)="goBack()" class="material-icons mainIcon">arrow_back</i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <div class="card card-stats">
+          <div class="card-header card-header-green card-header-icon">
+            <div class="card-icon">
+              <h1>{{totalOrdersProcessed}}</h1>
+            </div>
+            <h3 class="card-title">Commandes traitées pour cette saison</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">warning</i>
+              &nbsp; {{totalOrdersNotShipped}} en attente de livraison
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2"></div>
+
+      <div class="col-md-5">
+        <div class="card card-stats">
+          <div class="card-header card-header-green card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">print</i>
+            </div>
+            <p class="card-category">Imprimer les commandes</p>
+            <button mat-raised-button type="button" (click)="print()"
+              class="btn btn-primary pull-right">Imprimer</button>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">info</i>
+              &nbsp;Version PDF
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="print-content">
+      <div class="card" *ngFor="let distributionPoint of distributionPointsWithCustomerOrders">
+        <div class="card-header card-header-tabs card-header-green TitlePrint">
+          <h3 class="card-title">{{distributionPoint.distributionPointName}}</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive" style="overflow: unset">
+            <table class="table">
+              <div *ngFor="let order of distributionPoint.customerOrders" class="row OrderPrint">
+                <div class="col-md-12" style="display: flex; align-items: center;">
+                  <div class="text-primary col-md-3"> {{order.transactionDate.replace("T", " ")}} </div>
+                </div>
+                <thead class="col-md-12" style="display: flex; align-items: center;">
+                  <div class="text-primary col-md-3" style="font-weight:bold">
+                    {{order.customer.lastName}}, {{order.customer.firstName}}
+                  </div>
+                  <div class="col-md-3">
+                    Téléphone: {{order.customer.phoneNumber}}
+                  </div>
+                  <div class="col-md-4">
+                    Courriel: {{order.customer.email}}
+                  </div>
+                  <div class="text-primary col-md-2" style="text-align:right;font-weight:bold">
+                    Total: {{order.total}}$
+                  </div>
+                </thead>
+                <div class="col-md-12 OrderDetailPrint" *ngFor="let orderDetail of order.orderDetails"
+                  style="display:flex; align-items:right; margin-bottom:-10px;">
+                  <div class="col-md-7">
+                  </div>
+                  <div class="col-md-3" style="display:flex;">
+                    <p class="text-primary" style="font-weight:bold">{{orderDetail.quantity}}</p>
+                    <p>&nbsp;X {{orderDetail.tree.name}}</p>
+                    <p class="text-primary">&nbsp;({{orderDetail.price}}$)</p>
+                  </div>
+                  <div class="text-primary col-md-2" style="text-align:right;">
+                    <p>&nbsp;{{orderDetail.quantity * orderDetail.price}}$</p>
+                  </div>
+                </div>
+                <div style="height:65px;"></div>
+              </div>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

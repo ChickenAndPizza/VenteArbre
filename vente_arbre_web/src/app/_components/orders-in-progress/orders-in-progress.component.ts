@@ -1,6 +1,7 @@
-import { CustomerOrderService } from 'app/_services';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { CustomerOrderService } from 'app/_services';
 
 @Component({
   selector: 'app-orders-in-progress',
@@ -17,36 +18,35 @@ export class OrdersInProgressComponent implements OnInit {
   hasOrdersInProcess = false;
 
   constructor(
-    
     private customerOrderService: CustomerOrderService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    this.LoadTotalOrdersInProgress();
-    this.Load72hOrdersInProgress();
-    this.LoadOrdersInProgress();
-    this.LoadOrdersInProcess();
+    this.loadTotalOrdersInProgress();
+    this.load72hOrdersInProgress();
+    this.loadOrdersInProgress();
+    this.loadOrdersInProcess();
   }
 
-  passOrderToSupplier(){
-    this.router.navigate(['/orders-summary'], { queryParams: { returnUrl: "orders-in-progress", orderInProcess: true }});
+  passOrderToSupplier() {
+    this.router.navigate(['/orders-summary'], { queryParams: { returnUrl: "orders-in-progress", orderInProcess: true } });
   }
 
-  EndProcessing(){
+  endProcessing() {
     this.customerOrderService.cancelProcessOfOrders().subscribe(c => {
       this.hasOrdersInProcess = false;
-      this.LoadTotalOrdersInProgress();
-      this.Load72hOrdersInProgress();
-      this.LoadOrdersInProgress();
+      this.loadTotalOrdersInProgress();
+      this.load72hOrdersInProgress();
+      this.loadOrdersInProgress();
     });
   }
 
-  public ContinueProcessing() {
-    this.router.navigate(['/orders-summary'], { queryParams: { returnUrl: "orders-in-progress", orderInProcess: true, canContinue: true}});
+  public continueProcessing() {
+    this.router.navigate(['/orders-summary'], { queryParams: { returnUrl: "orders-in-progress", orderInProcess: true, canContinue: true } });
   }
 
-  private LoadTotalOrdersInProgress(): any {
+  private loadTotalOrdersInProgress(): any {
     this.customerOrderService.getTotalOrdersInProgress().subscribe(
       total => {
         this.totalOrdersInProgress = total;
@@ -56,7 +56,7 @@ export class OrdersInProgressComponent implements OnInit {
     );
   }
 
-  private Load72hOrdersInProgress(): any {
+  private load72hOrdersInProgress(): any {
     this.customerOrderService.get72hOrdersInProgress().subscribe(
       total => {
         this.total72hOrdersInProgress = total;
@@ -66,7 +66,7 @@ export class OrdersInProgressComponent implements OnInit {
     );
   }
 
-  private LoadOrdersInProgress() {
+  private loadOrdersInProgress() {
     this.customerOrderService.getOrders("Paid").subscribe(
       orders => {
         this.distributionPointsWithCustomerOrders = orders;
@@ -76,7 +76,7 @@ export class OrdersInProgressComponent implements OnInit {
     );
   }
 
-  private LoadOrdersInProcess() {
+  private loadOrdersInProcess() {
     this.customerOrderService.getOrders("InProcess").subscribe(
       orders => {
         if (orders[0])

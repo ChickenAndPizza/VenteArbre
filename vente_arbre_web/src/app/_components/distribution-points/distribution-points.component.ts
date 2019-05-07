@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogConfig, MatDialogRef, MatDialog } from '@angular/material';
-import { DialogComponent } from 'app/_directives/dialog/dialog.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+
+import { DialogComponent, DialogDistributionPointComponent } from 'app/_directives';
+import { existingDistributionPointValidator } from 'app/_shared';
 import { DistributionPointService } from 'app/_services';
+import { DistributionPoint } from 'app/_models';
 import { decodeToken } from 'app/_helpers';
-import { DialogDistributionPointComponent } from 'app/_directives';
-import { DistributionPoint } from 'app/_models/distributionPoint/distributionPoint';
-import { existingDistributionPointValidator } from 'app/_shared/distribution-validator/distribution-validator';
 
 @Component({
   selector: 'app-distribution-points',
@@ -15,9 +15,12 @@ import { existingDistributionPointValidator } from 'app/_shared/distribution-val
 })
 export class DistributionPointsComponent implements OnInit {
 
-  newDistributionPoint: FormGroup;
   admin: boolean = false;
   currentUser: any;
+
+  newDistributionPoint: FormGroup;
+  showNewDistributionPoint: boolean = false;
+
   dialogRef: MatDialogRef<DialogComponent>;
   dialogDistributionPointRef: MatDialogRef<DialogDistributionPointComponent>;
 
@@ -25,7 +28,7 @@ export class DistributionPointsComponent implements OnInit {
     private distributionPointService: DistributionPointService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    ) { }
+  ) { }
 
   public distributionPoints: any[];
 
@@ -58,20 +61,11 @@ export class DistributionPointsComponent implements OnInit {
   loadDistributionPoint() {
     this.distributionPointService.getDistributionPoint().subscribe(
       distributionPoints => {
-      this.distributionPoints = distributionPoints;
-    });
+        this.distributionPoints = distributionPoints;
+      });
   }
 
-  public ShowNewDistributionPoint() {
-    document.getElementById('newDistributionPoint').style.display = '';
-  }
-
-  public HideNewDistributionPoint() {
-    this.newDistributionPoint.get('description').setValue('');
-    document.getElementById('newDistributionPoint').style.display = 'none';
-  }
-
-  public AddNewDistributionPoint() {
+  addNewDistributionPoint() {
     if (this.distributionPointService) {
       this.distributionPointService.addOrUpdateDistributionPoint(this.newDistributionPoint.value).subscribe(c => {
         this.loadDistributionPoint();
@@ -86,7 +80,7 @@ export class DistributionPointsComponent implements OnInit {
     }
   }
 
-  public ModifyDistributionPoint(id: string, point: any) {
+  modifyDistributionPoint(id: string, point: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -107,7 +101,7 @@ export class DistributionPointsComponent implements OnInit {
       .subscribe(c => {
         if (captureEvents && c) {
           if (this.distributionPointService) {
-            let distributionPoint = new DistributionPoint(id,c.mapLink, c.webLink, c.webName, c.description);
+            let distributionPoint = new DistributionPoint(id, c.mapLink, c.webLink, c.webName, c.description);
             this.distributionPointService.addOrUpdateDistributionPoint(distributionPoint).subscribe(c => {
               this.loadDistributionPoint();
               this.newDistributionPoint.get('id').setValue('');
@@ -120,8 +114,8 @@ export class DistributionPointsComponent implements OnInit {
         }
       });
   }
-  
-  public DeleteDistributionPointValidation(id: string) {
+
+  deleteDistributionPointValidation(id: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
@@ -132,7 +126,7 @@ export class DistributionPointsComponent implements OnInit {
     };
     this.dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     this.dialogRef.afterClosed().subscribe(result => {
-      if (result) { // if true
+      if (result) {
         if (this.distributionPointService) {
           this.distributionPointService.delete(id).subscribe(c => {
             this.loadDistributionPoint();

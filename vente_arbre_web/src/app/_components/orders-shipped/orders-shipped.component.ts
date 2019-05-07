@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+
 import { CustomerOrderService } from 'app/_services';
 
 @Component({
@@ -11,6 +12,7 @@ export class OrdersShippedComponent implements OnInit {
 
   distributionPointsWithCustomerOrders: any[];
   ordersShipped: string[] = [];
+
   canContinue: boolean = false;
 
   constructor(
@@ -21,25 +23,24 @@ export class OrdersShippedComponent implements OnInit {
 
   ngOnInit() {
     this.canContinue = this.route.snapshot.queryParams['canContinue'] || false;
-
-    this.LoadOrdersProcessed();
+    this.loadOrdersProcessed();
   }
 
-  LoadOrdersProcessed() {
-    this.customerOrderService.getOrders("Processed").subscribe( orders => {
-        this.distributionPointsWithCustomerOrders = orders;
+  loadOrdersProcessed() {
+    this.customerOrderService.getOrders("Processed").subscribe(orders => {
+      this.distributionPointsWithCustomerOrders = orders;
 
-        for (let distributionPoint of this.distributionPointsWithCustomerOrders) {
-          for (let order of distributionPoint.customerOrders) {
-            this.ordersShipped.push(order.id);
-         }
+      for (let distributionPoint of this.distributionPointsWithCustomerOrders) {
+        for (let order of distributionPoint.customerOrders) {
+          this.ordersShipped.push(order.id);
         }
       }
+    }
     );
   }
 
-  UpdateShippedList(id: string){
-    let checked = $('#'+id).prop('checked');
+  updateShippedList(id: string) {
+    let checked = $('#' + id).prop('checked');
     if (checked) {
       this.ordersShipped.push(id);
     }
@@ -49,22 +50,20 @@ export class OrdersShippedComponent implements OnInit {
         this.ordersShipped.splice(index, 1);
       }
     }
-    console.log(this.ordersShipped);
   }
 
-  Quit(){
-    console.log(this.ordersShipped);
-    this.customerOrderService.setProcessedOrdersToShipped(this.ordersShipped).subscribe( c => {
+  quit() {
+    this.customerOrderService.setProcessedOrdersToShipped(this.ordersShipped).subscribe(c => {
       this.router.navigate(['/orders-processed']);
     });
   }
 
-  GoBack(){
+  goBack() {
     this.router.navigate(['/orders-processed']);
   }
 
-  Continue(){
+  continue() {
     this.canContinue = true;
-    this.router.navigate(['/orders-shipped'], { queryParams: { canContinue: true }});
+    this.router.navigate(['/orders-shipped'], { queryParams: { canContinue: true } });
   }
 }

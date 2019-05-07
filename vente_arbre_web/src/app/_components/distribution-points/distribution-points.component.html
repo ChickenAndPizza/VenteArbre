@@ -1,146 +1,145 @@
 <div class="main-content">
-    <div class="container-fluid">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12" *ngIf="admin">
         <div class="row">
-            <div class="col-md-12" *ngIf="admin">
-                <div class="row">
-                    <div class="col-md-1">
-                        <a>
-                            <i (click)="ShowNewDistributionPoint()" class="material-icons mainIcon">add_location</i>
-                        </a>
+          <div class="col-md-1">
+            <a>
+              <i (click)="showNewDistributionPoint = !showNewDistributionPoint"
+                class="material-icons mainIcon">add_location</i>
+            </a>
+          </div>
+          <div *ngIf="showNewDistributionPoint" class="col-md-11">
+            <form [formGroup]="newDistributionPoint" (ngSubmit)="addNewDistributionPoint()">
+              <div class="row">
+                <div class="col-md-7">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Lien de Google Map*" name="mapLink" formControlName="mapLink">
+                  </mat-form-field>
+                  <small *ngIf="mapLink.errors && mapLink.invalid && mapLink.touched" class="text-danger">
+                    <div *ngIf="mapLink.errors?.required">L'URL de google map est requis</div>
+                  </small>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Adresse du site web" name="webLink" formControlName="webLink"
+                      maxlength="254">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Nom du point*" name="webName" formControlName="webName"
+                      maxlength="254">
+                  </mat-form-field>
+                  <small *ngIf="webName.errors && webName.invalid && webName.touched" class="text-danger">
+                    <div *ngIf="webName.errors?.pointExists">Le point de distribution est déjà
+                      existant</div>
+                    <div *ngIf="webName.errors?.required">Le nom du point de distribution est requis
                     </div>
-                    <div id="newDistributionPoint" class="col-md-11" style="display:none;">
-                        <form [formGroup]="newDistributionPoint" (ngSubmit)="AddNewDistributionPoint()">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Lien de Google Map*" name="mapLink"
-                                            formControlName="mapLink">
-                                    </mat-form-field>
-                                    <small *ngIf="mapLink.errors && mapLink.invalid && mapLink.touched"
-                                        class="text-danger">
-                                        <div *ngIf="mapLink.errors?.required">L'URL de google map est requis</div>
-                                    </small>
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Adresse du site web" name="webLink"
-                                            formControlName="webLink" maxlength="254">
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nom du point*" name="webName"
-                                            formControlName="webName" maxlength="254">
-                                    </mat-form-field>
-                                    <small *ngIf="webName.errors && webName.invalid && webName.touched"
-                                        class="text-danger">
-                                        <div *ngIf="webName.errors?.pointExists">Le point de distribution est déjà
-                                            existant</div>
-                                        <div *ngIf="webName.errors?.required">Le nom du point de distribution est requis
-                                        </div>
-                                    </small>
-                                    <mat-form-field class="example-full-width">
-                                        <textarea rows="5" matInput placeholder="Description du point*"
-                                            name="description" formControlName="description"></textarea>
-                                    </mat-form-field>
-                                    <small *ngIf="description.errors && description.invalid && description.touched"
-                                        class="text-danger">
-                                        <div *ngIf="description.errors?.required">La description est requise</div>
-                                    </small>
-                                </div>
-
-                                <div class="col-md-3" style="text-align: left">
-                                    <button [disabled]="!newDistributionPoint.valid" type="submit" mat-icon-button>
-                                        <i class="material-icons addIcon">check</i>
-                                    </button>
-                                    <a>
-                                        <i (click)="HideNewDistributionPoint()"
-                                            class="material-icons cancelIcon">close</i>
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                  </small>
+                  <mat-form-field class="example-full-width">
+                    <textarea rows="5" matInput placeholder="Description du point*" name="description"
+                      formControlName="description"></textarea>
+                  </mat-form-field>
+                  <small *ngIf="description.errors && description.invalid && description.touched" class="text-danger">
+                    <div *ngIf="description.errors?.required">La description est requise</div>
+                  </small>
                 </div>
-            </div>
 
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-green">
-                        <h3 class="card-title">Points de distribution</h3>
-                        <p class="card-category">Trouvez le point le plus près de chez vous dès maintenant!</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive" style="overflow: unset">
-                            <table class="table">
-                                <div *ngFor="let point of distributionPoints" class="row">
-                                    <thead class="text-primary col-md-12" style="display: flex; align-items: center;">
-                                        <div class="col-md-8">
-                                            <div *ngIf="!point.webLink">
-                                                {{point.webName}}
-                                            </div>
-                                            <a *ngIf="point.webLink" style="cursor:pointer;" target="_blank"
-                                                [href]="point.webLink">{{point.webName}}<i class="material-icons"
-                                                    style="font-size: 24px">help</i>
-                                            </a>
-                                        </div>
-                                        <div *ngIf="admin" class="col-md-4" style="text-align:right">
-                                            <a>
-                                                <i (click)="ModifyDistributionPoint(point.id, point)"
-                                                    class="material-icons subIcon">settings</i>
-                                            </a>
-                                            <a>
-                                                <i (click)="DeleteDistributionPointValidation(point.id);"
-                                                    class="material-icons subIcon">delete</i>
-                                            </a>
-                                        </div>
-                                    </thead>
-                                    <tbody class="col-md-12" style="display: flex">
-                                        <td class="col-md-8 col-sm-10">
-                                            {{point.description}}
-                                        </td>
-                                        <td class="text-primary col-md-4 col-sm-2"
-                                            style="text-align:right;padding-bottom: 50px;">
-                                            <a title="Comment s'y rendre" style="cursor:pointer;" target="_blank"
-                                                [href]="point.mapLink">Où se trouve ce lieu?</a>
-                                        </td>
-                                    </tbody>
-                                </div>
-                            </table>
-                        </div>
-                    </div>
+                <div class="col-md-3" style="text-align: left">
+                  <button [disabled]="!newDistributionPoint.valid" type="submit" mat-icon-button>
+                    <i class="material-icons addIcon">check</i>
+                  </button>
+                  <a>
+                    <i (click)="showNewDistributionPoint = !showNewDistributionPoint" class="material-icons cancelIcon">close</i>
+                  </a>
                 </div>
-            </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
 
-        <div class="row">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-header card-header-tabs card-header-green">
-                        <h3 class="card-title">Informations</h3>
-                        <p class="card-category">À propos de la cueillette d'arbres
-                        </p>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-green">
+            <h3 class="card-title">Points de distribution</h3>
+            <p class="card-category">Trouvez le point le plus près de chez vous dès maintenant!</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive" style="overflow: unset">
+              <table class="table">
+                <div *ngFor="let point of distributionPoints" class="row">
+                  <thead class="text-primary col-md-12" style="display: flex; align-items: center;">
+                    <div class="col-md-8">
+                      <div *ngIf="!point.webLink">
+                        {{point.webName}}
+                      </div>
+                      <a *ngIf="point.webLink" style="cursor:pointer;" target="_blank"
+                        [href]="point.webLink">{{point.webName}}<i class="material-icons"
+                          style="font-size: 24px">help</i>
+                      </a>
                     </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p>Lorsque vous commandez des arbres par l'intermédiaire du site Web, 
-                                    vous avez la responsabilité de venir chercher ceux-ci lorsque la commande
-                                    saisonale est acheminée. Le CER, à la réception des arbres, se déplacera
-                                    aux points de distribution mentionnés ci-haut afin de distribuer les arbres
-                                    aux divers acheteurs. </p>
-                                    <p>Chaque point sera visité à une date précise qui sera
-                                    décidée à la fin de la saison. Vous devez donc être à l'affût des dates décidées
-                                    par le commité et venir chercher vos propres arbres au moment prévu.</p>
-                                    <p>Une pièce d'identité sera demandée sur place afin d'identifier l'acheteur.</p>
-                                </div>
-                            </div>
-                        </form>
+                    <div *ngIf="admin" class="col-md-4" style="text-align:right">
+                      <a>
+                        <i (click)="modifyDistributionPoint(point.id, point)"
+                          class="material-icons subIcon">settings</i>
+                      </a>
+                      <a>
+                        <i (click)="deleteDistributionPointValidation(point.id);"
+                          class="material-icons subIcon">delete</i>
+                      </a>
                     </div>
+                  </thead>
+                  <tbody class="col-md-12" style="display: flex">
+                    <td class="col-md-8 col-sm-10">
+                      {{point.description}}
+                    </td>
+                    <td class="text-primary col-md-4 col-sm-2" style="text-align:right;padding-bottom: 50px;">
+                      <a title="Comment s'y rendre" style="cursor:pointer;" target="_blank" [href]="point.mapLink">Où se
+                        trouve ce lieu?</a>
+                    </td>
+                  </tbody>
                 </div>
+              </table>
             </div>
-
-            <div class="col-md-7">
-                <img style="width:100%;border: solid white 10px;margin:auto 0;overflow: hidden;padding: 0;border-radius: 15px;" src="./assets/img/environment/cba_photo_1.jpg" />
-            </div>
+          </div>
         </div>
-
+      </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-green">
+            <h3 class="card-title">Informations</h3>
+            <p class="card-category">À propos de la cueillette d'arbres
+            </p>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-12">
+                  <p>Lorsque vous commandez des arbres par l'intermédiaire du site Web,
+                    vous avez la responsabilité de venir chercher ceux-ci lorsque la commande
+                    saisonale est acheminée. Le CER, à la réception des arbres, se déplacera
+                    aux points de distribution mentionnés ci-haut afin de distribuer les arbres
+                    aux divers acheteurs. </p>
+                  <p>Chaque point sera visité à une date précise qui sera
+                    décidée à la fin de la saison. Vous devez donc être à l'affût des dates décidées
+                    par le commité et venir chercher vos propres arbres au moment prévu.</p>
+                  <p>Au cas où un inconvénient viendrait retarder la date de livraison annoncée pour 
+                    un point, un administrateur du site contactera par courriel les clients concernés 
+                    afin de leur confirmer une nouvelle date de livraison. </p>
+                  <p>Une pièce d'identité sera demandée sur place afin d'identifier l'acheteur.</p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <img style="width:100%;border: solid white 10px;margin:auto 0;overflow: hidden;padding: 0;border-radius: 15px;"
+          src="./assets/img/environment/cba_photo_1.jpg" />
+      </div>
+    </div>
+
+  </div>
 </div>

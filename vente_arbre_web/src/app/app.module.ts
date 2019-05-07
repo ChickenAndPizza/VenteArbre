@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule, routing } from './app.routing';
+import { SlideshowModule } from 'ng-simple-slideshow';
 import { NgModule, forwardRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -12,7 +13,8 @@ import { AgmCoreModule } from '@agm/core';
 import { HttpModule } from '@angular/http';
 import * as $ from 'jquery';
 
-import { AlertComponent, DialogComponent, DialogAdministratorComponent, DialogEntryComponent, DialogDistributionPointComponent, DialogSupplierComponent } from './_directives';
+
+import { AlertComponent, DialogComponent, DialogAdministratorComponent, DialogEntryComponent, DialogDistributionPointComponent, DialogSupplierComponent, DialogDashboardDescriptionComponent } from './_directives';
 import { AlertService, AuthenticationService, UserService, CustomerService, CustomerOrderDetailService } from './_services';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ComponentsModule } from './_components/navigation';
@@ -32,6 +34,7 @@ import { AuthGuard } from './_guards';
     MatFormFieldModule,
     MatDialogModule,
     MatInputModule,
+    SlideshowModule,
     AgmCoreModule.forRoot({
       apiKey: '&lon=-95.511747&lat=29.735577&format=xml'
     }),
@@ -44,6 +47,7 @@ import { AuthGuard } from './_guards';
     AlertComponent,
     DialogComponent,
     DialogAdministratorComponent,
+    DialogDashboardDescriptionComponent,
     DialogEntryComponent,
     DialogDistributionPointComponent,
     DialogSupplierComponent,
@@ -64,10 +68,11 @@ import { AuthGuard } from './_guards';
   entryComponents: [
     DialogComponent,
     DialogAdministratorComponent,
+    DialogDashboardDescriptionComponent,
     DialogEntryComponent, 
     DialogDistributionPointComponent,
     DialogSupplierComponent,
-  ]
+  ],
 })
 
 export class AppModule { }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerOrderService, SupplierOrderService } from 'app/_services';
 import { Router } from '@angular/router';
+
+import { CustomerOrderService, SupplierOrderService } from 'app/_services';
 
 @Component({
   selector: 'app-previous-orders-supplier',
@@ -20,23 +21,23 @@ export class PreviousOrdersSupplierComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.LoadOrdersSupplier();
-    this.LoadOrdersProcessed();
+    this.loadOrdersSupplier();
+    this.loadOrdersProcessed();
   }
 
-  OpenSupplierOrderSummary(id: string){
-    this.router.navigate(['/order-supplier-info'], { queryParams: { id: id }});
+  openSupplierOrderSummary(id: string) {
+    this.router.navigate(['/order-supplier-info'], { queryParams: { id: id } });
   }
 
-  LoadOrdersSupplier() {
+  loadOrdersSupplier() {
     this.supplierOrderService.getPreviousSupplierOrders().subscribe(
       orders => {
         this.supplierOrders = orders;
 
         if (orders[0])
           this.hasSupplierOrders = true;
-        
-        for (let cpt = 0; cpt < this.supplierOrders.length; cpt++){
+
+        for (let cpt = 0; cpt < this.supplierOrders.length; cpt++) {
           let date = this.supplierOrders[cpt].transactionDate.toString();
           let bindex = date.indexOf("T");
           let eindex = date.length;
@@ -47,7 +48,7 @@ export class PreviousOrdersSupplierComponent implements OnInit {
     );
   }
 
-  LoadOrdersProcessed() {
+  loadOrdersProcessed() {
     this.customerOrderService.getOrders("Processed").subscribe(
       orders => {
         this.customerOrders = orders;

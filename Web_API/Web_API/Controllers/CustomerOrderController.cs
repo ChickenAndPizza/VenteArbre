@@ -37,10 +37,10 @@ namespace Web_API.Controllers
         }
 
         [HttpGet]
-        [Route("Command/{id:Guid}/{idDistributionPoint:Guid}")]
-        public ActionResult Command(Guid id, Guid idDistributionPoint)
+        [Route("Order/{id:Guid}/{idDistributionPoint:Guid}")]
+        public ActionResult Order(Guid id, Guid idDistributionPoint)
         {
-            return Ok(Service.CommandObjectInsideCart(id, idDistributionPoint));
+            return Ok(Service.OrderObjectInsideCart(id, idDistributionPoint));
         }
 
         [HttpGet]
@@ -139,6 +139,27 @@ namespace Web_API.Controllers
         public ActionResult<CustomerOrder> GetCustomerOrder(Guid customerOrderId)
         {
             return Service.GetCustomerOrder(customerOrderId);
+        }
+
+        [HttpGet]
+        [Route("GetTotalOrdersOfSupplierOrder")]
+        public ActionResult GetTotalOrdersOfSupplierOrder(Guid supplierOrderId)
+        {
+            return Ok(Service.GetTotalOrdersOfSupplierOrder(supplierOrderId));
+        }
+
+        [HttpGet]
+        [Route("GetTotalOrdersNotShippedOfSupplierOrder")]
+        public ActionResult GetTotalOrdersNotShippedOfSupplierOrder(Guid supplierOrderId)
+        {
+            return Ok(Service.GetTotalOrdersNotShippedOfSupplierOrder(supplierOrderId));
+        }
+
+        [HttpGet]
+        [Route("GetOrdersOfSupplierOrder")]
+        public ActionResult GetOrdersOfSupplierOrder(Guid supplierOrderId)
+        {
+            return Ok(Service.GetOrdersOfSupplierOrder(supplierOrderId));
         }
     }
 }

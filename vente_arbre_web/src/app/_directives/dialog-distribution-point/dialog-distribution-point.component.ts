@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { existingDistributionPointValidator } from 'app/_shared/distribution-validator/distribution-validator';
+import { existingDistributionPointValidator } from 'app/_shared/distribution-validator';
 import { DistributionPointService } from 'app/_services';
 
 @Component({

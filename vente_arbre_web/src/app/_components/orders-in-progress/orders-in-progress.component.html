@@ -19,11 +19,11 @@
               </div>
               <div class="row" style="margin-top:30px;">
                 <div class="col-md-6">
-                  <button mat-raised-button type="button" (click)="EndProcessing()"
+                  <button mat-raised-button type="button" (click)="endProcessing()"
                     class="btn btn-danger pull-left">Annuler le traitement</button>
                 </div>
                 <div class="col-md-6">
-                  <button mat-raised-button type="button" (click)="ContinueProcessing()"
+                  <button mat-raised-button type="button" (click)="continueProcessing()"
                     class="btn btn-green pull-right">Poursuivre le traitement</button>
                 </div>
               </div>
@@ -84,6 +84,9 @@
             <div class="table-responsive" style="overflow: unset">
               <table class="table">
                 <div *ngFor="let order of distributionPoint.customerOrders" class="row">
+                  <div class="col-md-12" style="display: flex; align-items: center;">
+                    <div class="text-primary col-md-3"> {{order.transactionDate.replace("T", " ")}} </div>
+                  </div>
                   <thead class="col-md-12" style="display: flex; align-items: center;">
                     <div class="text-primary col-md-3" style="font-weight:bold">
                       {{order.customer.lastName}}, {{order.customer.firstName}}

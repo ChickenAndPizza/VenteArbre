@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TreeCategoryService, TreeService, CustomerOrderDetailService, CustomerOrderService } from 'app/_services';
-import { ActivatedRoute } from '@angular/router';
-import { decodeToken } from 'app/_helpers';
-import { canAddTreeValidator } from 'app/_shared';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { TreeCategoryService, TreeService, CustomerOrderDetailService, CustomerOrderService } from 'app/_services';
+import { canAddTreeValidator } from 'app/_shared';
+import { decodeToken } from 'app/_helpers';
 
 @Component({
   selector: 'app-tree-info',
@@ -18,57 +19,52 @@ import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animati
 export class TreeInfoComponent implements OnInit {
 
   currentUser: any;
+
   quantityInfo: FormGroup;
+  remainQuantity: number = 0;
+
   treeInfo: FormGroup;
   treeId: string;
   categoryId: string;
   categoryDescr: string;
-  save = false;
-  remainQuantity = 0;
+
+  save: boolean = false;
 
   constructor(
     private customerOrderService: CustomerOrderService,
     private customerOrderDetailService: CustomerOrderDetailService,
-    private treeCategoryService: TreeCategoryService,
     private treeService: TreeService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.treeId = this.route.snapshot.queryParams['id'] || "";
-    this.categoryId = this.route.snapshot.queryParams['categ'] || "";
-    this.categoryDescr = this.route.snapshot.queryParams['descr'] || "";
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if(this.currentUser) {
-      this.currentUser = decodeToken(this.currentUser);
-    }
-
+    this.setValuesFromUrl();
 
     this.treeInfo = this.formBuilder.group({
-      name: ["", , ],
-      zone: [{value: "", disabled: true}, ,],
-      price: [{value: "", disabled: true}, ,],
-      ageHeight: [{value: "", disabled: true}, ,],
-      description: [{value: "", disabled: true}, ,],
+      name: ["", ,],
+      zone: [{ value: "", disabled: true }, ,],
+      price: [{ value: "", disabled: true }, ,],
+      ageHeight: [{ value: "", disabled: true }, ,],
+      description: [{ value: "", disabled: true }, ,],
       image: [null, ,],
       idTreeCategory: [this.categoryId, ,],
     });
 
     this.quantityInfo = this.formBuilder.group({
-      quantity: ['', [Validators.required,Validators.min(1)], canAddTreeValidator(this.treeService, this.treeId)]
+      quantity: ['', [Validators.required, Validators.min(1)], canAddTreeValidator(this.treeService, this.treeId)]
     });
     this.treeService.getRemainingQuantity(this.treeId).subscribe(quantity => {
       this.remainQuantity = quantity;
     })
 
     this.treeService.getTree(this.treeId).subscribe(tree => {
-        this.name.setValue(tree.name);
-        this.zone.setValue(tree.zone);
-        this.price.setValue(tree.price);
-        this.ageHeight.setValue(tree.ageHeight);
-        this.description.setValue(tree.description);
-        this.image.setValue(tree.image);
+      this.name.setValue(tree.name);
+      this.zone.setValue(tree.zone);
+      this.price.setValue(tree.price);
+      this.ageHeight.setValue(tree.ageHeight);
+      this.description.setValue(tree.description);
+      this.image.setValue(tree.image);
     });
   }
 
@@ -84,28 +80,38 @@ export class TreeInfoComponent implements OnInit {
   addToCart(qtyToAdd: number) {
     this.save = true;
     this.customerOrderService.getCustomerCart(this.currentUser.id).subscribe(order => {
-      if(order !== null) {
-        let orderDetail = {'idTree': this.treeId, 'quantity': qtyToAdd, 'idCustomerOrder': order.id};
+      if (order !== null) {
+        let orderDetail = { 'idTree': this.treeId, 'quantity': qtyToAdd, 'idCustomerOrder': order.id };
         this.customerOrderDetailService.addOrUpdateCustomerOrderDetail(orderDetail).subscribe();
       } else {
         this.customerOrderService.createCustomerCart(this.currentUser.id).subscribe(cart => {
-          let orderDetail = {'idTree': this.treeId, 'quantity': qtyToAdd, 'idCustomerOrder': cart.id};
+          let orderDetail = { 'idTree': this.treeId, 'quantity': qtyToAdd, 'idCustomerOrder': cart.id };
           this.customerOrderDetailService.addOrUpdateCustomerOrderDetail(orderDetail).subscribe();
         });
       }
-      setTimeout( () => {
+      setTimeout(() => {
         this.save = false;
-    }, 3000);
+      }, 3000);
       this.quantity.setValue(0);
       this.quantityInfo.markAsUntouched();
     });
   }
 
   canAddToCart() {
-    if(this.currentUser && this.quantityInfo.valid) {
+    if (this.currentUser && this.quantityInfo.valid) {
       return false;
     } else {
       return true;
+    }
+  }
+
+  setValuesFromUrl() {
+    this.treeId = this.route.snapshot.queryParams['id'] || "";
+    this.categoryId = this.route.snapshot.queryParams['categ'] || "";
+    this.categoryDescr = this.route.snapshot.queryParams['descr'] || "";
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (this.currentUser) {
+      this.currentUser = decodeToken(this.currentUser);
     }
   }
 }
