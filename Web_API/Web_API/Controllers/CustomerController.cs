@@ -54,9 +54,9 @@ namespace Web_API.Controllers
         [Route("DeleteAdministrator")]
         public ActionResult DeleteAdministrator(Guid id)
         {
-            if (Service.DeleteAdministrator(id))
+            if (id != Guid.Parse("6d8edaeb-215a-4bb0-83e5-22769270b8c3"))
             {
-                return Ok();
+                return Ok(Service.DeleteAdministrator(id));
             }
             else
             {

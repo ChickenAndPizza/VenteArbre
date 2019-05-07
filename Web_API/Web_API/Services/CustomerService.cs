@@ -40,21 +40,13 @@ namespace Web_API.Services
             return "Ok";
         }
 
-        public bool DeleteAdministrator(Guid id)
+        public string DeleteAdministrator(Guid id)
         {
-            var adminToDelete = Context.Customers.FirstOrDefault(c => c.Id == id);
-            if (Context.Customers.FirstOrDefault(c => c.IsActive && c.IsAdmin) == adminToDelete)
-            {
-                return false;
-            }
-            else
-            {
-                adminToDelete.IsAdmin = false;
-                Context.Customers.Update(adminToDelete);
-                Context.SaveChanges();
-                return true;
-            }
-                
+            var customer = Context.Customers.FirstOrDefault(c => c.Id == id);
+            customer.IsAdmin = false;
+            Context.Customers.Update(customer);
+            Context.SaveChanges();
+            return "Ok";
         }
 
         private string Unauthorized(object p)
