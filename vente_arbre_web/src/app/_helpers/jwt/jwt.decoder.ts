@@ -29,3 +29,15 @@ function urlBase64Decode(str: string) {
     }
     return decodeURIComponent((<any>window).escape(window.atob(output)));
 }
+
+export function getPhoneNumber(phoneNumber: String) {
+    let toReturn: string;
+
+    toReturn = phoneNumber.substring(0,3);
+    toReturn += " ";
+    toReturn += phoneNumber.substring(3,6);
+    toReturn += "-";
+    toReturn += phoneNumber.substring(6,10);
+    
+    return toReturn;
+}
