@@ -1,5 +1,6 @@
 export * from './alert.service';
 export * from './authentication.service';
+export * from './charge.service';
 export * from './customer.service';
 export * from './customer-order.service'
 export * from './customer-order-detail.service'

@@ -15,7 +15,7 @@ import * as $ from 'jquery';
 
 
 import { AlertComponent, DialogComponent, DialogAdministratorComponent, DialogEntryComponent, DialogDistributionPointComponent, DialogSupplierComponent, DialogDashboardDescriptionComponent } from './_directives';
-import { AlertService, AuthenticationService, UserService, CustomerService, CustomerOrderDetailService } from './_services';
+import { AlertService, AuthenticationService, UserService, CustomerService, CustomerOrderDetailService, CustomerOrderService } from './_services';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ComponentsModule } from './_components/navigation';
 import { AuthGuard } from './_guards';
@@ -58,6 +58,7 @@ import { AuthGuard } from './_guards';
     AuthenticationService,
     UserService,
     CustomerService,
+    CustomerOrderService,
     CustomerOrderDetailService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }

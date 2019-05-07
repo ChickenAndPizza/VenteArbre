@@ -57,7 +57,9 @@ namespace Web_API.Services
                 cartTotal += ( treePrice * customerOrderDetail.Quantity);
             }
             cart.OrderDetails = customerOrderDetails;
-            cart.Total = cartTotal;
+            var tps = System.Math.Round((decimal) ((double)cartTotal * 0.05), 2);
+            var tvq = System.Math.Round((decimal) ((double)cartTotal * 0.09975), 2);
+            cart.Total = cartTotal + tps + tvq;
 
             Context.Update(cart);
             Context.SaveChanges();

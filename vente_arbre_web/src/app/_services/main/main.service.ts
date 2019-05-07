@@ -7,7 +7,9 @@ import { HttpClient } from '@angular/common/http';
 export class MainService {
 
   apiUrl = 'http://localhost:5000/api/';
+  secretKey = 'pk_test_8RTILcXiDFISt1SHtKEy2Fyq00Rr9UXWma';
   headers: any;
+
 
   protected http: HttpClient;
 
