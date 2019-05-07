@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpRequest } from '@angular/common/http';
-import { MainService } from '../main/main.service';
+import { MainService } from './main/main.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,7 +11,6 @@ export class ChargeService extends MainService {
   constructor(injector: Injector) {
     super(injector);
   }
-
 
   charge(stripeToken: any, amount: number): Observable<boolean> {
     const url = this.apiUrl.toString() + "Charge";

@@ -1,6 +1,6 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" id="print-section">
 
       <div class="col-md-12">
         <form [formGroup]="cartForm" (ngSubmit)="checkIfCanPaid()">
@@ -46,7 +46,7 @@
                   Email: {{currentUser.email}}
                 </div>
                 <div class="col-md-4">
-                  Téléphone: {{currentUser.phoneNumber}}
+                  Téléphone: {{phoneNumber}}
                 </div>
               </div>
 
@@ -68,8 +68,7 @@
                       <th> Total </th>
                     </thead>
                     <tbody>
-                      <tr class="form-group"
-                        *ngFor="let detail of cartData.controls; let i = index">
+                      <tr class="form-group" *ngFor="let detail of cartData.controls; let i = index">
                         <td> {{cartForm.controls.orderDetail.controls[i].controls.name.value}} </td>
                         <td> {{cartForm.controls.orderDetail.controls[i].controls.zone.value}} </td>
                         <td> {{cartForm.controls.orderDetail.controls[i].controls.ageHeight.value}} </td>
@@ -94,29 +93,60 @@
             <div>
               <div class="card">
                 <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary">
-                        <th> Total de la commande: {{orderTotal}} $</th>
-                      </thead>
-                    </table>
+                  <div class="row">
+                    <div class="col-md-8" style="text-align:right"> Sans taxe: </div>
+                    <div class="col-md-4" style="font-weight: bold; text-align:left">{{withoutTax}} $ </div>
                   </div>
-                    <div>
-                      <button [disabled]="!distributionPointForm.valid" class="btn btn-green pull-right"
+                  <br>
+                  <div class="row">
+                    <div class="col-md-8" style="text-align:right"> Tps (5%): </div>
+                    <div class="col-md-4" style="font-weight: bold; text-align:left"> {{tps}} $ </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-8" style="text-align:right"> Tvq (9,975%): </div>
+                    <div class="col-md-4" style="font-weight: bold; text-align:left"> {{tvq}} $ </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-8" style="text-align:right"> Total de la commande: </div>
+                    <div class="col-md-4" style="font-weight: bold; text-align:left"> {{orderTotal}} $ </div>
+                  </div>
+                  <div *ngIf="showPaidButton">
+                    <button [disabled]="!distributionPointForm.valid" class="btn btn-green pull-right"
                       style="color:white;" (click)="checkout($event)">
-                        Payer {{commandTotal}} $
-                      </button>
+                      Payer {{commandTotal}} $
+                    </button>
 
-                      <hr>
+                    <hr>
 
-                      <div *ngIf="loading"> Loading....</div>
-                      <pre *ngIf="confirmation">{{confirmation | json}}</pre>
-                    </div>
+                    <div *ngIf="loading"> Loading....</div>
+                    <pre *ngIf="confirmation">{{confirmation | json}}</pre>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7"></div>
+      <div class="card card-stats col-md-5" *ngIf="hasPaid">
+        <div class="card-header card-header-green card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">print</i>
+          </div>
+          <p class="card-category">Imprimer les commandes</p>
+          <button mat-raised-button type="button" (click)="captureScreen()"
+            class="btn btn-primary pull-right btn-print">Imprimer</button>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons">info</i>
+            &nbsp;Version PDF
+          </div>
+        </div>
       </div>
     </div>
   </div>
