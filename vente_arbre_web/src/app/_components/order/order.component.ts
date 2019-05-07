@@ -48,6 +48,7 @@ export class OrderComponent implements OnInit {
   }
 
   get distributionPoint() { return this.distributionPointForm.get('distributionPoint'); }
+  get cartData() { return <FormArray>this.cartForm.get('orderDetail'); }
 
   addOrderDetailFormGroup(id, idTree, idCustomerOrder, name, zone, ageHeight, price, quantity, totalPrice): FormGroup {
     return this.formBuilder.group({
