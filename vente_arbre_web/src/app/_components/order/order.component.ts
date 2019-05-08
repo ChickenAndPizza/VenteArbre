@@ -32,7 +32,6 @@ export class OrderComponent implements OnInit {
   quantityError = [];
 
   hasPaid = false;
-  showPaidButton = true;
   canPaid = false;
 
   constructor(
@@ -54,7 +53,6 @@ export class OrderComponent implements OnInit {
           c => {
             if(c && this.canPaid) {
               this.hasPaid = true;
-              this.showPaidButton = false;
               this.commandObject();
             }
           }

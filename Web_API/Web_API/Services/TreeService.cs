@@ -65,15 +65,23 @@ namespace Web_API.Services
 
         public override Guid AddOrUpdate(Tree entity)
         {
-            if (entity.Image == null)
+            if (entity != null)
             {
-                var tree = Context.Trees.AsNoTracking().FirstOrDefault(c => c.Id == entity.Id);
-                if(tree != null && tree.Image != null)
+                if (entity.Image == null)
                 {
-                    entity.Image = tree.Image;
+                    var tree = Context.Trees.AsNoTracking().FirstOrDefault(c => c.Id == entity.Id);
+                    if (tree != null && tree.Image != null)
+                    {
+                        entity.Image = tree.Image;
+                    }
                 }
+                return base.AddOrUpdate(entity);
             }
-            return base.AddOrUpdate(entity);
+            else
+            {
+                return Guid.NewGuid();
+            }
+            
         }
 
         public bool CustomerCanOrder(Guid idTree, int number)
@@ -119,9 +127,18 @@ namespace Web_API.Services
                 count += numberOfTree;
             }
 
-            var maximum = Context.Trees.FirstOrDefault(c => c.Id == idTree).Maximum;
+            var tree = Context.Trees.FirstOrDefault(c => c.Id == idTree);
 
-            return (maximum - count);
+            if(tree != null)
+            {
+                return (tree.Maximum - count);
+            } 
+            else
+            {
+                return 0;
+            }
+
+            
         }
     }
 }

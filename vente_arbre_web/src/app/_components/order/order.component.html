@@ -10,11 +10,11 @@
             </div>
             <div class="card-body">
 
-              <div style="display: flex;font-size:16px;">
+              <div style="display: flex;font-size:16px;" *ngIf="!hasPaid">
                 <i class="material-icons" style="font-size:20px;margin-top:1px;">looks_one</i>
                 &nbsp;<p style="font-weight: bold"> Choix du point de distribution où aller chercher votre commande</p>
               </div>
-              <div style="display: flex;font-size:12px; margin-top:-15px;">
+              <div style="display: flex;font-size:12px; margin-top:-15px;" *ngIf="!hasPaid">
                 <i class="material-icons" style="font-size:15px;margin-top:4px;margin-left:20px;">warning</i>
                 &nbsp;Pour en savoir plus à propos des points, veuillez visiter la section «Points De Distribution»
               </div>
@@ -28,7 +28,7 @@
                 </mat-select>
               </mat-form-field>
 
-              <div style="display: flex;font-size:16px;margin-top: 20px;">
+              <div style="display: flex;font-size:16px;margin-top: 20px;" *ngIf="!hasPaid">
                 <i class="material-icons" style="font-size:20px;margin-top:1px;">looks_two</i>
                 &nbsp;<p style="font-weight: bold;">Validation des informations du compte</p>
               </div>
@@ -50,8 +50,7 @@
                 </div>
               </div>
 
-
-              <div style="display: flex;font-size:16px;margin-top: 40px;">
+              <div style="display: flex;font-size:16px;margin-top: 40px;" *ngIf="!hasPaid">
                 <i class="material-icons" style="font-size:20px;margin-top:1px;">looks_3</i>
                 &nbsp;<p style="font-weight: bold;">Validation des items de la commande</p>
               </div>
@@ -112,7 +111,7 @@
                     <div class="col-md-8" style="text-align:right"> Total de la commande: </div>
                     <div class="col-md-4" style="font-weight: bold; text-align:left"> {{orderTotal}} $ </div>
                   </div>
-                  <div *ngIf="showPaidButton">
+                  <div *ngIf="!hasPaid">
                     <button [disabled]="!distributionPointForm.valid" class="btn btn-green pull-right"
                       style="color:white;" (click)="checkout($event)">
                       Payer {{commandTotal}} $

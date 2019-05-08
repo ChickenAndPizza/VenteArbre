@@ -79,6 +79,13 @@ namespace Web_API.Controllers
         }
 
         [HttpGet]
+        [Route("GetTotalByCategoryOfDistributionPoint")]
+        public ActionResult GetTotalByCategoryOfDistributionPoint(Order state)
+        {
+            return Ok(Service.GetTotalByCategoryOfDistributionPoint(state));
+        }
+
+        [HttpGet]
         [Route("GetTotalByAll")]
         public ActionResult GetTotalByAll(Order state)
         {

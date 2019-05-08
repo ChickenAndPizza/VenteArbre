@@ -65,6 +65,11 @@ export class CustomerOrderService extends MainService {
     return this.http.get<any[]>(url);
   }
 
+  getTotalByCategoryOfDistributionPoint(state: string): Observable<any[]> {
+    const url = this.apiUrl.toString() + "CustomerOrder/GetTotalByCategoryOfDistributionPoint?state=" + state;
+    return this.http.get<any[]>(url);
+  }
+
   getTotalByAll(state: string): Observable<any> {
     const url = this.apiUrl.toString() + "CustomerOrder/GetTotalByAll?state=" + state;
     return this.http.get<any>(url);
