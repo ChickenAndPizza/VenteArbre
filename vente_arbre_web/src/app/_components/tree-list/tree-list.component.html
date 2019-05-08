@@ -77,7 +77,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let tree of treeCategory.trees">
-                    <td> <img class="treeImg" src="data:image/jpeg;base64,{{tree.image}}" /> </td>
+                    <td> <div *ngIf="tree.image"> <img class="treeImg" src="data:image/jpeg;base64,{{tree.image}}" /> </div> </td>
                     <td style="font-weight: bold"> {{tree.name}} </td>
                     <td> {{tree.zone}} </td>
                     <td> {{tree.ageHeight}} </td>
