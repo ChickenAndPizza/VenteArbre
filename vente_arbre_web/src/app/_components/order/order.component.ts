@@ -1,8 +1,7 @@
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { CustomerOrderDetailService, CustomerOrderService, DistributionPointService, TreeService, ChargeService } from 'app/_services';
+import { CustomerOrderService, DistributionPointService, TreeService, ChargeService } from 'app/_services';
 import { decodeToken, getPhoneNumber } from 'app/_helpers';
 import * as jspdf from 'jspdf';  
 import html2canvas from 'html2canvas';  
