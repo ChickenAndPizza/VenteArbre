@@ -53,6 +53,9 @@ CREATE TABLE customer(
 	,CONSTRAINT customer_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
 
+INSERT INTO customer (id, first_name, last_name, email, phone_number, password, is_admin, is_active) 
+VALUES ('6d8edabc-225a-4bb0-83e5-22769271b8c3', 'Compte', 'Admin', 'adresseachanger@hotmail.com', '1111111111', '1be4cf2c6', 1, 1);
+
 
 #------------------------------------------------------------
 # Table: supplier
