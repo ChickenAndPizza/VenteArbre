@@ -58,10 +58,10 @@ namespace Web_API.Services
 
         public bool IsDescriptionAlreadyUsed(string description, string categoryId)
         {
-            if (!string.IsNullOrWhiteSpace(categoryId) && Context.TreeCategories.Any(c => c.Id == new Guid(categoryId) && c.Description == description))
+            if (!string.IsNullOrWhiteSpace(categoryId) && Context.TreeCategories.Any(c => c.Id == new Guid(categoryId) && c.Description == description && c.IsActive))
                 return false;
             else
-                return Context.TreeCategories.Any(c => c.Description == description);
+                return Context.TreeCategories.Any(c => c.Description == description && c.IsActive);
         }
 
         public bool RemoveWithChildren(Guid id)

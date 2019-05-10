@@ -248,6 +248,94 @@ namespace Web_API.Services
             return distributionPointsWithTotal;
         }
 
+        public List<DistributionPointWithCategories> GetTotalByCategoryOfDistributionPoint(Order state)
+        {
+            var distributionPoints = GetDistributionPoints();
+
+            var distributionPointsWithCategories = new List<DistributionPointWithCategories>();
+            foreach (var distributionPoint in distributionPoints)
+            {
+                var distributionPointWithCategories = new DistributionPointWithCategories
+                {
+                    IdDistributionPoint = distributionPoint.Id,
+                    DistributionPointName = distributionPoint.WebName,
+                    TotalByCategories = Context.TreeCategories.AsNoTracking().Where(c => c.IsActive).Select(c => new TotalByCategory
+                    {
+                        CategoryName = c.Description,
+                        IdCategory = c.Id,
+                        CategoryTotal = 0
+                    }).ToList()
+            };
+                distributionPointsWithCategories.Add(distributionPointWithCategories);
+            }
+
+            //DEBUT DES CATEGORIES
+            var customerOrdersList = GetCustomerOrdersWithDetails(state);
+            
+            foreach (var distributionPointWithCategories in distributionPointsWithCategories)
+            {
+                List<TotalByTree> totalByTrees = new List<TotalByTree>();
+                var categoriesToDelete = new List<Guid>();
+
+                foreach (var customerOrder in customerOrdersList)
+                {
+                    if (customerOrder.DistributionPoint.Id == distributionPointWithCategories.IdDistributionPoint)
+                    {
+                        foreach (var detail in customerOrder.OrderDetails)
+                        {
+                            if (!totalByTrees.Any(c => c.IdTree == detail.IdTree))
+                            {
+                                totalByTrees.Add(new TotalByTree
+                                {
+                                    IdTree = detail.IdTree,
+                                    TreeName = detail.Tree.Name,
+                                    TreeTotal = detail.Quantity,
+                                    IdCategory = detail.Tree.IdTreeCategory,
+                                });
+                            }
+                            else
+                            {
+                                var tree = totalByTrees.FirstOrDefault(c => c.IdTree == detail.IdTree);
+                                tree.TreeTotal += detail.Quantity;
+                            }
+                        }
+                    }
+                }
+
+                foreach (var category in distributionPointWithCategories.TotalByCategories)
+                {
+                    var trees = totalByTrees.Where(c => c.IdCategory == category.IdCategory).ToList();
+                    if (trees.Count > 0)
+                    {
+                        if (category.TreesByCategory == null)
+                            category.TreesByCategory = new List<TotalByTree>();
+                        foreach (var tree in trees)
+                        {
+                            category.TreesByCategory.Add(tree);
+                            category.CategoryTotal += tree.TreeTotal;
+                        }
+                    }
+                    else
+                        categoriesToDelete.Add(category.IdCategory);
+                }
+
+                foreach (var delete in categoriesToDelete)
+                    distributionPointWithCategories.TotalByCategories.RemoveAll(c => c.IdCategory == delete);
+            }
+            
+            var pointsToDelete = new List<Guid>();
+            for (int index = 0; index < distributionPointsWithCategories.Count; index++)
+            {
+                if (distributionPointsWithCategories[index].TotalByCategories.Count == 0)
+                    pointsToDelete.Add(distributionPointsWithCategories[index].IdDistributionPoint);
+            }
+
+            foreach (var delete in pointsToDelete)
+                distributionPointsWithCategories.RemoveAll(c => c.IdDistributionPoint == delete);
+            
+            return distributionPointsWithCategories;
+        }
+
         public int GetTotalByAll(Order state)
         {
             var totalByAll = 0;

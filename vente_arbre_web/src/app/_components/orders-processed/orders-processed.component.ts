@@ -12,6 +12,7 @@ export class OrdersProcessedComponent implements OnInit {
 
   hasOrders = false;
   distributionPointsWithCustomerOrders: any[];
+  distributionPointsWithCategories: any[];
   totalOrdersProcessed: any;
   showOptions: boolean = false;
 
@@ -44,13 +45,15 @@ export class OrdersProcessedComponent implements OnInit {
   }
 
   loadOrdersProcessed() {
-    this.customerOrderService.getOrders("Processed").subscribe(
-      orders => {
-        this.distributionPointsWithCustomerOrders = orders;
-        if (orders[0])
-          this.hasOrders = true;
-      }
-    );
+    this.customerOrderService.getOrders("Processed").subscribe(orders => {
+      this.distributionPointsWithCustomerOrders = orders;
+      if (orders[0])
+        this.hasOrders = true;
+    });
+
+    this.customerOrderService.getTotalByCategoryOfDistributionPoint("Processed").subscribe(orders => {
+      this.distributionPointsWithCategories = orders;
+    });
   }
 
   print(): void {
@@ -64,7 +67,8 @@ export class OrdersProcessedComponent implements OnInit {
           <style>
             .OrderDetailPrint {margin-top: -30px; margin-bottom: -30px;}
             .OrderPrint {margin-top: -40px}
-            .TitlePrint {margin-bottom: 100px;}
+            .TitlePrint {margin-bottom: 70px;}
+            .BigTitlePrint {font-size: 25px;}
           </style>
           <title>Liste des commandes à terme</title>
         </head>
