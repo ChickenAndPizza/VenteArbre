@@ -5,6 +5,7 @@ import { CustomerOrderService, DistributionPointService, TreeService, ChargeServ
 import { decodeToken, getPhoneNumber } from 'app/_helpers';
 import * as jspdf from 'jspdf';  
 import html2canvas from 'html2canvas';  
+import { AppConfig } from 'app/_models';
 
 @Component({
   selector: 'app-order',
@@ -43,7 +44,7 @@ export class OrderComponent implements OnInit {
 
   ngOnInit() {
     this.handler = StripeCheckout.configure({
-      key: 'pk_test_8RTILcXiDFISt1SHtKEy2Fyq00Rr9UXWma',
+      key: AppConfig.settings.publicKey,
       image: '/assets/img/cer/mini_logo_CER_tr.png',
       locale: 'auto',
       currency: 'cad',
