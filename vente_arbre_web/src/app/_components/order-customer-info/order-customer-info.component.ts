@@ -26,6 +26,9 @@ export class OrderCustomerInfoComponent implements OnInit {
     this.customerOrderService.getCustomerOrder(customerOrderId).subscribe(
       customerOrder => {
         this.customerOrder = customerOrder;
+        this.customerOrder.orderDetails.forEach(orderDetail => {
+            orderDetail.total =  Number.parseFloat((orderDetail.price * orderDetail.quantity).toFixed(2));
+        });
       });
   }
 

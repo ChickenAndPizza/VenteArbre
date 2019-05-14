@@ -1,0 +1,9 @@
+ng build --prod
+
+Le dossier dist est le build de prod que vous aller utiliser.
+
+Le fichier pour configurer la clé publique de stripe ainsi que l'url pour l'api 
+se trouve dans assets/config/config.json
+
+Avant de mettre le site en production, vous devez ajouter le fichier web.config 
+(Donné avec le premier build de production) dans le dossier dist.
