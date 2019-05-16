@@ -131,6 +131,10 @@ namespace Web_API.Services
 
             if(tree != null)
             {
+                if((tree.Maximum - count) < 0)
+                {
+                    return 0;
+                }
                 return (tree.Maximum - count);
             } 
             else
