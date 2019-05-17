@@ -93,23 +93,23 @@
               <div class="card">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-md-8" style="text-align:right"> Sans taxe: </div>
-                    <div class="col-md-4" style="font-weight: bold; text-align:left">{{withoutTax}} $ </div>
+                    <div class="col-md-7" style="text-align:right"> Sans taxe: </div>
+                    <div class="col-md-5" style="font-weight: bold; text-align:left">{{withoutTax}} $ </div>
                   </div>
                   <br>
                   <div class="row">
-                    <div class="col-md-8" style="text-align:right"> Tps (5%): </div>
-                    <div class="col-md-4" style="font-weight: bold; text-align:left"> {{tps}} $ </div>
+                    <div class="col-md-7" style="text-align:right"> Tps (5%): </div>
+                    <div class="col-md-5" style="font-weight: bold; text-align:left"> {{tps}} $ </div>
                   </div>
                   <br>
                   <div class="row">
-                    <div class="col-md-8" style="text-align:right"> Tvq (9,975%): </div>
-                    <div class="col-md-4" style="font-weight: bold; text-align:left"> {{tvq}} $ </div>
+                    <div class="col-md-7" style="text-align:right"> Tvq (9,975%): </div>
+                    <div class="col-md-5" style="font-weight: bold; text-align:left"> {{tvq}} $ </div>
                   </div>
                   <br>
                   <div class="row">
-                    <div class="col-md-8" style="text-align:right"> Total de la commande: </div>
-                    <div class="col-md-4" style="font-weight: bold; text-align:left"> {{orderTotal}} $ </div>
+                    <div class="col-md-7" style="text-align:right"> Total de la commande: </div>
+                    <div class="col-md-5" style="font-weight: bold; text-align:left"> {{orderTotal}} $ </div>
                   </div>
                   <div *ngIf="!hasPaid">
                     <button [disabled]="!distributionPointForm.valid" class="btn btn-green pull-right"

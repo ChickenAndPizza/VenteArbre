@@ -164,7 +164,7 @@ namespace Web_API.Services
 
         public List<TotalByCategory> GetTotalByCategory(Order state)
         {
-            var categoriesWithTotal = Context.TreeCategories.AsNoTracking().Where(c => c.IsActive).Select(c => new TotalByCategory {
+            var categoriesWithTotal = Context.TreeCategories.AsNoTracking().Select(c => new TotalByCategory {
                 CategoryName = c.Description,
                 IdCategory = c.Id,
                 CategoryTotal = 0
@@ -214,7 +214,7 @@ namespace Web_API.Services
 
         public List<TotalByDistributionPoint> GetTotalByDistributionPoint(Order state)
         {
-            var distributionPoints = Context.DistributionPoints.AsNoTracking().Where(c => c.IsActive).Select(c => new DistributionPoint
+            var distributionPoints = Context.DistributionPoints.AsNoTracking().Select(c => new DistributionPoint
             {
                 Id = c.Id,
                 MapLink = c.MapLink,
@@ -259,7 +259,7 @@ namespace Web_API.Services
                 {
                     IdDistributionPoint = distributionPoint.Id,
                     DistributionPointName = distributionPoint.WebName,
-                    TotalByCategories = Context.TreeCategories.AsNoTracking().Where(c => c.IsActive).Select(c => new TotalByCategory
+                    TotalByCategories = Context.TreeCategories.AsNoTracking().Select(c => new TotalByCategory
                     {
                         CategoryName = c.Description,
                         IdCategory = c.Id,
@@ -625,7 +625,7 @@ namespace Web_API.Services
         {
             var customerOrdersList = Context.CustomerOrders
                 .AsNoTracking()
-                .Where(c => c.IsActive == true && c.State == order)
+                .Where(c => c.State == order)
                 .Include(c => c.OrderDetails)
                 .ThenInclude(c => c.Tree)
                 .Select(c => new CustomerOrder {

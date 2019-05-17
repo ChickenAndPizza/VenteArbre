@@ -166,7 +166,7 @@
                         <p class="text-primary">&nbsp;({{orderDetail.price}}$)</p>
                       </div>
                       <div class="text-primary col-md-2" style="text-align:right;">
-                        <p>&nbsp;{{orderDetail.quantity * orderDetail.price}}$</p>
+                        <p>&nbsp;{{(orderDetail.quantity * orderDetail.price).toFixed(2)}}$</p>
                       </div>
                     </div>
                     <div style="height:65px;"></div>
